@@ -6,7 +6,10 @@ define([
 'dbpedia/dbpediaRelated',
 'angularRoute',
 ],
-function( angular, dbpedia, dbpediaRelated ){
+function( 
+	angular, 
+	dbpedia, 
+	dbpediaRelated ){
 	
 	angular.module( 'myApp.view1', [ 'ngRoute', 'dbpedia' ])
 

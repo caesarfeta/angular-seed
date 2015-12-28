@@ -11,6 +11,15 @@ function( angular ){
 		function( $http ){
 			var self = this;
 			self.check = function(){
+				/*
+				
+					SELECT ?property ?hasValue ?isValueOf
+					WHERE {
+						{ <http://dbpedia.org/resource/Naultinus> <dbpedia:ontology/genus> ?hasValue }
+					UNION
+						{ ?isValueOf ?property <http://dbpedia.org/resource/Naultinus> }
+					}
+				*/
 				console.log( 'check, check, check' );
 			}
 		}
