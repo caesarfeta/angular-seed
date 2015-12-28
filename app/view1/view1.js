@@ -2,7 +2,7 @@
 
 define([ 
 'angular',
-'dbpedia',
+'dbpedia/dbpedia',
 'angularRoute',
 ],
 function( angular, dbpedia ){

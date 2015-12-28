@@ -74,7 +74,13 @@ npm start
 
 Now browse to the app at `http://localhost:8000/app/index.html`.
 
+### Optimize Javascript
 
+	node node_modules/requirejs/bin/r.js -o scripts/app.build.js
+
+or
+
+	npm build
 
 ## Directory Layout
 
