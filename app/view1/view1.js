@@ -3,9 +3,10 @@
 define([ 
 'angular',
 'dbpedia/dbpedia',
+'dbpedia/dbpediaRelated',
 'angularRoute',
 ],
-function( angular, dbpedia ){
+function( angular, dbpedia, dbpediaRelated ){
 	
 	angular.module( 'myApp.view1', [ 'ngRoute', 'dbpedia' ])
 
@@ -21,8 +22,10 @@ function( angular, dbpedia ){
 
 	.controller('View1Ctrl', [ 
 		'dbpedia',
-		function( dbpedia ){
+		'dbpediaRelated',
+		function( dbpedia, dbpediaRelated ){
 			dbpedia.img( 'gold' );
+			dbpediaRelated.check();
 		}
 	]);
 });

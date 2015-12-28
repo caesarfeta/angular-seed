@@ -9,8 +9,8 @@ require.config({
 		'angular' : {'exports' : 'angular'},
 		'angularRoute': ['angular'],
 		'angularMocks': {
-			deps:['angular'],
-			'exports':'angular.mock'
+			deps: ['angular'],
+			'exports': 'angular.mock'
 		}
 	}
 });
@@ -20,13 +20,9 @@ require([
 'app'
 ], 
 function( angular, app ){
-	var $html = angular.element( document.getElementsByTagName('html')[0] );
 	angular.element().ready( 
 		function(){
-			
-			// bootstrap the app manually
-			
-			angular.bootstrap( document, ['myApp']);
+			angular.bootstrap( document, [ 'myApp' ]);
 		}
 	);
 });
