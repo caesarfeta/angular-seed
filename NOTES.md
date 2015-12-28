@@ -1,0 +1,1 @@
+var svc = angular.element( document.querySelector('[myApp]') ).injector().get( 'svc' );
