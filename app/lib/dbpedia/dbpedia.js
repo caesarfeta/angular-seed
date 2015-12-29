@@ -5,9 +5,31 @@ define([
 ], 
 function( angular ){
 	angular.module('dbpedia',[])
+	
+	.directive( 'dbpediaSearchInput',[
+		'dbpedia',
+		function( dbpedia ){
+			return {
+				restrict: 'E',
+				replace: true,
+				scope: {},
+				template: '<input type="text" ng-model="searchFor" ng-enter="run" placeholder="search for..." />',
+				link: function( scope, elem ){
+					scope.searchFor = '';
+					scope.run = function(){
+						console.log( scope.search )
+					}
+				}
+			}
+		}
+	])
+	
+	.directive( 'dbpediaDump', [])
+	
 	.service( 'dbpedia', [
 		'$http',
-		function( $http ){
+		'$q',
+		function( $http, $q ){
 			var self = this;
 			
 			var url = "http://dbpedia.org/sparql";
@@ -41,20 +63,22 @@ function( angular ){
 			
 			self.img = function( search ){
 				var queryUrl = encodeURI( url+"?query="+imgSearch( search )+"&format=json" );
-				$http.get( queryUrl ).then(
+				return $q( function( yes, no ){
+					$http.get( queryUrl ).then(
 					
-					// success
+						// success
 					
-					function( r ){
-						console.log( r );
-					},
+						function( r ){
+							yes( r.data.results.bindings )
+						},
 					
-					// error
+						// error
 					
-					function( r ){
-						console.log( r );
-					}
-				)
+						function( r ){
+							no( r )
+						}
+					)
+				})
 			}
 		}
 	]);

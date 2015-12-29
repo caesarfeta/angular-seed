@@ -20,7 +20,6 @@ function( angular ){
 						{ ?isValueOf ?property <http://dbpedia.org/resource/Naultinus> }
 					}
 				*/
-				console.log( 'check, check, check' );
 			}
 		}
 	]);

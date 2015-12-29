@@ -2,8 +2,8 @@
 
 define([
 'angular',
-'components/version/interpolate-filter',
-'components/version/version-directive'
+'lib/version/interpolate-filter',
+'lib/version/version-directive'
 ],
 function( angular ){
 

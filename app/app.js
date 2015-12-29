@@ -5,7 +5,7 @@ define([
 'angularRoute',
 'view1/view1',
 'view2/view2',
-'components/version/version'
+'lib/version/version'
 ], 
 function( angular ){
 
