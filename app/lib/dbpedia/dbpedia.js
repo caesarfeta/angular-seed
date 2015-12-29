@@ -13,7 +13,7 @@ function( angular ){
 				restrict: 'E',
 				replace: true,
 				scope: {},
-				template: '<input type="text" ng-model="searchFor" ng-enter="run" placeholder="search for..." />',
+				template: '<input class="dbpedia-search" type="text" ng-model="searchFor" ng-enter="run" placeholder="search for..." />',
 				link: function( scope, elem ){
 					scope.searchFor = '';
 					scope.run = function(){

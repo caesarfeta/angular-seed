@@ -22,3 +22,7 @@
   content: "";
   padding: 0;
 }
+/* import */
+input.dbpedia-search {
+  padding: 5px;
+}
