@@ -2,7 +2,7 @@
 
 define([
 'angular',
-'dbpedia/dbpedia'
+'components/dbpedia/dbpedia'
 ], 
 function( angular ){
 	angular.module('dbpedia' )

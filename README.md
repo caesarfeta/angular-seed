@@ -80,6 +80,8 @@ Now browse to the app at `http://localhost:8000/app/index.html`.
 node node_modules/requirejs/bin/r.js -o scripts/app.build.js
 ```
 
+This could change when I figure out how to redirect npm scripts to stdout.
+
 ## Directory Layout
 
 ```

@@ -4,26 +4,30 @@ module.exports = function(config){
     basePath : './',
 
     files : [
-      'app/bower_components/angular/angular.js',
-      'app/bower_components/angular-route/angular-route.js',
-      'app/bower_components/angular-mocks/angular-mocks.js',
-      'app/components/**/*.js',
-      'app/view*/**/*.js'
+        { pattern: 'app/bower_components/angular/angular.js', included: false },
+        { pattern: 'app/bower_components/angular-route/angular-route.js', included: false },
+        { pattern: 'app/bower_components/angular-mocks/angular-mocks.js', included: false },
+        { pattern: 'app/components/**/*.js', included: false },
+        { pattern: 'app/view*/**/*.js', included: false },
+        { pattern: 'app/app.js', included: false },
+        'app/require-config.js'
     ],
 
     autoWatch : true,
 
     frameworks: ['jasmine', 'requirejs'],
 
-    browsers : ['Chrome'],
+//    browsers : ['Chrome'],
+	browsers : ['PhantomJS'],
 
     plugins : [
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-jasmine',
-            'karma-junit-reporter',
-						'karma-requirejs',
-            ],
+        'karma-chrome-launcher',
+        'karma-firefox-launcher',
+        'karma-jasmine',
+        'karma-junit-reporter',
+        'karma-requirejs',
+		'karma-phantomjs-launcher'
+    ],
 
     junitReporter : {
       outputFile: 'test_out/unit.xml',

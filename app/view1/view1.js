@@ -2,8 +2,8 @@
 
 define([ 
 'angular',
-'dbpedia/dbpedia',
-'dbpedia/dbpediaRelated',
+'components/dbpedia/dbpedia',
+'components/dbpedia/dbpediaRelated',
 'angularRoute',
 ],
 function( 
