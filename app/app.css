@@ -22,7 +22,36 @@
   content: "";
   padding: 0;
 }
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+/* IE6 */
+* html .clearfix {
+  zoom: 1;
+}
+/* IE7 */
+*:first-child + html .clearfix {
+  zoom: 1;
+}
 /* import */
 input.dbpedia-search-input {
   padding: 5px;
+}
+.dbpedia-bio-species img {
+  width: 100%;
+}
+.dbpedia-bio-species .taxonomy {
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
+}
+.dbpedia-bio-species .abstract {
+  width: 50%;
+  float: left;
+  box-sizing: border-box;
 }

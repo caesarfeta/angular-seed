@@ -13,7 +13,7 @@ function( angular ){
 				restrict: 'E',
 				replace: true,
 				scope: {},
-				template: '<input class="dbpedia-search-input" type="text" ng-model="search" ng-enter="run()" placeholder="search for..." />',
+				template: '<input class="dbpedia-search-input" type="text" ng-model="search" ng-enter="run()" placeholder="keyword" />',
 				link: function( scope, elem ){
 					scope.search = '';
 					scope.run = function(){
@@ -36,6 +36,21 @@ function( angular ){
 					scope.output = function(){
 						return JSON.stringify( dbpedia.result, '', 2 );
 					}
+				}
+			}
+		}
+	])
+	
+	.directive( 'dbpediaSpecies', [
+		'dbpedia',
+		function( dbpedia ){
+			return {
+				restrict: 'E',
+				replace: true,
+				scope: {},
+				templateUrl: 'lib/dbpedia/bio/search/species.html',
+				link: function( scope, elem ){
+					scope.dbpedia = dbpedia;
 				}
 			}
 		}
@@ -74,7 +89,7 @@ function( angular ){
 						}\
 				}\
 				GROUP BY ?name\
-				LIMIT 50\
+				LIMIT 25\
 			'};
 			
 			self.result = null;
@@ -87,7 +102,6 @@ function( angular ){
 							// success
 					
 							function( r ){
-								console.log( r );
 								self.result = r.data.results.bindings;
 								yes( self.result )
 							},

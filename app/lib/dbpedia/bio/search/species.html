@@ -1,0 +1,14 @@
+<div class="dbpedia-bio-species clearfix" ng-repeat="species in dbpedia.result">
+	<h2>{{ species.name.value }}</h2>
+	<img ng-src="{{ species.img.value }}"/>
+	<ul class="taxonomy">
+		<li>Kingdom: {{ species.kingdom.value }}</li>
+		<li>Phylum: {{ species.phylum.value }}</li>
+		<li>Class: {{ species.class.value }}</li>
+		<li>Order: {{ species.order.value }}</li>
+		<li>Family: {{ species.family.value }}</li>
+		<li>Genus: {{ species.genus.value }}</li>
+		<li>Species: {{ species.species.value }}</li>
+	</ul>
+	<div class="abstract">{{ species.abstract.value }}</div>
+</div>
