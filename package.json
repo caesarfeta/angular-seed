@@ -16,12 +16,14 @@
     "karma-junit-reporter": "^0.2.2",
     "karma-phantomjs-launcher": "^0.2.2",
     "karma-requirejs": "^0.2.2",
+    "less": "^2.5.3",
     "phantomjs": "^1.9.19",
     "protractor": "^2.1.0",
     "requirejs": "^2.1.22",
     "shelljs": "^0.2.6"
   },
   "scripts": {
+	"less": "node_modules/less/bin/lessc app/app.less app/app.css",
     "build": "node node_modules/requirejs/bin/r.js -o scripts/app.build.js",
     "postinstall": "bower install",
     "prestart": "npm install",
