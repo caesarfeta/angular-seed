@@ -6,25 +6,56 @@ define([
 function( angular ){
 	angular.module('dbpedia',[])
 	
-	.directive( 'dbpediaSearchInput',[
+	.directive( 'dbpediaSearchInput', [
 		'dbpedia',
 		function( dbpedia ){
 			return {
 				restrict: 'E',
 				replace: true,
 				scope: {},
-				template: '<input class="dbpedia-search" type="text" ng-model="searchFor" ng-enter="run" placeholder="search for..." />',
+				template: '<input class="dbpedia-search-input" type="text" ng-model="search" ng-enter="run()" placeholder="search for..." />',
 				link: function( scope, elem ){
-					scope.searchFor = '';
+					scope.search = '';
 					scope.run = function(){
-						console.log( scope.search )
+						dbpedia.img.http( scope.search );
 					}
 				}
 			}
 		}
 	])
 	
-	.directive( 'dbpediaDump', [])
+	.directive( 'dbpediaSearchDump', [
+		'dbpedia',
+		function( dbpedia ){
+			return {
+				restrict: 'E',
+				replace: true,
+				scope: {},
+				template: '<pre class="dbpedia-search-dump">{{ output() }}</pre>',
+				link: function( scope, elem ){
+					scope.output = function(){
+						return JSON.stringify( dbpedia.result, '', 2 );
+					}
+				}
+			}
+		}
+	])
+	
+	.directive('ngEnter', function(){
+		return function( scope, elem, attrs ){
+			elem.bind( "keydown keypress", function( e ){
+				if ( e.which === 13 ){
+					scope.$apply(
+						function(){
+							scope.$eval( attrs.ngEnter );
+						}
+					);
+					e.preventDefault();
+				}
+			})
+		}
+	})
+ 
 	
 	.service( 'dbpedia', [
 		'$http',
@@ -61,25 +92,31 @@ function( angular ){
 				LIMIT 50\
 			'};
 			
-			self.img = function( search ){
-				var queryUrl = encodeURI( url+"?query="+imgSearch( search )+"&format=json" );
-				return $q( function( yes, no ){
-					$http.get( queryUrl ).then(
+			self.result = null;
+			self.img = {
+				http: function( search ){
+					var queryUrl = encodeURI( url+"?query="+imgSearch( search )+"&format=json" );
+					return $q( function( yes, no ){
+						$http.get( queryUrl ).then(
 					
-						// success
+							// success
 					
-						function( r ){
-							yes( r.data.results.bindings )
-						},
+							function( r ){
+								console.log( r );
+								self.result = r.data.results.bindings;
+								yes( self.result )
+							},
 					
-						// error
+							// error
 					
-						function( r ){
-							no( r )
-						}
-					)
-				})
-			}
+							function( r ){
+								no( r )
+							}
+						)
+					})
+				},
+				result: self.result
+			};
 		}
 	]);
 });

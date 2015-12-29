@@ -22,11 +22,6 @@ function(
 	])
 
 	.controller('View1Ctrl', [ 
-		'dbpedia',
-		function( dbpedia ){
-			dbpedia.img( 'gold' ).then( function( r ){
-				console.log( r );
-			});
-		}
+		function(){}
 	]);
 });
