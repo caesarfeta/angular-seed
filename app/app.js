@@ -5,7 +5,8 @@ define([
 'angularRoute',
 'view1/view1',
 'view2/view2',
-'lib/version/version'
+'lib/version/version',
+'lib/common/atCommon'
 ], 
 function( angular ){
 
@@ -15,7 +16,8 @@ function( angular ){
 		'ngRoute',
 		'myApp.view1',
 		'myApp.view2',
-		'myApp.version'
+		'myApp.version',
+		'atCommon'
 	])
 	
 	.config([
