@@ -1,9 +1,11 @@
 'use strict';
 
 define([
-'angular'
+'angular',
+'jquery'
 ], 
-function( angular ){
+function( angular, $ ){
+	
 	angular.module('atCommon',[])
 	
 	// run function on input enter
@@ -28,6 +30,7 @@ function( angular ){
 		}
 	})
 	
+	
 	// shrink a resource link
 	
 	.filter('shrinkLink', function(){
@@ -39,4 +42,114 @@ function( angular ){
 			return input
 		}
 	})
+	
+	
+	// spin service
+	
+	.service( 'spinSvc', [
+		'spinItem',
+		function( spinItem ){
+			var self = this;
+			self.ids = {};
+			
+			// build the spinItem
+			// if it doesn't exist currently
+			
+			self.register = function( id ){
+				if ( ! ( id in self.ids )){
+					self.ids[ id ] = new spinItem();
+				}
+				return self.ids[ id ]
+			};
+
+			self.ready = function( id ){
+				return id in self.ids
+			}
+		}
+	])
+	
+	.factory( 'spinItem', [
+		'$timeout',
+		function( $timeout ){
+			var wait = .5;
+			var spinItem = function(){
+				this.skip = false;
+				this.elem = undefined;
+				this.show = false;
+			};
+
+			spinItem.prototype.off = function( secs ){
+				var self = this;
+				self.skip = false;
+				secs = ( secs == undefined ) ? wait : secs;
+				$timeout(
+					function(){
+						if ( !self.skip ){
+							$( self.elem ).hide();
+							self.show = false;
+						}
+					},
+					secs*1000
+				);
+			};
+
+			spinItem.prototype.on = function(){
+				var self = this;
+				self.skip = true;
+				self.show = true;
+				if ( self.elem != undefined ){
+					$( self.elem ).show();
+				}
+			};
+
+			spinItem.prototype.setElem = function( elem ){
+				var self = this;
+				self.elem = elem;
+				if ( self.show == true ){
+					self.on();
+				}
+				else {
+					self.off( 0 );
+				}
+			};
+
+			return spinItem;
+		}
+	])
+	
+	.directive( 'spinner', [
+		'spinSvc',
+		function( spinSvc ){
+			return {
+				template: '<span><img src="assets/img/spin.gif"></span>',
+				replace: true,
+				scope: {
+					spinId: '@'
+				},
+				link: function( scope, elem ){
+	
+					// watch for spinSvc registration
+					
+					var unbind = scope.$watch(
+						function(){ return spinSvc.ready( scope.spinId )},
+						function( n, o ){
+							if ( n == undefined ){ return }
+							if ( n === true ){
+								start();
+								unbind();
+							}
+						}
+					);
+					
+					// start
+					
+					function start(){
+						scope.spin = spinSvc.ids[ scope.spinId ];
+						scope.spin.setElem( elem );
+					}
+				}
+			}
+		}
+	]);
+	
 });

@@ -21,6 +21,7 @@ if( window.__karma__ ){
 
 require.config({
 	paths: {
+		jquery: 'bower_components/jQuery/dist/jquery',
 		angular: 'bower_components/angular/angular',
 		angularRoute: 'bower_components/angular-route/angular-route',
 		angularMocks: 'bower_components/angular-mocks/angular-mocks',

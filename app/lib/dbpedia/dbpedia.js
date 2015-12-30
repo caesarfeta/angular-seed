@@ -4,20 +4,25 @@ define([
 'angular',
 ], 
 function( angular ){
-	angular.module('dbpedia',[])
+	angular.module('dbpedia',[ 'atCommon' ])
 	
 	.directive( 'dbpediaSearchInput', [
 		'dbpedia',
-		function( dbpedia ){
+		'spinSvc',
+		function( dbpedia, spinSvc ){
 			return {
 				restrict: 'E',
 				replace: true,
 				scope: {},
-				template: '<input class="dbpedia-search-input" type="text" ng-model="search" ng-enter="run()" placeholder="keyword" />',
+				templateUrl: 'lib/dbpedia/bio/input.html',
 				link: function( scope, elem ){
 					scope.search = '';
+					var spinner = spinSvc.register( 'dbpedia-search-input' );
 					scope.run = function(){
-						dbpedia.img.http( scope.search );
+						spinner.on();
+						dbpedia.img.http( scope.search ).then(
+							function(){ spinner.off() }
+						);
 					}
 				}
 			}
