@@ -1,5 +1,5 @@
 <div class="dbpedia-bio-species clearfix" ng-repeat="species in dbpedia.result">
-	<h2>{{ species.name.value }}</h2>
+	<h2 class="name">{{ species.name.value }}</h2>
 	<img ng-src="{{ species.img.value }}"/>
 	<ul class="taxonomy">
 		<li>Kingdom: {{ species.kingdom.value }}</li>

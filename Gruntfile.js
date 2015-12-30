@@ -7,7 +7,8 @@ module.exports = function( grunt ){
 			development: {
 				options: {
 					paths: ["app"],
-					yuicompress: true
+					yuicompress: true,
+					plugins: [require('less-plugin-glob')]
 				},
 				files: {
 					"./app/app.css": "./app/app.less"

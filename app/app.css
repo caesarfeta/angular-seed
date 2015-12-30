@@ -45,9 +45,14 @@ input.dbpedia-search-input {
 }
 .dbpedia-bio-species {
   background-color: #fdfdfd;
+  margin-bottom: 5px;
+}
+.dbpedia-bio-species .name {
+  margin-left: 10px;
 }
 .dbpedia-bio-species img {
   width: 100%;
+  margin-bottom: 10px;
 }
 .dbpedia-bio-species .taxonomy {
   width: 50%;

@@ -20,6 +20,7 @@
     "karma-phantomjs-launcher": "^0.2.2",
     "karma-requirejs": "^0.2.2",
     "less": "^2.5.3",
+    "less-plugin-glob": "^1.1.1",
     "phantomjs": "^1.9.19",
     "protractor": "^2.1.0",
     "requirejs": "^2.1.22",
