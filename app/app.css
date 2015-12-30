@@ -22,6 +22,7 @@
   content: "";
   padding: 0;
 }
+/* clearfix */
 .clearfix:after {
   visibility: hidden;
   display: block;
@@ -30,17 +31,20 @@
   clear: both;
   height: 0;
 }
-/* IE6 */
 * html .clearfix {
+  /* IE6 */
   zoom: 1;
 }
-/* IE7 */
 *:first-child + html .clearfix {
+  /* IE7 */
   zoom: 1;
 }
 /* import */
 input.dbpedia-search-input {
   padding: 5px;
+}
+.dbpedia-bio-species {
+  background-color: #fdfdfd;
 }
 .dbpedia-bio-species img {
   width: 100%;
