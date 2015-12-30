@@ -12,6 +12,11 @@ function( angular ){
 		return function( scope, elem, attrs ){
 			elem.bind( "keydown keypress", function( e ){
 				if ( e.which === 13 ){
+					
+					// if shift key is pressed exit
+					
+					if ( e.shiftKey ){ return }
+					
 					scope.$apply(
 						function(){
 							scope.$eval( attrs.ngEnter );
