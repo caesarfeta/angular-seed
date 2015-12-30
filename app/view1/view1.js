@@ -4,12 +4,13 @@ define([
 'angular',
 'lib/dbpedia/dbpedia',
 'angularRoute',
+'lib/maps/atMaps'
 ],
 function( 
 	angular, 
 	dbpedia ){
 	
-	angular.module( 'myApp.view1', [ 'ngRoute', 'dbpedia' ])
+	angular.module( 'myApp.view1', [ 'ngRoute', 'dbpedia', 'atMaps' ])
 
 	.config([
 		'$routeProvider', 
