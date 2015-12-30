@@ -46,6 +46,7 @@ input.dbpedia-search-input {
 .dbpedia-bio-species {
   background-color: #fdfdfd;
   margin-bottom: 5px;
+  padding-bottom: 20px;
 }
 .dbpedia-bio-species .name {
   margin-left: 10px;
@@ -55,12 +56,17 @@ input.dbpedia-search-input {
   margin-bottom: 10px;
 }
 .dbpedia-bio-species .taxonomy {
-  width: 50%;
+  width: 33%;
   float: left;
   box-sizing: border-box;
 }
+.dbpedia-bio-species .taxonomy tr td:first-child {
+  padding-right: 10px;
+  text-align: right;
+}
 .dbpedia-bio-species .abstract {
-  width: 50%;
+  width: 66%;
   float: left;
   box-sizing: border-box;
+  padding-right: 20px;
 }

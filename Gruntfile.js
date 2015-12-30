@@ -15,14 +15,39 @@ module.exports = function( grunt ){
 				}
 			}
 		},
+		
+		// run requirejs
+		
+		requirejs: {
+			compile: {
+				options: {
+					baseUrl: "./app",
+					mainConfigFile: './app/require-build.js',
+					name: "require-build",
+					out: "./app/app.min.js",
+					preserveLicenseComments: false,
+					paths: {
+					    requireLib: "bower_components/requirejs/require"
+					},
+					include: 'requireLib'
+				}
+			}
+		},
 	
 		// running `grunt watch` will watch for changes
 	
 		watch: {
-			files: "./app/**/*.less",
-			tasks: [ "less" ]
+			less: {
+				files: "./app/**/*.less",
+				tasks: [ "less" ]
+			},
+			requirejs: {
+				files: "./app/lib/**/*.js",
+				tasks: [ "requirejs" ]
+			}
 		}
 	});
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
+	grunt.loadNpmTasks( 'grunt-contrib-requirejs' );
 };

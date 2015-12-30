@@ -5,6 +5,9 @@ define([
 ], 
 function( angular ){
 	angular.module('atCommon',[])
+	
+	// run function on input enter
+	
 	.directive('ngEnter', function(){
 		return function( scope, elem, attrs ){
 			elem.bind( "keydown keypress", function( e ){
@@ -17,6 +20,18 @@ function( angular ){
 					e.preventDefault();
 				}
 			})
+		}
+	})
+	
+	// shrink a resource link
+	
+	.filter('shrinkLink', function(){
+		return function( input ){
+			if ( input == undefined ){ return '...' }
+			if ( input.indexOf( 'http' ) == 0 ){
+				return input.substr( input.lastIndexOf('/') + 1 )
+			}
+			return input
 		}
 	})
 });
