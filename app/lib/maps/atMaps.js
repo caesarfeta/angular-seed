@@ -16,18 +16,21 @@ function( angular, $, d3, topojson ){
 		function( atGen ){ return {
 			restrict: 'E',
 			replace: true,
-			template: '<div></>',
-			scope: {},
+			template: '<div></div>',
+			scope: {
+				country: '@'
+			},
 			link: function( scope, elem ){
 				
 				// default config
 				
-				var width = 960;
-				var height = 320;
+				var width = 400;
+				var height = 220;
 
 				var projection = d3.geo.mercator()
 				.center([ 0, 0 ])
 				.scale( 50 )
+				.translate([ 200, 150 ])
 				.rotate([ -10, 0 ]);
 				
 				// generate guid for d3
@@ -38,6 +41,8 @@ function( angular, $, d3, topojson ){
 				var selectId = function(){
 					return '#' + elemId;
 				}
+				
+				// build the svg canvas
 
 				var svg = d3.select( selectId() )
 					.append( 'svg' )
@@ -49,7 +54,7 @@ function( angular, $, d3, topojson ){
 
 				var g = svg.append( 'g' );
 
-				// load and display the World
+				// load and display the world
 				
 				d3.json( 'assets/json/world-110m2.json', 
 					function( error, topology ){
@@ -62,12 +67,17 @@ function( angular, $, d3, topojson ){
 						.attr( 'd', path )
 					}
 				);
+				
+				// highlight the country
+				// scope.country
 			}
 		}}
 	])
 	
 	.service( 'atWorldMapSvc', [
-		function(){}
+		function(){
+			
+		}
 	])
 	
 	.service( 'atWorldFacts', [

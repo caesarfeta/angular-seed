@@ -26,7 +26,7 @@ require.config({
 		angularRoute: 'bower_components/angular-route/angular-route',
 		angularMocks: 'bower_components/angular-mocks/angular-mocks',
 		text: 'bower_components/requirejs-text/text',
-		d3: 'bower_components/d3/d3.min',
+		d3: 'bower_components/d3/d3',
 		topojson: 'bower_components/topojson/topojson',
 	},
 	shim: {
