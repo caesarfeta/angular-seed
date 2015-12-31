@@ -35,7 +35,8 @@ require.config({
 		'angularMocks': {
 			deps:['angular'],
 			'exports':'angular.mock'
-		}
+		},
+		'topojson': {'exports': 'topojson'}
 	},
 	priority: [
 		"angular"
