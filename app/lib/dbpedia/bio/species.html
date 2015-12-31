@@ -1,33 +1,36 @@
-<div class="dbpedia-bio-species clearfix" ng-repeat="species in dbpedia.img.result">
-	<h2 class="name">{{ species.name.value }}</h2>
-	<img ng-src="{{ species.img.value }}"/>
-	<table class="taxonomy">
-		<tr>
-			<td>Kingdom</td><td>{{ species.kingdom.value | shrinkLink }}</td>
-		</tr>
-		<tr>
-			<td>Phylum</td><td>{{ species.phylum.value | shrinkLink }}</td>
-		</tr>
-		<tr>
-			<td>Class</td><td>{{ species.class.value | shrinkLink }}</td>
-		</tr>
-		<tr>
-			<td>Order</td><td>{{ species.order.value | shrinkLink }}</td>
-		</tr>
-		<tr>
-			<td>Family</td><td>{{ species.family.value | shrinkLink }}</td>
-		</tr>
-		<tr>
-			<td>Genus</td><td>{{ species.genus.value | shrinkLink }}</td>
-		</tr>
-		<tr>
-			<td>Species</td><td>{{ species.species.value | shrinkLink }}</td>
-		</tr>
-	</table>
-	
-	<div class="abstract">{{ species.abstract.value }}</div>
-	
-	<at-world-map>
-	</at-world-map>
-	
+<div class="dbpedia-bio-species-bg" ng-show="on()">
+	<h1>{{ dbpedia.img.search }}</h1>
+	<div class="dbpedia-bio-species clearfix" ng-repeat="species in dbpedia.img.result">
+		<h2 class="name">{{ species.name.value }}</h2>
+		<img ng-src="{{ species.img.value }}"/>
+		<table class="taxonomy">
+			<tr>
+				<td>Kingdom</td><td>{{ species.kingdom.value | shrinkLink }}</td>
+			</tr>
+			<tr>
+				<td>Phylum</td><td>{{ species.phylum.value | shrinkLink }}</td>
+			</tr>
+			<tr>
+				<td>Class</td><td>{{ species.class.value | shrinkLink }}</td>
+			</tr>
+			<tr>
+				<td>Order</td><td>{{ species.order.value | shrinkLink }}</td>
+			</tr>
+			<tr>
+				<td>Family</td><td>{{ species.family.value | shrinkLink }}</td>
+			</tr>
+			<tr>
+				<td>Genus</td><td>{{ species.genus.value | shrinkLink }}</td>
+			</tr>
+			<tr>
+				<td>Species</td><td>{{ species.species.value | shrinkLink }}</td>
+			</tr>
+		</table>
+		
+		<div class="abstract">{{ species.abstract.value }}</div>
+		
+		<at-world-map>
+		</at-world-map>
+		
+	</div>
 </div>

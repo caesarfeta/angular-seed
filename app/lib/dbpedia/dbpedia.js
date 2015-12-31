@@ -73,6 +73,9 @@ function( angular ){
 				templateUrl: 'lib/dbpedia/bio/species.html',
 				link: function( scope, elem ){
 					scope.dbpedia = dbpedia;
+					scope.on = function(){
+						return dbpedia.img.result != null && dbpedia.img.result.length > 0
+					}
 				}
 			}
 		}
@@ -229,7 +232,9 @@ function( angular ){
 			
 			self.img = {};
 			self.img.result = null;
+			self.img.search = null;
 			self.img.http = function( name ){
+				self.img.search = name;
 				return self.http({
 					query: dbpediaQuery.img({ 
 						search: name, 
