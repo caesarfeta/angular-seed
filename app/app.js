@@ -5,6 +5,7 @@ define([
 'angularRoute',
 'view1/view1',
 'view2/view2',
+'view/canvas/canvas',
 'lib/version/version',
 'lib/common/atCommon'
 ], 
@@ -16,6 +17,7 @@ function( angular ){
 		'ngRoute',
 		'myApp.view1',
 		'myApp.view2',
+		'myApp.view.canvas',
 		'myApp.version',
 		'atCommon'
 	])

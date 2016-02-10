@@ -28,6 +28,7 @@ require.config({
 		text: 'bower_components/requirejs-text/text',
 		d3: 'bower_components/d3/d3',
 		topojson: 'bower_components/topojson/topojson',
+		threejs: 'bower_components/threejs/build/three'
 	},
 	shim: {
 		'angular' : {'exports' : 'angular'},
@@ -36,7 +37,8 @@ require.config({
 			deps:['angular'],
 			'exports':'angular.mock'
 		},
-		'topojson': {'exports': 'topojson'}
+		'topojson': {'exports': 'topojson'},
+		'threejs': {'exports': 'THREE'}
 	},
 	priority: [
 		"angular"

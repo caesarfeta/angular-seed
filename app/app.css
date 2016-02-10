@@ -78,6 +78,7 @@ input.dbpedia-search-input {
   box-sizing: border-box;
 }
 .dbpedia-bio-species .taxonomy tr td:first-child {
+  color: #CCC;
   padding-right: 10px;
   text-align: right;
 }
@@ -99,4 +100,11 @@ input.dbpedia-search-input {
 }
 .at-world-map path.red {
   fill: red;
+}
+.app-version {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  background-color: #AAA;
+  padding: 5px;
 }

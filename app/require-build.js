@@ -7,6 +7,7 @@ require.config({
 		text: 'bower_components/requirejs-text/text',
 		d3: 'bower_components/d3/d3.min',
 		topojson: 'bower_components/topojson/topojson',
+		threejs: 'bower_components/threejs/build/three'
 	},
 	shim: {
 		'angular' : {'exports' : 'angular'},

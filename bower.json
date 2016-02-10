@@ -14,6 +14,8 @@
     "requirejs": "^2.1.22",
     "topojson": "~1.6.19",
     "d3": "~3.5.12",
-    "jQuery": "~2.1.4"
-  }
+    "jQuery": "~2.1.4",
+	"threejs": "*"
+  },
+  "devDependencies": {}
 }
