@@ -15,7 +15,7 @@ function(
 	.config([
 		'$routeProvider', 
 		function( $routeProvider ){
-			$routeProvider.when('/view1', {
+			$routeProvider.when('/specierch', {
 				templateUrl: 'view1/view1.html',
 				controller: 'View1Ctrl'
 			});
