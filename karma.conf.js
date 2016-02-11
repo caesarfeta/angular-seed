@@ -4,9 +4,7 @@ module.exports = function(config){
     basePath : './',
 
     files : [
-        { pattern: 'app/bower_components/angular/angular.js', included: false },
-        { pattern: 'app/bower_components/angular-route/angular-route.js', included: false },
-        { pattern: 'app/bower_components/angular-mocks/angular-mocks.js', included: false },
+        { pattern: 'app/bower_components/**/*.js', included: false },
         { pattern: 'app/lib/**/*.js', included: false },
         { pattern: 'app/view*/**/*.js', included: false },
         { pattern: 'app/app.js', included: false },
@@ -17,8 +15,7 @@ module.exports = function(config){
 
     frameworks: ['jasmine', 'requirejs'],
 
-//    browsers : ['Chrome'],
-	browsers : ['PhantomJS'],
+    browsers : ['PhantomJS', 'Chrome'],
 
     plugins : [
         'karma-chrome-launcher',
@@ -26,7 +23,7 @@ module.exports = function(config){
         'karma-jasmine',
         'karma-junit-reporter',
         'karma-requirejs',
-		'karma-phantomjs-launcher'
+        'karma-phantomjs-launcher'
     ],
 
     junitReporter : {

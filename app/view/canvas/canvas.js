@@ -3,11 +3,12 @@
 define([ 
 'angular',
 'lib/viz/vizTest',
-'lib/viz/cubeTest'
+'lib/viz/cubeTest',
+'angularRoute'
 ],
 function( angular ){
 	
-	angular.module( 'myApp.view.canvas', [])
+	angular.module( 'myApp.view.canvas', [ 'ngRoute' ])
 
 	.config([
 		'$routeProvider', 
