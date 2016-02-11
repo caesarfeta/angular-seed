@@ -7,7 +7,11 @@ define([
 'topojson',
 'lib/common/atCommon'
 ], 
-function( angular, $, d3, topojson ){
+function( 
+	angular, 
+	$, 
+	d3, 
+	topojson ){
 	
 	angular.module('atMaps',[ 'atCommon'])
 	
@@ -75,9 +79,7 @@ function( angular, $, d3, topojson ){
 	])
 	
 	.service( 'atWorldMapSvc', [
-		function(){
-			
-		}
+		function(){}
 	])
 	
 	.service( 'atWorldFacts', [

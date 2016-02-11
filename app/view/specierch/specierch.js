@@ -10,19 +10,19 @@ function(
 	angular, 
 	dbpedia ){
 	
-	angular.module( 'myApp.view1', [ 'ngRoute', 'dbpedia', 'atMaps' ])
+	angular.module( 'myApp.view.specierch', [ 'ngRoute', 'dbpedia', 'atMaps' ])
 
 	.config([
 		'$routeProvider', 
 		function( $routeProvider ){
 			$routeProvider.when('/specierch', {
-				templateUrl: 'view1/view1.html',
-				controller: 'View1Ctrl'
+				templateUrl: 'view/specierch/specierch.html',
+				controller: 'SpecierchCtrl'
 			});
 		}
 	])
 
-	.controller('View1Ctrl', [ 
+	.controller('SpecierchCtrl', [ 
 		function(){}
 	]);
 });
