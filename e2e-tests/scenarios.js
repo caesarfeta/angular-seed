@@ -12,7 +12,7 @@ describe('my app', function() {
 
 
   describe('specierch', function() {
-
+ 
     beforeEach(function() {
       browser.get('index.html#/specierch');
     });
@@ -20,7 +20,7 @@ describe('my app', function() {
 
     it('should render specierch when user navigates to /specierch', function() {
       expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 1/);
+        toMatch(/Welcome to specierch!/);
     });
 
   });

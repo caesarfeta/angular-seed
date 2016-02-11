@@ -37,6 +37,12 @@ git clone --depth=1 https://github.com/angular/angular-seed.git <your-project-na
 
 The `depth=1` tells git to only pull down one commit worth of historical data.
 
+### Upgrade npm
+
+```
+npm install npm -g
+```
+
 ### Install Dependencies
 
 We have two kinds of dependencies in this project: tools and angular framework code.  The tools help
@@ -72,13 +78,6 @@ npm start
 
 Now browse to the app at `http://localhost:8000/app/index.html`.
 
-### Optimize Javascript
-
-```
-node node_modules/requirejs/bin/r.js -o scripts/app.build.js
-```
-
-This could change when I figure out how to redirect npm scripts to stdout.
 
 ## Directory Layout
 
