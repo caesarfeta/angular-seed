@@ -18,12 +18,14 @@
 */
 define([
 'threejs',
+'lib/viz/vizStats',
 'lib/viz/threeTrans',
 'lib/viz/threeLights',
 'lib/viz/cube'
 ],
 function( 
-	THREE, 
+	THREE,
+	vizStats,
 	threeTrans, 
 	threeLights,
 	cube ){
@@ -51,7 +53,11 @@ function(
 		
 		// config renderer
 		
-		this.renderer = new THREE.WebGLRenderer();
+		this.renderer = new THREE.WebGLRenderer({ 
+			antialias: true, 
+			alpha: false
+		});
+		
 		this.renderer.setSize( window.innerWidth, window.innerHeight );
 		var self = this;
 		window.addEventListener("resize", function(){
@@ -61,6 +67,10 @@ function(
 		// append rendered element
 		
 		document.body.appendChild( this.renderer.domElement );
+		
+		// get fps stats
+		
+		this.stats = new vizStats();
 	};
 	
 	cubeTest.prototype.cube = function(){
@@ -73,6 +83,7 @@ function(
 		requestAnimationFrame( function(){ return self.render() });
 		this.transforms.run();
 		this.renderer.render( this.scene, this.camera );
+		this.stats.update();
 	};
 	
 	cubeTest.prototype.startLights = function(){

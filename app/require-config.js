@@ -28,7 +28,8 @@ require.config({
 		text: 'bower_components/requirejs-text/text',
 		d3: 'bower_components/d3/d3',
 		topojson: 'bower_components/topojson/topojson',
-		threejs: 'bower_components/threejs/build/three'
+		threejs: 'bower_components/threejs/build/three',
+		stats: 'bower_components/Physijs/examples/js/stats'
 	},
 	shim: {
 		'angular' : {'exports' : 'angular'},
@@ -38,7 +39,8 @@ require.config({
 			'exports':'angular.mock'
 		},
 		'topojson': {'exports': 'topojson'},
-		'threejs': {'exports': 'THREE'}
+		'threejs': {'exports': 'THREE'},
+		'stats': {'exports': 'Stats'}
 	},
 	priority: [
 		"angular"
@@ -50,7 +52,8 @@ require.config({
 
 require([
 'angular',
-'app'
+'app',
+'threejs'
 ], 
 function( angular, app ){
 	var $html = angular.element( document.getElementsByTagName('html')[0] );

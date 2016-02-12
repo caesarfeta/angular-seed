@@ -5,9 +5,10 @@ require.config({
 		angularRoute: 'bower_components/angular-route/angular-route',
 		angularMocks: 'bower_components/angular-mocks/angular-mocks',
 		text: 'bower_components/requirejs-text/text',
-		d3: 'bower_components/d3/d3.min',
+		d3: 'bower_components/d3/d3',
 		topojson: 'bower_components/topojson/topojson',
-		threejs: 'bower_components/threejs/build/three'
+		threejs: 'bower_components/threejs/build/three',
+		stats: 'bower_components/Physijs/examples/js/stats'
 	},
 	shim: {
 		'angular' : {'exports' : 'angular'},
@@ -15,7 +16,10 @@ require.config({
 		'angularMocks': {
 			deps:['angular'],
 			'exports':'angular.mock'
-		}
+		},
+		'topojson': {'exports': 'topojson'},
+		'threejs': {'exports': 'THREE'},
+		'stats': {'exports': 'Stats'}
 	}
 });
 

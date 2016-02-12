@@ -1,6 +1,4 @@
-define([
-'threejs'
-],
+define([],
 function(){
 	
 	// some things have gotta move
