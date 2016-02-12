@@ -13,17 +13,25 @@ function( angular, cubeTest ){
 		'$routeProvider', 
 		function( $routeProvider ){
 			$routeProvider.when('/canvas', {
-				templateUrl: 'view/canvas/canvas.html',
+				template: '<div canvas-cube-test />',
 				controller: 'viewCanvasCtrl'
 			});
 		}
 	])
 
-	.controller('viewCanvasCtrl', [ 
+	.controller('viewCanvasCtrl', [ function(){} ])
+	
+	.directive('canvasCubeTest', [
 		function(){
-			var viz = new cubeTest({ 
-				elem: document.getElementById('canvas-container')
-			});
+			return {
+				restrict: 'EA',
+				replace: true,
+				link: function( scope, elem ){
+					var viz = new cubeTest({ 
+						elem: elem.get(0)
+					});
+				}
+			}
 		}
-	]);
+	])
 });
