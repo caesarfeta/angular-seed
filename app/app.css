@@ -37,6 +37,13 @@
   zoom: 1;
 }
 /* import */
+.at-owner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  color: #AAA;
+  padding: 5px;
+}
 input.dbpedia-search-input {
   padding: 5px;
 }
@@ -92,11 +99,4 @@ input.dbpedia-search-input {
 }
 .at-world-map path.red {
   fill: red;
-}
-.app-version {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  background-color: #AAA;
-  padding: 5px;
 }

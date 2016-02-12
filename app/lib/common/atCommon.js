@@ -166,6 +166,25 @@ function( angular, $ ){
 		}
 	])
 	
+	.directive( 'atYear', [
+		function(){
+			return {
+				template: '<span class="at-date">{{ time | date: "yyyy" }}</span>',
+				replace: true,
+				link: function( scope, elem ){
+					scope.time = Date.now();
+				}
+			}
+		}
+	])
 	
+	.directive( 'atOwner', [
+		function(){
+			return {
+				template: '<div class="at-owner">v<span app-version></span> &copy; Adam Tavares <span at-year></span></div>',
+				replace: true
+			}
+		}
+	])
 	
 });

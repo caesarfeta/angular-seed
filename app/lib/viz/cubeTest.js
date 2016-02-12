@@ -51,7 +51,14 @@ function(
 			1000 
 		);
 		
-		// config renderer
+		this.setupRenderer();
+		
+		// get fps stats
+		
+		this.stats = new vizStats({ elem: this.config.elem });
+	};
+	
+	cubeTest.prototype.setupRenderer = function(){
 		
 		this.renderer = new THREE.WebGLRenderer({ 
 			antialias: true, 
@@ -67,11 +74,7 @@ function(
 		// append rendered element
 		
 		this.config.elem.appendChild( this.renderer.domElement );
-		
-		// get fps stats
-		
-		this.stats = new vizStats({ elem: this.config.elem });
-	};
+	}
 	
 	cubeTest.prototype.cube = function(){
 		this.cube = new cube();
