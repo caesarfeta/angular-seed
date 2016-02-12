@@ -1,6 +1,6 @@
 /*
 	var cubeTest = require('lib/viz/cubeTest');
-	var viz = new cubeTest();
+	var viz = new cubeTest({ elem: element });
 
 	// add transforms
 	
@@ -66,11 +66,11 @@ function(
 		
 		// append rendered element
 		
-		document.body.appendChild( this.renderer.domElement );
+		this.config.elem.appendChild( this.renderer.domElement );
 		
 		// get fps stats
 		
-		this.stats = new vizStats();
+		this.stats = new vizStats({ elem: this.config.elem });
 	};
 	
 	cubeTest.prototype.cube = function(){

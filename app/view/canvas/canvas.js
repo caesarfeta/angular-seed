@@ -2,11 +2,10 @@
 
 define([ 
 'angular',
-'lib/viz/vizTest',
 'lib/viz/cubeTest',
 'angularRoute'
 ],
-function( angular ){
+function( angular, cubeTest ){
 	
 	angular.module( 'myApp.view.canvas', [ 'ngRoute' ])
 
@@ -21,6 +20,10 @@ function( angular ){
 	])
 
 	.controller('viewCanvasCtrl', [ 
-		function(){}
+		function(){
+			var viz = new cubeTest({ 
+				elem: document.getElementById('canvas-container')
+			});
+		}
 	]);
 });
