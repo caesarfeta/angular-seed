@@ -152,6 +152,9 @@ function( angular, $ ){
 		}
 	])
 	
+	
+	// highlight text
+	
 	.filter('highlight', function($sce) {
 	  return function(text, phrase) {
 	    if (phrase) text = text.replace(new RegExp('('+phrase+')', 'gi'),
@@ -160,6 +163,9 @@ function( angular, $ ){
 	    return $sce.trustAsHtml(text)
 	  }
 	})
+	
+	
+	// id generator
 	
 	.service( 'atGen', [
 		function(){
@@ -190,7 +196,7 @@ function( angular, $ ){
 	.directive( 'atOwner', [
 		function(){
 			return {
-				template: '<div class="at-owner">v<span app-version></span> &copy; Adam Tavares <span at-year></span></div>',
+				template: '<div class="at-owner">v<span app-version></span></div>',
 				replace: true
 			}
 		}

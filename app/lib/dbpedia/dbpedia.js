@@ -2,9 +2,32 @@
 
 define([
 'angular',
+'lodash'
 ], 
-function( angular ){
+function( angular, _ ){
 	angular.module('dbpedia',[ 'atCommon' ])
+	
+	.directive( 'dbpImgHistory',[
+		'dbpedia',
+		'$compile',
+		function( dbpedia, $compile ){
+			return {
+				replace: true,
+				link: function( scope, elem ){
+					scope.$watch( 
+						function(){ return dbpedia.img.history.length },
+						function(){
+							var history = angular.copy( dbpedia.img.history ).map( function( key ){
+								return "<dbp-key>" + key + "</dbp-key>"
+							});
+							history[ history.length -1 ] = 	"and " + history[ history.length -1 ];
+							elem.html( $compile( history.join(', '))( scope ));
+						}
+					)
+				}
+			}
+		}
+	])
 	
 	.directive( 'dbpImgSearch', [
 		'dbpedia',
@@ -258,6 +281,7 @@ function( angular ){
 			self.img = {};
 			self.img.result = null;
 			self.img.search = null;
+			self.img.history = [ 'ghost', 'death', 'gold', 'rainbow', 'light', 'god' ];
 			self.img.http = function(){
 				return self.http({
 					query: dbpediaQuery.img({ 
@@ -270,7 +294,9 @@ function( angular ){
 					
 					// success
 					
-					function(){ self.img.lastSearch = self.img.search },
+					function(){ 
+						self.img.history = _.union( self.img.history, [ self.img.search ])
+					},
 					
 					// error
 					

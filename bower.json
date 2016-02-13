@@ -16,7 +16,8 @@
     "d3": "~3.5.12",
     "jQuery": "~2.1.4",
     "threejs": "*",
-    "Physijs": "physijs#*"
+    "Physijs": "physijs#*",
+    "lodash": "~4.3.0"
   },
   "devDependencies": {}
 }
