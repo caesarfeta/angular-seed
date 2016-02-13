@@ -1,18 +1,17 @@
 /* app css stylesheet */
 .menu {
   list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 0;
+  border-bottom: 0.1em solid #666;
+  margin: 0;
+  padding: 10px;
+  background-color: gray;
+}
+.menu > a {
+  font-style: none;
 }
 .menu > li {
   display: inline;
-}
-.menu > li:before {
-  padding-right: 0.3em;
-}
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
+  margin: 0 10px;
 }
 .half {
   float: left;
@@ -48,12 +47,12 @@ input.dbpedia-search-input {
   padding: 5px;
 }
 .dbpedia-bio-species-bg {
-  background-color: #333;
+  background-color: #EEE;
 }
 .dbpedia-bio-species-bg h1 {
   padding: 10px 20px 0 0;
-  text-align: right;
-  color: #FF6666;
+  text-align: center;
+  color: #333;
 }
 .dbpedia-bio-species {
   border-radius: 5px;
@@ -99,4 +98,7 @@ input.dbpedia-search-input {
 }
 .at-world-map path.red {
   fill: red;
+}
+.specierch .controls {
+  padding: 0 10px;
 }

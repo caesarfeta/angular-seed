@@ -6,7 +6,7 @@ define([
 function( angular ){
 	angular.module('dbpedia',[ 'atCommon' ])
 	
-	.directive( 'dbpediaSearchInput', [
+	.directive( 'dbpImgSearch', [
 		'dbpedia',
 		'spinSvc',
 		function( dbpedia, spinSvc ){
@@ -16,13 +16,9 @@ function( angular ){
 				scope: {},
 				templateUrl: 'lib/dbpedia/bio/input.html',
 				link: function( scope, elem ){
-					scope.search = '';
-					var spinner = spinSvc.register( 'dbpedia-search-input' );
+					scope.dbpedia = dbpedia;
 					scope.run = function(){
-						spinner.on();
-						dbpedia.img.http( scope.search ).then(
-							function(){ spinner.off() }
-						);
+						dbpedia.img.http()
 					}
 				}
 			}
@@ -63,7 +59,7 @@ function( angular ){
 		}
 	])
 	
-	.directive( 'dbpediaSpecies', [
+	.directive( 'dbpSpecies', [
 		'dbpedia',
 		function( dbpedia ){
 			return {
@@ -74,7 +70,7 @@ function( angular ){
 				link: function( scope, elem ){
 					scope.dbpedia = dbpedia;
 					scope.on = function(){
-						return dbpedia.img.result != null && dbpedia.img.result.length > 0
+						return dbpedia.img.result != null && dbpedia.img.result.length > 0 && !dbpedia.waiting
 					}
 				}
 			}
@@ -181,21 +177,46 @@ function( angular ){
 		}
 	])
 	
+	.directive( 'dbpKey', [
+		'dbpedia',
+		function( dbpedia ){
+			return {
+				restrict: 'E',
+				replace: true,
+				transclude: true,
+				scope: {},
+				template: '<a href ng-click="click()" ng-transclude></a>',
+				link: function( scope, elem ){
+					scope.click = function(){
+						dbpedia.img.search = elem.text();
+						dbpedia.img.http();
+					}
+				}
+			}
+		}
+	])
+	
 	.service( 'dbpedia', [
 		'$http',
 		'$q',
 		'dbpediaQuery',
+		'spinSvc',
 		function( 
 			$http, 
 			$q,
-			dbpediaQuery ){
+			dbpediaQuery,
+			spinSvc ){
 				
+			var spinner = spinSvc.register( 'dbpedia-http' );
 			var url = "http://dbpedia.org/sparql";
 			var self = this;
 			self.buildUrl = function( query ){
 				return encodeURI( url+"?query="+ query +"&format=json" );
 			};
+			self.waiting = false;
 			self.http = function( config ){
+				spinner.on();
+				self.waiting = true;
 				return $q( function( yes, no ){
 					$http.get( self.buildUrl( config.query ) ).then(
 						
@@ -203,6 +224,8 @@ function( angular ){
 					
 						function( r ){
 							config.success( r );
+							spinner.off();
+							self.waiting = false;
 							yes( r );
 						},
 					
@@ -210,6 +233,8 @@ function( angular ){
 					
 						function( r ){
 							config.error( r );
+							spinner.off();
+							self.waiting = false;
 							no( r );
 						}
 					);
@@ -233,16 +258,24 @@ function( angular ){
 			self.img = {};
 			self.img.result = null;
 			self.img.search = null;
-			self.img.http = function( name ){
-				self.img.search = name;
+			self.img.http = function(){
 				return self.http({
 					query: dbpediaQuery.img({ 
-						search: name, 
+						search: self.img.search, 
 						limit: 25 
 					}),
 					success: function( r ){ self.img.result = r.data.results.bindings },
 					error: function( r ){}
-				});
+				}).then( 
+					
+					// success
+					
+					function(){ self.img.lastSearch = self.img.search },
+					
+					// error
+					
+					function(){}
+				);
 			};
 		}
 	]);
