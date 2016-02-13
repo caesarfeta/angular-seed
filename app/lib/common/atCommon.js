@@ -167,7 +167,7 @@ function( angular, $ ){
 	
 	.filter( 'highlight', function( $sce ) {
 	  return function( text, phrase ){
-	    if ( phrase ){
+	    if ( phrase && text ){
 	    	text = text.replace(
 						new RegExp( '('+phrase+')', 'gi' ),
 					'<span class="highlight">$1</span>'

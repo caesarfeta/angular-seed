@@ -2,10 +2,11 @@
 
 define([
 'angular',
-'lodash'
+'lodash',
+'lib/common/imgKit/imgKit'
 ], 
-function( angular, _ ){
-	angular.module('dbpedia',[ 'atCommon' ])
+function( angular, _, imgKit ){
+	angular.module('dbpedia',[ 'atCommon', 'imgKit' ])
 	
 	.directive( 'dbpImgHistory',[
 		'dbpedia',
@@ -239,6 +240,10 @@ function( angular, _ ){
 			spinSvc ){
 				
 			var spinner = spinSvc.register( 'dbpedia-http' );
+			function spinnerOff(){
+				spinner.off( 2 );
+			}
+			
 			var url = "http://dbpedia.org/sparql";
 			var self = this;
 			self.buildUrl = function( query ){
@@ -255,7 +260,7 @@ function( angular, _ ){
 					
 						function( r ){
 							config.success( r );
-							spinner.off();
+							spinnerOff();
 							self.waiting = false;
 							yes( r );
 						},
@@ -264,7 +269,7 @@ function( angular, _ ){
 					
 						function( r ){
 							config.error( r );
-							spinner.off();
+							spinnerOff();
 							self.waiting = false;
 							no( r );
 						}

@@ -1,7 +1,7 @@
 <div class="dbpedia-bio-species-bg" ng-show="on()">
 	<div class="dbpedia-bio-species clearfix" ng-repeat="species in dbpedia.img.result">
 		<h2 class="name" ng-bind-html="species.name.value | highlight:dbpedia.img.search"></h2>
-		<img ng-src="{{ species.img.value }}"/>
+		<img-kit><img ng-src="{{ species.img.value }}"/></img-kit>
 		<table class="taxonomy">
 			<tr>
 				<td>Kingdom</td><td>{{ species.kingdom.value | shrinkLink }}</td>
