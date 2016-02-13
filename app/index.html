@@ -12,12 +12,14 @@
 	<script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
-	<ul class="menu">
-		<li><a href="#/specierch">specierch</a></li>
-		<li><a href="#/canvas">canvas</a></li>
-	</ul>
+	
+	<at-menu link="{
+			specierch: 'specierch',
+			canvas: 'canvas'
+	}"></at-menu>
+	
 	<div class="app" ng-view></div>
-	<span at-owner></span>
+	<span at-version></span>
 	<script data-main="require-config" src="bower_components/requirejs/require.js"></script>
 </body>
 </html>

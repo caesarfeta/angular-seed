@@ -121,7 +121,17 @@ function( angular, $ ){
 		'spinSvc',
 		function( spinSvc ){
 			return {
-				template: '<span><img src="assets/img/spin.gif"></span>',
+				template: [
+					
+					'<div class="spinner">',
+						'<div class="rect1"></div>',
+						'<div class="rect2"></div>',
+						'<div class="rect3"></div>',
+						'<div class="rect4"></div>',
+						'<div class="rect5"></div>',
+					'</div>'
+					
+				].join(''),
 				replace: true,
 				scope: {
 					spinId: '@'
@@ -155,11 +165,14 @@ function( angular, $ ){
 	
 	// highlight text
 	
-	.filter('highlight', function($sce) {
-	  return function(text, phrase) {
-	    if (phrase) text = text.replace(new RegExp('('+phrase+')', 'gi'),
-	      '<span class="highlight">$1</span>')
-
+	.filter( 'highlight', function( $sce ) {
+	  return function( text, phrase ){
+	    if ( phrase ){
+	    	text = text.replace(
+						new RegExp( '('+phrase+')', 'gi' ),
+					'<span class="highlight">$1</span>'
+				)
+	    } 
 	    return $sce.trustAsHtml(text)
 	  }
 	})
@@ -181,6 +194,36 @@ function( angular, $ ){
 		}
 	])
 	
+	// build menu
+	
+	.directive( 'atMenu', [
+		'$location',
+		function( $location ){
+			return {
+				template: [
+					
+					 '<ul class="menu">',
+							'<li ng-repeat="( name, url ) in link">',
+								'<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
+							'</li>',
+						'</ul>'
+					
+				].join(''),
+				scope: {
+					link: '='
+				},
+				replace: true,
+				link: function( scope, elem ){
+					scope.style = function( url ){
+						return {
+							selected: '/'+url == $location.url()
+						}
+					}
+				}
+			}
+		}
+	])
+	
 	.directive( 'atYear', [
 		function(){
 			return {
@@ -193,10 +236,10 @@ function( angular, $ ){
 		}
 	])
 	
-	.directive( 'atOwner', [
+	.directive( 'atVersion', [
 		function(){
 			return {
-				template: '<div class="at-owner">v<span app-version></span></div>',
+				template: '<div class="at-version">v<span app-version></span></div>',
 				replace: true
 			}
 		}

@@ -1,6 +1,6 @@
 <div class="dbpedia-bio-species-bg" ng-show="on()">
 	<div class="dbpedia-bio-species clearfix" ng-repeat="species in dbpedia.img.result">
-		<h2 class="name" ng-bind-html="species.name.value | highlight:dbpedia.img.lastSearch"></h2>
+		<h2 class="name" ng-bind-html="species.name.value | highlight:dbpedia.img.search"></h2>
 		<img ng-src="{{ species.img.value }}"/>
 		<table class="taxonomy">
 			<tr>
@@ -26,7 +26,7 @@
 			</tr>
 		</table>
 		
-		<div class="abstract" ng-bind-html="species.abstract.value | highlight:dbpedia.img.lastSearch"></div>
+		<div class="abstract" ng-bind-html="species.abstract.value | highlight:dbpedia.img.search"></div>
 		
 		<at-world-map>
 		</at-world-map>
