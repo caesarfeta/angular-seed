@@ -1,4 +1,5 @@
 /* app css stylesheet */
+@import "bower_components/font-awesome/css/font-awesome.min.css";
 html {
   background-color: #EEE;
 }
@@ -34,6 +35,12 @@ html {
 }
 .highlight {
   background-color: #FF66FF;
+}
+.img-kit .launcher {
+  position: absolute;
+}
+.img-kit .launcher .fa-icon {
+  color: gray;
 }
 .menu {
   list-style: none;
