@@ -30,6 +30,29 @@ function( angular, $ ){
 		}
 	})
 	
+	.directive( 'scrollStick', [
+		'$window',
+		function( $window ){
+			return {
+				link: function( scope, elem ){
+					
+					// on scroll
+					
+					var top = elem.offset().top
+					angular.element( $window ).bind( "scroll", function() {
+						if ( this.pageYOffset >= top ){
+							elem.addClass('stick');
+						} 
+						else {
+							elem.removeClass('stick');
+						}
+						
+					})
+				}
+			}
+		}
+	])
+	
 	
 	// shrink a resource link
 	
