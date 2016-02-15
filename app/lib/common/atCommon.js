@@ -206,6 +206,7 @@ function( angular, $ ){
 							'<li ng-repeat="( name, url ) in link">',
 								'<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
 							'</li>',
+							'<li><i class="fa fa-{{ last() }}"></i></li>',
 						'</ul>'
 					
 				].join(''),
@@ -214,11 +215,19 @@ function( angular, $ ){
 				},
 				replace: true,
 				link: function( scope, elem ){
+					
+					scope.last = function(){
+						return $location.url().substr( 
+							$location.url().lastIndexOf('/') + 1
+						)
+					};
+					
 					scope.style = function( url ){
 						return {
-							selected: '/'+url == $location.url()
+							selected: $location.url().lastIndexOf( url ) != -1
 						}
-					}
+					};
+					
 				}
 			}
 		}

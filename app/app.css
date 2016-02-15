@@ -3,6 +3,10 @@
 html {
   background-color: #EEE;
 }
+.stick {
+  position: fixed;
+  top: 0;
+}
 .half {
   float: left;
   width: 50%;
@@ -34,13 +38,16 @@ html {
   padding: 5px;
 }
 .highlight {
-  background-color: #FF66FF;
+  background-color: #FFFF66;
 }
 .img-kit .launcher {
   position: absolute;
+  background-color: rgba(255, 255, 255, 0.75);
 }
-.img-kit .launcher .fa-icon {
-  color: gray;
+.img-kit .launcher .fa {
+  margin: 5px;
+  font-size: 30px;
+  color: black;
 }
 .menu {
   list-style: none;
@@ -165,4 +172,6 @@ input.dbpedia-search-input {
 }
 .specierch .controls {
   padding: 0 20px;
+  width: 100%;
+  background-color: #EEE;
 }

@@ -15,8 +15,8 @@ function( angular, $ ){
       function( $location ){ return {
           template: [
             
-            '<div class="img-kit">',
-              '<span class="launcher">',
+            '<div ng-click="click()" class="img-kit">',
+              '<span ng-show="isOn" class="launcher">',
                 '<i ng-repeat="( key, url ) in toCanvas" ng-click="launch( key )" class="fa fa-{{ key }}"></i>',
               '</span>',
               '<ng-transclude></ng-transclude>',
@@ -26,6 +26,11 @@ function( angular, $ ){
           replace: true,
           transclude: true,
           link: function( scope, elem ){
+            
+            scope.isOn = false;
+            scope.click = function(){
+              scope.isOn = !scope.isOn;
+            };
           
             scope.toCanvas = {
               'bomb': 'bomb'
@@ -35,6 +40,14 @@ function( angular, $ ){
               $location.path( '/canvas/'+scope.toCanvas[ key ] );
             };
           }
-			}}
+      }}
   ])
+	
+	.service( 'imgData', [
+		function(){
+			this.process = function( src ){
+				
+			}
+		}
+	])
 })
