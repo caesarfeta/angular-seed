@@ -13,12 +13,25 @@ function(
 	d3, 
 	topojson ){
 	
-	angular.module('atMaps',[ 'atCommon'])
+	angular.module('atMaps',[ 'atCommon' ])
+		
+	.directive( 'atMapOverlay', [
+		function(){}
+	])
+	
+	.factory( 'mapOverlay', [
+		function(){
+			var mapOverlay = function(){}
+			return mapOverlay
+		}
+	])
+	
+	
+	// draw a world map
 	
 	.directive( 'atWorldMap', [
 		'atGen',
 		function( atGen ){ return {
-			restrict: 'E',
 			replace: true,
 			template: '<div></div>',
 			scope: {
