@@ -22,19 +22,16 @@ function( angular, _ ){
 		}
 	])
 
-	.controller('viewMapperCtrl', [ function(){} ])
+	.controller( 'viewMapperCtrl', [ function(){} ])
 	
 	.service( 'mouseHelper', [
 		function(){
 			var self = this;
 			
-			self.relative = function( elem, event ){
-			    var pos = elem.offset();
-			    var x = ( event.clientX - pos.left);
-			    var y = ( event.clientY - pos.top + $( document ).scrollTop() );
+			self.relative = function( event ){
 			    return { 
-					x:x, 
-					y:y 
+					x: event.offsetX, 
+					y: event.offsetY 
 				}
 			};
 			
@@ -65,14 +62,14 @@ function( angular, _ ){
 				$( self.elem )
 				.on( 'touchstart mousedown', function( e ){
 					self.pressed = true;
-					c1 = mouseHelper.relative( self.elem, e );
+					c1 = mouseHelper.relative( e );
 				})
 				.on( 'touchend mouseup', function( e ){
 					self.pressed = false;
 				})
 				.on( 'touchmove mousemove', function( e ){
 					if ( !self.pressed ){ return }
-					var diff = mouseHelper.diff( c1, mouseHelper.relative( self.elem, e ));
+					var diff = mouseHelper.diff( c1, mouseHelper.relative( e ));
 					var width = self.elem.width();
 					var height = self.elem.height();
 					self.previewLite.update({
@@ -115,25 +112,28 @@ function( angular, _ ){
 		}
 	])
 	
-	.directive( 'highliteArea', [
+	.directive( 'highlite', [
 		function(){
 			return {
 				scope: {
-					highliteArea: '=',
+					highlite: '=',
 					parentElem: '='
 				},
 				replace: true,
 				link: function( scope, elem ){
-					scope.highliteArea.onUpdate( function(){
+					
+					// update
+					
+					scope.highlite.onUpdate( function(){
 						var width = scope.parentElem.width();
 						var height = scope.parentElem.height();
 						$( elem ).css({
 							position: 'relative',
 							display: 'inline-block',
-							left: scope.highliteArea.x * width,
-							top: scope.highliteArea.y * height,
-							width: scope.highliteArea.width * width,
-							height: scope.highliteArea.height * height,
+							left: scope.highlite.x * width,
+							top: scope.highlite.y * height,
+							width: scope.highlite.width * width,
+							height: scope.highlite.height * height,
 							'background-color': 'yellow'
 						});
 					});
