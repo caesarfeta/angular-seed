@@ -17,7 +17,9 @@
     "jQuery": "~2.1.4",
     "threejs": "*",
     "Physijs": "physijs#*",
-    "genetic-js": "https://github.com/subprotocol/genetic-js.git#04fc6a69f0511547d62f07c76a070dec6a4f2fe9"
+    "genetic-js": "https://github.com/subprotocol/genetic-js.git#04fc6a69f0511547d62f07c76a070dec6a4f2fe9",
+    "lodash": "~4.3.0",
+    "font-awesome": "~4.5.0"
   },
   "devDependencies": {}
 }

@@ -30,6 +30,29 @@ function( angular, $ ){
 		}
 	})
 	
+	.directive( 'scrollStick', [
+		'$window',
+		function( $window ){
+			return {
+				link: function( scope, elem ){
+					
+					// on scroll
+					
+					var top = elem.offset().top
+					angular.element( $window ).bind( "scroll", function() {
+						if ( this.pageYOffset >= top ){
+							elem.addClass('stick');
+						} 
+						else {
+							elem.removeClass('stick');
+						}
+						
+					})
+				}
+			}
+		}
+	])
+	
 	
 	// shrink a resource link
 	
@@ -121,7 +144,17 @@ function( angular, $ ){
 		'spinSvc',
 		function( spinSvc ){
 			return {
-				template: '<span><img src="assets/img/spin.gif"></span>',
+				template: [
+					
+					'<div class="spinner">',
+						'<div class="rect1"></div>',
+						'<div class="rect2"></div>',
+						'<div class="rect3"></div>',
+						'<div class="rect4"></div>',
+						'<div class="rect5"></div>',
+					'</div>'
+					
+				].join(''),
 				replace: true,
 				scope: {
 					spinId: '@'
@@ -152,6 +185,24 @@ function( angular, $ ){
 		}
 	])
 	
+	
+	// highlight text
+	
+	.filter( 'highlight', function( $sce ) {
+	  return function( text, phrase ){
+	    if ( phrase && text ){
+	    	text = text.replace(
+						new RegExp( '('+phrase+')', 'gi' ),
+					'<span class="highlight">$1</span>'
+				)
+	    } 
+	    return $sce.trustAsHtml(text)
+	  }
+	})
+	
+	
+	// id generator
+	
 	.service( 'atGen', [
 		function(){
 			var self = this;
@@ -162,6 +213,45 @@ function( angular, $ ){
 							.substring( 1 );
 				}
 				return 'at' + s4() + s4();
+			}
+		}
+	])
+	
+	// build menu
+	
+	.directive( 'atMenu', [
+		'$location',
+		function( $location ){
+			return {
+				template: [
+					
+					 '<ul class="menu">',
+							'<li ng-repeat="( name, url ) in link">',
+								'<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
+							'</li>',
+							'<li><i class="fa fa-{{ last() }}"></i></li>',
+						'</ul>'
+					
+				].join(''),
+				scope: {
+					link: '='
+				},
+				replace: true,
+				link: function( scope, elem ){
+					
+					scope.last = function(){
+						return $location.url().substr( 
+							$location.url().lastIndexOf('/') + 1
+						)
+					};
+					
+					scope.style = function( url ){
+						return {
+							selected: $location.url().lastIndexOf( url ) != -1
+						}
+					};
+					
+				}
 			}
 		}
 	])
@@ -178,10 +268,10 @@ function( angular, $ ){
 		}
 	])
 	
-	.directive( 'atOwner', [
+	.directive( 'atVersion', [
 		function(){
 			return {
-				template: '<div class="at-owner">v<span app-version></span> &copy; Adam Tavares <span at-year></span></div>',
+				template: '<div class="at-version">v<span app-version></span></div>',
 				replace: true
 			}
 		}

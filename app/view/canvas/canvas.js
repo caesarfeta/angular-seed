@@ -12,10 +12,12 @@ function( angular, cubeTest ){
 	.config([
 		'$routeProvider', 
 		function( $routeProvider ){
-			$routeProvider.when('/canvas', {
+			var std = {
 				template: '<div canvas-cube-test />',
 				controller: 'viewCanvasCtrl'
-			});
+			};
+			$routeProvider.when('/canvas', std );
+			$routeProvider.when('/canvas/:id', std );
 		}
 	])
 
@@ -34,4 +36,5 @@ function( angular, cubeTest ){
 			}
 		}
 	])
+	
 });

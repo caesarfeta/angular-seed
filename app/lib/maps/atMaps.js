@@ -42,7 +42,7 @@ function(
 				// default config
 				
 				var width = 400;
-				var height = 220;
+				var height = 260;
 
 				var projection = d3.geo.mercator()
 				.center([ 0, 0 ])

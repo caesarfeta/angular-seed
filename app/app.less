@@ -1,22 +1,14 @@
 /* app css stylesheet */
 
-.menu {
-  list-style: none;
-  border-bottom: 0.1em solid black;
-  margin-bottom: 0;
+@bg-color: #EEE;
+
+html {
+	background-color: @bg-color;
 }
 
-.menu > li {
-  display: inline;
-}
-
-.menu > li:before {
-  padding-right: 0.3em;
-}
-
-.menu > li:nth-child(1):before {
-  content: "";
-  padding: 0;
+.stick {
+	position: fixed;
+	top: 0;
 }
 
 .half {
@@ -48,4 +40,6 @@
 
 /* import */
 
+@import "bower_components/font-awesome/css/font-awesome.min.css";
 @import "lib/**/*";
+@import "view/**/*";

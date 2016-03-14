@@ -29,7 +29,8 @@ require.config({
 		d3: 'bower_components/d3/d3',
 		topojson: 'bower_components/topojson/topojson',
 		threejs: 'bower_components/threejs/build/three',
-		stats: 'bower_components/Physijs/examples/js/stats'
+		stats: 'bower_components/Physijs/examples/js/stats',
+		lodash: 'bower_components/lodash/dist/lodash'
 	},
 	shim: {
 		'angular' : {'exports' : 'angular'},
@@ -40,7 +41,8 @@ require.config({
 		},
 		'topojson': {'exports': 'topojson'},
 		'threejs': {'exports': 'THREE'},
-		'stats': {'exports': 'Stats'}
+		'stats': {'exports': 'Stats'},
+		'lodash': {'exports': 'lodash' }
 	},
 	priority: [
 		"angular"
