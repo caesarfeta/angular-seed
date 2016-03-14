@@ -16,6 +16,20 @@ module.exports = function( grunt ){
 			}
 		},
 		
+		// run karma tests
+		
+		karma: {
+			options: {
+				configFile: 'karma.conf.js'
+			},
+			unit: {
+				singleRun: true
+			},
+			continuous: {
+				background: true
+			}
+		},
+		
 		// run requirejs
 		
 		requirejs: {
@@ -47,6 +61,7 @@ module.exports = function( grunt ){
 			}
 		}
 	});
+    grunt.loadNpmTasks( 'grunt-karma');
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-requirejs' );
