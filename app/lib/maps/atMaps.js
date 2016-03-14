@@ -35,19 +35,22 @@ function(
 			replace: true,
 			template: '<div></div>',
 			scope: {
-				country: '@'
+				country: '@',
+				scale: '@'
 			},
 			link: function( scope, elem ){
 				
+				scope.scale = ( scope.scale ) ? scope.scale : 1;
+				
 				// default config
 				
-				var width = 400;
-				var height = 260;
+				var width = 400 * scope.scale;
+				var height = 260 * scope.scale;
 
 				var projection = d3.geo.mercator()
 				.center([ 0, 0 ])
-				.scale( 50 )
-				.translate([ 200, 150 ])
+				.scale( 50 * scope.scale )
+				.translate([ 200 * scope.scale, 150 * scope.scale ])
 				.rotate([ -10, 0 ]);
 				
 				// generate guid for d3
