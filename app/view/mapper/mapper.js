@@ -3,12 +3,20 @@
 define([ 
 'angular',
 'lodash',
+'jqueryUi',
 'angularRoute',
-'lib/maps/atMaps'
+'colorpicker.module',
+'lib/maps/atMaps',
+'lib/windowWrap/windowWrap'
 ],
 function( angular, _ ){
 	
-	angular.module( 'myApp.view.mapper', [ 'ngRoute', 'atMaps' ])
+	angular.module( 'myApp.view.mapper', [ 
+		'ngRoute', 
+		'atMaps',
+		'colorpicker.module',
+		'windowWrap' 
+	])
 
 	.config([
 		'$routeProvider', 
@@ -48,10 +56,12 @@ function( angular, _ ){
 		
 		'highlite',
 		'mouseHelper',
+		'notateHub',
 		
 		function( 
 			highlite,
-			mouseHelper ){
+			mouseHelper,
+			notateHub ){
 			var notator = function( elem ){
 				var self = this;
 				self.elem = elem;
@@ -76,7 +86,8 @@ function( angular, _ ){
 						x: c1.x / width,
 						y: c1.y / height,
 						width: diff.x / width,
-						height: diff.y / height
+						height: diff.y / height,
+						color: notateHub.color.hex
 					});
 				});	
 			};
@@ -122,29 +133,89 @@ function( angular, _ ){
 				replace: true,
 				link: function( scope, elem ){
 					
+					elem.addClass( 'lite' );
+					
+					function parentWidth(){
+						return scope.parentElem.width()
+					}
+					
+					function parentHeight(){
+						return scope.parentElem.height()
+					}
+					
 					// update
 					
 					scope.highlite.onUpdate( function(){
-						var width = scope.parentElem.width();
-						var height = scope.parentElem.height();
+						var width = parentWidth();
+						var height = parentHeight();
 						$( elem ).css({
-							position: 'relative',
-							display: 'inline-block',
 							left: scope.highlite.x * width,
 							top: scope.highlite.y * height,
 							width: scope.highlite.width * width,
 							height: scope.highlite.height * height,
-							'background-color': 'yellow'
+							'background-color': ( scope.highlite.color ) ? scope.highlite.color : 'yellow'
 						});
 					});
+					
+					elem.bind( 'touchstart mousedown', 
+						function( e ){ 
+							e.stopPropagation() 
+						}
+					);
+					
+					$( elem ).draggable({
+						stack: '.lite',
+						stop: function(){
+							scope.highlite.update({
+								x: $( elem ).css('left') / parentWidth(),
+								y: $( elem ).css('top') /parentHeight()
+							})
+						}
+					})
 				}
+			}
+		}
+	])
+	
+	.directive( 'colorSwatch',[
+		function(){
+			return {
+				scope: {
+					colorSwatch: '='
+				},
+				template: '<span ng-style="style()"></span>',
+				link: function( scope, elem ){
+					console.log( scope.colorSwatch );
+					scope.style = function(){
+						return {
+							display: 'inline-block',
+							width: '25px',
+							height: '25px',
+							'background-color': scope.colorSwatch
+						}
+					}
+				}
+			}
+		}
+	])
+	
+	.service( 'notateHub', [
+		function(){
+			var self = this;
+			self.color = {
+				hex: '#FFFF00' 
 			}
 		}
 	])
 	
 	.directive( 'elemNotate', [
 		'notator',
-		function( notator ){
+		'windowHub',
+		'notateHub',
+		function( 
+			notator,
+			windowHub,
+			notateHub ){
 			
 			/*
 			
@@ -163,6 +234,10 @@ function( angular, _ ){
 				templateUrl: 'view/mapper/elem-notate.html',
 				link: function( scope, elem ){
 					scope.notator = new notator( elem );
+					scope.color = notateHub.color;
+					scope.window = function(){
+						return windowHub.get( 'lite-color' );
+					}
 				}
 			}
 		}

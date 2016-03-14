@@ -47,6 +47,9 @@ function(
 				}
 				self.items[ id ] = item;
 			}
+			self.get = function( id ){
+				return self.items[ id ]
+			}
 		}
 	])
 	

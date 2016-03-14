@@ -22,7 +22,8 @@
     "font-awesome": "~4.5.0",
     "angular-bootstrap": "^1.2.4",
     "jquery-ui": "^1.11.4",
-    "paperjs": "*"
+    "paperjs": "*",
+    "angular-bootstrap-colorpicker": "^3.0.24"
   },
   "devDependencies": {}
 }

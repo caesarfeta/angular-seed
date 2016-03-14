@@ -13,4 +13,29 @@
 	<!-- what you're notating -->
 	
 	<ng-transclude></ng-transclude>
+	
+	<!-- controls -->
+	
+	<div class="controls">
+			    
+		<span ng-if="color" 
+			  ng-click="window().toggle()"
+			  color-swatch="color.hex">
+		</span>
+				  
+		<button>save</button>
+	</div>
+	
+	<div window-wrap="{ 
+		id:'lite-color', 
+		width: '200px'
+	}">
+		<div class="clearfix">
+			<input colorpicker 
+		   		   colorpicker-position="bottom"
+				   colorpicker-is-open="true" 
+				   ng-model="color.hex" />
+		</div>
+	</div>
+	
 </div>

@@ -1,4 +1,6 @@
 /* app css stylesheet */
+@import "bower_components/angular-bootstrap/ui-bootstrap-csp.css";
+@import "bower_components/angular-bootstrap-colorpicker/css/colorpicker.min.css";
 @import "bower_components/font-awesome/css/font-awesome.min.css";
 html {
   background-color: #EEE;
@@ -188,11 +190,17 @@ input.dbpedia-search-input {
 }
 .elem-notate .lites {
   position: absolute;
-  width: 100%;
-  height: 100%;
+}
+.elem-notate .lites .lite {
+  position: relative;
+  opacity: 0.5;
+}
+.elem-notate .lites .lite:hover {
+  opacity: 1;
 }
 .specierch .controls {
   padding: 0 20px;
   width: 100%;
   background-color: #EEE;
 }
+/* third-party css */
