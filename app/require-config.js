@@ -21,7 +21,8 @@ if( window.__karma__ ){
 
 require.config({
 	paths: {
-		jquery: 'bower_components/jQuery/dist/jquery',
+		jquery: 'bower_components/jquery/dist/jquery',
+		jqueryUi: 'bower_components/jquery-ui/jquery-ui.min',
 		angular: 'bower_components/angular/angular',
 		angularRoute: 'bower_components/angular-route/angular-route',
 		angularMocks: 'bower_components/angular-mocks/angular-mocks',
@@ -42,7 +43,10 @@ require.config({
 		'topojson': {'exports': 'topojson'},
 		'threejs': {'exports': 'THREE'},
 		'stats': {'exports': 'Stats'},
-		'lodash': {'exports': 'lodash' }
+		'lodash': {'exports': 'lodash' },
+		'jqueryUi': {
+			deps: ['jquery']
+		}
 	},
 	priority: [
 		"angular"

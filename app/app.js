@@ -7,7 +7,8 @@ define([
 'view/view2/view2',
 'view/canvas/canvas',
 'lib/version/version',
-'lib/common/atCommon'
+'lib/common/atCommon',
+'lib/windowWrap/windowWrap'
 ], 
 function( angular ){
 
@@ -19,7 +20,8 @@ function( angular ){
 		'myApp.view2',
 		'myApp.view.canvas',
 		'myApp.version',
-		'atCommon'
+		'atCommon',
+		'windowWrap'
 	])
 	
 	.config([
