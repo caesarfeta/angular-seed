@@ -15,7 +15,7 @@ function(
 		'windowHub',
 		function( windowHub ){
 			var windowItem = function( id ){
-				this.isOn = true;
+				this.isOn = false;
 				windowHub.register( id, this );
 			};
 			windowItem.prototype.toggle = function(){ 
@@ -36,7 +36,15 @@ function(
 		function(){
 			var self = this;
 			self.items = {};
+			self.error = {
+				exists: function( id ){ 
+					return 'Window already exists with id='+id 
+				}
+			}
 			self.register = function( id, item ){
+				if ( id in self.items ){
+					throw self.error.exists( id )
+				}
 				self.items[ id ] = item;
 			}
 		}
