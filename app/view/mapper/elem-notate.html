@@ -1,7 +1,16 @@
 <div class="elem-notate">
-	<div ng-if="notator.previewLite" 
-		 highlite-area="notator.previewLite"
-		 parent-elem="notator.elem">
+	
+	<div class="lites">
+		
+		<!-- preview lite -->
+	
+		<div ng-if="notator.previewLite" 
+			 highlite-area="notator.previewLite"
+			 parent-elem="notator.elem">
+		 </div>
 	</div>
+	
+	<!-- what you're notating -->
+	
 	<ng-transclude></ng-transclude>
 </div>

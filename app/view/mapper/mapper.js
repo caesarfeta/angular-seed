@@ -129,7 +129,7 @@ function( angular, _ ){
 						var height = scope.parentElem.height();
 						$( elem ).css({
 							position: 'relative',
-							float: 'left',
+							display: 'inline-block',
 							left: scope.highliteArea.x * width,
 							top: scope.highliteArea.y * height,
 							width: scope.highliteArea.width * width,
