@@ -4,6 +4,7 @@ define([
 'angular',
 'angularRoute',
 'view/specierch/specierch',
+'view/mapper/mapper',
 'view/view2/view2',
 'view/canvas/canvas',
 'lib/version/version',
@@ -17,8 +18,9 @@ function( angular ){
 	angular.module( 'myApp', [
 		'ngRoute',
 		'myApp.view.specierch',
-		'myApp.view2',
 		'myApp.view.canvas',
+		'myApp.view.mapper',
+		'myApp.view2',
 		'myApp.version',
 		'atCommon',
 		'windowWrap'
