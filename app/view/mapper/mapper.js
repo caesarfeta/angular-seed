@@ -7,7 +7,8 @@ define([
 'angularRoute',
 'colorpicker.module',
 'lib/maps/atMaps',
-'lib/windowWrap/windowWrap'
+'lib/windowWrap/windowWrap',
+'lib/money/atMoney'
 ],
 function( angular, _ ){
 	
@@ -15,7 +16,8 @@ function( angular, _ ){
 		'ngRoute', 
 		'atMaps',
 		'colorpicker.module',
-		'windowWrap' 
+		'windowWrap',
+		'atMoney'
 	])
 
 	.config([

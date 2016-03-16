@@ -172,6 +172,14 @@ input.dbpedia-search-input {
 .at-world-map path.red {
   fill: red;
 }
+.bar-comp div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}
 .window-wrap {
   width: 300px;
 }

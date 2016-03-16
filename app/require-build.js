@@ -5,6 +5,8 @@ require.config({
 		angular: 'bower_components/angular/angular',
 		angularRoute: 'bower_components/angular-route/angular-route',
 		angularMocks: 'bower_components/angular-mocks/angular-mocks',
+		bootstrap: 'bower_components/angular-bootstrap/ui-bootstrap.min',
+		'colorpicker.module': 'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min',
 		text: 'bower_components/requirejs-text/text',
 		d3: 'bower_components/d3/d3',
 		topojson: 'bower_components/topojson/topojson',
@@ -18,6 +20,12 @@ require.config({
 		'angularMocks': {
 			deps:['angular'],
 			'exports':'angular.mock'
+		},
+		'bootstrap': {
+			deps:['angular']
+		},
+		'colorpicker.module': {
+			deps:['bootstrap']
 		},
 		'topojson': {'exports': 'topojson'},
 		'threejs': {'exports': 'THREE'},
