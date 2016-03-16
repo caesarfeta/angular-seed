@@ -11,17 +11,106 @@ function(
 	d3 ){
 	
 	angular.module( 'atMoney',[])
+	.factory( 'pieChart',[
+		
+		/*
+			var pieChart = angular.element( document.querySelector( '[ng-view]' )).injector().get( 'pieChart' );
+			var pie = new pieChart({ elem: '.bar', data:[
+				{ label: 'wow', value: 1 }, 
+				{ label: 'dupe', value: 23 },
+				{ label: 'how', value: 45 },
+				{ label: 'defect', value: 21 },
+				{ label: 'blow', value: 12 },
+				{ label: 'gargh', value: 50  }
+			]});
+			pie.build();
+		*/
+		
+		function(){
+			var pieChart = function( config ){
+				var self = this;
+				self.elem = config.elem;
+				self.data = config.data;
+				$( self.elem ).addClass( 'pie-chart' );
+			}
+			
+			pieChart.prototype.build = function(){
+				var self = this;
+				$( self.elem ).empty();
+				
+				var width = 960,
+				    height = 500,
+				    radius = Math.min( width, height ) / 2;
+            	
+				var color = d3.scale.ordinal()
+				    .range([
+						"#98abc5", 
+						"#8a89a6", 
+						"#7b6888", 
+						"#6b486b", 
+						"#a05d56", 
+						"#d0743c", 
+						"#ff8c00"
+					]);
+            	
+				var arc = d3.svg.arc()
+				    .outerRadius( radius - 10 )
+				    .innerRadius( 0 );
+            	
+				var labelArc = d3.svg.arc()
+				    .outerRadius( radius - 40 )
+				    .innerRadius( radius - 40 );
+            	
+				var pie = d3.layout.pie()
+				    .sort( null )
+				    .value( function( d ){ 
+						return d.value
+					});
+            	
+				var svg = d3.select( self.elem )
+					.append( "svg" )
+					.attr( "width", width )
+					.attr( "height", height )
+					.append( "g" )
+					.attr( "transform", "translate(" + width / 2 + "," + height / 2 + ")" );
+            	
+				var g = svg.selectAll(".arc")
+					.data( pie( self.data ))
+				    .enter()
+					.append( "g" )
+				    .attr( "class", "arc" );
+            	
+				g.append( "path" )
+				.attr( "d", arc )
+				.style( "fill", function( d, i ){ 
+					return color( i ) 
+				});
+            	
+				g.append( "text" )
+				.attr( "transform", function( d ){ 
+					return "translate(" + labelArc.centroid( d ) + ")" 
+				})
+				.attr( "dy", ".35em" )
+				.text( function( d ){ 
+					return d.data.label 
+				});
+			}
+			
+			return pieChart
+		}
+	])
+	
 	.factory( 'barComp',[
 		
 		/*
 			var barComp = angular.element( document.querySelector( '[ng-view]' )).injector().get( 'barComp' );
 			var bar = new barComp({ elem: '.bar', data:[
-				{ label: 'wow', amount: 1 }, 
-				{ label: 'dupe', amount: 23 },
-				{ label: 'how', amount: 45 },
-				{ label: 'defect', amount: 21 },
-				{ label: 'blow', amount: 12 },
-				{ label: 'gargh', amount: 50  }
+				{ label: 'wow', value: 1 }, 
+				{ label: 'dupe', value: 23 },
+				{ label: 'how', value: 45 },
+				{ label: 'defect', value: 21 },
+				{ label: 'blow', value: 12 },
+				{ label: 'gargh', value: 50  }
 			]});
 			bar.build();
 		*/
@@ -34,17 +123,17 @@ function(
 				$( self.elem ).addClass( 'bar-comp' );
 			};
 			
-			barComp.prototype.amounts = function(){
+			barComp.prototype.values = function(){
 				var self = this;
 				return self.data.map( function( item ){
-					return item.amount
+					return item.value
 				})
 			};
 			
 			barComp.prototype.buildRange = function(){
 				var self = this;
 				self.translate = d3.scale.linear()
-			    .domain([ 0, d3.max( self.amounts() )])
+			    .domain([ 0, d3.max( self.values() )])
 				.range([ 0, $( self.elem ).innerWidth() ]);
 			};
 			
@@ -57,10 +146,10 @@ function(
 				.append( "div" )
 				.insert("span")
 				.classed({"bar":true})
-			    .style( "width", function( d ){ return self.translate( d.amount ) + "px" })
+			    .style( "width", function( d ){ return self.translate( d.value ) + "px" })
 				.append("span")
 				.classed({"name":true})
-				.text( function( d ){ return d.label +':'+ d.amount })
+				.text( function( d ){ return d.label +':'+ d.value })
 			}
 			
 			barComp.prototype.build = function(){
@@ -143,11 +232,11 @@ function(
 			self.me = new atMoney({ name: 'Adam', salary: 90000, age: 32 });
 			self.budget = new atBudget();
 			var streams = [
-				new atStream({ label: 'rent', amount: -2000 }),
-				new atStream({ label: 'gas', amount: -100 }),
-				new atStream({ label: 'elec', amount: -25 }),
-				new atStream({ label: 'internet', amount: -80 }),
-				new atStream({ label: 'food', amount: -30, period: 'day' })
+				new atStream({ label: 'rent', value: -2000 }),
+				new atStream({ label: 'gas', value: -100 }),
+				new atStream({ label: 'elec', value: -25 }),
+				new atStream({ label: 'internet', value: -80 }),
+				new atStream({ label: 'food', value: -30, period: 'day' })
 			]
 			_.each( streams, 
 				function( stream ){ 
@@ -207,23 +296,23 @@ function(
 			var atStream = function( config ){
 				var self = this;
 				self.label = config.label;
-				self.amount = config.amount;
+				self.value = config.value;
 				
 				// normalize
 				
 				if ( !('period' in config )){ return }
 				switch( config.period ){
 					case 'day':
-						self.amount = self.amount * 31
+						self.value = self.value * 31
 						break;
 					case 'year':
-						self.amount = self.amount / 12
+						self.value = self.value / 12
 						break;
 				}
 			}
-			atStream.prototype.isExpense = function(){ return this.amount < 0 }
-			atStream.prototype.isIncome = function(){ return this.amount > 0 }
-			atStream.prototype.perYear = function(){ return this.amount * 12 }
+			atStream.prototype.isExpense = function(){ return this.value < 0 }
+			atStream.prototype.isIncome = function(){ return this.value > 0 }
+			atStream.prototype.perYear = function(){ return this.value * 12 }
 			return atStream
 		}
 	])

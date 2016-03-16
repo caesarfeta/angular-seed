@@ -182,6 +182,13 @@ input.dbpedia-search-input {
   margin-bottom: 1px;
   height: 10px;
 }
+.pie-chart .arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+.pie-chart .arc path {
+  stroke: #fff;
+}
 .window-wrap {
   width: 300px;
 }
