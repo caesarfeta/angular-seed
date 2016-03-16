@@ -23,7 +23,8 @@
     "angular-bootstrap": "^1.2.4",
     "jquery-ui": "^1.11.4",
     "paperjs": "*",
-    "angular-bootstrap-colorpicker": "^3.0.24"
+    "angular-bootstrap-colorpicker": "^3.0.24",
+    "angular-spectrum-colorpicker": "^1.4.4"
   },
   "devDependencies": {}
 }

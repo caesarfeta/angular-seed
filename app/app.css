@@ -172,13 +172,15 @@ input.dbpedia-search-input {
 .at-world-map path.red {
   fill: red;
 }
-.bar-comp div {
+.bar-comp {
   font: 10px sans-serif;
+}
+.bar-comp .bar {
   background-color: steelblue;
-  text-align: right;
+  display: inline-block;
   padding: 3px;
-  margin: 1px;
-  color: white;
+  margin-bottom: 1px;
+  height: 10px;
 }
 .window-wrap {
   width: 300px;

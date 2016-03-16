@@ -11,11 +11,19 @@ function(
 	d3 ){
 	
 	angular.module( 'atMoney',[])
-	
 	.factory( 'barComp',[
+		
 		/*
-			barComp = angular.element( document.querySelector( '[ng-view]' )).injector().get( 'barComp' );
-			new barComp({ elem: '.app', data:[ 1,23,45,21,12 ] });
+			var barComp = angular.element( document.querySelector( '[ng-view]' )).injector().get( 'barComp' );
+			var bar = new barComp({ elem: '.bar', data:[
+				{ label: 'wow', amount: 1 }, 
+				{ label: 'dupe', amount: 23 },
+				{ label: 'how', amount: 45 },
+				{ label: 'defect', amount: 21 },
+				{ label: 'blow', amount: 12 },
+				{ label: 'gargh', amount: 50  }
+			]});
+			bar.build();
 		*/
 		
 		function(){
@@ -23,33 +31,41 @@ function(
 				var self = this;
 				self.elem = config.elem;
 				self.data = config.data;
-				$( config.elem ).addClass( 'bar-comp' );
+				$( self.elem ).addClass( 'bar-comp' );
 			};
 			
-			barComp.prototype.minMax = function(){};
+			barComp.prototype.amounts = function(){
+				var self = this;
+				return self.data.map( function( item ){
+					return item.amount
+				})
+			};
 			
 			barComp.prototype.buildRange = function(){
 				var self = this;
 				self.translate = d3.scale.linear()
-			    .domain([ 0, d3.max( self.data ) ])
-				.range([ 0, 420 ]);
+			    .domain([ 0, d3.max( self.amounts() )])
+				.range([ 0, $( self.elem ).innerWidth() ]);
 			};
 			
 			barComp.prototype.plot = function(){
 				var self = this;
-				
-				// $( '.app' ).remove();
-				
 				d3.select( self.elem )
 				.selectAll( "div" )
 				.data( self.data )
-				.enter().append( "div" )
-			    .style( "width", function( d ){ return self.translate( d ) + "px" })
-			    .text( function( d ){ return d });
+				.enter()
+				.append( "div" )
+				.insert("span")
+				.classed({"bar":true})
+			    .style( "width", function( d ){ return self.translate( d.amount ) + "px" })
+				.append("span")
+				.classed({"name":true})
+				.text( function( d ){ return d.label +':'+ d.amount })
 			}
 			
 			barComp.prototype.build = function(){
 				var self = this;
+				$( self.elem ).empty();
 				self.buildRange();
 				self.plot();
 			};

@@ -187,7 +187,6 @@ function( angular, _ ){
 				},
 				template: '<span ng-style="style()"></span>',
 				link: function( scope, elem ){
-					console.log( scope.colorSwatch );
 					scope.style = function(){
 						return {
 							display: 'inline-block',
