@@ -15,7 +15,10 @@ require.config({
 		lodash: 'bower_components/lodash/dist/lodash'
 	},
 	shim: {
-		'angular' : {'exports' : 'angular'},
+		'angular' : {
+			deps:['jquery'],
+			'exports' : 'angular'
+		},
 		'angularRoute': ['angular'],
 		'angularMocks': {
 			deps:['angular'],

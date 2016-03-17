@@ -26,17 +26,13 @@ function( angular, cubeTest ){
 	.directive('canvasCubeTest', [
 		function(){
 			return {
-				restrict: 'EA',
 				replace: true,
-				link: [ 
-					'$scope', 
-					'$element', 
-					function( scope, elem ){
-						var viz = new cubeTest({ 
-							elem: elem.get(0)
-						});
-					}
-				]
+				link: function( scope, elem ){
+					console.log( scope, elem );
+					var viz = new cubeTest({ 
+						elem: elem.get(0)
+					});
+				}
 			}
 		}
 	])
