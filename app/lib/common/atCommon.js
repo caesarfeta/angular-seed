@@ -34,10 +34,13 @@ function( angular, $ ){
 		'$window',
 		function( $window ){
 			return {
-				link: function( scope, elem ){
-					
+				link: [ 
+				'$scope', 
+				'$element', 
+				function( scope, elem ){
+				
 					// on scroll
-					
+				
 					var top = elem.offset().top
 					angular.element( $window ).bind( "scroll", function() {
 						if ( this.pageYOffset >= top ){
@@ -46,9 +49,9 @@ function( angular, $ ){
 						else {
 							elem.removeClass('stick');
 						}
-						
+					
 					})
-				}
+				}]
 			}
 		}
 	])
@@ -188,17 +191,20 @@ function( angular, $ ){
 	
 	// highlight text
 	
-	.filter( 'highlight', function( $sce ) {
-	  return function( text, phrase ){
-	    if ( phrase && text ){
-	    	text = text.replace(
-						new RegExp( '('+phrase+')', 'gi' ),
-					'<span class="highlight">$1</span>'
-				)
-	    } 
-	    return $sce.trustAsHtml(text)
-	  }
-	})
+	.filter( 'highlight',[ 
+		'$sce', 
+		function( $sce ) {
+			return function( text, phrase ){
+				if ( phrase && text ){
+					text = text.replace(
+						new RegExp( '(' + phrase + ')', 'gi' ),
+						'<span class="highlight">$1</span>'
+					)
+				} 
+				return $sce.trustAsHtml(text)
+			}
+		}
+	])
 	
 	
 	// id generator

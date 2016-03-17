@@ -36,15 +36,4 @@ require.config({
 		}
 	}
 });
-
-require([
-'angular',
-'app'
-], 
-function( angular, app ){
-	angular.element().ready( 
-		function(){
-			angular.bootstrap( document, [ 'myApp' ]);
-		}
-	);
-});
+require(['app']);

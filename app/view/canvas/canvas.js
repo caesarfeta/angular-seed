@@ -28,11 +28,15 @@ function( angular, cubeTest ){
 			return {
 				restrict: 'EA',
 				replace: true,
-				link: function( scope, elem ){
-					var viz = new cubeTest({ 
-						elem: elem.get(0)
-					});
-				}
+				link: [ 
+					'$scope', 
+					'$element', 
+					function( scope, elem ){
+						var viz = new cubeTest({ 
+							elem: elem.get(0)
+						});
+					}
+				]
 			}
 		}
 	])

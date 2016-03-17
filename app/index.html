@@ -3,7 +3,8 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Playtime</title>
+	
+	<title>Play On!</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
@@ -13,8 +14,15 @@
 </head>
 <body>
 	
-	<script data-main="require-config" src="bower_components/requirejs/require.js"></script>
+	<!-- debugging & development 
 	
+	<script data-main="require-config" src="bower_components/requirejs/require.js"></script>
+	-->
+	
+	<!-- built app 	-->
+	
+	<script data-main="build/app.min.js" src="bower_components/requirejs/require.js"></script>
+
 	<at-menu link="{
 		specierch: 'specierch',
 		canvas: 'canvas',
@@ -31,7 +39,7 @@
 		function svc( id ){
 			return angular.element( document.querySelector( '[ng-view]' )).injector().get( id );
 		}
-		
 	</script>
+
 </body>
 </html>

@@ -9,7 +9,8 @@ define([
 'view/canvas/canvas',
 'lib/version/version',
 'lib/common/atCommon',
-'lib/windowWrap/windowWrap'
+'lib/windowWrap/windowWrap',
+'threejs'
 ], 
 function( angular ){
 
@@ -34,4 +35,13 @@ function( angular ){
 			});
 		}
 	]);
+	
+	angular.element().ready( 
+		function(){
+			
+			// bootstrap the app manually
+			
+			angular.bootstrap( document, ['myApp']);
+		}
+	);
 })

@@ -63,20 +63,4 @@ require.config({
 	callback: window.__karma__ ? window.__karma__.start : null,
 	baseUrl: window.__karma__ ? '/base/app' : '',
 });
-
-require([
-'angular',
-'app',
-'threejs'
-], 
-function( angular, app ){
-	var $html = angular.element( document.getElementsByTagName('html')[0] );
-	angular.element().ready( 
-		function(){
-			
-			// bootstrap the app manually
-			
-			angular.bootstrap( document, ['myApp']);
-		}
-	);
-});
+require(['app']);

@@ -38,7 +38,7 @@ module.exports = function( grunt ){
 					baseUrl: "./app",
 					mainConfigFile: './app/require-build.js',
 					name: "require-build",
-					out: "./app/app.min.js",
+					out: "./app/build/app.min.js",
 					preserveLicenseComments: false,
 					paths: {
 					    requireLib: "bower_components/requirejs/require"
