@@ -28,7 +28,6 @@ function( angular, cubeTest ){
 			return {
 				replace: true,
 				link: function( scope, elem ){
-					console.log( scope, elem );
 					var viz = new cubeTest({ 
 						elem: elem.get(0)
 					});

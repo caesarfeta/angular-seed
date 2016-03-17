@@ -232,7 +232,7 @@ function( angular, $ ){
 				template: [
 					
 					 '<ul class="menu">',
-							'<li ng-repeat="( name, url ) in link">',
+							'<li ng-repeat="( name, url ) in atMenu">',
 								'<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
 							'</li>',
 							'<li><i class="fa fa-{{ last() }}"></i></li>',
@@ -240,7 +240,7 @@ function( angular, $ ){
 					
 				].join(''),
 				scope: {
-					link: '='
+					atMenu: '='
 				},
 				replace: true,
 				link: function( scope, elem ){
