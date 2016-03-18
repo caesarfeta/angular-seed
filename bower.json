@@ -26,7 +26,7 @@
     "angular-bootstrap-colorpicker": "^3.0.24",
     "angular-spectrum-colorpicker": "^1.4.4",
     "satellizer": "^0.14.0",
-    "color-thief": "https://github.com/caesarfeta/color-thief.git#77b9290829e00c34965627776e0f8dfc6b7956fb"
+    "color-thief": "https://github.com/caesarfeta/color-thief.git#cdc1956a73ad48fd3f60e5f646b6f1e38b24128c"
   },
   "devDependencies": {}
 }

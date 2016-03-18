@@ -27,6 +27,28 @@ function(
 			}
 		}
 	])
+	
+	.directive( 'colorSwatch',[
+		function(){
+			return {
+				scope: {
+					colorSwatch: '='
+				},
+				template: '<span ng-style="style()"></span>',
+				link: function( scope, elem ){
+					console.log( scope );
+					scope.style = function(){
+						return {
+							display: 'inline-block',
+							width: '25px',
+							height: '25px',
+							'background-color': scope.colorSwatch
+						}
+					}
+				}
+			}
+		}
+	])
 
 
 	// build a strip of color swatches
@@ -35,22 +57,27 @@ function(
 		
 		'$http',
 		'colorTo',
+		'$timeout',
 		
 		function( 
 			$http,
-			colorTo ){
+			colorTo,
+			$timeout ){
+			
 			return {
 				scope: {
 					swatchStrip: '@'
 				},
+				template: '<span ng-if="palette" ng-repeat="color in palette" color-swatch="color"></span>',
 				link: function( scope, elem ){
 					var c = colorThief();
 					var thief = new c.ColorThief();
+					scope.palette = null;
 					$( scope.swatchStrip ).load( function(){
-						scope.palette = thief.getPalette( this, 20, 5 ).map( function( color ){
+						scope.palette = thief.getPalette( this, 10, 5 ).map( function( color ){
 							return colorTo.hex( color );
 						});
-						console.log( scope.palette );
+						$timeout( function(){} );
 					})
 				}
 			}

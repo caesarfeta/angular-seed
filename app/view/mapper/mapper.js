@@ -179,27 +179,6 @@ function( angular, _ ){
 		}
 	])
 	
-	.directive( 'colorSwatch',[
-		function(){
-			return {
-				scope: {
-					colorSwatch: '='
-				},
-				template: '<span ng-style="style()"></span>',
-				link: function( scope, elem ){
-					scope.style = function(){
-						return {
-							display: 'inline-block',
-							width: '25px',
-							height: '25px',
-							'background-color': scope.colorSwatch
-						}
-					}
-				}
-			}
-		}
-	])
-	
 	.service( 'notateHub', [
 		function(){
 			var self = this;
