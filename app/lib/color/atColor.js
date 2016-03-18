@@ -2,11 +2,12 @@
 
 define([
 'angular',
-'jquery'
+'jquery',
+'color-thief'
 ], 
-function( angular, $ ){
+function( angular, $, ColorThief ){
 	
-	angular.module('atColor',[])
+	angular.module( 'atColor', [] )
 	
 	// build a strip of color swatches
 	
@@ -16,14 +17,9 @@ function( angular, $ ){
 				swatchStrip: '='
 			},
 			link: function( scope, elem ){
-				
+				var colorTheif = new ColorThief();
+				console.log( colorTheif );
 			}
 		}
 	})
-	
-	// extract significant colors
-	
-	.service( 'colorExtract', function( url ){
-		
-	});
 });

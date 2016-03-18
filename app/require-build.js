@@ -12,12 +12,16 @@ require.config({
 		topojson: 'bower_components/topojson/topojson',
 		threejs: 'bower_components/threejs/build/three',
 		stats: 'bower_components/Physijs/examples/js/stats',
-		lodash: 'bower_components/lodash/dist/lodash'
+		lodash: 'bower_components/lodash/dist/lodash',
+		'color-thief': 'bower_components/color-thief/src/color-thief'
 	},
 	shim: {
-		'angular' : {
+		'angular': {
 			deps:['jquery'],
-			'exports' : 'angular'
+			'exports': 'angular'
+		},
+		'color-thief': {
+			'exports': 'ColorThief'
 		},
 		'angularRoute': ['angular'],
 		'angularMocks': {

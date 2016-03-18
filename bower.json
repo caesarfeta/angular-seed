@@ -25,7 +25,8 @@
     "paperjs": "*",
     "angular-bootstrap-colorpicker": "^3.0.24",
     "angular-spectrum-colorpicker": "^1.4.4",
-    "satellizer": "^0.14.0"
+    "satellizer": "^0.14.0",
+    "color-thief": "https://github.com/caesarfeta/color-thief.git#a0a32e65b2fd0e60313a19a6ffc89144fa633f3f"
   },
   "devDependencies": {}
 }
