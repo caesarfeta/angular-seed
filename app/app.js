@@ -7,10 +7,8 @@ define([
 'view/mapper/mapper',
 'view/view2/view2',
 'view/canvas/canvas',
+'view/color-kit/color-kit',
 'lib/version/version',
-'lib/common/atCommon',
-'lib/windowWrap/windowWrap',
-'threejs'
 ], 
 function( angular ){
 
@@ -21,10 +19,9 @@ function( angular ){
 		'myApp.view.specierch',
 		'myApp.view.canvas',
 		'myApp.view.mapper',
+		'myApp.view.colorKit',
 		'myApp.view2',
 		'myApp.version',
-		'atCommon',
-		'windowWrap'
 	])
 	
 	.config([

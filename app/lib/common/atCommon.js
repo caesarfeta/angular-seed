@@ -231,12 +231,12 @@ function( angular, $ ){
 			return {
 				template: [
 					
-					 '<ul class="menu">',
-							'<li ng-repeat="( name, url ) in atMenu">',
-								'<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
-							'</li>',
-							'<li><i class="fa fa-{{ last() }}"></i></li>',
-						'</ul>'
+					'<ul class="menu">',
+						'<li ng-repeat="( name, url ) in atMenu">',
+							'<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
+						'</li>',
+						'<li><i class="fa fa-{{ last() }}"></i></li>',
+					'</ul>'
 					
 				].join(''),
 				scope: {
