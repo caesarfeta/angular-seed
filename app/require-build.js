@@ -21,7 +21,7 @@ require.config({
 			'exports': 'angular'
 		},
 		'color-thief': {
-			'exports': 'ColorThief'
+			'exports': 'ColorLib'
 		},
 		'angularRoute': ['angular'],
 		'angularMocks': {
