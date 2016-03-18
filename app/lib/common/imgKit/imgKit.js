@@ -13,11 +13,15 @@ function( angular, $ ){
   .directive( 'imgKit', [ 
       '$location', 
       function( $location ){ return {
+		  scope: {
+			  'imgKit': '@'
+		  },
           template: [
             
             '<div ng-click="click()" class="img-kit">',
               '<span ng-show="isOn" class="launcher">',
-                '<i ng-repeat="( key, url ) in toCanvas" ng-click="launch( key )" class="fa fa-{{ key }}"></i>',
+                '<i ng-repeat="( key, url ) in toCanvas" ng-click="launchCanvas( key )" class="fa fa-{{ key }}"></i>',
+                '<i ng-click="launchColorKit( imgKit )" class="fa fa-paint-brush"></i>',
               '</span>',
               '<ng-transclude></ng-transclude>',
             '</div>'
@@ -31,12 +35,16 @@ function( angular, $ ){
             scope.click = function(){
               scope.isOn = !scope.isOn;
             };
+			
+			scope.launchColorKit = function( url ){
+				$location.path( '/color-kit/go' ).search( 'img', url);
+			}
           
             scope.toCanvas = {
               'bomb': 'bomb'
             };
           
-            scope.launch = function( key ){
+            scope.launchCanvas = function( key ){
               $location.path( '/canvas/'+scope.toCanvas[ key ] );
             };
           }

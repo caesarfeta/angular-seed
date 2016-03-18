@@ -23,10 +23,15 @@ function( angular, _ ){
 				controller: 'colorKitCtrl'
 			};
 			$routeProvider.when('/color-kit', std );
-			$routeProvider.when('/color-kit/:id', std );
+			$routeProvider.when('/color-kit/:go*', std );
 		}
 	])
 
-	.controller( 'colorKitCtrl', [ function(){} ])
-	
+	.controller( 'colorKitCtrl', [ 
+		'$scope',
+		'$route',
+		function( $scope, $route ){
+			$scope.img = $route.current.params.img;
+		} 
+	])
 });

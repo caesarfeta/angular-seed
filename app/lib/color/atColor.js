@@ -11,15 +11,24 @@ function( angular, $, ColorThief ){
 	
 	// build a strip of color swatches
 	
-	.directive( 'swatchStrip', function(){
-		return {
-			scope: {
-				swatchStrip: '='
-			},
-			link: function( scope, elem ){
-				var colorTheif = new ColorThief();
-				console.log( colorTheif );
+	.directive( 'swatchStrip',[
+		'$http',
+		function( $http ){
+			return {
+				scope: {
+					swatchStrip: '@'
+				},
+				link: function( scope, elem ){
+					
+					var colorThief = new ColorThief();
+					$http.get( scope.swatchStrip ).then(
+						function( data ){
+							console.log( data )
+						}
+					);
+					
+				}
 			}
 		}
-	})
+	])
 });
