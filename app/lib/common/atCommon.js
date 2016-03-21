@@ -30,15 +30,6 @@ function( angular, $ ){
 		}
 	})
 	
-	.directive('proxySrc', function(){
-		return {
-			scope: {
-				proxySrc: '='
-			},
-			template: '<img ng-src="http://localhost:5000/{{ proxySrc }}"/>'
-		}
-	})
-	
 	.directive( 'scrollStick', [
 		'$window',
 		function( $window ){

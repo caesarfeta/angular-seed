@@ -85,22 +85,24 @@ function(
 					// build the palette once the image is loaded
 					
 					scope.palette = null;
-					$( scope.swatchStrip ).load( 
-						function(){
+					var image = new Image();
+					image.crossOrigin = "anonymous";
+					image.onload = function(){
 							
-							try { scope.palette = thief.getPalette( this, 10, 5 ) }
-							catch( e ){ 
-								scope.error = 'error retrieving palette';
-								refresh();
-								return
-							}
-							
-							scope.palette.map( function( color ){
-								return colorTo.hex( color );
-							});
+						try { scope.palette = thief.getPalette( this, 10, 5 ) }
+						catch( e ){ 
+							// console.log( e );
+							scope.error = 'error retrieving palette';
 							refresh();
+							return
 						}
-					)
+						
+						scope.palette.map( function( color ){
+							return colorTo.hex( color );
+						});
+						refresh();
+					}
+					image.src = "http://localhost:5000/" + scope.swatchStrip;
 				}
 			}
 		}
