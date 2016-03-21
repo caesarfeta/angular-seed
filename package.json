@@ -34,7 +34,7 @@
     "build": "node node_modules/requirejs/bin/r.js -o scripts/app.build.js",
     "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1",
+	"start": "concurrently \"http-server -a localhost -p 8000 -c-1\" \"node proxy/proxy.js\"",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run",
@@ -45,6 +45,7 @@
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
   },
   "dependencies": {
+    "concurrently": "^2.0.0",
     "http-proxy": "^1.13.2",
     "request": "^2.69.0"
   }
