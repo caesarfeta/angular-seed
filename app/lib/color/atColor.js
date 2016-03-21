@@ -36,7 +36,6 @@ function(
 				},
 				template: '<span ng-style="style()"></span>',
 				link: function( scope, elem ){
-					console.log( scope );
 					scope.style = function(){
 						return {
 							display: 'inline-block',
@@ -68,17 +67,40 @@ function(
 				scope: {
 					swatchStrip: '@'
 				},
-				template: '<span ng-if="palette" ng-repeat="color in palette" color-swatch="color"></span>',
+				template:[ 
+					'<span>',
+						'<span ng-if="error">{{ error }}</span>',
+						'<span ng-if="palette" ng-repeat="color in palette" color-swatch="color"></span>',
+					'</span>'
+				].join(''),
 				link: function( scope, elem ){
+					
+					function refresh(){ $timeout( function(){} )};
+					
+					// get a color thief instance
+					
 					var c = colorThief();
 					var thief = new c.ColorThief();
+					
+					// build the palette once the image is loaded
+					
 					scope.palette = null;
-					$( scope.swatchStrip ).load( function(){
-						scope.palette = thief.getPalette( this, 10, 5 ).map( function( color ){
-							return colorTo.hex( color );
-						});
-						$timeout( function(){} );
-					})
+					$( scope.swatchStrip ).load( 
+						function(){
+							
+							try { scope.palette = thief.getPalette( this, 10, 5 ) }
+							catch( e ){ 
+								scope.error = 'error retrieving palette';
+								refresh();
+								return
+							}
+							
+							scope.palette.map( function( color ){
+								return colorTo.hex( color );
+							});
+							refresh();
+						}
+					)
 				}
 			}
 		}
