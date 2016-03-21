@@ -205,9 +205,11 @@ input.dbpedia-search-input {
   background-color: #F2F2F2;
   clear: both;
 }
-.color-kit img {
+.color-kit {
   box-sizing: border-box;
   padding: 10px;
+}
+.color-kit img {
   width: 100%;
 }
 .elem-notate .lites {

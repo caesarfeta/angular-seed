@@ -34,7 +34,7 @@
     "build": "node node_modules/requirejs/bin/r.js -o scripts/app.build.js",
     "postinstall": "bower install",
     "prestart": "npm install",
-	"start": "concurrently \"http-server -a localhost -p 8000 -c-1\" \"node proxy/proxy.js\"",
+	"start": "concurrently \"http-server -a localhost -p 8000 -c-1\" \"node proxy/corsProxy.js\"",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run",

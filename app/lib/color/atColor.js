@@ -56,24 +56,32 @@ function(
 		
 		'$http',
 		'colorTo',
+		'spinSvc',
 		'$timeout',
 		
 		function( 
 			$http,
 			colorTo,
+			spinSvc,
 			$timeout ){
 			
 			return {
 				scope: {
 					swatchStrip: '@'
 				},
-				template:[ 
+				template:[
+					
 					'<span>',
+						'<spinner spin-id="swatch-strip"></spinner>',
 						'<span ng-if="error">{{ error }}</span>',
 						'<span ng-if="palette" ng-repeat="color in palette" color-swatch="color"></span>',
 					'</span>'
+					
 				].join(''),
 				link: function( scope, elem ){
+					
+					var spinner = spinSvc.register( "swatch-strip" );
+					spinner.on();
 					
 					function refresh(){ $timeout( function(){} )};
 					
@@ -88,10 +96,11 @@ function(
 					var image = new Image();
 					image.crossOrigin = "anonymous";
 					image.onload = function(){
+						
+						spinner.off();
 							
 						try { scope.palette = thief.getPalette( this, 10, 5 ) }
 						catch( e ){ 
-							// console.log( e );
 							scope.error = 'error retrieving palette';
 							refresh();
 							return
