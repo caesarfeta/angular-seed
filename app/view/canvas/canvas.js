@@ -2,24 +2,11 @@
 
 define([ 
 'angular',
-'lib/viz/cubeTest',
-'angularRoute'
+'lib/viz/cubeTest'
 ],
 function( angular, cubeTest ){
 	
-	angular.module( 'myApp.view.canvas', [ 'ngRoute' ])
-
-	.config([
-		'$routeProvider', 
-		function( $routeProvider ){
-			var std = {
-				template: '<div canvas-cube-test />',
-				controller: 'viewCanvasCtrl'
-			};
-			$routeProvider.when('/canvas', std );
-			$routeProvider.when('/canvas/:id', std );
-		}
-	])
+	angular.module( 'myApp.view.canvas', [])
 
 	.controller('viewCanvasCtrl', [ function(){} ])
 	

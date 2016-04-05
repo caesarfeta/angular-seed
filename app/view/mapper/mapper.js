@@ -4,7 +4,6 @@ define([
 'angular',
 'lodash',
 'jqueryUi',
-'angularRoute',
 'colorpicker.module',
 'lib/maps/atMaps',
 'lib/windowWrap/windowWrap',
@@ -18,18 +17,6 @@ function( angular, _ ){
 		'colorpicker.module',
 		'windowWrap',
 		'atMoney'
-	])
-
-	.config([
-		'$routeProvider', 
-		function( $routeProvider ){
-			var std = {
-				templateUrl: 'view/mapper/mapper.html',
-				controller: 'viewMapperCtrl'
-			};
-			$routeProvider.when('/mapper', std );
-			$routeProvider.when('/mapper/:id', std );
-		}
 	])
 
 	.controller( 'viewMapperCtrl', [ function(){} ])

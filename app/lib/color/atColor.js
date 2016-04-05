@@ -4,7 +4,8 @@ define([
 'angular',
 'jquery',
 'lodash',
-'color-thief'
+'color-thief',
+'lib/alert/atAlert'
 ], 
 function( 
 	angular, 
@@ -12,7 +13,7 @@ function(
 	_,
 	colorThief ){
 	
-	angular.module( 'atColor', [] )
+	angular.module( 'atColor', [ 'atAlert' ] )
 
 
 	// color conversion functions

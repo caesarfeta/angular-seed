@@ -3,7 +3,6 @@
 define([ 
 'angular',
 'lodash',
-'angularRoute',
 'lib/common/atCommon',
 'lib/color/atColor'
 ],
@@ -14,19 +13,7 @@ function( angular, _ ){
 		'atCommon',
 		'atColor'
 	])
-
-	.config([
-		'$routeProvider', 
-		function( $routeProvider ){
-			var std = {
-				templateUrl: 'view/color-kit/color-kit.html',
-				controller: 'colorKitCtrl'
-			};
-			$routeProvider.when('/color-kit', std );
-			$routeProvider.when('/color-kit/:go*', std );
-		}
-	])
-
+	
 	.controller( 'colorKitCtrl', [ 
 		'$scope',
 		'$route',

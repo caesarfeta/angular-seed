@@ -41,7 +41,7 @@ module.exports = function( grunt ){
 					out: "./app/build/app.min.js",
 					preserveLicenseComments: false,
 					paths: {
-					    requireLib: "bower_components/requirejs/require"
+						requireLib: "bower_components/requirejs/require"
 					},
 					include: 'requireLib'
 				}

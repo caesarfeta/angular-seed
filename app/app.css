@@ -1,8 +1,10 @@
-/* app css stylesheet */
-@import "bower_components/angular-bootstrap/ui-bootstrap-csp.css";
+/* third-party css */
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
 @import "bower_components/angular-bootstrap-colorpicker/css/colorpicker.css";
 @import "bower_components/font-awesome/css/font-awesome.min.css";
-html {
+/* app css stylesheet */
+html,
+body {
   background-color: #EEE;
 }
 .stick {
@@ -227,4 +229,3 @@ input.dbpedia-search-input {
   width: 100%;
   background-color: #EEE;
 }
-/* third-party css */
