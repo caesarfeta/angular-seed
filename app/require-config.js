@@ -39,15 +39,15 @@ require.config({
 	shim: {
 		'angular' : {
 			deps:['jquery'],
-			'exports' : 'angular'
+			exports : 'angular'
 		},
 		'color-thief': {
-			'exports': 'ColorLib'
+			exports: 'ColorLib'
 		},
 		'angularRoute': ['angular'],
 		'angularMocks': {
 			deps:['angular'],
-			'exports':'angular.mock'
+			exports:'angular.mock'
 		},
 		'bootstrap': {
 			deps:['angular']
@@ -55,10 +55,19 @@ require.config({
 		'colorpicker.module': {
 			deps:['bootstrap']
 		},
-		'topojson': {'exports': 'topojson'},
-		'threejs': {'exports': 'THREE'},
-		'stats': {'exports': 'Stats'},
-		'lodash': {'exports': 'lodash' },
+		'topojson': {
+			exports: 'topojson'
+		},
+		'threejs': {
+			exports: 'THREE'
+		},
+		'stats': {
+			exports: 'Stats',
+			deps:['jquery']
+		},
+		'lodash': {
+			exports: 'lodash' 
+		},
 		'jqueryUi': {
 			deps: ['jquery']
 		}

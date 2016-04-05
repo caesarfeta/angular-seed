@@ -2,11 +2,12 @@
 
 define([ 
 'angular',
-'lib/viz/cubeTest'
+'lib/viz/cubeTest',
+'angularRoute'
 ],
 function( angular, cubeTest ){
 	
-	angular.module( 'myApp.view.canvas', [])
+	angular.module( 'myApp.view.canvas', [ 'ngRoute' ])
 
 	.controller('viewCanvasCtrl', [ function(){} ])
 	
