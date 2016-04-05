@@ -1,15 +1,16 @@
-'use strict';
-
 define([
 'angular',
 'lodash',
 'lib/common/imgKit/imgKit'
 ], 
-function( angular, _, imgKit ){
+function( 
+	angular, 
+	_ ){
+		
 	angular.module('dbpedia',[ 'atCommon', 'imgKit' ])
 	
 	.directive( 'dbpImgHistory',[
-		'dbpedia',
+		'dbpediaSvc',
 		'$compile',
 		function( dbpedia, $compile ){
 			return {
@@ -39,7 +40,7 @@ function( angular, _, imgKit ){
 	])
 	
 	.directive( 'dbpImgSearch', [
-		'dbpedia',
+		'dbpediaSvc',
 		'spinSvc',
 		function( dbpedia, spinSvc ){
 			return {
@@ -58,7 +59,7 @@ function( angular, _, imgKit ){
 	])
 	
 	.directive( 'dbpediaQueryArea', [
-		'dbpedia',
+		'dbpediaSvc',
 		function( dbpedia ){
 			return {
 				restrict: 'E',
@@ -75,7 +76,7 @@ function( angular, _, imgKit ){
 	])
 	
 	.directive( 'dbpediaQueryDump', [
-		'dbpedia',
+		'dbpediaSvc',
 		function( dbpedia ){
 			return {
 				restrict: 'E',
@@ -92,7 +93,7 @@ function( angular, _, imgKit ){
 	])
 	
 	.directive( 'dbpSpecies', [
-		'dbpedia',
+		'dbpediaSvc',
 		function( dbpedia ){
 			return {
 				restrict: 'E',
@@ -210,7 +211,7 @@ function( angular, _, imgKit ){
 	])
 	
 	.directive( 'dbpKey', [
-		'dbpedia',
+		'dbpediaSvc',
 		function( dbpedia ){
 			return {
 				restrict: 'E',
@@ -228,7 +229,7 @@ function( angular, _, imgKit ){
 		}
 	])
 	
-	.service( 'dbpedia', [
+	.service( 'dbpediaSvc', [
 		'$http',
 		'$q',
 		'dbpediaQuery',

@@ -1,5 +1,3 @@
-'use strict';
-
 if( window.__karma__ ){
 	var allTestFiles = [];
 	var TEST_REGEXP = /spec\.js$/;

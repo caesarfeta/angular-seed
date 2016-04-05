@@ -1,10 +1,10 @@
-'use strict';
-
 define([
 'angular',
 'jquery'
 ], 
-function( angular, $ ){
+function( 
+  angular, 
+  $ ){
   
   angular.module( 'imgKit', [] )
   

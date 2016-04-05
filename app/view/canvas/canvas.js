@@ -1,5 +1,3 @@
-'use strict';
-
 define([ 
 'angular',
 'lib/viz/cubeTest',

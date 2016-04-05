@@ -1,11 +1,11 @@
-'use strict';
-
 define([
 'angular',
 'jquery',
 'bootstrap'
 ], 
-function( angular, $ ){
+function( 
+	angular, 
+	$ ){
 	
 	angular.module( 'atAlert', [ 'ui.bootstrap' ] )
 	
@@ -14,14 +14,12 @@ function( angular, $ ){
 		function( alertMore ){
 			var self = this;
 			self.ids = {};
-			
 			self.register = function( id ){
 				if ( ! ( id in self.ids )){
 					self.ids[ id ] = new alertMore();
 				}
 				return self.ids[ id ]
 			};
-
 			self.ready = function( id ){
 				return id in self.ids
 			}
@@ -32,15 +30,10 @@ function( angular, $ ){
 	.factory( 'alertMore' [
 		'$timeout',
 		function( $timeout ){
-			var alertMore = function(){
-			}
-			
+			var alertMore = function(){}
 			alertMore.prototype.off = function(){}
-			
 			alertMore.prototype.on = function(){}
-			
 			alertMore.prototype.isOn = function(){}
-			
 			alertMore.prototype.popup = function(){}
 		}
 	] )
