@@ -47,7 +47,6 @@ function(
 				replace: true,
 				template: '<div ng-click="open" class="alert alert-danger">{{ alert }}</div>',
 				link: function( scope, elem ){
-					console.log( scope );
 					scope.alert = 'whoop';
 					scope.open = function(){
 						console.log( 'open' );

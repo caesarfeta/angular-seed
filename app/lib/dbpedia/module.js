@@ -4,5 +4,8 @@ define([
 'lib/common/imgKit/imgKit'
 ], 
 function( angular ){
-	return angular.module('dbpedia',[ 'atCommon', 'imgKit' ])
+	return angular.module( 'dbpedia',[ 
+		'atCommon', 
+		'imgKit' 
+	])
 })

@@ -1,7 +1,11 @@
 define([
-'../module'
+'../module',
+'lodash'
 ], 
-function( module ){
+function( 
+	module, 
+	_ ){
+	
 	module.service( 'dbpediaSvc', [
 		'$http',
 		'$q',
