@@ -1,5 +1,3 @@
-'use strict';
-
 define([
 'angular',
 'jquery'
@@ -34,26 +32,24 @@ function( angular, $ ){
 		'$window',
 		function( $window ){
 			return {
-				link: function( scope, elem ){
-					
+				link: [ 
+				'$scope', 
+				'$element', 
+				function( scope, elem ){
+				
 					// on scroll
-					
-					function addSpacer(){}
-					function removeSpacer(){}
-					
+				
 					var top = elem.offset().top
 					angular.element( $window ).bind( "scroll", function() {
 						if ( this.pageYOffset >= top ){
-							addSpacer();
 							elem.addClass('stick');
 						} 
 						else {
-							removeSpacer()
 							elem.removeClass('stick');
 						}
-						
+					
 					})
-				}
+				}]
 			}
 		}
 	])
@@ -193,17 +189,20 @@ function( angular, $ ){
 	
 	// highlight text
 	
-	.filter( 'highlight', function( $sce ) {
-	  return function( text, phrase ){
-	    if ( phrase && text ){
-	    	text = text.replace(
-						new RegExp( '('+phrase+')', 'gi' ),
-					'<span class="highlight">$1</span>'
-				)
-	    } 
-	    return $sce.trustAsHtml(text)
-	  }
-	})
+	.filter( 'highlight',[ 
+		'$sce', 
+		function( $sce ) {
+			return function( text, phrase ){
+				if ( phrase && text ){
+					text = text.replace(
+						new RegExp( '(' + phrase + ')', 'gi' ),
+						'<span class="highlight">$1</span>'
+					)
+				} 
+				return $sce.trustAsHtml(text)
+			}
+		}
+	])
 	
 	
 	// id generator
@@ -230,16 +229,16 @@ function( angular, $ ){
 			return {
 				template: [
 					
-					 '<ul class="menu">',
-							'<li ng-repeat="( name, url ) in link">',
-								'<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
-							'</li>',
-							'<li><i class="fa fa-{{ last() }}"></i></li>',
-						'</ul>'
+					'<ul class="menu">',
+						'<li ng-repeat="( name, url ) in atMenu">',
+							'<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
+						'</li>',
+						'<li><i class="fa fa-{{ last() }}"></i></li>',
+					'</ul>'
 					
 				].join(''),
 				scope: {
-					link: '='
+					atMenu: '='
 				},
 				replace: true,
 				link: function( scope, elem ){

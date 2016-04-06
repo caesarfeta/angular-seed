@@ -1,6 +1,10 @@
-/* app css stylesheet */
+/* third-party css */
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css";
+@import "bower_components/angular-bootstrap-colorpicker/css/colorpicker.css";
 @import "bower_components/font-awesome/css/font-awesome.min.css";
-html {
+/* app css stylesheet */
+html,
+body {
   background-color: #EEE;
 }
 .stick {
@@ -169,6 +173,56 @@ input.dbpedia-search-input {
 }
 .at-world-map path.red {
   fill: red;
+}
+.bar-comp {
+  font: 10px sans-serif;
+}
+.bar-comp .bar {
+  background-color: steelblue;
+  display: inline-block;
+  padding: 3px;
+  margin-bottom: 1px;
+  height: 10px;
+}
+.pie-chart .arc text {
+  font: 10px sans-serif;
+  text-anchor: middle;
+}
+.pie-chart .arc path {
+  stroke: #fff;
+}
+.window-wrap {
+  width: 300px;
+}
+.window-wrap .controls {
+  width: 100%;
+  height: 32px;
+  background-color: #AAA;
+}
+.window-wrap .controls button {
+  margin: 2px;
+  float: right;
+}
+.window-wrap .content {
+  background-color: #F2F2F2;
+  clear: both;
+}
+.color-kit {
+  box-sizing: border-box;
+  padding: 10px;
+}
+.color-kit img {
+  width: 100%;
+}
+.elem-notate .lites {
+  position: absolute;
+}
+.elem-notate .lites .lite {
+  position: relative;
+  opacity: 0.5;
+}
+.elem-notate .lites .lite:hover {
+  opacity: 1;
 }
 .specierch .controls {
   padding: 0 20px;

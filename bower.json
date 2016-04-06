@@ -17,8 +17,16 @@
     "jQuery": "~2.1.4",
     "threejs": "*",
     "Physijs": "physijs#*",
+    "genetic-js": "https://github.com/subprotocol/genetic-js.git#04fc6a69f0511547d62f07c76a070dec6a4f2fe9",
     "lodash": "~4.3.0",
-    "font-awesome": "~4.5.0"
+    "font-awesome": "~4.5.0",
+    "angular-bootstrap": "^1.2.4",
+    "jquery-ui": "^1.11.4",
+    "paperjs": "*",
+    "angular-bootstrap-colorpicker": "^3.0.24",
+    "angular-spectrum-colorpicker": "^1.4.4",
+    "satellizer": "^0.14.0",
+    "color-thief": "https://github.com/caesarfeta/color-thief.git#cdc1956a73ad48fd3f60e5f646b6f1e38b24128c"
   },
   "devDependencies": {}
 }

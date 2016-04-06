@@ -1,0 +1,18 @@
+<div ng-style="css()" class="window-wrap">
+	<div ng-if="item.isOn" class="item">
+		
+		<!-- controls -->
+		
+		<div class="controls">
+			<button ng-click="item.toggle()">x</button>
+		<div>
+		
+		<!-- content -->
+		
+		<div class="content">
+			<ng-transclude>
+			</ng-transclude>
+		</div>
+		
+	</div>
+</div>

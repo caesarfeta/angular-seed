@@ -16,6 +16,20 @@ module.exports = function( grunt ){
 			}
 		},
 		
+		// run karma tests
+		
+		karma: {
+			options: {
+				configFile: 'karma.conf.js'
+			},
+			unit: {
+				singleRun: true
+			},
+			continuous: {
+				background: true
+			}
+		},
+		
 		// run requirejs
 		
 		requirejs: {
@@ -24,10 +38,10 @@ module.exports = function( grunt ){
 					baseUrl: "./app",
 					mainConfigFile: './app/require-build.js',
 					name: "require-build",
-					out: "./app/app.min.js",
+					out: "./app/build/app.min.js",
 					preserveLicenseComments: false,
 					paths: {
-					    requireLib: "bower_components/requirejs/require"
+						requireLib: "bower_components/requirejs/require"
 					},
 					include: 'requireLib'
 				}
@@ -47,6 +61,7 @@ module.exports = function( grunt ){
 			}
 		}
 	});
+    grunt.loadNpmTasks( 'grunt-karma');
 	grunt.loadNpmTasks( 'grunt-contrib-less' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 	grunt.loadNpmTasks( 'grunt-contrib-requirejs' );

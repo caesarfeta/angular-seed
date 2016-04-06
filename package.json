@@ -7,10 +7,12 @@
   "license": "MIT",
   "devDependencies": {
     "bower": "^1.3.1",
+    "bower-requirejs": "^1.2.0",
     "grunt": "^0.4.5",
     "grunt-contrib-less": "^1.1.0",
     "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
+    "grunt-karma": "^0.12.1",
     "http-server": "^0.6.1",
     "jasmine-core": "^2.3.4",
     "karma": "~0.12",
@@ -24,16 +26,15 @@
     "less-plugin-glob": "^1.1.1",
     "phantomjs": "^1.9.19",
     "protractor": "^2.1.0",
+    "require-glob": "^3.1.0",
     "requirejs": "^2.1.22",
-    "shelljs": "^0.2.6",
-    "bower-requirejs": "^1.2.0",
-    "require-glob": "^3.1.0"
+    "shelljs": "^0.2.6"
   },
   "scripts": {
     "build": "node node_modules/requirejs/bin/r.js -o scripts/app.build.js",
     "postinstall": "bower install",
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1",
+    "start": "concurrently \"http-server -a localhost -p 8000 -c-1\" \"node proxy/corsProxy.js\"",
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
     "test-single-run": "karma start karma.conf.js  --single-run",
@@ -42,5 +43,11 @@
     "preprotractor": "npm run update-webdriver",
     "protractor": "protractor e2e-tests/protractor.conf.js",
     "update-index-async": "node -e \"require('shelljs/global'); sed('-i', /\\/\\/@@NG_LOADER_START@@[\\s\\S]*\\/\\/@@NG_LOADER_END@@/, '//@@NG_LOADER_START@@\\n' + sed(/sourceMappingURL=angular-loader.min.js.map/,'sourceMappingURL=bower_components/angular-loader/angular-loader.min.js.map','app/bower_components/angular-loader/angular-loader.min.js') + '\\n//@@NG_LOADER_END@@', 'app/index-async.html');\""
+  },
+  "dependencies": {
+    "concurrently": "^2.0.0",
+    "http-proxy": "^1.13.2",
+    "minimist": "^1.2.0",
+    "request": "^2.69.0"
   }
 }

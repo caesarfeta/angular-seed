@@ -1,5 +1,3 @@
-'use strict';
-
 if( window.__karma__ ){
 	var allTestFiles = [];
 	var TEST_REGEXP = /spec\.js$/;
@@ -21,50 +19,60 @@ if( window.__karma__ ){
 
 require.config({
 	paths: {
-		jquery: 'bower_components/jQuery/dist/jquery',
+		jquery: 'bower_components/jquery/dist/jquery',
+		jqueryUi: 'bower_components/jquery-ui/jquery-ui.min',
 		angular: 'bower_components/angular/angular',
 		angularRoute: 'bower_components/angular-route/angular-route',
 		angularMocks: 'bower_components/angular-mocks/angular-mocks',
+		bootstrap: 'bower_components/angular-bootstrap/ui-bootstrap.min',
+		'colorpicker.module': 'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min',
 		text: 'bower_components/requirejs-text/text',
 		d3: 'bower_components/d3/d3',
 		topojson: 'bower_components/topojson/topojson',
 		threejs: 'bower_components/threejs/build/three',
 		stats: 'bower_components/Physijs/examples/js/stats',
-		lodash: 'bower_components/lodash/dist/lodash'
+		lodash: 'bower_components/lodash/dist/lodash',
+		'color-thief': 'bower_components/color-thief/src/color-thief'
 	},
 	shim: {
-		'angular' : {'exports' : 'angular'},
+		'angular' : {
+			deps:['jquery'],
+			exports : 'angular'
+		},
+		'color-thief': {
+			exports: 'ColorLib'
+		},
 		'angularRoute': ['angular'],
 		'angularMocks': {
 			deps:['angular'],
-			'exports':'angular.mock'
+			exports:'angular.mock'
 		},
-		'topojson': {'exports': 'topojson'},
-		'threejs': {'exports': 'THREE'},
-		'stats': {'exports': 'Stats'},
-		'lodash': {'exports': 'lodash' }
+		'bootstrap': {
+			deps:['angular']
+		},
+		'colorpicker.module': {
+			deps:['bootstrap']
+		},
+		'topojson': {
+			exports: 'topojson'
+		},
+		'threejs': {
+			exports: 'THREE'
+		},
+		'stats': {
+			exports: 'Stats',
+			deps:['jquery']
+		},
+		'lodash': {
+			exports: 'lodash' 
+		},
+		'jqueryUi': {
+			deps: ['jquery']
+		}
 	},
-	priority: [
-		"angular"
-	],
+	priority: [ "angular" ],
 	deps: window.__karma__ ? allTestFiles : [],
 	callback: window.__karma__ ? window.__karma__.start : null,
 	baseUrl: window.__karma__ ? '/base/app' : '',
 });
-
-require([
-'angular',
-'app',
-'threejs'
-], 
-function( angular, app ){
-	var $html = angular.element( document.getElementsByTagName('html')[0] );
-	angular.element().ready( 
-		function(){
-			
-			// bootstrap the app manually
-			
-			angular.bootstrap( document, ['myApp']);
-		}
-	);
-});
+require(['app']);
