@@ -38,12 +38,17 @@ function( angular, $ ){
 					
 					// on scroll
 					
+					function addSpacer(){}
+					function removeSpacer(){}
+					
 					var top = elem.offset().top
 					angular.element( $window ).bind( "scroll", function() {
 						if ( this.pageYOffset >= top ){
+							addSpacer();
 							elem.addClass('stick');
 						} 
 						else {
+							removeSpacer()
 							elem.removeClass('stick');
 						}
 						
