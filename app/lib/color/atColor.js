@@ -49,7 +49,7 @@ function(
 	])
 
 
-	// build a strip of color swatches
+	// build a strip of color swatches from a source image
 	
 	.directive( 'swatchStrip', [
 		

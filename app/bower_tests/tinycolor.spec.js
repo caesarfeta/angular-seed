@@ -1,7 +1,8 @@
 define([
-'tinycolor'
+'tinycolor',
+'lodash'
 ],
-function( tinycolor ){
+function( tinycolor, _ ){
     describe('tinycolor', function() {
 
         it('loaded', function(){
@@ -33,5 +34,12 @@ function( tinycolor ){
                 g == b
             ).toBe( true );
         })
-	});
+        
+        // not entirely sure what analogous() actually does
+        
+        it('analagous', function(){
+            var colors = tinycolor('#FF0000').analogous();
+            expect( colors.length > 1 ).toBe( true )
+        })
+    });
 });
