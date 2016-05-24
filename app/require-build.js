@@ -13,7 +13,8 @@ require.config({
 		threejs: 'bower_components/threejs/build/three',
 		stats: 'bower_components/Physijs/examples/js/stats',
 		lodash: 'bower_components/lodash/dist/lodash',
-		'color-thief': 'bower_components/color-thief/src/color-thief'
+		'color-thief': 'bower_components/color-thief/src/color-thief',
+        tinycolor: 'bower_components/tinycolor/dist/tinycolor-min'
 	},
 	shim: {
 		'angular': {
@@ -38,6 +39,7 @@ require.config({
 		'threejs': {'exports': 'THREE'},
 		'stats': {'exports': 'Stats'},
 		'lodash': {'exports': 'lodash' },
+        'tinycolor': {'exports': 'tinycolor' },
 		'jqueryUi': {
 			deps: ['jquery']
 		}

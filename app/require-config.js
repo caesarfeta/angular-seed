@@ -1,4 +1,6 @@
+var baseUrl = null;
 if( window.__karma__ ){
+	baseUrl = '/base';
 	var allTestFiles = [];
 	var TEST_REGEXP = /spec\.js$/;
 	var pathToModule = function( path ){
@@ -18,6 +20,7 @@ if( window.__karma__ ){
 }
 
 require.config({
+	baseUrl: baseUrl,
 	paths: {
 		jquery: 'bower_components/jquery/dist/jquery',
 		jqueryUi: 'bower_components/jquery-ui/jquery-ui.min',
@@ -32,7 +35,8 @@ require.config({
 		threejs: 'bower_components/threejs/build/three',
 		stats: 'bower_components/Physijs/examples/js/stats',
 		lodash: 'bower_components/lodash/dist/lodash',
-		'color-thief': 'bower_components/color-thief/src/color-thief'
+		'color-thief': 'bower_components/color-thief/src/color-thief',
+        tinycolor: 'bower_components/tinycolor/dist/tinycolor-min'
 	},
 	shim: {
 		'angular' : {
@@ -66,6 +70,9 @@ require.config({
 		'lodash': {
 			exports: 'lodash' 
 		},
+        'tinycolor': {
+            exports: 'tinycolor' 
+        },
 		'jqueryUi': {
 			deps: ['jquery']
 		}
