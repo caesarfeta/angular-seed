@@ -9,7 +9,7 @@ module.exports = function(config){
         { pattern: 'app/view*/**/*.js', included: false },
         { pattern: 'app/bower_tests/**/*.js', included: false },
         { pattern: 'app/app.js', included: false },
-        'app/require-config.js'
+        'app/main.js'
     ],
 
     autoWatch : true,

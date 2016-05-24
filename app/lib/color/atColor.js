@@ -76,7 +76,7 @@ function(
 						'<span ng-if="palette" ng-repeat="color in palette" color-swatch="color"></span>',
 					'</span>'
 					
-				].join(''),
+				].join(' '),
 				link: function( scope, elem ){
 					
 					var spinner = spinSvc.register( "swatch-strip" );
