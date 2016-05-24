@@ -3,8 +3,18 @@ module.exports = function( grunt ){
         
         concat: {
             dist: {
-                src: [ 'app/karma.snippet.js', 'app/require.config.js' ],
-                dest: 'app/main.js'
+                files: {
+                    'app/main.js': [ 
+                        'app/config/karma.snippet.js', 
+                        'app/config/require.config.js', 
+                        'app/config/karma.require.js', 
+                        'app/config/require.close.js' 
+                    ],
+                    'app/build.js': [ 
+                        'app/config/require.config.js', 
+                        'app/config/require.close.js' 
+                    ]
+                }
             }
         },
         
@@ -43,9 +53,9 @@ module.exports = function( grunt ){
             compile: {
                 options: {
                     baseUrl: "./app",
-                    mainConfigFile: './app/require.config.js',
-                    name: "require.config",
-                    out: "./app/build/app.min.js",
+                    mainConfigFile: './app/build.js',
+                    name: "build",
+                    out: "./app/app.min.js",
                     preserveLicenseComments: false,
                     paths: {
                         requireLib: "bower_components/requirejs/require"
