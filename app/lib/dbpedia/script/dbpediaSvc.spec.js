@@ -21,5 +21,13 @@ function(){
 			});
 		
 		});
+		
+		describe('dbpediaSvc 2', function(){
+		
+			it('has buildUrl method', function(){
+				expect( 'buildUrl' in svc ).toBe( true );
+			});
+		
+		});
 	});
 });

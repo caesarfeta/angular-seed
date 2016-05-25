@@ -1,15 +1,19 @@
 ## run development web-server
 
-	npm start
+    npm start
 
 ## build css and javascript on change
 
-	grunt watch
+    grunt watch
 
 ## update javascript runtime dependences
 
-	bower install
+    bower install
 
-## run test suite
+## run tests
 
-	npm test
+    npm test
+
+## minify javascript
+
+    grunt requirejs

@@ -13,9 +13,9 @@ function(
   .directive( 'imgKit', [ 
       '$location', 
       function( $location ){ return {
-		  scope: {
-			  'imgKit': '@'
-		  },
+          scope: {
+              'imgKit': '@'
+          },
           template: [
             
             '<div ng-click="click()" class="img-kit">',
@@ -35,10 +35,10 @@ function(
             scope.click = function(){
               scope.isOn = !scope.isOn;
             };
-			
-			scope.launchColorKit = function( url ){
-				$location.path( '/color-kit/go' ).search( 'img', url);
-			}
+            
+            scope.launchColorKit = function( url ){
+                $location.path( '/color-kit/go' ).search( 'img', url);
+            }
           
             scope.toCanvas = {
               'bomb': 'bomb'
@@ -50,12 +50,12 @@ function(
           }
       }}
   ])
-	
-	.service( 'imgData', [
-		function(){
-			this.process = function( src ){
-				
-			}
-		}
-	])
+    
+    .service( 'imgData', [
+        function(){
+            this.process = function( src ){
+                
+            }
+        }
+    ])
 })

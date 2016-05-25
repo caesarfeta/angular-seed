@@ -31,8 +31,7 @@
     "shelljs": "^0.2.6"
   },
   "scripts": {
-    "build": "node node_modules/requirejs/bin/r.js -o scripts/app.build.js",
-    "postinstall": "bower install",
+    "postinstall": "bower install; grunt concat",
     "prestart": "npm install",
     "start": "concurrently \"http-server -a localhost -p 8000 -c-1\" \"node proxy/corsProxy.js\"",
     "pretest": "npm install",
@@ -46,6 +45,7 @@
   },
   "dependencies": {
     "concurrently": "^2.0.0",
+    "grunt-contrib-concat": "^1.0.1",
     "http-proxy": "^1.13.2",
     "minimist": "^1.2.0",
     "request": "^2.69.0"

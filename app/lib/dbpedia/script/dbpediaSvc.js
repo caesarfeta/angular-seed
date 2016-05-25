@@ -25,7 +25,7 @@ function(
 			var url = "http://dbpedia.org/sparql";
 			var self = this;
 			self.buildUrl = function( query ){
-				return encodeURI( url+"?query="+ query +"&format=json" );
+				return encodeURI( url + "?query=" + query + "&format=json" );
 			};
 			self.waiting = false;
 			self.http = function( config ){
