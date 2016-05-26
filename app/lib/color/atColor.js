@@ -10,12 +10,11 @@ function(
     $,
     _,
     colorThief ){
-    
+
     angular.module( 'atColor', [ 'atAlert' ] )
 
-
     // color conversion functions
-        
+
     .service( 'colorTo', [
         function(){
             this.hex = function( rgb ){
@@ -26,7 +25,7 @@ function(
             };
         }
     ])
-    
+
     .directive( 'colorSwatch',[
         function(){
             return {
@@ -47,9 +46,38 @@ function(
             }
         }
     ])
-    
-    .directive( 'imgMutate',[
+
+    .factory( 'imgMutator', [
         function(){
+            var imgMutator = function( canvas, url, mutate ){
+                var self = this;
+                self.image = new Image();
+                self.canvas = canvas;
+                self.url = url;
+                self.mutate = mutate;
+                self.imgData = null;
+                self.ctx = null;
+                self.image.crossOrigin = "anonymous";
+                self.image.onload = function(){
+                    self.canvas.setAttribute( 'width', self.image.width );
+                    self.canvas.setAttribute( 'height', self.image.height );
+                    self.ctx = self.canvas.getContext("2d");
+                    self.ctx.drawImage( image, 0, 0 );
+                    self.imgData = self.ctx.getImageData( 0, 0, self.canvas.width, self.canvas.height );
+                    self.mutate( self.imgData.data, function(){
+                        self.ctx.putImageData( self.imgData, 0, 0 );
+                    });
+                }
+                self.image.src = "http://localhost:5000/" + self.url;
+            }
+            imgMutator.prototype.reset = function(){}
+            return imgMutator
+        }
+    ])
+
+    .directive( 'imgMutate',[
+        'imgMutator',
+        function( imgMutator ){
             return {
                 scope: {
                     imgMutate: '=',
@@ -62,20 +90,7 @@ function(
                     
                 ].join(' '),
                 link: function( scope, elem ){
-                    var image = new Image();
-                    image.crossOrigin = "anonymous";
-                    image.onload = function(){
-                        elem.attr( 'width', image.width );
-                        elem.attr( 'height', image.height );
-                        var canvas = elem.get(0);
-                        var ctx = canvas.getContext("2d");
-                        ctx.drawImage( image, 0, 0 );
-                        var imgData = ctx.getImageData( 0, 0, canvas.width, canvas.height );
-                        scope.imgMutate( imgData.data, function(){
-                            ctx.putImageData( imgData, 0, 0 );
-                        });
-                    }
-                    image.src = "http://localhost:5000/" + scope.src;
+                    scope.mutator = new imgMutator( elem.get(0), scope.src, scope.imgMutate );
                 }
             }
         }
@@ -148,5 +163,4 @@ function(
             }
         }
     ])
-    
 });
