@@ -3,7 +3,8 @@ define([
 'jquery',
 'lodash',
 'color-thief',
-'lib/alert/atAlert'
+'lib/alert/atAlert',
+'tinycolor'
 ], 
 function( 
     angular, 
@@ -49,12 +50,12 @@ function(
 
     .factory( 'imgMutator', [
         function(){
-            var imgMutator = function( canvas, url, mutate ){
+            var imgMutator = function( config ){
                 var self = this;
                 self.image = new Image();
-                self.canvas = canvas;
-                self.url = url;
-                self.mutate = mutate;
+                self.canvas = config.canvas;
+                self.url = config.url;
+                self.mutator = config.mutator;
                 self.imgData = null;
                 self.ctx = null;
                 self.image.crossOrigin = "anonymous";
@@ -62,13 +63,19 @@ function(
                     self.canvas.setAttribute( 'width', self.image.width );
                     self.canvas.setAttribute( 'height', self.image.height );
                     self.ctx = self.canvas.getContext("2d");
-                    self.ctx.drawImage( image, 0, 0 );
+                    self.ctx.drawImage( self.image, 0, 0 );
                     self.imgData = self.ctx.getImageData( 0, 0, self.canvas.width, self.canvas.height );
-                    self.mutate( self.imgData.data, function(){
-                        self.ctx.putImageData( self.imgData, 0, 0 );
-                    });
+                    self.imgData.data.set( self.filter() );
+                    self.ctx.putImageData( self.imgData, 0, 0 );
+                }
+                self.image.onerror = function( r ){
+                    config.onError( r )
                 }
                 self.image.src = "http://localhost:5000/" + self.url;
+            }
+            imgMutator.prototype.filter = function(){
+                var self = this;
+                return _.flatten( self.mutator( _.chunk( self.imgData.data, 4 )));
             }
             imgMutator.prototype.reset = function(){}
             return imgMutator
@@ -81,16 +88,20 @@ function(
             return {
                 scope: {
                     imgMutate: '=',
-                    src: '='
                 },
                 replace: true,
                 template: [
-                    
-                    '<canvas></canvas>'
-                    
+                        
+                        '<canvas></canvas>',
+                        
                 ].join(' '),
                 link: function( scope, elem ){
-                    scope.mutator = new imgMutator( elem.get(0), scope.src, scope.imgMutate );
+                    scope.mutator = new imgMutator({
+                        canvas: elem.get(0), 
+                        url: scope.imgMutate.url, 
+                        mutator: scope.imgMutate.mutator, 
+                        onError: scope.imgMutate.onError 
+                    });
                 }
             }
         }
