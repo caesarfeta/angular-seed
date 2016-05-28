@@ -146,14 +146,14 @@ function(
 
                         '<div class="img-mutate-live">',
                             '<canvas></canvas>',
-                            '<textarea ng-model="input.code" ng-enter="reset()"></textarea>',
+                            '<textarea rows="10" ng-model="input.code" ng-enter="reset()"></textarea>',
                         '</div>'
 
                 ].join(' '),
                 link: function( scope, elem ){
 
                     scope.input = {
-                        code: 'return ( tick % 2) ? rgba : [ 0, 0, 0, 0 ]'
+                        code: 'return rgba.map( function( c ){ return [ c[1], c[2], c[3], c[0] ] })'
                     };
 
                     scope.mutator = null;
