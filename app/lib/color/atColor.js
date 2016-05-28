@@ -134,6 +134,46 @@ function(
         }
     ])
 
+    .directive( 'imgMutateLive',[
+        'imgMutator',
+        function( imgMutator ){
+            return {
+                scope: {
+                    imgMutateLive: '=',
+                },
+                replace: true,
+                template: [
+
+                        '<div class="img-mutate-live">',
+                            '<canvas></canvas>',
+                            '<textarea ng-model="input.code" ng-enter="reset()"></textarea>',
+                        '</div>'
+
+                ].join(' '),
+                link: function( scope, elem ){
+
+                    scope.input = {
+                        code: 'return ( tick % 2) ? rgba : [ 0, 0, 0, 0 ]'
+                    };
+
+                    scope.mutator = null;
+                    scope.reset = function(){
+                        scope.mutator = new imgMutator({
+                            canvas: $( 'canvas', elem ).get(0), 
+                            url: scope.imgMutateLive.url, 
+                            mutator: {
+                                run: new Function( 'rgba', 'tick', scope.input.code )
+                            },
+                            onError: scope.imgMutateLive.onError 
+                        });
+                    }
+
+                    //scope.reset();
+                }
+            }
+        }
+    ])
+
     .directive( 'imgMutate',[
         'imgMutator',
         function( imgMutator ){
