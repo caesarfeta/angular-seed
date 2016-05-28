@@ -58,7 +58,7 @@ body {
   border-bottom: 0.1em solid #AAA;
   margin: 0;
   padding: 10px;
-  background-color: #999;
+  background-color: #CCC;
 }
 .menu a.selected {
   color: red;
