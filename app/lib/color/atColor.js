@@ -48,6 +48,26 @@ function(
         }
     ])
 
+    .service( 'mutators',[
+        function(){
+            return {
+                
+                // green stripes
+                
+                greenStripe: {
+                    run: function( rgba, tick ){
+                        return rgba.map( function( c, i ){
+                            return ( i % 4 )
+                                ?[ c[2], c[3], c[1], c[3] ]
+                                :c
+                        })
+                    },
+                    loop: .025
+                }
+            }
+        }
+    ])
+
     .factory( 'imgMutator', [
         function(){
             var imgMutator = function( config ){
@@ -65,19 +85,51 @@ function(
                     self.ctx = self.canvas.getContext("2d");
                     self.ctx.drawImage( self.image, 0, 0 );
                     self.imgData = self.ctx.getImageData( 0, 0, self.canvas.width, self.canvas.height );
-                    self.imgData.data.set( self.filter() );
-                    self.ctx.putImageData( self.imgData, 0, 0 );
+                    self.draw();
+                    self.loop();
                 }
                 self.image.onerror = function( r ){
                     config.onError( r )
                 }
                 self.image.src = "http://localhost:5000/" + self.url;
             }
-            imgMutator.prototype.filter = function(){
+
+            imgMutator.prototype.draw = function(){
                 var self = this;
-                return _.flatten( self.mutator( _.chunk( self.imgData.data, 4 )));
+                self.imgData.data.set( self.filter() );
+                self.ctx.putImageData( self.imgData, 0, 0 );
             }
-            imgMutator.prototype.reset = function(){}
+
+            imgMutator.prototype.filter = function( tick ){
+                var self = this;
+                tick = ( tick == undefined ) ? 0 : tick;
+                return _.flatten(
+                    
+                    // pass colors to mutator as array of rgba arrays
+                    
+                    self.mutator.run(
+                        _.chunk( self.imgData.data, 4 ), 
+                        tick 
+                    )
+                );
+            }
+
+            imgMutator.prototype.loop = function(){
+                var self = this;
+                if ( 'loop' in self.mutator ){
+                    var i = 0;
+                    self.running = setInterval( 
+                        function(){ self.draw( i ) }, 
+                        self.mutator.loop*1000 
+                    )
+                }
+            }
+
+            imgMutator.prototype.stop = function(){
+                var self = this;
+                clearInterval( self.running );
+            }
+
             return imgMutator
         }
     ])

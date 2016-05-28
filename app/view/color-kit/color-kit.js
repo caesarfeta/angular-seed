@@ -15,17 +15,12 @@ function( angular, _ ){
     .controller( 'colorKitCtrl', [ 
         '$scope',
         '$route',
-        function( $scope, $route ){
+        'mutators',
+        function( $scope, $route, mutators ){
             $scope.img = $route.current.params.img;
             $scope.mutate = {
                 url: $scope.img,
-                mutator: function( rgba, tick ){
-                    return rgba.map( function( c, i ){
-                        return ( i % 4 )
-                            ?[ c[2], c[3], c[1], c[3] ]
-                            :c
-                    })
-                },
+                mutator: mutators.greenStripe,
                 onError: function( error ){
                     console.log( error )
                 }
