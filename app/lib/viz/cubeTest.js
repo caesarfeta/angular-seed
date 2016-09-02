@@ -42,7 +42,14 @@ function(
     
     cubeTest.prototype.stop = function(){
         var self = this;
+        self.transforms.clear();
         self.running = false;
+    }
+    
+    cubeTest.prototype.showAxis = function(){
+        var self = this;
+        self.axis = new THREE.AxisHelper( 5 );
+        self.scene.add( self.axis );
     }
     
     cubeTest.prototype.showGridHelper = function(){
@@ -104,9 +111,7 @@ function(
     
     cubeTest.prototype.startLights = function(){
         var self = this;
-        self.lights = new threeLights();
-        self.scene.add( self.lights.ambient );
-        self.scene.add( self.lights.point.blue.light );
+        self.light = new threeLights( self.scene );
     };
     
     cubeTest.prototype.default = function(){
@@ -120,20 +125,39 @@ function(
     
     ///////////////////////////////// run
     
-    cubeTest.prototype.run = function(){ 
+    cubeTest.prototype.run = function( x, y, z ){ 
         var self = this;
+        y = ( y != undefined ) ? y : 0;
+        z = ( z != undefined ) ? z : 0;
+        self.showGridHelper();
+        self.showAxis();
+        self.start();
         return{
+            
+            // lights
+            
+            light: {
+                move: function(){
+                    self.light.reset();
+                    self.transforms.add( function( i ){
+                        self.light.point.b.light.position.z += Math.sin( i*.05 )*z;
+                        self.light.point.g.light.position.y += Math.sin( i*.05 )*y;
+                        self.light.point.r.light.position.x += Math.sin( i*.05 )*x;
+                    });
+                }
+            },
+            
+            // camera
+            
             camera: {
-                rotate: function( x, y, z ){
-                    self.showGridHelper();
+                rotate: function(){
                     self.transforms.add( function(){
                         self.camera.rotation.z += z;
                         self.camera.rotation.y += y;
                         self.camera.rotation.x += x;
                     });
                 },
-                move: function( x, y, z ){
-                    self.showGridHelper();
+                move: function(){
                     self.transforms.add( function(){
                         self.camera.position.z += z;
                         self.camera.position.y += y;

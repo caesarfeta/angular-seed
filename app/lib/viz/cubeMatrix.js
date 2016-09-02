@@ -12,16 +12,14 @@ function(
         self.cubes = [];
     }
     
-    cubeMatrix.prototype.build = function( matrix ){
+    cubeMatrix.prototype.build = function( rows, cols ){
         var self = this;
-        var rows = matrix[0];
-        var cols = matrix[1];
         for ( var r=0; r<rows; r++ ){
             self.cubes[r]=[];
             for ( var c=0; c<cols; c++ ){
                 var cube = self.cubeTest.newCube();
-                cube.mesh.position.x = cube.mesh.scale.x*r;
-                cube.mesh.position.y = cube.mesh.scale.y*c;
+                cube.mesh.position.x = cube.mesh.scale.x*c;
+                cube.mesh.position.y = cube.mesh.scale.y*r;
                 self.cubes[r][c] = cube;
             }
         }
