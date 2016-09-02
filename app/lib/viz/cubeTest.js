@@ -118,18 +118,30 @@ function(
         }
     };
     
-    /////////////////////////////////
+    ///////////////////////////////// run
     
-    
-    cubeTest.prototype.go = function( z, y ){
+    cubeTest.prototype.run = function(){ 
         var self = this;
-        self.showGridHelper();
-        self.transforms.add( function(){
-            self.camera.rotation.z += z;
-            self.camera.position.z += z;
-            self.camera.rotation.y += y;
-            self.camera.position.y += y;
-        });
+        return{
+            camera: {
+                rotate: function( x, y, z ){
+                    self.showGridHelper();
+                    self.transforms.add( function(){
+                        self.camera.rotation.z += z;
+                        self.camera.rotation.y += y;
+                        self.camera.rotation.x += x;
+                    });
+                },
+                move: function( x, y, z ){
+                    self.showGridHelper();
+                    self.transforms.add( function(){
+                        self.camera.position.z += z;
+                        self.camera.position.y += y;
+                        self.camera.position.x += x;
+                    });
+                }
+            }
+        }
     }
     
     return cubeTest
