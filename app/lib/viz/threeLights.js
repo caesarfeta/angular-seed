@@ -42,9 +42,9 @@ function( THREE ){
     
     threeLights.prototype.reset = function(){
         var self = this;
-        self.light.point.b.light.position.z = 0;
-        self.light.point.g.light.position.y = 0;
-        self.light.point.r.light.position.x = 0;
+        self.point.b.light.position.z = 0;
+        self.point.g.light.position.y = 0;
+        self.point.r.light.position.x = 0;
     }
     
     return threeLights

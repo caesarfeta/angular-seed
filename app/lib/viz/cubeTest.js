@@ -4,7 +4,8 @@ define([
 'lib/viz/threeTrans',
 'lib/viz/threeLights',
 'lib/viz/cube',
-'lib/viz/cubeMatrix'
+'lib/viz/cubeMatrix',
+'THREE.TrackballControls'
 ],
 function( 
     THREE,
@@ -58,16 +59,34 @@ function(
         self.scene.add( self.gridHelper );
     }
     
-    cubeTest.prototype.build = function(){
+    cubeTest.prototype.setupCamera = function(){
         var self = this;
-        self.scene = new THREE.Scene();
         self.camera = new THREE.PerspectiveCamera( 
             75, 
             window.innerWidth / window.innerHeight, 
             0.1,
             1000 
         );
+        
+        // setup camera controls
+        
+        self.cameraControls = new THREE.TrackballControls( self.camera, self.config.elem );
+        self.cameraControls.rotateSpeed = 1.0;
+        self.cameraControls.zoomSpeed = 1.2;
+        self.cameraControls.panSpeed = 0.8;
+        self.cameraControls.noZoom = false;
+        self.cameraControls.noPan = false;
+        self.cameraControls.staticMoving = true;
+        self.cameraControls.dynamicDampingFactor = 0.3;
+        self.cameraControls.keys = [ 65, 83, 68 ];
+        self.cameraControls.addEventListener( 'change', self.render );
+    }
+    
+    cubeTest.prototype.build = function(){
+        var self = this;
+        self.scene = new THREE.Scene();
         self.setupRenderer();
+        self.setupCamera();
         
         // get fps stats
         
