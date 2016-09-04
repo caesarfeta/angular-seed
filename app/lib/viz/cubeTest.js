@@ -59,7 +59,7 @@ function(
         self.scene.add( self.gridHelper );
     }
     
-    cubeTest.prototype.setupCamera = function(){
+    cubeTest.prototype.pCam = function(){
         var self = this;
         self.camera = new THREE.PerspectiveCamera( 
             75, 
@@ -67,6 +67,31 @@ function(
             0.1,
             1000 
         );
+    }
+    
+    cubeTest.prototype.oCam = function(){
+        var self = this;
+        var d = 20;
+        var aspect = window.innerWidth / window.innerHeight;
+        self.camera = new THREE.OrthographicCamera( 
+            -d * aspect, 
+            d * aspect, 
+            d, 
+            -d, 
+            1, 
+            1000
+        );
+    }
+    
+    cubeTest.prototype.switchCam = function(){
+        var self = this;
+        self.setupCamera( !self.isOrthoCam );
+    }
+    
+    cubeTest.prototype.setupCamera = function( isOrthoCam ){
+        var self = this;
+        self.isOrthoCam = isOrthoCam;
+        ( isOrthoCam ) ? self.oCam() : self.pCam();
         
         // setup camera controls
         
@@ -78,17 +103,14 @@ function(
         self.cameraControls.noPan = false;
         self.cameraControls.staticMoving = true;
         self.cameraControls.dynamicDampingFactor = 0.3;
-        self.cameraControls.keys = [ 65, 83, 68 ];
-        self.cameraControls.addEventListener( 'change', function(){ 
-//            self.render();
-        });
+        self.cameraControls.keys = [ 37, 38, 39 ];
     }
     
     cubeTest.prototype.build = function(){
         var self = this;
         self.scene = new THREE.Scene();
         self.setupRenderer();
-        self.setupCamera();
+        self.setupCamera( true );
         
         // get fps stats
         

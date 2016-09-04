@@ -13,6 +13,7 @@ require.config({
         d3: 'bower_components/d3/d3',
         topojson: 'bower_components/topojson/topojson',
         threejs: 'bower_components/threejs/build/three',
+        'THREE.TrackballControls': 'bower_components/threejs/examples/js/controls/TrackballControls',
         stats: 'bower_components/Physijs/examples/js/stats',
         lodash: 'bower_components/lodash/dist/lodash',
         'color-thief': 'bower_components/color-thief/src/color-thief',
@@ -42,6 +43,9 @@ require.config({
         },
         threejs: {
             exports: 'THREE'
+        },
+        'THREE.TrackballControls': {
+            deps:['threejs']
         },
         stats: {
             exports: 'Stats'

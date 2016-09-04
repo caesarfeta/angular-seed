@@ -67,7 +67,7 @@ require.config({
             exports: 'THREE'
         },
         'THREE.TrackballControls': {
-            deps:[ 'threejs' ]
+            deps:['threejs']
         },
         stats: {
             exports: 'Stats'
