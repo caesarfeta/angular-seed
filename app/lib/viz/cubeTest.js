@@ -70,7 +70,7 @@ function(
         
         // setup camera controls
         
-        self.cameraControls = new THREE.TrackballControls( self.camera, self.config.elem );
+        self.cameraControls = new THREE.TrackballControls( self.camera );
         self.cameraControls.rotateSpeed = 1.0;
         self.cameraControls.zoomSpeed = 1.2;
         self.cameraControls.panSpeed = 0.8;
@@ -79,7 +79,9 @@ function(
         self.cameraControls.staticMoving = true;
         self.cameraControls.dynamicDampingFactor = 0.3;
         self.cameraControls.keys = [ 65, 83, 68 ];
-        self.cameraControls.addEventListener( 'change', self.render );
+        self.cameraControls.addEventListener( 'change', function(){ 
+//            self.render();
+        });
     }
     
     cubeTest.prototype.build = function(){
@@ -121,6 +123,7 @@ function(
     cubeTest.prototype.render = function(){
         var self = this;
         requestAnimationFrame( function(){ return self.render() });
+        self.cameraControls.update();
         if ( self.running ){
             self.transforms.run();
         }
