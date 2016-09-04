@@ -5,7 +5,8 @@ define([
 'lib/viz/threeLights',
 'lib/viz/cube',
 'lib/viz/cubeMatrix',
-'THREE.TrackballControls'
+'THREE.TrackballControls',
+'THREE.OrthographicTrackballControls'
 ],
 function( 
     THREE,
@@ -67,31 +68,6 @@ function(
             0.1,
             1000 
         );
-    }
-    
-    cubeTest.prototype.oCam = function(){
-        var self = this;
-        var d = 20;
-        var aspect = window.innerWidth / window.innerHeight;
-        self.camera = new THREE.OrthographicCamera( 
-            -d * aspect, 
-            d * aspect, 
-            d, 
-            -d, 
-            1, 
-            1000
-        );
-    }
-    
-    cubeTest.prototype.switchCam = function(){
-        var self = this;
-        self.setupCamera( !self.isOrthoCam );
-    }
-    
-    cubeTest.prototype.setupCamera = function( isOrthoCam ){
-        var self = this;
-        self.isOrthoCam = isOrthoCam;
-        ( isOrthoCam ) ? self.oCam() : self.pCam();
         
         // setup camera controls
         
@@ -104,6 +80,42 @@ function(
         self.cameraControls.staticMoving = true;
         self.cameraControls.dynamicDampingFactor = 0.3;
         self.cameraControls.keys = [ 37, 38, 39 ];
+    }
+    
+    cubeTest.prototype.oCam = function(){
+        var self = this;
+        var d = 5;
+        var aspect = window.innerWidth / window.innerHeight;
+        self.camera = new THREE.OrthographicCamera( 
+            -d * aspect, 
+            d * aspect, 
+            d, 
+            -d, 
+            1, 
+            1000
+        );
+        self.camera.position.set( d, d, d );
+        self.camera.lookAt( 0, 0, 0 );
+        self.cameraControls = new THREE.OrthographicTrackballControls( self.camera );
+        self.cameraControls.rotateSpeed = 1.0;
+        self.cameraControls.zoomSpeed = 1.2;
+        self.cameraControls.panSpeed = 0.8;
+        self.cameraControls.noZoom = false;
+        self.cameraControls.noPan = false;
+        self.cameraControls.staticMoving = true;
+        self.cameraControls.dynamicDampingFactor = 0.3;
+        self.cameraControls.keys = [ 37, 38, 39 ];
+    }
+    
+    cubeTest.prototype.switchCam = function(){
+        var self = this;
+        self.setupCamera( !self.isOrthoCam );
+    }
+    
+    cubeTest.prototype.setupCamera = function( isOrthoCam ){
+        var self = this;
+        self.isOrthoCam = isOrthoCam;
+        ( isOrthoCam ) ? self.oCam() : self.pCam();
     }
     
     cubeTest.prototype.build = function(){
