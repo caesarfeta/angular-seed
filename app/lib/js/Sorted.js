@@ -1,5 +1,5 @@
 define([
-'ObjectExt'
+'./ObjectExt'
 ],
 function( ObjectExt ){
     /**

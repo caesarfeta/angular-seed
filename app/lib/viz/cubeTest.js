@@ -1,12 +1,13 @@
 define([
 'threejs',
-'lib/viz/vizStats',
-'lib/viz/threeTrans',
-'lib/viz/threeLights',
-'lib/viz/cube',
-'lib/viz/cubeMatrix',
+'./vizStats',
+'./threeTrans',
+'./threeLights',
+'./cube',
+'./cubeMatrix',
+'./lsys/LSYS.ThreeD',
 'THREE.TrackballControls',
-'THREE.OrthographicTrackballControls'
+'THREE.OrthographicTrackballControls',
 ],
 function( 
     THREE,
@@ -14,7 +15,8 @@ function(
     threeTrans, 
     threeLights,
     cube,
-    cubeMatrix ){
+    cubeMatrix,
+    LSYS ){
     
     // test threejs
     

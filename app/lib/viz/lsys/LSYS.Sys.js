@@ -53,4 +53,6 @@ function(){
             'C': 'COLOR'
         };
     }
+    
+    return LSYS
 });

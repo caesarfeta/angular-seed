@@ -1,8 +1,9 @@
 define([
+'lib/js/Palette',
+'lib/viz/lsys/LSYS.Sys',
 'threejs',
-'lib/viz/lsys/LSYS.Sys'
 ],
-function(){
+function( Palette, LSYS ){
     
     //  3D renderer class
     
@@ -77,5 +78,7 @@ function(){
         //  Palette
         
         this.palette = new Palette( 'candy' );
-     });
+     }
+     
+     return LSYS
  });
