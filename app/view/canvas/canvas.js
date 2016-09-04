@@ -1,9 +1,9 @@
 define([ 
 'angular',
-'lib/viz/cubeTest',
+'lib/viz/viz',
 'angularRoute'
 ],
-function( angular, cubeTest ){
+function( angular, viz ){
     
     angular.module( 'myApp.view.canvas', [ 'ngRoute' ])
     
@@ -14,7 +14,7 @@ function( angular, cubeTest ){
             return {
                 replace: true,
                 link: function( scope, elem ){
-                    window.viz = new cubeTest({ 
+                    window.viz = new viz({ 
                         elem: elem.get(0)
                     });
                 }

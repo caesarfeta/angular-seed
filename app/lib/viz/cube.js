@@ -1,9 +1,8 @@
 define([
 'threejs',
-'lib/viz/mover',
-'lib/viz/cubeMover',
+'lib/viz/mover'
 ],
-function( THREE, mover, cubeMover ){
+function( THREE, mover ){
 
     // cube class extends mover
 
@@ -16,11 +15,6 @@ function( THREE, mover, cubeMover ){
         });
         
         this.mesh = new THREE.Mesh( this.geometry, this.material );
-        this.mover = new mover( new cubeMover( this ));
-    };
-    
-    cube.prototype.update = function(){
-        this.mover.update();
     };
     
     return cube

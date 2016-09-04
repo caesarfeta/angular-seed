@@ -5,7 +5,7 @@ define([
 './threeLights',
 './cube',
 './cubeMatrix',
-'./lsys/LSYS.ThreeD',
+'./lsys/LSYS',
 'THREE.TrackballControls',
 'THREE.OrthographicTrackballControls',
 ],
@@ -20,13 +20,14 @@ function(
     
     // test threejs
     
-    var cubeTest = function( config ){
+    var viz = function( config ){
         var self = this;
         self.config = config;
         self.reset();
+        self.LSYS = LSYS;
     };
     
-    cubeTest.prototype.reset = function(){
+    viz.prototype.reset = function(){
         var self = this;
         self.cubes = [];
         self.transforms = new threeTrans();
@@ -39,34 +40,34 @@ function(
         self.running = true;
     }
     
-    cubeTest.prototype.start = function(){
+    viz.prototype.start = function(){
         var self = this;
         self.running = true;
     }
     
-    cubeTest.prototype.stop = function(){
+    viz.prototype.stop = function(){
         var self = this;
         self.running = false;
     }
     
-    cubeTest.prototype.clear = function(){
+    viz.prototype.clear = function(){
         var self = this;
         self.transforms.clear();
     }
     
-    cubeTest.prototype.showAxis = function(){
+    viz.prototype.showAxis = function(){
         var self = this;
         self.axis = new THREE.AxisHelper( 5 );
         self.scene.add( self.axis );
     }
     
-    cubeTest.prototype.showGridHelper = function(){
+    viz.prototype.showGridHelper = function(){
         var self = this;
         self.gridHelper = new THREE.GridHelper( 10, 1 );
         self.scene.add( self.gridHelper );
     }
     
-    cubeTest.prototype.pCam = function(){
+    viz.prototype.pCam = function(){
         var self = this;
         self.camera = new THREE.PerspectiveCamera( 
             75, 
@@ -88,7 +89,7 @@ function(
         self.cameraControls.keys = [ 37, 38, 39 ];
     }
     
-    cubeTest.prototype.oCam = function(){
+    viz.prototype.oCam = function(){
         var self = this;
         var d = 5;
         var aspect = window.innerWidth / window.innerHeight;
@@ -113,18 +114,18 @@ function(
         self.cameraControls.keys = [ 37, 38, 39 ];
     }
     
-    cubeTest.prototype.switchCam = function(){
+    viz.prototype.switchCam = function(){
         var self = this;
         self.setupCamera( !self.isOrthoCam );
     }
     
-    cubeTest.prototype.setupCamera = function( isOrthoCam ){
+    viz.prototype.setupCamera = function( isOrthoCam ){
         var self = this;
         self.isOrthoCam = isOrthoCam;
-        ( isOrthoCam ) ? self.oCam() : self.pCam();
+        ( !isOrthoCam ) ? self.oCam() : self.pCam();
     }
     
-    cubeTest.prototype.build = function(){
+    viz.prototype.build = function(){
         var self = this;
         self.scene = new THREE.Scene();
         self.setupRenderer();
@@ -137,7 +138,7 @@ function(
         self.showAxis();
     };
     
-    cubeTest.prototype.setupRenderer = function(){
+    viz.prototype.setupRenderer = function(){
         var self = this;
         self.config.elem.innerHTML = '';
         self.renderer = new THREE.WebGLRenderer({ 
@@ -154,7 +155,7 @@ function(
         self.config.elem.appendChild( self.renderer.domElement );
     }
     
-    cubeTest.prototype.newCube = function(){
+    viz.prototype.newCube = function(){
         var self =this;
         var newCube = new cube();
         self.cubes.push( newCube );
@@ -162,7 +163,7 @@ function(
         return newCube
     };
     
-    cubeTest.prototype.render = function(){
+    viz.prototype.render = function(){
         var self = this;
         requestAnimationFrame( function(){ return self.render() });
         self.cameraControls.update();
@@ -173,12 +174,12 @@ function(
         self.stats.update();
     };
     
-    cubeTest.prototype.startLights = function(){
+    viz.prototype.startLights = function(){
         var self = this;
         self.light = new threeLights( self.scene );
     };
     
-    cubeTest.prototype.default = function(){
+    viz.prototype.default = function(){
         var self = this;
         return {
             position: function(){
@@ -189,7 +190,7 @@ function(
     
     ///////////////////////////////// run
     
-    cubeTest.prototype.run = function( x, y, z ){ 
+    viz.prototype.run = function( x, y, z ){ 
         var self = this;
         y = ( y != undefined ) ? y : 0;
         z = ( z != undefined ) ? z : 0;
@@ -230,5 +231,5 @@ function(
         }
     }
     
-    return cubeTest
+    return viz
 });

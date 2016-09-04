@@ -43,16 +43,5 @@ function(){
         this.output = chars.join('');
     }
     
-    LSYS.Renderer = function( _canvas ) {
-        this.canvas = _canvas;
-        this.constants = {
-            '+': 'COUNTERCLOCK',
-            '-': 'CLOCKWISE',
-            '[': 'PUSH',
-            ']': 'POP',
-            'C': 'COLOR'
-        };
-    }
-    
     return LSYS
 });

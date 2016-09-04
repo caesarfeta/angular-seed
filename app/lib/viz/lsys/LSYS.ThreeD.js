@@ -1,23 +1,42 @@
 define([
 'lib/js/Palette',
 'lib/viz/lsys/LSYS.Sys',
+'lodash',
 'threejs',
+'lib/js/MathExt',
 ],
-function( Palette, LSYS ){
+function( 
+    Palette, 
+    LSYS,
+    _ ){
+    
+    // base rendering constants
+    
+    LSYS.Renderer = function(){
+        this.constants = {
+            '+': 'COUNTERCLOCK',
+            '-': 'CLOCKWISE',
+            '[': 'PUSH',
+            ']': 'POP',
+            'C': 'COLOR'
+        };
+    }
     
     //  3D renderer class
     
-    LSYS.ThreeD = function( _canvas, _options ){
-        LSYS.Renderer.call( this, _canvas );
+    LSYS.ThreeD = function( config ){
+        LSYS.Renderer.call( this );
         
         //  Set options
         
-        this.options = ( _options == undefined ) ? {} : _options;
-        this.options['delay'] = ( this.options['delay'] == undefined ) ? 0 : this.options['delay'];
-        self.i = 1;
+        this.config = _.merge( config, {
+            delay: 0,
+            cube_size: 1
+        });
+        this.palette = new Palette( 'candy' );
     }
     LSYS.ThreeD.prototype = Object.create( LSYS.Renderer.prototype );
-    LSYS.ThreeD.prototype.draw = function( _input, _angle, _renderer) {
+    LSYS.ThreeD.prototype.draw = function( sys, func, scene ){
         var coords = [];
         var angle = 0;
         var x = 0;
@@ -25,15 +44,15 @@ function( Palette, LSYS ){
         
         //  Loop through the LSys input string
         
-        var chars = _input.split('');
+        var chars = sys.output.split('');
         for ( var i=0; i<chars.length; i++ ) {
             if ( chars[i] in this.constants ) {
                 switch ( this.constants[ chars[i] ] ) {
                     case 'COUNTERCLOCK':
-                        angle += _angle;
+                        angle += sys.angle;
                         break;
                     case 'CLOCKWISE':
-                        angle -= _angle;
+                        angle -= sys.angle;
                         break;
                 }
             }
@@ -48,8 +67,11 @@ function( Palette, LSYS ){
             }
         }
         var material = new THREE.MeshBasicMaterial( { vertexColors: THREE.FaceColors, overdraw: 0.5 } );
-        var geometry = new THREE.CubeGeometry( this.cube_size, this.cube_size, this.cube_size );
-        var mergedCubes = new THREE.Geometry();
+        var geometry = new THREE.CubeGeometry( 
+            this.config.cube_size, 
+            this.config.cube_size, 
+            this.config.cube_size 
+        );
         for ( var i=0; i<geometry.faces.length; i+=2 ) {
             geometry.faces[ i ].color.setHex( this.palette.at(i).hex('0x') );
             geometry.faces[ i + 1 ].color.setHex( this.palette.at(i).hex('0x') );
@@ -61,24 +83,10 @@ function( Palette, LSYS ){
             var cube = new THREE.Mesh( geometry, material );
             cube.position.y = coords[j][1];
             cube.position.x = coords[j][0];
-            cube.position.z = ( this.func != undefined ) ? this.func( coords[j][0], coords[j][1], j, coords.length ) : 0;
-            THREE.GeometryUtils.merge( mergedCubes, cube );
+            cube.position.z = ( !!func ) ? func( coords[j][0], coords[j][1], j, coords.length ) : 0;
+            scene.add( cube );
         }
-        return mergeCubes
     }
-    
-    LSYS.ThreeD.prototype.init = function( _func, _cube_size ) {
-        var self = this;
-        
-        //  Stash arguments for use later in draw()
-        
-        this.func = _func;
-        this.cube_size = ( _cube_size == undefined ) ? 1 : _cube_size;
-        
-        //  Palette
-        
-        this.palette = new Palette( 'candy' );
-     }
      
      return LSYS
  });
