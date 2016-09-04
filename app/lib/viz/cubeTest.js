@@ -44,8 +44,12 @@ function(
     
     cubeTest.prototype.stop = function(){
         var self = this;
-        self.transforms.clear();
         self.running = false;
+    }
+    
+    cubeTest.prototype.clear = function(){
+        var self = this;
+        self.transforms.clear();
     }
     
     cubeTest.prototype.showAxis = function(){
@@ -127,6 +131,8 @@ function(
         // get fps stats
         
         self.stats = new vizStats({ elem: self.config.elem });
+        self.showGridHelper();
+        self.showAxis();
     };
     
     cubeTest.prototype.setupRenderer = function(){
@@ -185,8 +191,6 @@ function(
         var self = this;
         y = ( y != undefined ) ? y : 0;
         z = ( z != undefined ) ? z : 0;
-        self.showGridHelper();
-        self.showAxis();
         self.start();
         return{
             
