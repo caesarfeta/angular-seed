@@ -135,9 +135,10 @@ function(
     viz.prototype.setupGUI = function(){
         var self = this;
         self.gui = new dat.GUI();
-        self.gui.add( self.camera.position, 'x' ).min(0).max(10).step(.25).listen();
-        self.gui.add( self.camera.position, 'y' ).min(0).max(10).step(.25).listen();
-        self.gui.add( self.camera.position, 'z' ).min(0).max(10).step(.25).listen();
+        self.gui.camera = self.gui.addFolder('Camera');
+        self.gui.camera.add( self.camera.position, 'x' ).min(0).max(10).step(.25).listen();
+        self.gui.camera.add( self.camera.position, 'y' ).min(0).max(10).step(.25).listen();
+        self.gui.camera.add( self.camera.position, 'z' ).min(0).max(10).step(.25).listen();
     }
     
     viz.prototype.build = function(){
