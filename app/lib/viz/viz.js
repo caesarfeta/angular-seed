@@ -6,6 +6,8 @@ define([
 './cube',
 './cubeMatrix',
 './lsys/LSYS',
+'dat.gui',
+
 'THREE.TrackballControls',
 'THREE.OrthographicTrackballControls',
 ],
@@ -16,7 +18,8 @@ function(
     threeLights,
     cube,
     cubeMatrix,
-    LSYS ){
+    LSYS,
+    dat ){
     
     // test threejs
     
@@ -36,6 +39,10 @@ function(
         self.newCube();
         self.default().position();
         self.startLights();
+        self.setupGUI();
+        
+        // draw
+        
         self.render();
         self.running = true;
     }
@@ -123,6 +130,14 @@ function(
         var self = this;
         self.isOrthoCam = isOrthoCam;
         ( !isOrthoCam ) ? self.oCam() : self.pCam();
+    }
+    
+    viz.prototype.setupGUI = function(){
+        var self = this;
+        self.gui = new dat.GUI();
+        self.gui.add( self.camera.position, 'x' ).min(0).max(10).step(.25).listen();
+        self.gui.add( self.camera.position, 'y' ).min(0).max(10).step(.25).listen();
+        self.gui.add( self.camera.position, 'z' ).min(0).max(10).step(.25).listen();
     }
     
     viz.prototype.build = function(){

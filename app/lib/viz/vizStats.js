@@ -1,16 +1,20 @@
 define([
+'lodash',
 'stats'
 ],
-function(){
+function( _ ){
     
     var vizStats = function( config ){
         var self = this;
         self.item = new Stats();
         self.config = config;
-        self.item.domElement.style.position = 'absolute';
-        self.item.domElement.style.bottom = '0';
-        self.item.domElement.style.right = '0';
-        self.item.domElement.style.zIndex = 100;
+        _.merge( self.item.domElement.style, {
+            position: 'absolute',
+            bottom: 0,
+            right: 0,
+            zIndex: 100
+        })
+        _.merge( self.item.domElement.style, config )
         self.config.elem.appendChild( self.item.domElement );
     }
     

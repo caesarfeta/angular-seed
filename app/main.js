@@ -40,6 +40,7 @@ require.config({
         stats: 'bower_components/Physijs/examples/js/stats',
         lodash: 'bower_components/lodash/dist/lodash',
         'color-thief': 'bower_components/color-thief/src/color-thief',
+        'dat.gui': 'bower_components/threejs/examples/js/libs/dat.gui.min',
         tinycolor: 'bower_components/tinycolor/dist/tinycolor-min'
     },
     shim: {
@@ -49,6 +50,9 @@ require.config({
         },
         'color-thief': {
             exports: 'ColorLib'
+        },
+        'dat.gui': {
+            exports: 'dat'
         },
         angularRoute: ['angular'],
         angularMocks: {
