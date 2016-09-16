@@ -1,7 +1,10 @@
 define([
-'threejs'
+'threejs',
+'lodash'
 ],
-function( THREE ){
+function( 
+    THREE, 
+    _ ){
     
     // threejs lights
     
@@ -9,42 +12,36 @@ function( THREE ){
         var self = this;
         self.scene = scene;
         self.ambient = new THREE.AmbientLight( 0x404040 );
+        
+        // points
+        
         self.point = { 
-            r: {},
-            g: {},
-            b: {} 
-        };
+            r: { color: 0xff0000 }, 
+            g: { color: 0x00ff00 }, 
+            b: { color: 0x0000ff }
+        }
+        _.each( self.point, function( point, id ){
+            point.light = new THREE.PointLight( point.color, 3, 150 );
+            point.helper = new THREE.PointLightHelper( point.light, 3 );
+            self.scene.add( point.light );
+            self.scene.add( point.helper );
+            point.light.position.x = 0;
+            point.light.position.y = 0;
+            point.light.position.y = 0;
+        })
         
-        self.point.r.light = new THREE.PointLight( 0xff0000, 3, 150 );
-        self.point.r.helper = new THREE.PointLightHelper( self.point.r.light, 3 );
-        self.scene.add( self.point.r.light );
-        self.scene.add( self.point.r.helper );
-        self.point.r.light.position.x = 0;
-        self.point.r.light.position.y = 0;
-        self.point.r.light.position.y = 0;
+        // spotlights
         
-        self.point.g.light = new THREE.PointLight( 0x00ff00, 3, 150 );
-        self.point.g.helper = new THREE.PointLightHelper( self.point.g.light, 3 );
-        self.scene.add( self.point.g.light );
-        self.scene.add( self.point.g.helper );
-        self.point.g.light.position.x = 0;
-        self.point.g.light.position.y = 0;
-        self.point.g.light.position.y = 0;
         
-        self.point.b.light = new THREE.PointLight( 0x0000ff, 3, 150 );
-        self.point.b.helper = new THREE.PointLightHelper( self.point.b.light, 3 );
-        self.scene.add( self.point.b.light );
-        self.scene.add( self.point.b.helper );
-        self.point.b.light.position.x = 0;
-        self.point.b.light.position.y = 0;
-        self.point.b.light.position.y = 0;
-    };
+    }
     
     threeLights.prototype.reset = function(){
         var self = this;
-        self.point.b.light.position.z = 0;
-        self.point.g.light.position.y = 0;
-        self.point.r.light.position.x = 0;
+        _.each( self.point, function( point ){
+            point.light.position.z = 0;
+            point.light.position.y = 0;
+            point.light.position.x = 0;
+        })
     }
     
     return threeLights

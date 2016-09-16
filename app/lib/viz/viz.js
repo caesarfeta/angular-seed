@@ -39,6 +39,7 @@ function(
         self.newCube();
         self.default().position();
         self.startLights();
+        self.setupFloor();
         self.setupGUI();
         
         // draw
@@ -72,6 +73,15 @@ function(
         var self = this;
         self.gridHelper = new THREE.GridHelper( 10, 1 );
         self.scene.add( self.gridHelper );
+    }
+    
+    viz.prototype.setupFloor = function(){
+        var self = this;
+        self.floor = new THREE.Mesh( 
+            new THREE.BoxGeometry( 2000, 1, 2000 ), 
+            new THREE.MeshPhongMaterial()
+        )
+        self.scene.add( self.floor )
     }
     
     viz.prototype.pCam = function(){
@@ -135,10 +145,18 @@ function(
     viz.prototype.setupGUI = function(){
         var self = this;
         self.gui = new dat.GUI();
+        
+        // camera schtuff
+        
         self.gui.camera = self.gui.addFolder('Camera');
-        self.gui.camera.add( self.camera.position, 'x' ).min(0).max(10).step(.25).listen();
-        self.gui.camera.add( self.camera.position, 'y' ).min(0).max(10).step(.25).listen();
-        self.gui.camera.add( self.camera.position, 'z' ).min(0).max(10).step(.25).listen();
+        _.each( [ 'x', 'y', 'z' ], function( dim ){
+            self.gui.camera.add( self.camera.position, dim ).min(-50).max(50).step(1).listen()
+        })
+        
+        // lights
+        
+        self.gui.light = self.gui.addFolder('Light');
+        
     }
     
     viz.prototype.build = function(){
@@ -187,6 +205,8 @@ function(
             self.transforms.run();
         }
         self.renderer.render( self.scene, self.camera );
+        self.renderer.shadowMap.enabled = true;
+        self.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         self.stats.update();
     };
     
