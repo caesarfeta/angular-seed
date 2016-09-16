@@ -81,6 +81,8 @@ function(
             new THREE.BoxGeometry( 2000, 1, 2000 ), 
             new THREE.MeshPhongMaterial()
         )
+        self.floor.receiveShadow = true;
+        self.floor.shadowDarkness = 0.5;
         self.scene.add( self.floor )
     }
     
@@ -146,17 +148,29 @@ function(
         var self = this;
         self.gui = new dat.GUI();
         
-        // camera schtuff
+        // camera
         
-        self.gui.camera = self.gui.addFolder('Camera');
+        self.gui.camera = self.gui.addFolder('camera');
         _.each( [ 'x', 'y', 'z' ], function( dim ){
-            self.gui.camera.add( self.camera.position, dim ).min(-50).max(50).step(1).listen()
+            self.gui.camera.add( self.camera.position, dim )
+            .min(( dim == 'y' ) ? 1 : -50 )
+            .max(50)
+            .step(1)
+            .listen()
         })
         
         // lights
         
-        self.gui.light = self.gui.addFolder('Light');
-        
+        _.each( self.light.spot, function( spot, id ){
+            self.gui[ id ] = self.gui.addFolder( id );
+            _.each( ['x', 'y', 'z' ], function( dim ){
+                self.gui[ id ].add( self.light.spot[ id ].light.position, dim )
+                .min(( dim == 'y' ) ? 0 : -10 )
+                .max(10)
+                .step(.25)
+                .listen()
+            })
+        })
     }
     
     viz.prototype.build = function(){
@@ -175,10 +189,7 @@ function(
     viz.prototype.setupRenderer = function(){
         var self = this;
         self.config.elem.innerHTML = '';
-        self.renderer = new THREE.WebGLRenderer({ 
-            antialias: true, 
-            alpha: false
-        });
+        self.renderer = new THREE.WebGLRenderer();
         self.renderer.setSize( window.innerWidth, window.innerHeight );
         window.addEventListener("resize", function(){
             self.renderer.setSize( window.innerWidth, window.innerHeight );

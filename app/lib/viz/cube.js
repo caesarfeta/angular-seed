@@ -7,14 +7,17 @@ function( THREE, mover ){
     // cube class extends mover
 
     var cube = function(){
-        this.geometry = new THREE.CubeGeometry( 1, 1, 1 );
-        this.material = new THREE.MeshPhongMaterial({ 
-            color: 0x00FF00,
-            specular: 0x555555,
-            shininess: 25
-        });
-        
-        this.mesh = new THREE.Mesh( this.geometry, this.material );
+        var self = this;
+        self.mesh = new THREE.Mesh( 
+            new THREE.CubeGeometry( 1, .5, 1 ),
+            new THREE.MeshPhongMaterial({ 
+                color: 0xFFFFFF,
+                specular: 0x555555,
+                shininess: 25
+            })
+        )
+        self.mesh.castShadow = true;
+        self.mesh.position.y = 1;
     };
     
     return cube

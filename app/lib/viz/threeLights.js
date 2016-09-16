@@ -14,7 +14,7 @@ function(
         self.ambient = new THREE.AmbientLight( 0x404040 );
         
         // points
-        
+        /*
         self.point = { 
             r: { color: 0xff0000 }, 
             g: { color: 0x00ff00 }, 
@@ -29,10 +29,29 @@ function(
             point.light.position.y = 0;
             point.light.position.y = 0;
         })
+        */
         
         // spotlights
         
-        
+        self.spot = {
+            yellow: { color: 0xFF7F00, pos:[ 15, 40, 45 ]},
+            cyan: { color: 0x00FF7F, pos: [ 0, 40, 35 ]},
+            magenta: { color: 0x7F00FF, pos: [ -15, 40, 45 ]}
+        }
+        _.each( self.spot, function( spot, id ){
+            spot.light = new THREE.SpotLight( spot.color, 2 );
+            spot.helper = new THREE.SpotLightHelper( spot.light );
+            spot.light.castShadow = true;
+            spot.light.angle = 0.3;
+            spot.light.penumbra = 0.2;
+            spot.light.decay = 2;
+            spot.light.distance = 50;
+            spot.light.shadow.mapSize.width = 1024;
+            spot.light.shadow.mapSize.height = 1024;
+            spot.light.position.set.apply( this, spot.pos );
+            self.scene.add( spot.light );
+            self.scene.add( spot.helper );
+        })
     }
     
     threeLights.prototype.reset = function(){
