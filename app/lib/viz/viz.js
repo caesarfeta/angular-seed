@@ -78,11 +78,10 @@ function(
     viz.prototype.setupFloor = function(){
         var self = this;
         self.floor = new THREE.Mesh( 
-            new THREE.BoxGeometry( 2000, 1, 2000 ), 
+            new THREE.BoxGeometry( 20, .1, 20 ), 
             new THREE.MeshPhongMaterial()
         )
         self.floor.receiveShadow = true;
-        self.floor.shadowDarkness = 0.5;
         self.scene.add( self.floor )
     }
     
@@ -191,6 +190,14 @@ function(
         self.config.elem.innerHTML = '';
         self.renderer = new THREE.WebGLRenderer();
         self.renderer.setSize( window.innerWidth, window.innerHeight );
+        
+        // shadow map
+        
+        self.renderer.shadowMap.enabled = true;
+        self.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        self.renderer.gammaInput = true;
+        self.renderer.gammaOutput = true;
+        
         window.addEventListener("resize", function(){
             self.renderer.setSize( window.innerWidth, window.innerHeight );
         })
@@ -216,8 +223,6 @@ function(
             self.transforms.run();
         }
         self.renderer.render( self.scene, self.camera );
-        self.renderer.shadowMap.enabled = true;
-        self.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         self.stats.update();
     };
     
@@ -250,9 +255,13 @@ function(
                 move: function(){
                     self.light.reset();
                     self.transforms.add( function( i ){
-                        self.light.point.b.light.position.z += Math.sin( i*.05 )*z;
-                        self.light.point.g.light.position.y += Math.sin( i*.05 )*y;
-                        self.light.point.r.light.position.x += Math.sin( i*.05 )*x;
+                        var j = 0;
+                        _.each( self.light.spot, function( spot ){
+                            j++;
+                            spot.light.position.z += Math.sin( i*.05 + j )*z;
+                            spot.light.position.y = 5;
+                            spot.light.position.x += Math.sin( i*.05 + j )*x;
+                        })
                     });
                 }
             },

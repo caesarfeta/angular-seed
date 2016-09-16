@@ -16,6 +16,7 @@ function( THREE, mover ){
                 shininess: 25
             })
         )
+        self.mesh.receiveShadow = true;
         self.mesh.castShadow = true;
         self.mesh.position.y = 1;
     };
