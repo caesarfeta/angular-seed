@@ -40,8 +40,9 @@ require.config({
         stats: 'bower_components/Physijs/examples/js/stats',
         lodash: 'bower_components/lodash/dist/lodash',
         'color-thief': 'bower_components/color-thief/src/color-thief',
-        'dat.gui': 'bower_components/threejs/examples/js/libs/dat.gui.min',
-        tinycolor: 'bower_components/tinycolor/dist/tinycolor-min'
+        'dat.gui': 'bower_components/dat.gui/dat.gui.min',
+        tinycolor: 'bower_components/tinycolor/dist/tinycolor-min',
+        timbre: 'bower_components/timbre/timbre.dev'
     },
     shim: {
         angular: {

@@ -23,7 +23,6 @@ function(
         }
         _.each( self.spot, function( spot, id ){
             spot.light = new THREE.SpotLight( spot.color, 2 );
-            spot.helper = new THREE.SpotLightHelper( spot.light );
             spot.light.castShadow = true;
             spot.light.angle = 0.3;
             spot.light.penumbra = 0.2;
@@ -32,7 +31,10 @@ function(
             spot.light.shadow.mapSize.width = 1024;
             spot.light.shadow.mapSize.height = 1024;
             self.scene.add( spot.light );
+            /*
+            spot.helper = new THREE.SpotLightHelper( spot.light );
             self.scene.add( spot.helper );
+            */
         })
     }
     

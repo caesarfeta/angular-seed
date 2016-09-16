@@ -7,6 +7,9 @@ define([
 './cubeMatrix',
 './lsys/LSYS',
 'dat.gui',
+'../synth/synth',
+
+// don't need to be namespaced
 
 'THREE.TrackballControls',
 'THREE.OrthographicTrackballControls',
@@ -19,12 +22,14 @@ function(
     cube,
     cubeMatrix,
     LSYS,
-    dat ){
+    dat,
+    synth ){
     
     // test threejs
     
     var viz = function( config ){
         var self = this;
+        self.synth = new synth();
         self.config = config;
         self.reset();
         self.LSYS = LSYS;
@@ -257,10 +262,10 @@ function(
                     self.transforms.add( function( i ){
                         var j = 0;
                         _.each( self.light.spot, function( spot ){
-                            j++;
                             spot.light.position.z += Math.sin( i*.05 + j )*z;
                             spot.light.position.y = 5;
                             spot.light.position.x += Math.sin( i*.05 + j )*x;
+                            j++;
                         })
                     });
                 }
