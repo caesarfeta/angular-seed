@@ -7,13 +7,11 @@ function(
     THREE,
     _,
     cube ){
-    
     var cubeMatrix = function( cubeTest ){
         var self = this;
         self.cubeTest = cubeTest;
         self.cubes = [];
     }
-    
     cubeMatrix.prototype.build = function( rows, cols ){
         var self = this;
         _.times( rows, function( r ){
@@ -25,6 +23,5 @@ function(
             })
         })
     }
-    
     return cubeMatrix
 });

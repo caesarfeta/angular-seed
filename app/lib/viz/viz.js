@@ -4,6 +4,7 @@ define([
 './threeTrans',
 './threeLights',
 './cube',
+'./paddle',
 './cubeMatrix',
 './lsys/LSYS',
 'dat.gui',
@@ -20,6 +21,7 @@ function(
     threeTrans, 
     threeLights,
     cube,
+    paddle,
     cubeMatrix,
     LSYS,
     dat,
@@ -37,15 +39,12 @@ function(
     
     viz.prototype.reset = function(){
         var self = this;
-        self.cubes = [];
-        self.transforms = new threeTrans();
-        self.matrix = new cubeMatrix( self );
         self.build();
-        self.newCube();
         self.default().position();
-        self.startLights();
-        self.setupFloor();
-        self.setupGUI();
+        
+        // run routines
+        
+        self.run( 1,1,1 ).light.move();
         
         // draw
         
@@ -180,14 +179,20 @@ function(
     viz.prototype.build = function(){
         var self = this;
         self.scene = new THREE.Scene();
+        self.transforms = new threeTrans();
         self.setupRenderer();
         self.setupCamera( true );
+        self.cubes = [];
+        self.newCube();
+        
+        self.setupLights();
+        self.setupFloor();
+        self.newPaddle();
+        self.setupGUI();
         
         // get fps stats
         
         self.stats = new vizStats({ elem: self.config.elem });
-        self.showGridHelper();
-        self.showAxis();
     };
     
     viz.prototype.setupRenderer = function(){
@@ -220,6 +225,16 @@ function(
         return newCube
     };
     
+    viz.prototype.newPaddle = function(){
+        var self = this;
+        var p = new paddle({ 
+            elem: self.config.elem,
+            floor: self.floor
+        });
+        self.scene.add( p.mesh );
+        return p
+    }
+    
     viz.prototype.render = function(){
         var self = this;
         requestAnimationFrame( function(){ return self.render() });
@@ -231,7 +246,7 @@ function(
         self.stats.update();
     };
     
-    viz.prototype.startLights = function(){
+    viz.prototype.setupLights = function(){
         var self = this;
         self.light = new threeLights( self.scene );
     };
@@ -240,7 +255,9 @@ function(
         var self = this;
         return {
             position: function(){
-                self.camera.position.z = 5;
+                self.camera.position.x = 0;
+                self.camera.position.y = 17;
+                self.camera.position.z = 14;
             }
         }
     };
@@ -253,6 +270,25 @@ function(
         z = ( z != undefined ) ? z : 0;
         self.start();
         return{
+            
+            cube: {
+                move: function(){
+                    self.transforms.add( function( i ){
+                        _.each( self.cubes, function( cube ){
+                            if ( Math.abs( cube.mesh.position.z ) > 10 ){
+                                self.synth.bop();
+                                z = z*-1;
+                            }
+                            if ( Math.abs( cube.mesh.position.x ) > 10 ){
+                                self.synth.bop();
+                                x = x*-1;
+                            }
+                            cube.mesh.position.z += z;
+                            cube.mesh.position.x += x;
+                        })
+                    })
+                }
+            },
             
             // lights
             
