@@ -227,12 +227,11 @@ function(
     
     viz.prototype.newPaddle = function(){
         var self = this;
-        var p = new paddle({ 
+        self.paddle = new paddle({ 
             elem: self.config.elem,
             floor: self.floor
         });
-        self.scene.add( p.mesh );
-        return p
+        self.scene.add( self.paddle.mesh );
     }
     
     viz.prototype.render = function(){
@@ -275,16 +274,24 @@ function(
                 move: function(){
                     self.transforms.add( function( i ){
                         _.each( self.cubes, function( cube ){
-                            if ( Math.abs( cube.mesh.position.z ) > 10 ){
+                            
+                            // hits wall
+                            
+                            var wallz = Math.abs( cube.mesh.position.z ) > 10;
+                            var wallx = Math.abs( cube.mesh.position.x ) > 10;
+                            
+                            if ( wallz || self.paddle.isTouching( cube.mesh )){
                                 self.synth.bop();
                                 z = z*-1;
                             }
-                            if ( Math.abs( cube.mesh.position.x ) > 10 ){
+                            if ( wallx ){
                                 self.synth.bop();
                                 x = x*-1;
                             }
                             cube.mesh.position.z += z;
                             cube.mesh.position.x += x;
+                            
+                            // hits paddle
                         })
                     })
                 }

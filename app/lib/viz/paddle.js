@@ -25,6 +25,10 @@ function( THREE, _ ){
         self.mesh.position.y = 1;
         self.mesh.position.z = 9;
         
+        // get the bbox
+        
+        self.bbox = new THREE.Box3().setFromObject( self.mesh );
+        
         // mouse movement
         
         var mouseRatio = 0.5;
@@ -33,5 +37,11 @@ function( THREE, _ ){
             self.mesh.position.x = mouseRatio*self.config.width - self.config.width/2;
         })
     };
+    paddle.prototype.isTouching = function( mesh ){
+        var self = this;
+        var bbox1 = new THREE.Box3().setFromObject( self.mesh );
+        var bbox2 = new THREE.Box3().setFromObject( mesh );
+        return bbox1.intersectsBox( bbox2 );
+    }
     return paddle
 });
