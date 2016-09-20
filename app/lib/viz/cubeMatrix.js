@@ -17,8 +17,10 @@ function(
         _.times( rows, function( r ){
             _.times( cols, function( c ){
                 var cube = self.cubeTest.newCube();
-                cube.mesh.position.x = cube.mesh.scale.x*c;
-                cube.mesh.position.z = cube.mesh.scale.z*r;
+                cube.mesh.position.x = cube.mesh.scale.x*c-(rows*cube.mesh.scale.x)/2;
+                cube.mesh.position.z = cube.mesh.scale.z*r-(cols.cube.mesh.scale.z)/2;
+                cube.mesh.position.y = 1;
+                cube.mesh.scale.y = Math.rand() * 20;
                 self.cubes[r][c] = cube;
             })
         })

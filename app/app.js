@@ -3,7 +3,6 @@ define([
 'angularRoute',
 'view/specierch/specierch',
 'view/mapper/mapper',
-'view/view2/view2',
 'view/canvas/canvas',
 'view/color-kit/color-kit',
 'lib/version/version',
@@ -69,7 +68,6 @@ function( angular ){
 		'myApp.view.canvas',
 		'myApp.view.mapper',
 		'myApp.view.colorKit',
-		'myApp.view2',
 		'myApp.version',
 	])
 	.config([

@@ -87,9 +87,6 @@ require.config({
         tinycolor: {
             exports: 'tinycolor' 
         },
-        jquery: {
-            exports: 'jquery'
-        },
         jqueryUi: {
             deps: ['jquery']
         }

@@ -8,7 +8,8 @@ define([
 './cubeMatrix',
 './lsys/LSYS',
 'dat.gui',
-'../synth/synth',
+'../sounds/sfx',
+'../sounds/music',
 
 // don't need to be namespaced
 
@@ -25,15 +26,21 @@ function(
     cubeMatrix,
     LSYS,
     dat,
-    synth ){
+    sfx,
+    music ){
     
     // test threejs
     
     var viz = function( config ){
         var self = this;
-        self.synth = new synth();
+        self.sfx = new sfx();
+        self.music = new music();
         self.config = config;
         self.reset();
+        
+        // setup gui
+        
+        self.setupGUI();
         self.LSYS = LSYS;
     };
     
@@ -188,11 +195,6 @@ function(
         self.setupLights();
         self.setupFloor();
         self.newPaddle();
-        self.setupGUI();
-        
-        // get fps stats
-        
-        self.stats = new vizStats({ elem: self.config.elem });
     };
     
     viz.prototype.setupRenderer = function(){
@@ -215,6 +217,10 @@ function(
         // append rendered element
         
         self.config.elem.appendChild( self.renderer.domElement );
+        
+        // get fps stats
+        
+        self.stats = new vizStats({ elem: self.config.elem });
     }
     
     viz.prototype.newCube = function(){
@@ -281,17 +287,15 @@ function(
                             var wallx = Math.abs( cube.mesh.position.x ) > 10;
                             
                             if ( wallz || self.paddle.isTouching( cube.mesh )){
-                                self.synth.bop();
+                                self.sfx.bop();
                                 z = z*-1;
                             }
                             if ( wallx ){
-                                self.synth.bop();
+                                self.sfx.bop();
                                 x = x*-1;
                             }
                             cube.mesh.position.z += z;
                             cube.mesh.position.x += x;
-                            
-                            // hits paddle
                         })
                     })
                 }
