@@ -1,6 +1,6 @@
 define([
 'lib/js/Palette',
-'lib/viz/lsys/LSYS.Sys',
+'./LSYS.Sys',
 'lodash',
 'threejs',
 'lib/js/MathExt',

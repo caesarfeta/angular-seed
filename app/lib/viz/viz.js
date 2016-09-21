@@ -1,12 +1,12 @@
 define([
 'threejs',
-'./vizStats',
+'./gui/vizStats',
 './threeTrans',
-'./threeLights',
-'./cube',
-'./paddle',
-'./matrix/cubeMatrix',
-'./lsys/LSYS',
+'./stage/cmyLights',
+'./objects/cube',
+'./objects/paddle',
+'./objects/matrix/cubeMatrix',
+'./objects/lsys/LSYS',
 'dat.gui',
 '../sounds/sfx',
 '../sounds/music',
@@ -20,7 +20,7 @@ function(
     THREE,
     vizStats,
     threeTrans, 
-    threeLights,
+    cmyLights,
     cube,
     paddle,
     cubeMatrix,
@@ -195,9 +195,12 @@ function(
         self.cubeMatrix = new cubeMatrix({ scene: self.scene });
         self.cubeMatrix.build( 10, 10 );
         
-        self.setupLights();
+        self.light = new cmyLights({ scene: self.scene });
         self.setupFloor();
-        self.newPaddle();
+        self.paddle = new paddle({ 
+            elem: self.config.elem,
+            scene: self.scene
+        });
     };
     
     viz.prototype.setupRenderer = function(){
@@ -213,7 +216,7 @@ function(
         self.renderer.gammaInput = true;
         self.renderer.gammaOutput = true;
         
-        window.addEventListener("resize", function(){
+        window.addEventListener( "resize", function(){
             self.renderer.setSize( window.innerWidth, window.innerHeight );
         })
         
@@ -234,15 +237,6 @@ function(
         return newCube
     };
     
-    viz.prototype.newPaddle = function(){
-        var self = this;
-        self.paddle = new paddle({ 
-            elem: self.config.elem,
-            floor: self.floor
-        });
-        self.scene.add( self.paddle.mesh );
-    }
-    
     viz.prototype.render = function(){
         var self = this;
         requestAnimationFrame( function(){ return self.render() });
@@ -252,11 +246,6 @@ function(
         }
         self.renderer.render( self.scene, self.camera );
         self.stats.update();
-    };
-    
-    viz.prototype.setupLights = function(){
-        var self = this;
-        self.light = new threeLights( self.scene );
     };
     
     viz.prototype.default = function(){

@@ -1,13 +1,13 @@
 define([
 'threejs',
 'lodash',
-'lib/viz/cube'
+'../cube'
 ],
 function( 
     THREE,
     _,
     vizCube ){
-    var cubeMatrix = function( config ){
+    var charMatrix = function( config ){
         var self = this;
         _.merge( self, {
           cubes: [],
@@ -15,22 +15,24 @@ function(
         })
         _.merge( self, config )
     }
-    cubeMatrix.prototype.build = function( rows, cols ){
+    charMatrix.prototype.build = function( arr ){
         var self = this;
         
         // rows
         
-        _.times( rows, function( r ){
+        _.each( arr, function( chars, r ){
             self.cubes[r]=[];
             
             // columns
             
-            _.times( cols, function( c ){
+            _.each( chars.split(), function( char, c ){
+                if ( char == ' ' ){
+                  return
+                }
                 var cube = new vizCube();
                 cube.mesh.position.x = cube.mesh.scale.x*c-(rows*cube.mesh.scale.x)/2;
                 cube.mesh.position.z = cube.mesh.scale.z*r-(cols*cube.mesh.scale.z)/2;
                 cube.mesh.position.y = 1;
-                cube.mesh.scale.y = Math.random() * 20;
                 self.cubes[r][c] = cube;
                 self.scene.add( cube.mesh );
             })

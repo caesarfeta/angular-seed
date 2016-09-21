@@ -8,9 +8,12 @@ function(
     
     // threejs lights
     
-    var threeLights = function( scene ){
+    var cmyLights = function( config ){
         var self = this;
-        self.scene = scene;
+        _.merge( self, {
+          scene: undefined
+        })
+        _.merge( self, config );
         self.ambient = new THREE.AmbientLight( 0x111111 )
         self.scene.add( self.ambient )
         
@@ -31,14 +34,10 @@ function(
             spot.light.shadow.mapSize.width = 1024;
             spot.light.shadow.mapSize.height = 1024;
             self.scene.add( spot.light );
-            /*
-            spot.helper = new THREE.SpotLightHelper( spot.light );
-            self.scene.add( spot.helper );
-            */
         })
     }
     
-    threeLights.prototype.reset = function(){
+    cmyLights.prototype.reset = function(){
         var self = this;
         _.each( self.spot, function( spot ){
             spot.light.position.z = 0;
@@ -47,5 +46,5 @@ function(
         })
     }
     
-    return threeLights
+    return cmyLights
 });
