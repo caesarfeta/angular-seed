@@ -7,7 +7,7 @@ function(
     THREE,
     _,
     vizCube ){
-    var hashMatrix = function( config ){
+    var charMatrix = function( config ){
         var self = this;
         _.merge( self, {
           cubes: [],
@@ -15,17 +15,17 @@ function(
         })
         _.merge( self, config )
     }
-    hashMatrix.prototype.build = function( arr ){
+    charMatrix.prototype.build = function( arr ){
         var self = this;
         
         // rows
         
-        _.times( arr, function( r ){
+        _.each( arr, function( chars, r ){
             self.cubes[r]=[];
             
             // columns
             
-            _.each( arr.split(), function( char, c ){
+            _.each( chars.split(), function( char, c ){
                 if ( char == ' ' ){
                   return
                 }
