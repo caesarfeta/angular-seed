@@ -1,8 +1,7 @@
 define([
 'threejs',
-'lib/viz/mover'
 ],
-function( THREE, mover ){
+function( THREE ){
 
     // cube class extends mover
 
@@ -19,7 +18,6 @@ function( THREE, mover ){
         self.mesh.receiveShadow = true;
         self.mesh.castShadow = true;
         self.mesh.position.y = 1;
-        self.bbox = new THREE.Box3().setFromObject( self.mesh );
     };
     
     return cube

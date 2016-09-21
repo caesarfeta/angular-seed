@@ -33,9 +33,9 @@ function(
     
     var viz = function( config ){
         var self = this;
+        self.config = config;
         self.sfx = new sfx();
         self.music = new music();
-        self.config = config;
         self.reset();
         
         // setup gui
