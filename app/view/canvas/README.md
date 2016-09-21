@@ -148,6 +148,6 @@ Keep your code dry ( Don't Repeat Yourself ).
 
 The best code provides the foundation for other systems to be built around it.  And you want to make sure that your code can be optimized in the future without affecting systems which may depend on it.
 
-# Getters and setters
+# Functions > Properties for passing values around... 
+## aka the value of getters and setters
 
-# Functions > Properties for passing values around

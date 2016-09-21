@@ -5,7 +5,7 @@ define([
 './threeLights',
 './cube',
 './paddle',
-'./cubeMatrix',
+'./matrix/cubeMatrix',
 './lsys/LSYS',
 'dat.gui',
 '../sounds/sfx',
@@ -191,6 +191,9 @@ function(
         self.setupCamera( true );
         self.cubes = [];
         self.newCube();
+        
+        self.cubeMatrix = new cubeMatrix({ scene: self.scene });
+        self.cubeMatrix.build( 10, 10 );
         
         self.setupLights();
         self.setupFloor();
