@@ -10,7 +10,7 @@ function(
     angular, 
     $,
     _,
-    colorThief ){
+    colorThief){
 
     angular.module( 'atColor', [ 'atAlert' ] )
 

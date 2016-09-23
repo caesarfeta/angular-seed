@@ -21,7 +21,12 @@ function(
     if ( !self.url ){
       throw 'missing url'
     }
-    urlToRgb.get( self.url ).then( function( imgData ){})
+    urlToRgb.get( self.url )
+    .then( 
+      function( imgData ){
+        console.log( imgData )
+      }
+    );
   }
   imgMatrix.prototype.build = function(){
     var self = this;
