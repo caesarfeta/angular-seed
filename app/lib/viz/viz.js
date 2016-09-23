@@ -192,8 +192,13 @@ function(
     self.setupRenderer();
     self.setupCamera( true );
     
-    self.cubeMatrix = new cubeMatrix({ scene: self.scene });
-    self.cubeMatrix.build( 10, 10 );
+    // self.cubeMatrix = new cubeMatrix({ scene: self.scene });
+    // self.cubeMatrix.build( 10, 10 );
+    
+    self.charMatrix = new charMatrix({
+      scene: self.scene,
+      color: 0xFF0000,
+    })
     
     self.light = new cmyLights({ scene: self.scene });
     self.setupFloor();

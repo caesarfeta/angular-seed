@@ -16,7 +16,7 @@ function(
     })
     _.merge( self, config )
     self.mesh = new THREE.Mesh( 
-      new THREE.CubeGeometry( 1, .5, 1 ),
+      new THREE.CubeGeometry( 1, 1, 1 ),
       new THREE.MeshPhongMaterial({ 
         color: self.color,
         specular: 0x555555,
@@ -25,7 +25,6 @@ function(
     )
     self.mesh.receiveShadow = true;
     self.mesh.castShadow = true;
-    self.mesh.position.y = 1;
     self.scene.add( self.mesh );
   };
   
