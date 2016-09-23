@@ -26,7 +26,7 @@ function(
             };
         }
     ])
-
+    
     .directive( 'colorSwatch',[
         function(){
             return {
@@ -47,7 +47,7 @@ function(
             }
         }
     ])
-
+    
     .service( 'mutators',[
         function(){
             return {
