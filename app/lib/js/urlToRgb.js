@@ -9,7 +9,6 @@ function( angular ){
   self.canvas = document.createElement( 'canvas' );
   self.ctx = self.canvas.getContext( '2d' );
   self.get = function( url ){
-    console.log( self.$q );
     return self.$q( function( yes, no ){
       self.image = new Image();
       self.image.crossOrigin = 'anonymous';

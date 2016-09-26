@@ -14,6 +14,7 @@ function(
       cubes: [],
       scene: undefined,
       color: 0xFFFFFF,
+      size: 1,
       matrix: [ 
         
         ' #', 
