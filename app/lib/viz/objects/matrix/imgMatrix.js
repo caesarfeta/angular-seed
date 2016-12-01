@@ -33,12 +33,11 @@ function(
     .then( 
       function( imgData ){
         self.img = imgData;
-        var pixels = imgData.data;
+        var pix = imgData.data;
         var width = imgData.width;
         var lastRow = 0;
-        for( var i=0; i<pixels.length; i+=4 ){
-          var color = '0x' + toHex( pixels[i] ) + toHex( pixels[i+1] ) + toHex( pixels[i+2] );
-          color = parseInt( color );
+        for( var i=0; i<pix.length; i+=4 ){
+          var color = parseInt('0x'+toHex( pix[i] )+toHex( pix[i+1] )+toHex( pix[i+2] ));
           var c = i/4%width;
           var r = Math.floor(i/(width*4));
           if ( r > lastRow ){
