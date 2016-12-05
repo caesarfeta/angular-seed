@@ -1,51 +1,15 @@
 define([
 'angular',
 'angularRoute',
-'view/specierch/specierch',
-'view/mapper/mapper',
-'view/canvas/canvas',
-'view/color-kit/color-kit',
+'lib/specierch/specierch',
+'lib/mapper/mapper',
+'lib/canvas/canvas',
+'lib/color-kit/color-kit',
 'lib/version/version',
+'lib/atPixels/atPixels.angular'
 ], 
 function( angular ){
   
-  angular.module( 'myApp.view.canvas' )
-  .config([
-    '$routeProvider', 
-    function( $routeProvider ){
-      var std = {
-        template: '<div canvas-cube-test />',
-        controller: 'viewCanvasCtrl'
-      }
-      $routeProvider.when('/canvas', std )
-      $routeProvider.when('/canvas/:id', std )
-    }
-  ])
-  
-  angular.module( 'myApp.view.colorKit' )
-  .config([
-    '$routeProvider', 
-    function( $routeProvider ){
-      var std = {
-        templateUrl: 'view/color-kit/color-kit.html',
-        controller: 'colorKitCtrl'
-      }
-      $routeProvider.when('/color-kit', std )
-      $routeProvider.when('/color-kit/:go*', std )
-    }
-  ])
-  
-  angular.module( 'myApp.view.specierch' )
-  .config([
-    '$routeProvider', 
-    function( $routeProvider ){
-      $routeProvider.when('/specierch', {
-        templateUrl: 'view/specierch/specierch.html',
-        controller: 'SpecierchCtrl'
-      })
-    }
-  ])
-
   // Declare app level module which depends on views, and components
   
   angular.module( 'myApp', [
@@ -55,6 +19,7 @@ function( angular ){
     'myApp.view.mapper',
     'myApp.view.colorKit',
     'myApp.version',
+    'atPixels'
   ])
   .config([
     '$routeProvider', 
