@@ -5,7 +5,7 @@ define([
 'colorpicker.module',
 'lib/maps/atMaps',
 'lib/windowWrap/windowWrap',
-'lib/money/atMoney'
+'lib/money/atMoney.angular'
 ],
 function( angular, _ ){
   'use strict'
