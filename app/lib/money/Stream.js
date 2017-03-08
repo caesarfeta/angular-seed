@@ -11,7 +11,7 @@ function(
     var self = this
     self.label = config.label
     self.initValue = self.value = config.value
-    if ( !('period' in config )){
+    if ( !( 'period' in config )){
       return
     }
     switch( config.period ){
@@ -50,6 +50,18 @@ function(
   Stream.prototype.perHour = function(){
     var self = this
     return self.perDay() / 24
+  }
+  Stream.prototype.row = function(){
+    var self = this
+    return {
+      label: self.label,
+      vals: {
+        year: self.perYear(),
+        month: self.perMonth(),
+        week: self.perWeek(),
+        day: self.perDay()
+      }
+    }
   }
   return Stream
 })

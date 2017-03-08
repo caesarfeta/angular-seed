@@ -1,9 +1,10 @@
 define([
 './atMoney',
+'../utils/utils',
 'app',
 'angularMocks'
 ],
-function( at ){
+function( at, utils ){
   describe( 'atMoney', function(){
     
     describe( 'me', function(){
@@ -21,14 +22,13 @@ function( at ){
       })
       it( 'budget.per', function(){
         var me = new at.myMoney()
-        console.log(
-          me.budget.per( 'year' ),
-          me.budget.per( 'month' ),
-          me.budget.per( 'week' ),
-          me.budget.per( 'day' ),
-          me.budget.per( 'hour' )
-        )
-        expect( Math.abs( me.budget.per( 'year' )) > Math.abs( me.budget.per( 'month '))).toBe( true )
+        expect(
+          Math.abs( me.budget.per( 'year' )) > Math.abs( me.budget.per( 'month' ))
+        ).toBe( true )
+      })
+      it( 'budget.table', function(){
+        var me = new at.myMoney()
+        expect( !!me.budget.table() ).toBe( true )
       })
     })
     
@@ -44,6 +44,75 @@ function( at ){
             type: 'single' 
           })
         ).not.toBe( undefined )
+      })
+    })
+    
+    describe( 'Stream', function(){
+      it( 'exists', function(){
+        var stream = new at.stream({
+          label: 'savings',
+          value: 2000,
+          period: 'month'
+        })
+        expect( !!stream ).toBe( true )
+      })
+    })
+    
+    describe( 'Investment', function(){
+      it( 'run', function(){
+        var inv = new at.investment({
+          value: 70000,
+          change: function( value ){
+            return value + ( value * 0.05 )
+          }
+        })
+        expect( !!inv.run().now ).toBe( true )
+      })
+      it( 'times', function(){
+        var inv = new at.investment({
+          value: 10000,
+          change: function( value ){
+            return value + ( value * 0.01 )
+          }
+        })
+        expect( !!inv.times( 12 )).toBe( true )
+      })
+      it( 'runLite', function(){
+        var inv = new at.investment({
+          value: 10000,
+          change: function( value ){
+            return value + ( value * 0.01 )
+          }
+        })
+        expect( !!inv.runLite() ).toBe( true )
+      })
+      it( 'timesLite', function(){
+        var inv = new at.investment({
+          value: 10000,
+          change: function( value ){
+            return value + ( value * 0.01 )
+          }
+        })
+        expect( !!inv.timesLite( 12 )).toBe( true )
+      })
+      it( 'earnedInt', function(){
+        var inv = new at.investment({
+          value: 10000,
+          change: function( value ){
+            return value + ( value * 0.01 )
+          }
+        })
+        expect( !!inv.earnedInt( 12 )).toBe( true )
+      })
+      it( 'totalEarnedInt', function(){
+        var inv = new at.investment({
+          value: 10000,
+          change: function( value ){
+            return value + ( value * 0.01 )
+          }
+        })
+        console.log( inv.totalEarnedInt( 12 ) )
+        expect( !!inv.totalEarnedInt( 12 )).toBe( true )
       })
     })
     

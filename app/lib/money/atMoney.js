@@ -1,12 +1,14 @@
 define([ 
 'lodash',
 'd3',
-'./Stream'
+'./Stream',
+'./Investment'
 ],
 function( 
   _,
   d3,
-  Stream ){
+  Stream,
+  Investment ){
   'use strict';
   
   // Budget
@@ -18,6 +20,12 @@ function(
   Budget.prototype.addStream = function( stream ){
     var self = this
     self.streams.push( new Stream( stream ))
+  }
+  Budget.prototype.table = function(){
+    var self = this
+    return self.streams.map( function( stream ){
+      return stream.row()
+    })
   }
   Budget.prototype.per = function( type ){
     var self = this
@@ -32,38 +40,6 @@ function(
       }
     )
     return total
-  }
-  
-  // Money
-  
-  var Money = function( config ){
-    var self = this
-    self.salary = config.salary
-    self.age = config.age
-  }
-  Money.prototype.perWeek = function(){
-    var self = this
-    return self.salary / 52
-  }
-  Money.prototype.perMonth = function(){
-    var self = this
-    return self.salary / 12
-  }
-  Money.prototype.perDay = function(){
-    var self = this
-    return self.salary / 365
-  }
-  Money.prototype.perHour = function(){
-    var self = this
-    return self.perDay() / 24
-  }
-  Money.prototype.perWorkHour = function(){
-    var self = this
-    return self.perWeek() / 40
-  }
-  Money.prototype.perWorkHourTuffWk = function(){
-    var self = this
-    return self.perWeek() / 60
   }
   
   // TaxRates
@@ -317,11 +293,11 @@ function(
   
   var MyMoney = function(){
     var self = this
-    self.my = new Money({
+    self.my = {
       name: 'Adam',
       salary: 90000,
       age: 33
-    })
+    }
     self.preTax = function(){
       return self.my.salary
     }
@@ -368,10 +344,10 @@ function(
   return {
     barComp: BarComp,
     budget: Budget,
-    money: Money,
     myMoney: MyMoney,
     pieChart: PieChart,
     stream: Stream,
+    investment: Investment,
     taxRates: taxRates
   }
 })

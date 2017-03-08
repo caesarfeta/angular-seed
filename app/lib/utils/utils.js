@@ -13,5 +13,8 @@ function( _ ){
       return func( i )
     })
   }
+  utils.dump = function( obj ){
+    return JSON.stringify( obj, ' ', 2 )
+  }
   return utils
 })
