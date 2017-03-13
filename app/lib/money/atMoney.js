@@ -2,151 +2,18 @@ define([
 'lodash',
 'd3',
 './Stream',
-'./Investment'
+'./Investment',
+'./TaxRates',
+'./Budget'
 ],
 function( 
   _,
   d3,
   Stream,
-  Investment ){
+  Investment,
+  TaxRates,
+  Budget ){
   'use strict';
-  
-  // Budget
-  
-  var Budget = function( config ){
-    var self = this
-    self.streams = []
-  }
-  Budget.prototype.addStream = function( stream ){
-    var self = this
-    self.streams.push( new Stream( stream ))
-  }
-  Budget.prototype.table = function(){
-    var self = this
-    return self.streams.map( function( stream ){
-      return stream.row()
-    })
-  }
-  Budget.prototype.per = function( type ){
-    var self = this
-    var total = 0
-    _.each( self.streams, 
-      function( stream ){
-        var func = ( 'per' + type[0].toUpperCase() + type.slice(1) ).trim()
-        if ( !stream[ func ] ){
-          throw( 'type not found')
-        }
-        total += stream[ func ]()
-      }
-    )
-    return total
-  }
-  
-  // TaxRates
-  
-  var TaxRates = function(){
-    var self = this
-    function inside( n, c1, c2 ){
-      return n >= c1 && ( c2 && n <= c2 )
-    }
-    self.rates = [
-      {
-        percent: 10,
-        single: function( n ){
-          return inside( n, 0, 9275 )
-        },
-        joint: function( n ){
-          return inside( n, 0, 18550 )
-        },
-        head: function( n ){
-          return inside( n, 0,  13250 )
-        }
-      },
-      {   
-        percent: 15,
-        single: function( n ){
-          return inside( n, 9275, 37650 )
-        },
-        joint: function( n ){
-          return inside( n, 18550, 75300 )
-        },
-        head: function( n ){
-          return inside( n, 13250, 50,400 )
-        }
-      },
-      {
-        percent: 25,
-        single: function( n ){
-          return inside( n, 37650, 91150 )
-        },
-        joint: function( n ){
-          return inside( n, 75300, 151900 )
-        },
-        head: function( n ){
-          return inside( n, 50400, 130150 )
-        }
-      },
-      {   
-        percent: 28,
-        single: function( n ){
-          return inside( n, 91150, 190150 )
-        },
-        joint: function( n ){
-          return inside( n, 151900, 231450 )
-        },
-        head: function( n ){
-          return inside( n, 130150, 210800 )
-        }
-      },
-      {
-        percent: 33,
-        single: function( n ){
-          return inside( n, 190150, 413350 )
-        },
-        joint: function( n ){
-          return inside( n, 231450, 413350 )
-        },
-        head: function( n ){
-          return inside( n, 210800, 413350 )
-        }
-      },
-      {
-        percent: 35,
-        single: function( n ){
-          return inside( n, 413350, 415050 )
-        },
-        joint: function( n ){
-          return inside( n, 413350, 466950 )
-        },
-        head: function( n ){
-          return inside( n, 413350, 441000 )
-        }
-      },
-      {
-        percent: 39.6,
-        single: function( n ){
-          return inside( n, 415050 )
-        },
-        joint: function( n ){
-          return inside( n, 466950 )
-        },
-        head: function( n ){
-          return inside( n, 441000 )
-        }
-      }
-    ]
-    self.find = function( arg ){
-      if ( !_.includes([ 'single', 'joint','head' ], arg.type.toLowerCase() )){
-        throw( arg.type + 'not a valid type' )
-      }
-      var found = _.find( self.rates, function( rate ){
-        return rate[ arg.type ]( arg.n )
-      })
-      if ( !!found ){
-        return found.percent
-      }
-    }
-  }
   var taxRates = new TaxRates()
   
   // BarComp
@@ -339,6 +206,36 @@ function(
     )
     self.disposable = function(){
       return self.postTax() + self.budget.per( 'year' )
+    }
+    self.invest = {
+      _401k: new Investment({
+        value: self.disposable(),
+        change: function( value ){
+          return value + ( value * 0.01 )
+        }
+      }),
+      IRA: new Investment({
+        value: self.disposable(),
+        change: function( value ){
+          return value + ( value * 0.025 )
+        }
+      }),
+      _10p: new Investment({
+        value: self.disposable(),
+        change: function( value ){
+          return value + ( value * 0.1 )
+        }
+      })
+    }
+    self.howLong = function( n ){
+      var years = Math.round( n / self.disposable())
+      return {
+        age: self.my.age + years,
+        years: years,
+        _401K: self.invest._401k.totalEarnedInt( years ),
+        IRA: self.invest.IRA.totalEarnedInt( years ),
+        _10p: self.invest._10p.totalEarnedInt( years )
+      }
     }
   }
   return {

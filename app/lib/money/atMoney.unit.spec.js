@@ -7,7 +7,7 @@ define([
 function( at, utils ){
   describe( 'atMoney', function(){
     
-    describe( 'me', function(){
+    describe( 'myMoney', function(){
       it( 'exists', function(){
         var me = new at.myMoney()
         expect( !!me ).toBe( true )
@@ -29,6 +29,11 @@ function( at, utils ){
       it( 'budget.table', function(){
         var me = new at.myMoney()
         expect( !!me.budget.table() ).toBe( true )
+      })
+      it( 'howLong', function(){
+        var me = new at.myMoney()
+        console.log( me.howLong( 1000000 ))
+        expect( me.howLong( 1000000 ).years ).toBe( 33 )
       })
     })
     
@@ -111,7 +116,6 @@ function( at, utils ){
             return value + ( value * 0.01 )
           }
         })
-        console.log( inv.totalEarnedInt( 12 ) )
         expect( !!inv.totalEarnedInt( 12 )).toBe( true )
       })
     })

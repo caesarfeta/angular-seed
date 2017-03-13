@@ -91,7 +91,9 @@ function(
           self.loop()
         }
         self.image.onerror = function( r ){
-          config.onError( r )
+          if ( !!config.onError ){
+            config.onError( r )
+          }
         }
         self.image.src = "http://localhost:5000/" + self.url
       }
