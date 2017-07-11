@@ -7,6 +7,24 @@ function( module ){
     function(){
       var self = this;
       
+      // Fungi
+      
+      self.fungi = function(){
+        return '\
+        PREFIX : <http://dbpedia.org/resource/>\
+        PREFIX dbpedia2: <http://dbpedia.org/property/>\
+        PREFIX foaf: <http://xmlns.com/foaf/0.1/>\
+        SELECT ?img ?name ?comment\
+        WHERE {\
+          ?s <http://dbpedia.org/ontology/kingdom> :Fungi;\
+            rdfs:label ?name;\
+            rdfs:comment ?comment;\
+            foaf:depiction ?img\
+            FILTER ( langMatches( lang( ?name ), "EN" ))\
+            FILTER ( langMatches( lang( ?comment ), "EN" ))\
+        }'
+      }
+      
       // Images
       
       self.img = function( config ){
@@ -36,7 +54,7 @@ function( module ){
         }\
         GROUP BY ?name\
         LIMIT ' + config.limit
-      };
+      }
       
       
       // Species in genus

@@ -17,15 +17,20 @@ function(
     function( $routeProvider ){
       $routeProvider.when('/specierch', {
         template: [
-          '<div class="specierch">',
-            '<div scroll-stick class="controls">',
-              '<p>Search for organisms with keywords like <span dbp-img-history></span>!',
-                '<dbp-img-search></dbp-img-search>',
-              '</p>',
-            '</div>',
-            '<dbp-species></dbp-species>',
-          '</div>',
+          
+          '<div dbp-fungi-genus-list></div>'
+          
         ].join(' '),
+//        template: [
+//          '<div class="specierch">',
+//            '<div scroll-stick class="controls">',
+//              '<p>Search for organisms with keywords like <span dbp-img-history></span>!',
+//                '<dbp-img-search></dbp-img-search>',
+//              '</p>',
+//            '</div>',
+//            '<dbp-species></dbp-species>',
+//          '</div>',
+//        ].join(' '),
         controller: 'SpecierchCtrl'
       })
     }
