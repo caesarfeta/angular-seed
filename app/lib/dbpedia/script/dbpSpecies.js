@@ -74,22 +74,24 @@ function( module ){
         scope: true,
         template: [
           
-          '<div>Drill Down</div>'
+          '<div class="container">',
+            '<div ng-repeat="item in ::list()">',
+              '<div dbp-fungi-item></div>',
+            '</div>',
+          '</div>'
           
         ].join(' '),
         link: function( scope ){
-          if ( !dbpedia.fungi.result ){
-            
+          scope.list = function(){
+            return _.filter( dbpedia.fungi.result, function( item ){
+              return item.genus == scope.genus
+            })
           }
-          else {
-            
-          }
-          console.log( scope.genus )
         }
       }
     }
   ])
-  .directive( 'dbpFungiGenus', [
+  .directive( 'dbpFungiItem', [
     '$location',
     function( $location ){
       return {
@@ -98,11 +100,11 @@ function( module ){
         template: [
           
           '<div class="col-xs-4">',
-            '<a href="{{ ::url( genus.name ) }}">',
-              '<h2>{{ ::genus.name }}</h2>',
-              '<img ng-src="{{ ::genus.img }}" style="width:100%" />',
+            '<a href="{{ ::url( item.name ) }}">',
+              '<h2>{{ ::item.name }}</h2>',
+              '<img ng-src="{{ ::item.img }}" style="width:100%" />',
             '</a>',
-            '<p>{{ ::genus.comment }}</p>',
+            '<p>{{ ::item.comment }}</p>',
           '</div>'
           
         ].join(' '),
@@ -123,8 +125,8 @@ function( module ){
           
           '<div ng-if="!!dbpedia.fungi.genus"',
                'class="container">',
-            '<div ng-repeat="genus in dbpedia.fungi.genus">',
-              '<div dbp-fungi-genus></div>',
+            '<div ng-repeat="item in dbpedia.fungi.genus">',
+              '<div dbp-fungi-item></div>',
             '</div>',
           '</div>'
           
