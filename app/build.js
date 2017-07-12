@@ -20,23 +20,30 @@ require.config({
         'color-thief': 'bower_components/color-thief/src/color-thief',
         'dat.gui': 'bower_components/dat.gui/dat.gui.min',
         tinycolor: 'bower_components/tinycolor/dist/tinycolor-min',
-        timbre: 'bower_components/timbre/timbre.dev'
+        timbre: 'bower_components/timbre/timbre.dev',
+        masonry: 'bower_components/masonry/masonry',
+        outlayer: 'bower_components/outlayer'
     },
     shim: {
         angular: {
             deps:['jquery'],
             exports: 'angular'
         },
-        'color-thief': {
-            exports: 'ColorLib'
-        },
-        'dat.gui': {
-            exports: 'dat'
+        masonry: {
+          deps:[
+            'jquery'
+          ]
         },
         angularRoute: ['angular'],
         angularMocks: {
             deps:['angular'],
             exports:'angular.mock'
+        },
+        'color-thief': {
+            exports: 'ColorLib'
+        },
+        'dat.gui': {
+            exports: 'dat'
         },
         bootstrap: {
             deps:['angular']

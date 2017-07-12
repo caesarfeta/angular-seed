@@ -1,5 +1,6 @@
 define([
 '../module',
+//'masonry'
 ], 
 function( module ){
   module
@@ -74,7 +75,7 @@ function( module ){
         scope: true,
         template: [
           
-          '<div class="container">',
+          '<div masonry class="container">',
             '<div ng-repeat="item in ::list()">',
               '<div dbp-fungi-item></div>',
             '</div>',
@@ -87,6 +88,69 @@ function( module ){
               return item.genus == scope.genus
             })
           }
+        }
+      }
+    }
+  ])
+  .directive( 'dbpFungiItem', [
+    '$location',
+    function( $location ){
+      return {
+        scope: true,
+        replace: true,
+        template: [
+          
+          '<div class="col-xs-4 masonry-brick">',
+            
+            // link
+            
+            '<a href="{{ ::url( item.name ) }}" ng-if="!!item.count">',
+              '<div style="clear:both">',
+                '<h2 style="display:inline-block">{{ ::item.name }}</h2>',
+                '<span>{{ ::item.count }}</span>',
+              '</div>',
+              '<img ng-src="{{ ::item.img }}" style="width:100%" />',
+            '</a>',
+            
+            // no link
+            
+            '<div ng-if="!item.count">',
+              '<h2>{{ ::item.name }}</h2>',
+              '<img ng-src="{{ ::item.img }}" style="width:100%" />',
+            '</div>',
+            
+            // comment
+            
+            '<more-text max-lines="10">{{ ::item.comment }}</more-text>',
+          '</div>'
+          
+        ].join(' '),
+        link: function( scope ){
+          scope.url = function( name ){
+            return $location.absUrl() + '/' + name
+          }
+        }
+      }
+    }
+  ])
+  .directive( 'dbpFungiGenusList', [
+    'dbpediaSvc',
+    function( dbpedia ){
+      return {
+        scope: {},
+        template: [
+          
+          '<div masonry ng-if="!!dbpedia.fungi.genus"',
+               'class="container">',
+            '<div ng-repeat="item in dbpedia.fungi.genus">',
+              '<div dbp-fungi-item></div>',
+            '</div>',
+          '</div>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          dbpedia.fungi.http()
+          scope.dbpedia = dbpedia
         }
       }
     }
@@ -149,69 +213,6 @@ function( module ){
             }
             
           })
-        }
-      }
-    }
-  ])
-  .directive( 'dbpFungiItem', [
-    '$location',
-    function( $location ){
-      return {
-        scope: true,
-        replace: true,
-        template: [
-          
-          '<div class="col-xs-4">',
-            
-            // link
-            
-            '<a href="{{ ::url( item.name ) }}" ng-if="!!item.count">',
-              '<div style="clear:both">',
-                '<h2 style="display:inline-block">{{ ::item.name }}</h2>',
-                '<span>{{ ::item.count }}</span>',
-              '</div>',
-              '<img ng-src="{{ ::item.img }}" style="width:100%" />',
-            '</a>',
-            
-            // no link
-            
-            '<div ng-if="!item.count">',
-              '<h2>{{ ::item.name }}</h2>',
-              '<img ng-src="{{ ::item.img }}" style="width:100%" />',
-            '</div>',
-            
-            // comment
-            
-            '<more-text max-lines="10">{{ ::item.comment }}</more-text>',
-          '</div>'
-          
-        ].join(' '),
-        link: function( scope ){
-          scope.url = function( name ){
-            return $location.absUrl() + '/' + name
-          }
-        }
-      }
-    }
-  ])
-  .directive( 'dbpFungiGenusList', [
-    'dbpediaSvc',
-    function( dbpedia ){
-      return {
-        scope: {},
-        template: [
-          
-          '<div ng-if="!!dbpedia.fungi.genus"',
-               'class="container">',
-            '<div ng-repeat="item in dbpedia.fungi.genus">',
-              '<div dbp-fungi-item></div>',
-            '</div>',
-          '</div>'
-          
-        ].join(' '),
-        link: function( scope, elem ){
-          dbpedia.fungi.http()
-          scope.dbpedia = dbpedia
         }
       }
     }
