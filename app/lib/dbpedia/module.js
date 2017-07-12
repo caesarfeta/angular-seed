@@ -1,13 +1,11 @@
 define([
 'angular',
 'lib/common/atCommon',
-'lib/common/imgKit/imgKit',
-'lazy-image'
+'lib/common/imgKit/imgKit'
 ], 
 function( angular ){
   return angular.module( 'dbpedia', [
     'atCommon',
-    'imgKit',
-    'afkl.lazyImage'
+    'imgKit'
   ])
 })
