@@ -41,31 +41,31 @@ function( module ){
     }
   ])
   .config([
-     '$routeProvider',
-      function( $routeProvider ){
-        $routeProvider.when( '/fungi', {
-          template: [
-            
-            '<div dbp-fungi-genus-list></div>'
-            
-          ].join(' '),
-          controller: function(){}
-        })
-        $routeProvider.when( '/fungi/:genus*', {
-          template: [
-            
-            '<div dbp-fungi-species-list></div>'
-            
-          ].join(' '),
-          controller: [ 
-            '$scope',
-            '$routeParams',
-            function( scope, $routeParams ){
-              scope.genus = $routeParams.genus
-            }
-          ]
-        })
-      }
+    '$routeProvider',
+    function( $routeProvider ){
+      $routeProvider.when( '/fungi', {
+        template: [
+          
+          '<div dbp-fungi-genus-list></div>'
+          
+        ].join(' '),
+        controller: function(){}
+      })
+      $routeProvider.when( '/fungi/:genus*', {
+        template: [
+          
+          '<div dbp-fungi-species-list></div>'
+          
+        ].join(' '),
+        controller: [ 
+          '$scope',
+          '$routeParams',
+          function( scope, $routeParams ){
+            scope.genus = $routeParams.genus
+          }
+        ]
+      })
+    }
   ])
   .directive( 'dbpFungiSpeciesList', [
     'dbpediaSvc',
@@ -91,6 +91,68 @@ function( module ){
       }
     }
   ])
+  .directive( 'moreText', [
+    '$timeout',
+    '$compile',
+    function(
+      $timeout,
+      $compile ){
+      return {
+        restrict: 'E',
+        scope: {
+          'maxLines': '@'
+        },
+        link: function( scope, elem ){
+          var lineHeight, lines = null
+          $timeout( function(){
+            scope.text = elem.text()
+            
+            // get line height
+            
+            elem.html( '1<br/>2<br/>3<br/>4<br/>5' )
+            lineHeight = elem.height() / 5
+            
+            // get the number of lines
+            
+            elem.html( scope.text )
+            lines = Math.floor( elem.height()/lineHeight )
+            if ( lines/scope.maxLines > 1 ){
+              
+              // split into two
+              
+              text = scope.text.split(' ')
+              text2 = _.take( text, Math.floor( text.length * 1-scope.maxLines/lines ))
+              console.log( lines )
+              
+              scope.text = text.join(' ')
+              scope.text2 = text2.join(' ')
+              scope.open = false
+              elem.html( $compile([
+                
+                '<div>',
+                  
+                  // text
+                  
+                  '{{ ::text }}',
+                  '<span ng-if="!!open">{{ ::text2 }}</span>',
+                  
+                  // more or less
+                  
+                  '<a ng-click="open=!open">',
+                    '<span ng-if="!open">more &#9660;</span>',
+                    '<span ng-if="!!open">&#9650; less</span>',
+                  '</a>',
+                  
+                '</div>'
+                
+              ].join(' '))( scope ))
+            }
+            
+          })
+        }
+      }
+    }
+  ])
   .directive( 'dbpFungiItem', [
     '$location',
     function( $location ){
@@ -100,11 +162,27 @@ function( module ){
         template: [
           
           '<div class="col-xs-4">',
-            '<a href="{{ ::url( item.name ) }}">',
-              '<h2>{{ ::item.name }}</h2>',
+            
+            // link
+            
+            '<a href="{{ ::url( item.name ) }}" ng-if="!!item.count">',
+              '<div style="clear:both">',
+                '<h2 style="display:inline-block">{{ ::item.name }}</h2>',
+                '<span>{{ ::item.count }}</span>',
+              '</div>',
               '<img ng-src="{{ ::item.img }}" style="width:100%" />',
             '</a>',
-            '<p>{{ ::item.comment }}</p>',
+            
+            // no link
+            
+            '<div ng-if="!item.count">',
+              '<h2>{{ ::item.name }}</h2>',
+              '<img ng-src="{{ ::item.img }}" style="width:100%" />',
+            '</div>',
+            
+            // comment
+            
+            '<more-text max-lines="10">{{ ::item.comment }}</more-text>',
           '</div>'
           
         ].join(' '),
