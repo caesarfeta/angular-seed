@@ -5,76 +5,7 @@ define([
 function( 
   module, 
   _ ){
-  module.service( 'atFungus', [
-    '$http',
-    '$q',
-    function(
-      $http,
-      $q ){
-      var self = this
-      self.phylum = function(){
-        [
-          'PREFIX dbpedia2: <http://dbpedia.org/property/>',
-          'PREFIX foaf: <http://xmlns.com/foaf/0.1/>',
-          'SELECT DISTINCT ?phylum',
-          'WHERE {',
-            '?s dbpedia2:regnum :Fungus;',
-               'dbpedia2:phylum ?phylum',
-          '}'
-        ].join(' ')
-      }
-      
-      self.class = function( phylum ){
-        [
-          'PREFIX dbpedia2: <http://dbpedia.org/property/>',
-          'PREFIX foaf: <http://xmlns.com/foaf/0.1/>',
-          'SELECT DISTINCT ?class',
-          'WHERE { ',
-          '?s dbpedia2:phylum :' + phylum + ';',
-             'dbpedia2:classis ?class',
-          '}'
-        ].join(' ')
-      }
-      
-      self.order = function( _class ){
-        [
-          'PREFIX dbpedia2: <http://dbpedia.org/property/>',
-          'PREFIX foaf: <http://xmlns.com/foaf/0.1/>',
-          'SELECT DISTINCT ?ordo',
-          'WHERE { ',
-          '?s dbpedia2:classis :' + _class + ';',
-             'dbpedia2:ordo ?ordo',
-          '}'
-        ].join(' ')
-      }
-      
-      self.family = function( order ){
-        [
-          'PREFIX dbpedia2: <http://dbpedia.org/property/>',
-          'PREFIX foaf: <http://xmlns.com/foaf/0.1/>',
-          'SELECT DISTINCT ?family',
-          'WHERE { ',
-          '?s dbpedia2:ordo :' + order + ';',
-             'dbpedia2:familia ?family',
-          '}'
-        ].join(' ')
-      }
-      
-      self.genus = function( family ){
-        [
-          'PREFIX dbpedia2: <http://dbpedia.org/property/>',
-          'PREFIX foaf: <http://xmlns.com/foaf/0.1/>',
-          'SELECT DISTINCT ?genus',
-          'WHERE { ',
-          '?s dbpedia2:familia :' + family + ';',
-             'dbpedia2:genus ?genus',
-          '}'
-        ].join(' ')
-      }
-      
-      
-    }
-  ])
+    'use strict'
   module.service( 'dbpediaSvc', [
     '$http',
     '$q',
@@ -86,48 +17,73 @@ function(
       dbpediaQuery,
       spinSvc ){
         
-      var spinner = spinSvc.register( 'dbpedia-http' );
+      var spinner = spinSvc.register( 'dbpedia-http' )
       function spinnerOff(){
-        spinner.off( 2 );
+        spinner.off( 2 )
       }
       
-      var url = "http://dbpedia.org/sparql";
-      var self = this;
+      var url = "http://dbpedia.org/sparql"
+      var self = this
       self.buildUrl = function( query ){
-        return encodeURI( url + "?query=" + query + "&format=json" );
-      };
-      self.waiting = false;
+        return encodeURI( url + "?query=" + query + "&format=json" )
+      }
+      self.waiting = false
       self.http = function( config ){
-        spinner.on();
-        self.waiting = true;
+        spinner.on()
+        self.waiting = true
         return $q( function( yes, no ){
           $http.get( self.buildUrl( config.query ) ).then(
             
             // success
           
             function( r ){
-              config.success( r );
-              spinnerOff();
-              self.waiting = false;
-              yes( r );
+              config.success( r )
+              spinnerOff()
+              self.waiting = false
+              yes( r )
             },
           
             // error
           
             function( r ){
-              config.error( r );
-              spinnerOff();
-              self.waiting = false;
-              no( r );
+              config.error( r )
+              spinnerOff()
+              self.waiting = false
+              no( r )
             }
-          );
+          )
         })
-      };
+      }
+      
+      self.fungi = {}
+      self.fungi.result = null
+      self.fungi.genus = null
+      self.fungi.http = function(){
+        return self.http({
+          query: dbpediaQuery.fungi(),
+          success: function( r ){
+            self.fungi.result = r.data.results.bindings.map( function( item ){
+              return {
+                img: item.img.value,
+                name: item.name.value,
+                comment: item.comment.value,
+                genus: item.name.value.split(' ')[0]
+              }
+            })
+            self.fungi.genus = _.remove( self.fungi.result, function( item ){
+              return item.name == item.genus
+            })
+          },
+          error: function( r ){
+            console.log( JSON.stringify( r, ' ', 2 ))
+          }
+        })
+      }
       
       // query search
       
-      self.query = {};
-      self.query.result = null;
+      self.query = {}
+      self.query.result = null
       self.query.http = function( query ){
         return self.http({
           query: query,
@@ -138,17 +94,20 @@ function(
       
       // img search
       
-      self.img = {};
-      self.img.result = null;
-      self.img.search = null;
-      self.img.history = [ 'ghost', 'death', 'gold', 'rainbow', 'glass' ];
+      self.img = {}
+      self.img.result = null
+      self.img.search = null
+      self.img.history = [ 'ghost', 'death', 'gold', 'rainbow', 'glass' ]
       self.img.http = function(){
         return self.http({
           query: dbpediaQuery.img({ 
             search: self.img.search, 
             limit: 25 
           }),
-          success: function( r ){ self.img.result = r.data.results.bindings },
+          success: function( r ){
+            console.log( JSON.stringify( r, ' ', 2 ))
+            self.img.result = r.data.results.bindings
+          },
           error: function( r ){}
         }).then( 
           
@@ -161,8 +120,8 @@ function(
           // error
           
           function(){}
-        );
-      };
+        )
+      }
     }
   ])
 })

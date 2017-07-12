@@ -2,6 +2,7 @@ define([
 '../module'
 ], 
 function( module ){
+  'use strict';
 	module.directive( 'dbpKey', [
 		'dbpediaSvc',
 		function( dbpedia ){

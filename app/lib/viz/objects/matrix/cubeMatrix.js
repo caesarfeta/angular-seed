@@ -32,8 +32,6 @@ function(
         cube.mesh.position.x = cube.mesh.scale.x*c - (rows*cube.mesh.scale.x)/2;
         cube.mesh.position.z = cube.mesh.scale.z*r - (cols*cube.mesh.scale.z)/2;
         cube.mesh.position.y = 1;
-        cube.mesh.scale.y = Math.random() * 20;
-        cube.mesh.position.y += cube.mesh.scale.y/2;
         self.cubes[r][c] = cube;
       })
     })

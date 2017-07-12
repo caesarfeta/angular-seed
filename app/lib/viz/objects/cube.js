@@ -12,11 +12,12 @@ function(
     var self = this;
     _.merge( self, {
       color: 0xFFFFFF,
-      shine: 25
+      shine: 25,
+      size: 1
     })
     _.merge( self, config )
     self.mesh = new THREE.Mesh( 
-      new THREE.CubeGeometry( 1, 1, 1 ),
+      new THREE.CubeGeometry( self.size, self.size, self.size ),
       new THREE.MeshPhongMaterial({ 
         color: self.color,
         specular: 0x555555,
