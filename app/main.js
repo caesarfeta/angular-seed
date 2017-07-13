@@ -43,7 +43,7 @@ require.config({
         'dat.gui': 'bower_components/dat.gui/dat.gui.min',
         tinycolor: 'bower_components/tinycolor/dist/tinycolor-min',
         timbre: 'bower_components/timbre/timbre.dev',
-        masonry: 'bower_components/masonry/masonry',
+        Masonry: 'lib/masonry.pkgd.min',
         outlayer: 'bower_components/outlayer'
     },
     shim: {
@@ -51,7 +51,7 @@ require.config({
             deps:['jquery'],
             exports: 'angular'
         },
-        masonry: {
+        Masonry: {
           deps:[
             'jquery'
           ]

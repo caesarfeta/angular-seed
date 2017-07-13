@@ -1,8 +1,10 @@
 define([
 '../module',
-//'masonry'
+'Masonry'
 ], 
-function( module ){
+function(
+  module,
+  Masonry ){
   module
   .directive( 'dbpSpecies', [
     'dbpediaSvc',
@@ -70,24 +72,33 @@ function( module ){
   ])
   .directive( 'dbpFungiSpeciesList', [
     'dbpediaSvc',
-    function( dbpedia ){
+    '$timeout',
+    function(
+      dbpedia,
+      $timeout ){
       return {
         scope: true,
         template: [
           
-          '<div masonry class="container">',
+          '<div class="container">',
             '<div ng-repeat="item in ::list()">',
               '<div dbp-fungi-item></div>',
             '</div>',
           '</div>'
           
         ].join(' '),
-        link: function( scope ){
+        link: function( scope, elem ){
           scope.list = function(){
             return _.filter( dbpedia.fungi.result, function( item ){
               return item.genus == scope.genus
             })
           }
+          $timeout( function(){
+            new Masonry( $( '.container', elem ).get(0), {
+              itemSelector: '.masonry-brick',
+              columnWidth: 300
+            })
+          })
         }
       }
     }
@@ -100,7 +111,7 @@ function( module ){
         replace: true,
         template: [
           
-          '<div class="col-xs-4 masonry-brick">',
+          '<div style="width:300px;padding:10px" class="masonry-brick">',
             
             // link
             
@@ -121,7 +132,17 @@ function( module ){
             
             // comment
             
-            '<more-text max-lines="10">{{ ::item.comment }}</more-text>',
+            // '<more-text max-lines="10">{{ ::item.comment }}</more-text>',
+            '<div>{{ ::item.comment }}</div>',
+            
+            // species list
+            
+            '<ul ng-if="!!item.count">',
+              '<li ng-repeat="species in ::item.species">',
+                '{{ ::species.name }}',
+              '</li>',
+            '</ul>',
+            
           '</div>'
           
         ].join(' '),
@@ -135,12 +156,15 @@ function( module ){
   ])
   .directive( 'dbpFungiGenusList', [
     'dbpediaSvc',
-    function( dbpedia ){
+    '$timeout',
+    function(
+      dbpedia,
+      $timeout ){
       return {
         scope: {},
         template: [
           
-          '<div masonry ng-if="!!dbpedia.fungi.genus"',
+          '<div ng-if="!!dbpedia.fungi.genus"',
                'class="container">',
             '<div ng-repeat="item in dbpedia.fungi.genus">',
               '<div dbp-fungi-item></div>',
@@ -149,7 +173,14 @@ function( module ){
           
         ].join(' '),
         link: function( scope, elem ){
-          dbpedia.fungi.http()
+          dbpedia.fungi.http().then( function(){
+            $timeout( function(){
+              new Masonry( $( '.container', elem ).get(0), {
+                itemSelector: '.masonry-brick',
+                columnWidth: 300
+              })
+            })
+          })
           scope.dbpedia = dbpedia
         }
       }
@@ -186,7 +217,6 @@ function( module ){
               
               text = scope.text.split(' ')
               text2 = _.take( text, Math.floor( text.length * 1-scope.maxLines/lines ))
-              console.log( lines )
               
               scope.text = text.join(' ')
               scope.text2 = text2.join(' ')
