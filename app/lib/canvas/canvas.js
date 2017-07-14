@@ -59,13 +59,20 @@ function( angular, viz ){
           cycle: 10,
           zoom: 175,
           width: 900,
-          height: 400
+          height: 400,
+          palette: [ '#000', '#FF0', '#F0F', '#0FF' ]
         })
         _.merge( this, config )
         iCanvasSvc.register( this )
       }
       iCanvas.prototype.update = function(){
         $timeout( function(){} )
+      }
+      iCanvas.prototype.transX = function( x ){
+        return x / this.zoom - this.pan.x
+      }
+      iCanvas.prototype.transY = function( y ){
+        return y / this.zoom - this.pan.y
       }
       return iCanvas
     }
@@ -78,14 +85,21 @@ function( angular, viz ){
         },
         template: [
           
-          '<label>panX</label><input type="number" ng-model="ctrl.pan.x" step=".1"/>',
-          '<label>panY</label><input type="number" ng-model="ctrl.pan.y" step=".1"/>',
-          '<label>zoom</label><input type="number" ng-model="ctrl.zoom" step="5"/>',
+          '<label>panX</label><input type="number" ng-model="ctrl.pan.x" step="{{ step( ctrl.pan.x ) }}" />',
+          '<label>panY</label><input type="number" ng-model="ctrl.pan.y" step="{{ step( ctrl.pan.y ) }}" />',
+          '<label>zoom</label><input type="number" ng-model="ctrl.zoom" step="{{ step( ctrl.zoom ) }}" />',
           '<label>cycle</label><input type="number" ng-model="ctrl.cycle" />'
           
         ].join(' '),
         link: function( scope ){
           scope.ctrl = scope.iCanvasCtrl
+          scope.step = function( i ){
+            var str = i.toString()
+            if ( str.indexOf('.') == -1 ){
+              return Math.pow( 10, str.length-2 )
+            }
+            return Math.pow( 10, str.split('.')[1].length*-1 )
+          }
         }
       }
     }
@@ -97,41 +111,41 @@ function( angular, viz ){
           iCanvas: '='
         },
         link: function( scope, elem ){
+          var ctrl = scope.iCanvas
           var canvas = document.createElement('canvas')
-          canvas.width = scope.iCanvas.width
-          canvas.height = scope.iCanvas.height
+          canvas.width = ctrl.width
+          canvas.height = ctrl.height
           $( elem ).append( canvas )
           var ctx = canvas.getContext( '2d' )
           
-          function inSet( x, y ){
+          // is that point "blowing up?"
+          
+          function mandelbrot( x, y ){
             var real = x
             var imag = y
-            for ( var i = 0; i < scope.iCanvas.cycle; i++ ){
+            var n = 0
+            for ( var i = 0; i < ctrl.cycle; i++ ){
               var tempReal = real*real - imag*imag + x
               var tempImag = 2 * real * imag + y
               real = tempReal
               imag = tempImag
+              if ( real*imag > 5 ){
+                n=i/ctrl.cycle
+              }
             }
-            return real*imag < 5
+            return n
           }
           
-          // redraw every second if config values change
+          // redraw if config values change
           
-          function black( x, y ){
-            ctx.fillStyle = 'black'
-            ctx.fillRect( x, y, 1 , 1 ) 
-          }
-          function white( x, y ){
-            ctx.fillStyle = 'white'
+          function rect( x, y, ci ){
+            ctx.fillStyle = ctrl.palette[ Math.floor( ctrl.palette.length * ci ) ] || _.last( ctrl.palette )
             ctx.fillRect( x, y, 1, 1 )
           }
           var draw = _.debounce( function(){
             for ( var x = 0; x < canvas.width; x++ ){
               for ( var y = 0; y < canvas.height; y++ ){
-                inSet( 
-                  x/scope.iCanvas.zoom - scope.iCanvas.pan.x,
-                  y/scope.iCanvas.zoom - scope.iCanvas.pan.y 
-                ) ? black( x, y ): white( x, y )
+                rect( x, y, mandelbrot( ctrl.transX( x ), ctrl.transY( y )))
               } 
             }
           }, 100 )
