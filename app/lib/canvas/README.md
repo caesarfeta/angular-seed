@@ -140,7 +140,7 @@ It doesn't read between the lines.
 
 But you also are talking to everyone who has to use and extend your code, which is most likely going to be you in the near future.  
 
-So write comments.
+So write TESTS and the occasional comment.
 Keep your code well-formatted.
 Try to reduce complexity wherever possible.  
 Design your APIs.

@@ -3,7 +3,7 @@ define([
 'angularRoute',
 'lib/specierch/specierch',
 'lib/mapper/mapper',
-//'lib/canvas/canvas',
+'lib/canvas/canvas',
 'lib/color-kit/color-kit',
 'lib/version/version',
 'lib/atPixels/atPixels.angular'
@@ -15,7 +15,7 @@ function( angular ){
   angular.module( 'myApp', [
     'ngRoute',
     'myApp.view.specierch',
-//    'myApp.view.canvas',
+    'myApp.view.canvas',
     'myApp.view.mapper',
     'myApp.view.colorKit',
     'myApp.version',
