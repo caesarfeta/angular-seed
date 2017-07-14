@@ -31,6 +31,7 @@ function( angular, viz ){
   ])
   
   // http://progur.com/2017/02/create-mandelbrot-fractal-javascript.html
+  // http://math.hws.edu/eck/jsdemo/jsMandelbrot.html
   
   .service( 'iCanvasSvc', [
     function(){
@@ -95,10 +96,12 @@ function( angular, viz ){
           scope.ctrl = scope.iCanvasCtrl
           scope.step = function( i ){
             var str = i.toString()
-            if ( str.indexOf('.') == -1 ){
-              return Math.pow( 10, str.length-2 )
-            }
-            return Math.pow( 10, str.split('.')[1].length*-1 )
+            
+            // calculate optimal step
+            
+            return ( str.indexOf('.') == -1 ) ?
+              Math.pow( 10, str.length-2 ) : 
+              Math.pow( 10, str.split('.')[1].length*-1 )
           }
         }
       }
