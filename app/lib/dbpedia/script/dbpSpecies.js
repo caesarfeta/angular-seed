@@ -94,9 +94,9 @@ function(
             })
           }
           $timeout( function(){
-            new Masonry( $( '.container', elem ).get(0), {
+            scope.masonry = new Masonry( $( '.container', elem ).get(0), {
               itemSelector: '.masonry-brick',
-              columnWidth: 300
+              columnWidth: 400
             })
           })
         }
@@ -111,7 +111,7 @@ function(
         replace: true,
         template: [
           
-          '<div style="width:300px;padding:10px" class="masonry-brick">',
+          '<div style="width:400px;padding:10px" class="masonry-brick">',
             
             // link
             
@@ -120,14 +120,14 @@ function(
                 '<h2 style="display:inline-block">{{ ::item.name }}</h2>',
                 '<span>{{ ::item.count }}</span>',
               '</div>',
-              '<img ng-src="{{ ::item.img }}" style="width:100%" />',
+              '<img ng-src="{{ ::item.img }}" img-onload="masonry.layout()" style="width:100%" />',
             '</a>',
             
             // no link
             
             '<div ng-if="!item.count">',
               '<h2>{{ ::item.name }}</h2>',
-              '<img ng-src="{{ ::item.img }}" style="width:100%" />',
+              '<img ng-src="{{ ::item.img }}" img-onload="masonry.layout()" style="width:100%" />',
             '</div>',
             
             // comment
@@ -175,13 +175,28 @@ function(
         link: function( scope, elem ){
           dbpedia.fungi.http().then( function(){
             $timeout( function(){
-              new Masonry( $( '.container', elem ).get(0), {
+              scope.masonry = new Masonry( $( '.container', elem ).get(0), {
                 itemSelector: '.masonry-brick',
-                columnWidth: 300
+                columnWidth: 400
               })
             })
           })
           scope.dbpedia = dbpedia
+        }
+      }
+    }
+  ])
+  .directive( 'imgOnload', [
+    function(){
+      return {
+        scope: {
+          imgOnload: '&'
+        },
+        restrict: 'A',
+        link: function( scope, elem ){
+          elem.bind( 'load', function(){
+            scope.imgOnload()
+          })
         }
       }
     }

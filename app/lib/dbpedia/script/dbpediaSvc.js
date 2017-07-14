@@ -5,7 +5,7 @@ define([
 function( 
   module, 
   _ ){
-    'use strict'
+  'use strict'
   module.service( 'dbpediaSvc', [
     '$http',
     '$q',
