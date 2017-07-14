@@ -53,10 +53,11 @@ function( angular, viz ){
         _.merge( this, {
           id: _.uniqueId(),
           pan: {
-            x: 0,
-            y: 0
+            x: 3,
+            y: 1.25
           },
-          zoom: 600,
+          cycle: 10,
+          zoom: 175,
           width: 900,
           height: 400
         })
@@ -75,7 +76,17 @@ function( angular, viz ){
         scope: {
           iCanvasCtrl: '='
         },
-        
+        template: [
+          
+          '<label>panX</label><input type="number" ng-model="ctrl.pan.x" step=".1"/>',
+          '<label>panY</label><input type="number" ng-model="ctrl.pan.y" step=".1"/>',
+          '<label>zoom</label><input type="number" ng-model="ctrl.zoom" step="5"/>',
+          '<label>cycle</label><input type="number" ng-model="ctrl.cycle" />'
+          
+        ].join(' '),
+        link: function( scope ){
+          scope.ctrl = scope.iCanvasCtrl
+        }
       }
     }
   ])
@@ -95,7 +106,7 @@ function( angular, viz ){
           function inSet( x, y ){
             var real = x
             var imag = y
-            for ( var i = 0; i < 10; i++ ){
+            for ( var i = 0; i < scope.iCanvas.cycle; i++ ){
               var tempReal = real*real - imag*imag + x
               var tempImag = 2 * real * imag + y
               real = tempReal
@@ -106,15 +117,24 @@ function( angular, viz ){
           
           // redraw every second if config values change
           
-          var draw = _.throttle( function(){
+          function black( x, y ){
+            ctx.fillStyle = 'black'
+            ctx.fillRect( x, y, 1 , 1 ) 
+          }
+          function white( x, y ){
+            ctx.fillStyle = 'white'
+            ctx.fillRect( x, y, 1, 1 )
+          }
+          var draw = _.debounce( function(){
             for ( var x = 0; x < canvas.width; x++ ){
-              for ( var y=0; y < canvas.height; y++ ){
-                if ( inSet( x/scope.iCanvas.zoom - scope.iCanvas.pan.x, y/scope.iCanvas.zoom - scope.iCanvas.pan.y )){
-                  ctx.fillRect( x, y, 1 , 1 ) // draw a black pixel
-                }
+              for ( var y = 0; y < canvas.height; y++ ){
+                inSet( 
+                  x/scope.iCanvas.zoom - scope.iCanvas.pan.x,
+                  y/scope.iCanvas.zoom - scope.iCanvas.pan.y 
+                ) ? black( x, y ): white( x, y )
               } 
             }
-          }, 1000 )
+          }, 100 )
           scope.$watch( 'iCanvas', draw, true )
         }
       }
