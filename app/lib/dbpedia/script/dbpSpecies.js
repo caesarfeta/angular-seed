@@ -49,7 +49,9 @@ function(
       $routeProvider.when( '/fungi', {
         template: [
           
-          '<div dbp-fungi-genus-list></div>'
+          '<div class="fungi">',
+              '<div dbp-fungi-genus-list></div>',
+          '</div>'
           
         ].join(' '),
         controller: function(){}
@@ -57,7 +59,9 @@ function(
       $routeProvider.when( '/fungi/:genus*', {
         template: [
           
-          '<div dbp-fungi-species-list></div>'
+          '<div class="fungi">',
+            '<div dbp-fungi-species-list></div>',
+          '</div>'
           
         ].join(' '),
         controller: [ 
@@ -96,7 +100,7 @@ function(
           $timeout( function(){
             scope.masonry = new Masonry( $( '.container', elem ).get(0), {
               itemSelector: '.masonry-brick',
-              columnWidth: 400
+              columnWidth: 350
             })
           })
         }
@@ -111,7 +115,7 @@ function(
         replace: true,
         template: [
           
-          '<div style="width:400px;padding:10px" class="masonry-brick">',
+          '<div class="item masonry-brick">',
             
             // link
             
@@ -133,7 +137,7 @@ function(
             // comment
             
             // '<more-text max-lines="10">{{ ::item.comment }}</more-text>',
-            '<div>{{ ::item.comment }}</div>',
+            '<div class="comment">{{ ::item.comment }}</div>',
             
             // species list
             
@@ -177,7 +181,7 @@ function(
             $timeout( function(){
               scope.masonry = new Masonry( $( '.container', elem ).get(0), {
                 itemSelector: '.masonry-brick',
-                columnWidth: 400
+                columnWidth: 360
               })
             })
           })

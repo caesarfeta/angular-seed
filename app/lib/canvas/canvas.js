@@ -8,12 +8,18 @@ function( angular, viz ){
   .config([
     '$routeProvider', 
     function( $routeProvider ){
-      var std = {
-        //template: '<div canvas-cube-test />',
+      
+      // plexvas
+      
+      var plexvas = {
         template: [
           
-          '<div i-canvas="iCanvas"></div>',
-          '<div i-canvas-ctrl="iCanvas"></div>'
+          '<div class="container">',
+            '<div class="row">',
+              '<div class="col-xs-9" i-canvas="iCanvas"></div>',
+              '<div class="col-xs-3" i-canvas-ctrl="iCanvas"></div>',
+            '</div>',
+          '</div>'
           
         ].join(' '),
         controller: [
@@ -25,8 +31,20 @@ function( angular, viz ){
             $scope.iCanvas = new iCanvas()
           }]
       }
-      $routeProvider.when('/canvas', std )
-      $routeProvider.when('/canvas/:id', std )
+      $routeProvider.when('/plexvas', plexvas )
+      $routeProvider.when('/plexvas/:id', plexvas )
+      
+      // lsys
+      
+      var lsys = {
+        template: [
+          
+          '<div>lsys</div>'
+          
+        ].join(' '),
+        controller: [ function(){} ]
+      }
+      $routeProvider.when('/lsys', lsys )
     }
   ])
   
@@ -60,7 +78,9 @@ function( angular, viz ){
           cycle: 10,
           zoom: 175,
           width: 900,
-          height: 400,
+          height: 600,
+          real: 'ix*ix - iy*iy + x',
+          imaginary: '2 * ix*iy + y',
           palette: [ '#000', '#FF0', '#F0F', '#0FF' ]
         })
         _.merge( this, config )
@@ -86,10 +106,24 @@ function( angular, viz ){
         },
         template: [
           
-          '<label>panX</label><input type="number" ng-model="ctrl.pan.x" step="{{ step( ctrl.pan.x ) }}" />',
-          '<label>panY</label><input type="number" ng-model="ctrl.pan.y" step="{{ step( ctrl.pan.y ) }}" />',
-          '<label>zoom</label><input type="number" ng-model="ctrl.zoom" step="{{ step( ctrl.zoom ) }}" />',
-          '<label>cycle</label><input type="number" ng-model="ctrl.cycle" />'
+          '<form>',
+            '<div class="form-group">',
+              '<label>x</label>',
+              '<input type="number" ng-model="ctrl.pan.x" step="{{ step( ctrl.pan.x ) }}" />',
+            '</div>',
+            '<div class="form-group">',
+              '<label>y</label>',
+              '<input type="number" ng-model="ctrl.pan.y" step="{{ step( ctrl.pan.y ) }}" />',
+            '</div>',
+            '<div class="form-group">',
+              '<label>zoom</label>',
+              '<input type="number" ng-model="ctrl.zoom" step="{{ step( ctrl.zoom ) }}" />',
+            '</div>',
+            '<div class="form-group">',
+              '<label>cycle</label>',
+              '<input type="number" ng-model="ctrl.cycle" />',
+            '</div>',
+          '</form>'
           
         ].join(' '),
         link: function( scope ){
@@ -124,15 +158,15 @@ function( angular, viz ){
           // is that point "blowing up?"
           
           function mandelbrot( x, y ){
-            var real = x
-            var imag = y
+            var ix = x
+            var iy = y
             var n = 0
             for ( var i = 0; i < ctrl.cycle; i++ ){
-              var tempReal = real*real - imag*imag + x
-              var tempImag = 2 * real * imag + y
-              real = tempReal
-              imag = tempImag
-              if ( real*imag > 5 ){
+              var tempReal = ix*ix - iy*iy + x
+              var tempImag = 2 * ix*iy + y
+              ix = tempReal
+              iy = tempImag
+              if ( ix*iy > 5 ){
                 n=i/ctrl.cycle
               }
             }
