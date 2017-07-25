@@ -33,13 +33,13 @@ function( module ){
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>\
         SELECT  ?name, ?kingdom, ?phylum, ?class, ?order, ?family, ?genus, ?species, ?subspecies, ?img, ?abstract\
         WHERE {\
-          ?s  dbpedia2:regnum ?hasValue;\
+          ?s  <http://dbpedia.org/ontology/kingdom> ?hasValue;\
             rdfs:label ?name\
             FILTER regex( ?name, "' + config.search + '", "i" )\
             FILTER ( langMatches( lang( ?name ), "EN" ))\
-          ?animal dbpedia2:name ?name;\
+          ?animal rdfs:label ?name;\
             foaf:depiction ?img;\
-            dbpedia2:regnum ?kingdom\
+            <http://dbpedia.org/ontology/kingdom> ?kingdom\
             OPTIONAL { ?animal dbpedia2:ordo ?order . }\
             OPTIONAL { ?animal dbpedia2:phylum ?phylum . }\
             OPTIONAL { ?animal dbpedia2:classis ?class . }\
