@@ -40,13 +40,12 @@ function( module ){
           ?animal rdfs:label ?name;\
             foaf:depiction ?img;\
             <http://dbpedia.org/ontology/kingdom> ?kingdom\
-            OPTIONAL { ?animal dbpedia2:ordo ?order . }\
-            OPTIONAL { ?animal dbpedia2:phylum ?phylum . }\
-            OPTIONAL { ?animal dbpedia2:classis ?class . }\
-            OPTIONAL { ?animal dbpedia2:familia ?family . }\
-            OPTIONAL { ?animal dbpedia2:genus ?genus . }\
-            OPTIONAL { ?animal dbpedia2:species ?species . }\
-            OPTIONAL { ?animal dbpedia2:subspecies ?subspecies . }\
+            OPTIONAL { ?animal <http://dbpedia.org/ontology/order> ?order . }\
+            OPTIONAL { ?animal <http://dbpedia.org/ontology/phylum> ?phylum . }\
+            OPTIONAL { ?animal <http://dbpedia.org/ontology/class> ?class . }\
+            OPTIONAL { ?animal <http://dbpedia.org/ontology/family> ?family . }\
+            OPTIONAL { ?animal <http://dbpedia.org/ontology/genus> ?genus . }\
+            OPTIONAL { ?animal <http://dbpedia.org/ontology/species> ?species . }\
             OPTIONAL {\
               ?animal <http://dbpedia.org/ontology/abstract> ?abstract\
               FILTER ( langMatches( lang( ?abstract ), "EN" ))\
