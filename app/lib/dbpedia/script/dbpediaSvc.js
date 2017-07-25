@@ -102,9 +102,9 @@ function(
         
         // now sort
         
-        self.fungi.genus.sort( function( a, b ){
+        self.fungi.genus = self.fungi.genus.sort( function( a, b ){
           return b.count - a.count
-        })
+        }).slice( 0, 25 )
       }
       function httpBkup(){
         return $http.get( 'lib/dbpedia/data/fungi.bkup.json' )

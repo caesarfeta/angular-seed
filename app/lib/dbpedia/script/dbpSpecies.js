@@ -84,9 +84,12 @@ function(
         scope: true,
         template: [
           
-          '<div class="container">',
-            '<div ng-repeat="item in list">',
-              '<div dbp-fungi-item></div>',
+          '<div>',
+            '<div list-pager></div>',
+            '<div class="container">',
+              '<div ng-repeat="item in list">',
+                '<div dbp-fungi-item></div>',
+              '</div>',
             '</div>',
           '</div>'
           
@@ -143,16 +146,17 @@ function(
             
             // comment
             
-            // '<more-text max-lines="10">{{ ::item.comment }}</more-text>',
             '<div class="comment">{{ ::item.comment }}</div>',
             
             // species list
             
-            '<ul ng-if="!!item.count">',
-              '<li ng-repeat="species in ::item.species">',
-                '{{ ::species.name }}',
-              '</li>',
-            '</ul>',
+            // '<more-text>',
+            //   '<ul ng-if="!!item.count">',
+            //     '<li ng-repeat="species in ::item.species">',
+            //       '{{ ::species.name }}',
+            //     '</li>',
+            //   '</ul>',
+            // '</more-text>',
             
           '</div>'
           
@@ -175,10 +179,13 @@ function(
         scope: {},
         template: [
           
-          '<div ng-if="!!dbpedia.fungi.genus"',
-               'class="container">',
-            '<div ng-repeat="item in dbpedia.fungi.genus">',
-              '<div dbp-fungi-item></div>',
+          '<div>',
+            '<div list-pager></div>',
+            '<div ng-if="!!dbpedia.fungi.genus"',
+                 'class="container">',
+              '<div ng-repeat="item in dbpedia.fungi.genus">',
+                '<div dbp-fungi-item></div>',
+              '</div>',
             '</div>',
           '</div>'
           
@@ -212,63 +219,52 @@ function(
       }
     }
   ])
-  .directive( 'moreText', [
-    '$timeout',
-    '$compile',
-    function(
-      $timeout,
-      $compile ){
+  .directive( 'listPager', [
+    function(){
       return {
+        template: [
+          
+          '<nav aria-label="Page navigation example">',
+            '<ul class="pagination">',
+              '<li class="page-item"><a class="page-link" href="#">Previous</a></li>',
+              '<li class="page-item"><a class="page-link" href="#">1</a></li>',
+              '<li class="page-item"><a class="page-link" href="#">2</a></li>',
+              '<li class="page-item"><a class="page-link" href="#">3</a></li>',
+              '<li class="page-item"><a class="page-link" href="#">Next</a></li>',
+            '</ul>',
+          '</nav>'
+          
+        ].join(' ')
+      }
+    }
+  ])
+  .directive( 'moreText', [
+    function(){
+      return {
+        transclude: true,
         restrict: 'E',
-        scope: {
-          'maxLines': '@'
-        },
+        template: [
+          
+          '<div>',
+            
+            // text
+            
+            '<span ng-if="!!open">',
+              '<ng-transclude></ng-transclude>',
+            '</span>',
+            
+            // more or less
+            
+            '<a ng-click="open=!open">',
+              '<span ng-if="!open">more &#9660;</span>',
+              '<span ng-if="!!open">&#9650; less</span>',
+            '</a>',
+            
+          '</div>'
+          
+        ].join(' '),
         link: function( scope, elem ){
-          var lineHeight, lines = null
-          $timeout( function(){
-            scope.text = elem.text()
-            
-            // get line height
-            
-            elem.html( '1<br/>2<br/>3<br/>4<br/>5' )
-            lineHeight = elem.height() / 5
-            
-            // get the number of lines
-            
-            elem.html( scope.text )
-            lines = Math.floor( elem.height()/lineHeight )
-            if ( lines/scope.maxLines > 1 ){
-              
-              // split into two
-              
-              text = scope.text.split(' ')
-              text2 = _.take( text, Math.floor( text.length * 1-scope.maxLines/lines ))
-              
-              scope.text = text.join(' ')
-              scope.text2 = text2.join(' ')
-              scope.open = false
-              elem.html( $compile([
-                
-                '<div>',
-                  
-                  // text
-                  
-                  '{{ ::text }}',
-                  '<span ng-if="!!open">{{ ::text2 }}</span>',
-                  
-                  // more or less
-                  
-                  '<a ng-click="open=!open">',
-                    '<span ng-if="!open">more &#9660;</span>',
-                    '<span ng-if="!!open">&#9650; less</span>',
-                  '</a>',
-                  
-                '</div>'
-                
-              ].join(' '))( scope ))
-            }
-            
-          })
+          scope.open = false
         }
       }
     }
