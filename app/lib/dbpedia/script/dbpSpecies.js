@@ -120,18 +120,18 @@ function(
             // link
             
             '<a href="{{ ::url( item.name ) }}" ng-if="!!item.count">',
-              '<div style="clear:both">',
-                '<h2 style="display:inline-block">{{ ::item.name }}</h2>',
+              '<div class="title">',
+                '<h2 class="name">{{ ::item.name }}</h2>',
                 '<span>{{ ::item.count }}</span>',
               '</div>',
-              '<img ng-src="{{ ::item.img }}" img-onload="masonry.layout()" style="width:100%" />',
+              '<img ng-src="{{ ::item.img }}" img-onload="masonry.layout()" />',
             '</a>',
             
             // no link
             
             '<div ng-if="!item.count">',
               '<h2>{{ ::item.name }}</h2>',
-              '<img ng-src="{{ ::item.img }}" img-onload="masonry.layout()" style="width:100%" />',
+              '<img ng-src="{{ ::item.img }}" img-onload="masonry.layout()" />',
             '</div>',
             
             // comment
@@ -181,7 +181,7 @@ function(
             $timeout( function(){
               scope.masonry = new Masonry( $( '.container', elem ).get(0), {
                 itemSelector: '.masonry-brick',
-                columnWidth: 360
+                columnWidth: 350
               })
             })
           })

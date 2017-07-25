@@ -58,68 +58,79 @@ function(
       self.fungi = {}
       self.fungi.result = null
       self.fungi.genus = null
+      function prep( r ){
+        
+        // simplify the results
+        
+        self.fungi.result = r.data.results.bindings.map( function( item ){
+          return {
+            img: item.img.value,
+            name: item.name.value,
+            comment: item.comment.value,
+            genus: item.name.value.split(' ')[0]
+          }
+        })
+        
+        // what's the genus?
+        
+        self.fungi.genus = _.remove( self.fungi.result, function( item ){
+          return item.name == item.genus
+        })
+        
+        // count the genus
+        
+        var genus = {}
+        _.each( self.fungi.result, function( item ){
+          if ( !!genus[ item.genus ] ){
+            genus[ item.genus ].count += 1
+            genus[ item.genus ].species.push( item )
+            return
+          }
+          genus[ item.genus ] = {
+            count: 1,
+            species: [ item ]
+          }
+        })
+        
+        // put them in place
+        
+        _.each( self.fungi.genus, function( item ){
+          var check = genus[ item.genus ] || { count: 0, species: null }
+          item.count = check.count
+          item.species = check.species
+        })
+        
+        // now sort
+        
+        // self.fungi.genus.sort( function( a, b ){
+        //   return b.count - a.count
+        // })
+        
+        self.fungi.genus = self.fungi.genus.sort( function( a, b ){
+          return b.count - a.count
+        }).slice( 0, 10 )
+      }
+      function httpBkup(){
+        return $http.get( 'lib/dbpedia/data/fungi.bkup.json' )
+      }
       self.fungi.http = function(){
         return $q( function( yes, no ){
           self.http({
             query: dbpediaQuery.fungi(),
             success: function( r ){
-              
-              // simplify the results
-              
-              self.fungi.result = r.data.results.bindings.map( function( item ){
-                return {
-                  img: item.img.value,
-                  name: item.name.value,
-                  comment: item.comment.value,
-                  genus: item.name.value.split(' ')[0]
-                }
-              })
-              
-              // what's the genus?
-              
-              self.fungi.genus = _.remove( self.fungi.result, function( item ){
-                return item.name == item.genus
-              })
-              
-              // count the genus
-              
-              var genus = {}
-              _.each( self.fungi.result, function( item ){
-                if ( !!genus[ item.genus ] ){
-                  genus[ item.genus ].count += 1
-                  genus[ item.genus ].species.push( item )
-                  return
-                }
-                genus[ item.genus ] = {
-                  count: 1,
-                  species: [ item ]
-                }
-              })
-              
-              // put them in place
-              
-              _.each( self.fungi.genus, function( item ){
-                var check = genus[ item.genus ] || { count: 0, species: null }
-                item.count = check.count
-                item.species = check.species
-              })
-              
-              // now sort
-              
-              // self.fungi.genus.sort( function( a, b ){
-              //   return b.count - a.count
-              // })
-              
-              self.fungi.genus = self.fungi.genus.sort( function( a, b ){
-                return b.count - a.count
-              }).slice( 0, 10 )
-              
-              // done
-              
+              prep( r )
               yes()
             },
             error: function( r ){
-              no( r )
+              httpBkup().then(
+               function( r ){
+                 prep( r )
+                 yes()
+               },
+               function(){
+                 no()
+               }
+              )
             }
           })
         })

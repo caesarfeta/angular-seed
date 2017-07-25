@@ -7461,6 +7461,15 @@ body {
   padding: 10px;
   margin: 5px;
 }
+.fungi .item .title {
+  clear: both;
+}
+.fungi .item .title .name {
+  display: inline-block;
+}
+.fungi .item img {
+  width: 100%;
+}
 .fungi .item .comment {
   padding: 10px;
   margin: 5px;
