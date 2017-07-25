@@ -85,17 +85,24 @@ function(
         template: [
           
           '<div class="container">',
-            '<div ng-repeat="item in ::list()">',
+            '<div ng-repeat="item in list">',
               '<div dbp-fungi-item></div>',
             '</div>',
           '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
-          scope.list = function(){
-            return _.filter( dbpedia.fungi.result, function( item ){
+          scope.fungi = dbpedia.fungi
+          function init(){
+            scope.list = _.filter( dbpedia.fungi.result, function( item ){
               return item.genus == scope.genus
             })
+          }
+          if ( !dbpedia.fungi.result && !dbpedia.fungi.ready ){
+            dbpedia.fungi.http().then( init )
+          }
+          else {
+            init()
           }
           $timeout( function(){
             scope.masonry = new Masonry( $( '.container', elem ).get(0), {

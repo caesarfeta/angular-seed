@@ -102,32 +102,37 @@ function(
         
         // now sort
         
-        // self.fungi.genus.sort( function( a, b ){
-        //   return b.count - a.count
-        // })
-        
-        self.fungi.genus = self.fungi.genus.sort( function( a, b ){
+        self.fungi.genus.sort( function( a, b ){
           return b.count - a.count
-        }).slice( 0, 10 )
+        })
       }
       function httpBkup(){
         return $http.get( 'lib/dbpedia/data/fungi.bkup.json' )
       }
+      self.fungi.waiting = false
+      self.fungi.ready = false
       self.fungi.http = function(){
+        self.fungi.waiting = true
         return $q( function( yes, no ){
           self.http({
             query: dbpediaQuery.fungi(),
             success: function( r ){
+              self.fungi.waiting = false
+              self.fungi.ready = true
               prep( r )
               yes()
             },
             error: function( r ){
               httpBkup().then(
                function( r ){
+                 self.fungi.waiting = false
+                 self.fungi.ready = true
                  prep( r )
                  yes()
                },
                function(){
+                 self.fungi.waiting = false
+                 self.fungi.ready = true
                  no()
                }
               )
