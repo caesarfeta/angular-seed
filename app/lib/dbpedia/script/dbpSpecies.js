@@ -124,7 +124,7 @@ function(
         replace: true,
         template: [
           
-          '<div class="item masonry-brick">',
+          '<div ng-model="item" class="item masonry-brick">',
             
             // link
             
@@ -167,24 +167,36 @@ function(
         scope: {},
         template: [
           
-          '<div>',
-            '<div paginator="dbpedia.fungi.paginator"></div>',
+          '<div class="container">',
+            
             '<div ng-if="!!dbpedia.fungi.genus"',
-                 'class="container">',
+                 'class="list">',
               '<div ng-repeat="item in dbpedia.fungi.paginator.items()">',
                 '<div dbp-fungi-item></div>',
               '</div>',
             '</div>',
+            
+            '<div paginator="dbpedia.fungi.paginator"></div>',
+            
           '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
+          function init(){
+            scope.masonry = new Masonry( $( '.list', elem ).get(0), {
+              itemSelector: '.masonry-brick',
+              columnWidth: 350
+            })
+          }
           dbpedia.fungi.http().then( function(){
             $timeout( function(){
-              scope.masonry = new Masonry( $( '.container', elem ).get(0), {
-                itemSelector: '.masonry-brick',
-                columnWidth: 350
-              })
+              init()
+              scope.$watch(
+                function(){ return dbpedia.fungi.paginator.currentPage },
+                function( n ){ 
+                  $timeout( function(){ init() })
+                }
+              )
             })
           })
           scope.dbpedia = dbpedia

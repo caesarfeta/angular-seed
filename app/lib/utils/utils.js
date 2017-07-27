@@ -16,5 +16,8 @@ function( _ ){
   utils.dump = function( obj ){
     return JSON.stringify( obj, ' ', 2 )
   }
+  utils.range = function( i ){
+    return i ? utils.range( i-1 ).concat( i ) : []
+  }
   return utils
 })

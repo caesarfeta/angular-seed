@@ -7399,6 +7399,11 @@ body {
   display: inline;
   margin: 0 10px;
 }
+.paginator {
+  position: fixed;
+  bottom: 0;
+  right: 10px;
+}
 .spinner {
   display: inline-block;
   width: 50px;
