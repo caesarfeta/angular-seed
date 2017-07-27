@@ -85,7 +85,6 @@ function(
         template: [
           
           '<div>',
-            '<div list-pager></div>',
             '<div class="container">',
               '<div ng-repeat="item in list">',
                 '<div dbp-fungi-item></div>',
@@ -147,17 +146,6 @@ function(
             // comment
             
             '<div class="comment">{{ ::item.comment }}</div>',
-            
-            // species list
-            
-            // '<more-text>',
-            //   '<ul ng-if="!!item.count">',
-            //     '<li ng-repeat="species in ::item.species">',
-            //       '{{ ::species.name }}',
-            //     '</li>',
-            //   '</ul>',
-            // '</more-text>',
-            
           '</div>'
           
         ].join(' '),
@@ -180,10 +168,10 @@ function(
         template: [
           
           '<div>',
-            '<div list-pager></div>',
+            '<div paginator="dbpedia.fungi.paginator"></div>',
             '<div ng-if="!!dbpedia.fungi.genus"',
                  'class="container">',
-              '<div ng-repeat="item in dbpedia.fungi.genus">',
+              '<div ng-repeat="item in dbpedia.fungi.paginator.items()">',
                 '<div dbp-fungi-item></div>',
               '</div>',
             '</div>',
@@ -216,25 +204,6 @@ function(
             scope.imgOnload()
           })
         }
-      }
-    }
-  ])
-  .directive( 'listPager', [
-    function(){
-      return {
-        template: [
-          
-          '<nav aria-label="Page navigation example">',
-            '<ul class="pagination">',
-              '<li class="page-item"><a class="page-link" href="#">Previous</a></li>',
-              '<li class="page-item"><a class="page-link" href="#">1</a></li>',
-              '<li class="page-item"><a class="page-link" href="#">2</a></li>',
-              '<li class="page-item"><a class="page-link" href="#">3</a></li>',
-              '<li class="page-item"><a class="page-link" href="#">Next</a></li>',
-            '</ul>',
-          '</nav>'
-          
-        ].join(' ')
       }
     }
   ])
