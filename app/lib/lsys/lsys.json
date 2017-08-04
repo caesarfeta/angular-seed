@@ -11,7 +11,7 @@
     "delay": 2
   },
   {
-    "label": "",
+    "label": "dragon curve",
     "times": 8,
     "angle": 90,
     "start": "FX",
@@ -20,5 +20,49 @@
       "Y=-FX-Y"
     ],
     "delay": 0.25
+  },
+  {
+    "label": "snowflake",
+    "times": 3,
+    "angle": 60,
+    "start": "F++F++F",
+    "rules": [
+      "F=F-F++F-F", 
+      "X=FF"
+    ],
+    "delay": 1
+  },
+  {
+    "label": "microchip",
+    "times": 3,
+    "angle": 90,
+    "start": "F",
+    "rules": [
+      "F=F+F-F-F-G+F+F+F-F",
+      "G=GGG"
+    ],
+    "delay": 1
+  },
+  {
+    "label": "sierpinski on side",
+    "times": 3,
+    "angle": 120,
+    "start": "F-G-G",
+    "rules": [
+      "F=F-G+F+G-F",
+      "G=GG"
+    ],
+    "delay": 1
+  },
+  {
+    "label": "tri-triforce",
+    "times": 2,
+    "angle": 120,
+    "start": "F-G-G",
+    "rules": [
+      "F=F-G+F+G-F",
+      "G=GG"
+    ],
+    "delay": 1
   }
 ]

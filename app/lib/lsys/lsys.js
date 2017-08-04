@@ -20,7 +20,8 @@ function(
       return {
         template: [
           
-          '<div style="width:300px;height:300px" ng-repeat="sys in lsys">',
+          '<div style="width:300px;height:300px;display:inline-block"',
+               'ng-repeat="sys in lsys">',
             '<div lsys="sys"></div>',
           '</div>'
           
@@ -148,10 +149,10 @@ function(
             ctx.strokeStyle ='#000'
             var i = 0
             while ( i < coords.length-1 ){
-              setTimeout(
+              //setTimeout(
                 draw( ctx, coords, i, scale, centerX, nudgeY ),
-                scope.lsys.delay * 1000 * i
-              )
+              //  scope.lsys.delay * 1000 * i
+              //)
               i++
             }
           }

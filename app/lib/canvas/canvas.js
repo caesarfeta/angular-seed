@@ -43,41 +43,12 @@ function( angular, viz ){
       var lsys = {
         template: [
           
-          '<div style="width:300px;height:300px">',
-            '<div lsys="lsys"></div>',
-          '</div>',
-          
-          '<div style="width:300px;height:300px">',
-            '<div lsys="lsys2"></div>',
-          '</div>'
+          '<div lsys-lib></div>'
           
         ].join(' '),
         controller: [
           '$scope',
-          function( scope ){
-            scope.lsys = {
-              times: 6,
-              angle: 60,
-              start: 'A',
-              rules: [
-                'A=B-A-B', 
-                'B=A+B+A'
-              ],
-              delay: 2
-            }
-            
-            scope.lsys2 = {
-              times: 8,
-              angle: 90,
-              start: 'FX',
-              rules: [
-                'X=X+YF+', 
-                'Y=-FX-Y'
-              ],
-              delay: .25
-            }
-            
-          }
+          function( scope ){}
         ]
       }
       $routeProvider.when('/lsys', lsys )
