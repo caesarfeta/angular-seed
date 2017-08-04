@@ -14,22 +14,100 @@ function(
     return [ radius * Math.cos( angle ), radius * Math.sin( angle ) ]
   }
   return angular.module( 'lsys', [])
+  .directive( 'lsysCard', [
+    function( $http ){
+      return {
+        scope: {
+          lsysCard: '=',
+          id: '='
+        },
+        template: [
+          
+          '<div class="lsysCard">',
+            '<label>{{ lsys.label }}</label>',
+            '<div lsys="lsys"></div>',
+            '<button class="btn btn-sm" href="#/lsys/{{ id }}">edit</button>',
+            '<button class="btn btn-sm" ng-click="lsys.draw()">play</button>',
+            '<button class="btn btn-sm" ng-click="lsys.xMirror()">x-mirror</button>',
+            '<button class="btn btn-sm" ng-click="lsys.yMirror()">y-mirror</button>',
+            '<button class="btn btn-sm" ng-click="lsys.clear()">clear</button>',
+          '</div>'
+          
+        ].join(' '),
+        link: function( scope ){
+          scope.lsys = scope.lsysCard
+        }
+      }
+    }
+  ])
   .directive( 'lsysLib', [
     '$http',
-    function( $http ){
+    'lsys',
+    function(
+      $http,
+      lsys ){
       return {
         template: [
           
           '<div style="width:300px;height:300px;display:inline-block"',
                'ng-repeat="sys in lsys">',
-            '<div lsys="sys"></div>',
+            '<div lsys-card="sys" id="$index"></div>',
           '</div>'
           
         ].join(' '),
         link: function( scope ){
           $http.get( './lib/lsys/lsys.json' ).then(
             function( d ){
-              scope.lsys = d.data
+              scope.lsys = d.data.map( function( item ){
+                return new lsys( item )
+              })
+            }
+          )
+        }
+      }
+    }
+  ])
+  .directive( 'lsysCtrl', [
+    function(){
+      return {
+        scope: {
+          lsysCtrl: '='
+        },
+        template: [
+          
+          '<div>',
+            '<div>Controls</div>',
+          '</div>'
+          
+        ].join(' '),
+        link: function( scope ){
+          console.log( scope.lsysCtrl )
+        }
+      }
+    }
+  ])
+  .directive( 'lsysSketch', [
+    '$http',
+    'lsys',
+    function( $http ){
+      return {
+        scope: {
+          lsysSketch: '='
+        },
+        template: [
+          
+          '<div>',
+            '<h1>lsysSketch</h1>',
+            '<label>{{ lsys.label }}</label>',
+            '<div lsys="lsys"></div>',
+            '<div lsysCtrl="lsys"></div>',
+          '</div>'
+          
+        ].join(' '),
+        link: function( scope ){
+          $http.get( './lib/lsys/lsys.json' ).then(
+            function( d ){
+              scope.lsys = d.data[ scope.lsysSketch ]
             }
           )
         }
@@ -65,6 +143,108 @@ function(
           self.n++
         }
       }
+      lsys.prototype.update = function(){
+        var self = this
+        var angle = self.angle
+        var x = 0
+        var y = 0
+        var maxX = 0
+        var maxY = 0
+        var minX = 0
+        var minY = 0
+        self.coords = []
+        self.coords.push([ x, y ])
+        _.each( self.output.split(''), function( char ){
+          switch( char ){
+            case '+':
+              angle += self.angle
+              break
+            case '-':
+              angle -= self.angle
+              break
+            default:
+              var vector = Math.toCart( 1, Math.toRad( angle ))
+              x += vector[0]
+              y += vector[1]
+              self.coords.push([ x, y ])
+              maxX = ( x > maxX ) ? x : maxX
+              maxY = ( y > maxY ) ? y : maxY
+              minX = ( x < minX ) ? x : minX
+              minY = ( y < minY ) ? y : minY
+              break
+          }
+        })
+        
+        // something funky here VVVV
+        
+        self.nudgeX = ( minX < 0 ) ? minX * -1 : 0
+        self.nudgeY = ( minY < 0 ) ? minY * -1 : 0
+        var rx = self.canvas.width / ( maxX + self.nudgeX )
+        var ry = self.canvas.height / ( maxY + self.nudgeY )
+        self.scale = ( rx < ry ) ? rx : ry
+        self.centerX = self.canvas.width / 2
+        
+        // calc draw delay
+        
+        self.delay = self.duration / self.coords.length
+      }
+      
+      lsys.prototype.init = function( canvas ){
+        var self = this
+        self.canvas = canvas
+        
+        // draw the thing
+        
+        self.draw()
+      }
+      
+      lsys.prototype.clear = function(){
+        var self = this
+        self.ctx.clearRect( 0, 0, self.canvas.width, self.canvas.height )
+        self.fresh = true
+      }
+      
+      lsys.prototype.next = function( i ){
+        var self = this
+        self.ctx.moveTo(
+          ( self.coords[ i ][0] ) * self.scale + self.centerX,
+          ( self.coords[ i ][1] + self.nudgeY ) * self.scale
+        )
+        self.ctx.lineTo(
+          ( self.coords[ i+1 ][0] ) * self.scale + self.centerX,
+          ( self.coords[ i+1 ][1] + self.nudgeY ) * self.scale
+        )
+        self.ctx.stroke()
+        if ( i < self.coords.length - 2 ){
+          setTimeout(
+            function(){
+              self.next( i+1 )
+            }, self.delay
+          )
+        }
+      }
+      
+      lsys.prototype.draw = function(){
+        var self = this
+        self.update()
+        self.ctx = self.canvas.getContext( '2d' )
+        self.ctx.strokeStyle ='#000'
+        self.clear()
+        self.next( 0 )
+      }
+      
+      lsys.prototype.xMirror = function(){
+        var self = this
+        self.output = self.output + _.reverse( self.output.split('')).join('')
+        self.update()
+        self.draw()
+      }
+      
+      lsys.prototype.yMirror = function(){
+        var self = this
+        console.log( 'yMirror' )
+      }
+      
       return lsys
     }
   ])
@@ -93,80 +273,7 @@ function(
             
             // turn l-system directions into coordinates
             
-            var sys = new lsys( scope.lsys )
-            var angle = scope.lsys.angle
-            var x = 0
-            var y = 0
-            var maxX = 0
-            var maxY = 0
-            var minX = 0
-            var minY = 0
-            var coords = []
-            coords.push([ x, y ])
-            _.each( sys.output.split(''), function( char ){
-              switch( char ){
-                case '+':
-                  angle += scope.lsys.angle
-                  break
-                case '-':
-                  angle -= scope.lsys.angle
-                  break
-                case '[':
-                  var vector = Math.toCart( 1, Math.toRad( angle ))
-                  x += vector[0]
-                  y += vector[1]
-                  coords.push([ x, y ])
-                  break
-                case ']':
-                  coords.pop()
-                  break
-                default:
-                  var vector = Math.toCart( 1, Math.toRad( angle ))
-                  x += vector[0]
-                  y += vector[1]
-                  coords.push([ x, y ])
-                  maxX = ( x > maxX ) ? x : maxX
-                  maxY = ( y > maxY ) ? y : maxY
-                  minX = ( x < minX ) ? x : minX
-                  minY = ( y < minY ) ? y : minY
-                  break
-              }
-            })
-            
-            // figure out scale and centering
-            
-            var canvas = $( 'canvas', elem ).get(0)
-            var nudgeX = ( minX < 0 ) ? minX * -1 : 0
-            var nudgeY = ( minY < 0 ) ? minY * -1 : 0
-            var rx = canvas.width / ( maxX + nudgeX )
-            var ry = canvas.height / ( maxY + nudgeY )
-            var scale = ( rx < ry ) ? rx : ry
-            var centerX = canvas.width / 2
-            
-            // draw the thing
-            
-            var ctx = canvas.getContext( '2d' )
-            ctx.strokeStyle ='#000'
-            var i = 0
-            while ( i < coords.length-1 ){
-              //setTimeout(
-                draw( ctx, coords, i, scale, centerX, nudgeY ),
-              //  scope.lsys.delay * 1000 * i
-              //)
-              i++
-            }
-          }
-          
-          function draw( ctx, coords, i, scale, centerX, nudgeY ){
-            ctx.moveTo(
-              (coords[ i ][0] ) * scale + centerX,
-              ( coords[ i ][1] + nudgeY ) * scale
-            )
-            ctx.lineTo(
-              ( coords[ i+1 ][0] ) * scale + centerX,
-              ( coords[ i+1 ][1] + nudgeY ) * scale
-            )
-            ctx.stroke()
+            scope.lsys.init( $( 'canvas', elem ).get(0))
           }
           
           // make sure height and width are calculated before drawing

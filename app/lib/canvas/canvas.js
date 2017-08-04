@@ -46,12 +46,26 @@ function( angular, viz ){
           '<div lsys-lib></div>'
           
         ].join(' '),
+        controller: function(){}
+      }
+      var lsysSketch = {
+        template: [
+          
+          '<div lsys-sketch="id"></div>'
+          
+        ].join(' '),
         controller: [
           '$scope',
-          function( scope ){}
+          '$routeParams',
+          function( $scope, $routeParams ){
+            console.log( $routeParams )
+            $scope.id = $routeParams.id
+            console.log( $scope.id )
+          }
         ]
       }
       $routeProvider.when('/lsys', lsys )
+      $routeProvider.when('/lsys/:id', lsysSketch )
     }
   ])
   
