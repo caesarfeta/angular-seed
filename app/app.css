@@ -7409,6 +7409,9 @@ body {
   width: 50px;
   height: 20px;
   font-size: 20px;
+  position: fixed;
+  top: 50%;
+  right: 50%;
 }
 .spinner > div {
   background-color: #333;
@@ -7524,6 +7527,11 @@ input.dbpedia-search-input {
   font-size: 10px;
   height: 500px;
   resize: none;
+}
+.lsys {
+  width: 300px;
+  height: 300px;
+  background-color: #BBCCCC;
 }
 .elem-notate .lites {
   position: absolute;

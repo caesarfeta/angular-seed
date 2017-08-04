@@ -40,12 +40,12 @@ function(
     self.config = config;
     self.sfx = new sfx();
     self.music = new music();
-    self.reset();
     
     // setup gui
     
-    self.setupGUI();
-    self.LSYS = LSYS;
+    if ( !!config.lsys ){
+      LSYS.Sys( 12, 90, 'FX', 'X=X+YF+', 'Y=-FX-Y' )
+    }
   };
   
   viz.prototype.build = function(){

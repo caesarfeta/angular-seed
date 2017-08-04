@@ -19,7 +19,9 @@ function(
             '<div class="dbpedia-bio-species clearfix"',
                  'ng-repeat="species in dbpedia.img.result">',
               '<h2 class="name" ng-bind-html="species.name.value | highlight:dbpedia.img.search"></h2>',
-              '<div img-kit="{{ species.img.value }}"><img ng-src="{{ species.img.value }}"/></div>',
+              '<div img-kit="{{ species.img.value }}">',
+                '<img ng-src="{{ species.img.value }}"/>',
+              '</div>',
               '<table class="taxonomy">',
                 '<tr><td>Kingdom</td><td>{{ species.kingdom.value | shrinkLink }}</td></tr>',
                 '<tr><td>Phylum</td><td>{{ species.phylum.value | shrinkLink }}</td></tr>',
@@ -85,6 +87,7 @@ function(
         template: [
           
           '<div>',
+            '<spinner spin-id="dbpedia-http"></spinner>',
             '<div class="container">',
               '<div ng-repeat="item in list">',
                 '<div dbp-fungi-item></div>',
@@ -168,16 +171,14 @@ function(
         template: [
           
           '<div class="container">',
-            
+            '<spinner spin-id="dbpedia-http"></spinner>',
             '<div ng-if="!!dbpedia.fungi.genus"',
                  'class="list">',
               '<div ng-repeat="item in dbpedia.fungi.paginator.items()">',
                 '<div dbp-fungi-item></div>',
               '</div>',
             '</div>',
-            
             '<div paginator="dbpedia.fungi.paginator"></div>',
-            
           '</div>'
           
         ].join(' '),

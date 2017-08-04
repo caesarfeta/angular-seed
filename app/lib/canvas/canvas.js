@@ -1,10 +1,14 @@
 define([ 
 'angular',
 //'lib/viz/viz',
+'lib/lsys/lsys',
 'angularRoute'
 ],
 function( angular, viz ){
-  angular.module( 'myApp.view.canvas', [ 'ngRoute' ])
+  angular.module( 'myApp.view.canvas', [
+    'ngRoute',
+    'lsys'
+  ])
   .config([
     '$routeProvider', 
     function( $routeProvider ){
@@ -39,10 +43,26 @@ function( angular, viz ){
       var lsys = {
         template: [
           
-          '<div>lsys</div>'
+          '<div lsys="lsys">Gotcha</div>'
           
         ].join(' '),
-        controller: [ function(){} ]
+        controller: [
+          '$scope',
+          function( scope ){
+            scope.lsys = {
+              i: 12,
+              angle: 90,
+              rules:[ 
+                'FX', 
+                'X=X+YF+',
+                'Y=-FX-Y'
+              ],
+              delay: function( a, b, i ){
+                return i * b / 5000
+              }
+            }
+          }
+        ]
       }
       $routeProvider.when('/lsys', lsys )
     }
