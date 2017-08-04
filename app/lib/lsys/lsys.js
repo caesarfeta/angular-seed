@@ -14,6 +14,27 @@ function(
     return [ radius * Math.cos( angle ), radius * Math.sin( angle ) ]
   }
   return angular.module( 'lsys', [])
+  .directive( 'lsysLib', [
+    '$http',
+    function( $http ){
+      return {
+        template: [
+          
+          '<div style="width:300px;height:300px" ng-repeat="sys in lsys">',
+            '<div lsys="sys"></div>',
+          '</div>'
+          
+        ].join(' '),
+        link: function( scope ){
+          $http.get( './lib/lsys/lsys.json' ).then(
+            function( d ){
+              scope.lsys = d.data
+            }
+          )
+        }
+      }
+    }
+  ])
   .factory( 'lsys', [
     function(){
       var lsys = function( config ){

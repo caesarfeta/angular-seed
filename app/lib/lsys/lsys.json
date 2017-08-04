@@ -1,0 +1,24 @@
+[
+  {
+    "label": "sierpinski triangle of mini partial hexagons",
+    "times": 6,
+    "angle": 60,
+    "start": "A",
+    "rules": [
+      "A=B-A-B", 
+      "B=A+B+A"
+    ],
+    "delay": 2
+  },
+  {
+    "label": "",
+    "times": 8,
+    "angle": 90,
+    "start": "FX",
+    "rules": [
+      "X=X+YF+", 
+      "Y=-FX-Y"
+    ],
+    "delay": 0.25
+  }
+]
