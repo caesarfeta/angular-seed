@@ -48,7 +48,7 @@ function( angular, viz ){
           '</div>',
           
           '<div style="width:300px;height:300px">',
-            '<div lsys="lsys"></div>',
+            '<div lsys="lsys2"></div>',
           '</div>'
           
         ].join(' '),
@@ -63,16 +63,16 @@ function( angular, viz ){
                 'A=B-A-B', 
                 'B=A+B+A'
               ],
-              delay: .25
+              delay: 2
             }
             
-            scope.lsys = {
-              times: 6,
-              angle: 60,
-              start: 'A',
+            scope.lsys2 = {
+              times: 8,
+              angle: 90,
+              start: 'FX',
               rules: [
-                'A=B-A-B', 
-                'B=A+B+A'
+                'X=X+YF+', 
+                'Y=-FX-Y'
               ],
               delay: .25
             }
