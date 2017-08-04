@@ -22,10 +22,30 @@
     "duration": 1
   },
   {
+    "label": "d-pad flower",
+    "times": 3,
+    "angle": 90,
+    "start": "FFFF",
+    "rules": [
+      "F=F+F-F-F+F-F-"
+    ],
+    "duration": 1
+  },
+  {
     "label": "rotated koch curve",
     "times": 4,
     "angle": 90,
     "start": "F",
+    "rules": [
+      "F=F+F-F-F+F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "grandma's koch curve napkin",
+    "times": 4,
+    "angle": 90,
+    "start": "F--F",
     "rules": [
       "F=F+F-F-F+F"
     ],
@@ -43,10 +63,65 @@
     "duration": 1
   },
   {
+    "label": "quarter swirls",
+    "times": 4,
+    "angle": 15,
+    "start": "AB++AB",
+    "rules": [
+      "A=ABBBA", 
+      "B=B-B-B"
+    ],
+    "duration": 1
+  },
+  {
     "label": "angel telephone",
     "times": 4,
     "angle": 45,
     "start": "A",
+    "rules": [
+      "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "angel telephone flower",
+    "times": 4,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "lumpy x",
+    "times": 2,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "lumpy x mandala",
+    "times": 5,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "lumpy x flower",
+    "times": 6,
+    "angle": 45,
+    "start": "AAAA",
     "rules": [
       "A=B-A-B", 
       "B=A+B+A-A+B+A"
@@ -67,17 +142,6 @@
   {
     "label": "dragon curve",
     "times": 8,
-    "angle": 90,
-    "start": "FX",
-    "rules": [
-      "X=X+YF+", 
-      "Y=-FX-Y"
-    ],
-    "duration": 1
-  },
-  {
-    "label": "dragon curve error",
-    "times": 6,
     "angle": 90,
     "start": "FX",
     "rules": [
@@ -120,13 +184,68 @@
     "duration": 1
   },
   {
-    "label": "microchip-seed-twice",
-    "times": 2,
-    "angle": 90,
-    "start": "F",
+    "label": "octagon flower",
+    "times": 4,
+    "angle": 45,
+    "start": "ABBA",
     "rules": [
-      "F=F+F-F-F-G+F+F+F-F",
-      "G=GGG"
+      "A=B-A-B-A-B",
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "octagon flower",
+    "times": 4,
+    "angle": 45,
+    "start": "ABBA",
+    "rules": [
+      "A=B-A-B-A-B",
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "triple triangle",
+    "times": 2,
+    "angle": 120,
+    "start": "ABA",
+    "rules": [
+      "A=BA-B",
+      "B=AB-A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "exploding starship enterprise",
+    "times": 6,
+    "angle": 60,
+    "start": "ABBA",
+    "rules": [
+      "A=AB-BA",
+      "B=A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "gem pear",
+    "times": 2,
+    "angle": 60,
+    "start": "AAA",
+    "rules": [
+      "A=B-A-B--B",
+      "B=A++A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "mountain range",
+    "times": 6,
+    "angle": 120,
+    "start": "ABA",
+    "rules": [
+      "A=BA-B",
+      "B=AB-A"
     ],
     "duration": 1
   },

@@ -27,10 +27,23 @@ function(
             '<label>{{ lsys.label }}</label>',
             '<div lsys="lsys"></div>',
             
-//            '<button class="btn btn-sm" href="#/lsys/{{ id }}">edit</button>',
+            // play
+            
             '<button class="btn btn-sm" ng-click="lsys.draw()">',
               '<i class="fa fa-play"></i>',
             '</button>',
+            
+            // edit
+            
+            '<a href="" ng-class="{ \'active\': !!editor }" ng-click="editor = !editor">',
+              '{{ ( !editor ) ? "more" : "less" }}',
+            '</a>',
+            
+            // editor 
+            
+            '<div ng-if="editor" lsys-ctrl="lsys"></div>',
+              
+//            '<button class="btn btn-sm" href="#/lsys/{{ id }}">edit</button>',
 //            '<button class="btn btn-sm" ng-click="lsys.xMirror()">x-mirror</button>',
 //            '<button class="btn btn-sm" ng-click="lsys.yMirror()">y-mirror</button>',
 //            '<button class="btn btn-sm" ng-click="lsys.clear()">clear</button>',
@@ -39,6 +52,7 @@ function(
         ].join(' '),
         link: function( scope ){
           scope.lsys = scope.lsysCard
+          scope.editor = false
         }
       }
     }
@@ -52,9 +66,9 @@ function(
       return {
         template: [
           
-          '<div style="width:300px;height:300px;display:inline-block"',
-               'ng-repeat="sys in lsys">',
-            '<div lsys-card="sys" id="$index"></div>',
+          '<div style="background:#DDD">',
+            '<div lsys-card="sys" id="$index" ng-repeat="sys in lsys"></div>',
+            '<div class="clearfix"></div>',
           '</div>'
           
         ].join(' '),
@@ -78,12 +92,39 @@ function(
         },
         template: [
           
-          '<div>',
-            '<div>Controls</div>',
+          '<div class="lsysCtrl">',
+            
+            '<div>',
+              '<label>start</label>',
+              '<input type="text" ng-model="lsys.start" />',
+            '</div>',
+            
+            '<div>',
+              '<label>rules</label>',
+              '<div>',
+                '<input type="text" ng-model="lsys.rules[ $index ]" ng-repeat="i in lsys.rules track by $index" />',
+              '</div>',
+            '</div>',
+            
+            '<div>',
+              '<label>angle</label>',
+              '<input type="number" ng-model="lsys.angle" />',
+            '</div>',
+            
+            '<div>',
+              '<label>times</label>',
+              '<input type="number" ng-model="lsys.times" />',
+            '</div>',
+            
+            '<div>',
+              '<label>duration</label>',
+              '<input type="number" ng-model="lsys.duration" />',
+            '</div>',
           '</div>'
           
         ].join(' '),
         link: function( scope ){
+          scope.lsys = scope.lsysCtrl
           console.log( scope.lsysCtrl )
         }
       }
@@ -123,12 +164,18 @@ function(
         var self = this
         _.merge( self, {
           times: undefined,
-          n: 0,
           angle: undefined,
           seed: undefined,
           rules: [],
         })
         _.merge( self, config )
+      }
+      lsys.prototype.update = function(){
+        var self = this
+        
+        // build output
+        
+        self.n = 0
         self.vars = {}
         _.each( self.rules, function( rule ){
           var map = rule.split( '=' )
@@ -145,9 +192,9 @@ function(
           self.output = chars.join('')
           self.n++
         }
-      }
-      lsys.prototype.update = function(){
-        var self = this
+        
+        // build coordinates
+        
         var angle = self.angle
         var x = 0
         var y = 0
@@ -180,12 +227,12 @@ function(
         
         // something funky here VVVV
         
-        self.nudgeX = ( minX < 0 ) ? minX * -1 : 0
-        self.nudgeY = ( minY < 0 ) ? minY * -1 : 0
+         self.nudgeX = ( minX < 0 ) ? minX * -1 : 0
+         self.nudgeY = ( minY < 0 ) ? minY * -1 : 0
+        
         var rx = self.canvas.width / ( maxX + self.nudgeX )
         var ry = self.canvas.height / ( maxY + self.nudgeY )
         self.scale = ( rx < ry ) ? rx : ry
-        self.centerX = self.canvas.width / 2
         
         // calc draw delay
         
@@ -210,11 +257,11 @@ function(
       lsys.prototype.next = function( i ){
         var self = this
         self.ctx.moveTo(
-          ( self.coords[ i ][0] ) * self.scale + self.centerX,
+          ( self.coords[ i ][0] + self.nudgeX ) * self.scale,
           ( self.coords[ i ][1] + self.nudgeY ) * self.scale
         )
         self.ctx.lineTo(
-          ( self.coords[ i+1 ][0] ) * self.scale + self.centerX,
+          ( self.coords[ i+1 ][0] + self.nudgeX ) * self.scale,
           ( self.coords[ i+1 ][1] + self.nudgeY ) * self.scale
         )
         self.ctx.stroke()
