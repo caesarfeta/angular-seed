@@ -26,11 +26,14 @@ function(
           '<div class="lsysCard">',
             '<label>{{ lsys.label }}</label>',
             '<div lsys="lsys"></div>',
-            '<button class="btn btn-sm" href="#/lsys/{{ id }}">edit</button>',
-            '<button class="btn btn-sm" ng-click="lsys.draw()">play</button>',
+            
+//            '<button class="btn btn-sm" href="#/lsys/{{ id }}">edit</button>',
+            '<button class="btn btn-sm" ng-click="lsys.draw()">',
+              '<i class="fa fa-play"></i>',
+            '</button>',
 //            '<button class="btn btn-sm" ng-click="lsys.xMirror()">x-mirror</button>',
 //            '<button class="btn btn-sm" ng-click="lsys.yMirror()">y-mirror</button>',
-            '<button class="btn btn-sm" ng-click="lsys.clear()">clear</button>',
+//            '<button class="btn btn-sm" ng-click="lsys.clear()">clear</button>',
           '</div>'
           
         ].join(' '),
