@@ -7529,9 +7529,9 @@ input.dbpedia-search-input {
   resize: none;
 }
 .lsys {
-  width: 300px;
-  height: 300px;
-  background-color: #BBCCCC;
+  width: 100%;
+  height: 100%;
+  background-color: #F2F2F2;
 }
 .elem-notate .lites {
   position: absolute;

@@ -43,33 +43,46 @@ function( angular, viz ){
       var lsys = {
         template: [
           
-          '<div lsys="lsys">Gotcha</div>'
+          '<div style="width:300px;height:300px">',
+            '<div lsys="lsys"></div>',
+          '</div>',
+          
+          '<div style="width:300px;height:300px">',
+            '<div lsys="lsys"></div>',
+          '</div>'
           
         ].join(' '),
         controller: [
           '$scope',
           function( scope ){
             scope.lsys = {
-              i: 12,
-              angle: 90,
-              rules:[ 
-                'FX', 
-                'X=X+YF+',
-                'Y=-FX-Y'
+              times: 6,
+              angle: 60,
+              start: 'A',
+              rules: [
+                'A=B-A-B', 
+                'B=A+B+A'
               ],
-              delay: function( a, b, i ){
-                return i * b / 5000
-              }
+              delay: .25
             }
+            
+            scope.lsys = {
+              times: 6,
+              angle: 60,
+              start: 'A',
+              rules: [
+                'A=B-A-B', 
+                'B=A+B+A'
+              ],
+              delay: .25
+            }
+            
           }
         ]
       }
       $routeProvider.when('/lsys', lsys )
     }
   ])
-  
-  // http://progur.com/2017/02/create-mandelbrot-fractal-javascript.html
-  // http://math.hws.edu/eck/jsdemo/jsMandelbrot.html
   
   .service( 'iCanvasSvc', [
     function(){
