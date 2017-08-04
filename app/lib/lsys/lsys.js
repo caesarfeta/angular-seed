@@ -28,8 +28,8 @@ function(
             '<div lsys="lsys"></div>',
             '<button class="btn btn-sm" href="#/lsys/{{ id }}">edit</button>',
             '<button class="btn btn-sm" ng-click="lsys.draw()">play</button>',
-            '<button class="btn btn-sm" ng-click="lsys.xMirror()">x-mirror</button>',
-            '<button class="btn btn-sm" ng-click="lsys.yMirror()">y-mirror</button>',
+//            '<button class="btn btn-sm" ng-click="lsys.xMirror()">x-mirror</button>',
+//            '<button class="btn btn-sm" ng-click="lsys.yMirror()">y-mirror</button>',
             '<button class="btn btn-sm" ng-click="lsys.clear()">clear</button>',
           '</div>'
           
@@ -186,7 +186,7 @@ function(
         
         // calc draw delay
         
-        self.delay = self.duration / self.coords.length
+        self.delay = ( self.duration * 1000 ) / self.coords.length
       }
       
       lsys.prototype.init = function( canvas ){
@@ -230,7 +230,9 @@ function(
         self.ctx = self.canvas.getContext( '2d' )
         self.ctx.strokeStyle ='#000'
         self.clear()
+        self.ctx.beginPath()
         self.next( 0 )
+        self.ctx.closePath()
       }
       
       lsys.prototype.xMirror = function(){
