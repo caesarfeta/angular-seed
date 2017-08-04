@@ -1,19 +1,17 @@
 define([
 'angular',
-'lodash',
-  
+'lodash'
 ], 
 function(
   angular,
-  _,
-  LSYS ){
+  _ ){
   Math.toRad = function( degrees ) {
     return degrees * Math.PI / 180
   }
   Math.toCart = function( radius, angle ) {
     return [ radius * Math.cos( angle ), radius * Math.sin( angle ) ]
   }
-  return angular.module( 'lsys', [])
+  return angular.module( 'lsys', [ 'atCommon' ])
   .directive( 'lsysCard', [
     function( $http ){
       return {
@@ -35,9 +33,9 @@ function(
             
             // edit
             
-            '<a href="" ng-class="{ \'active\': !!editor }" ng-click="editor = !editor">',
+            '<button class="btn btn-sm edit" href="" ng-class="{ \'active\': !!editor }" ng-click="editor = !editor">',
               '{{ ( !editor ) ? "more" : "less" }}',
-            '</a>',
+            '</button>',
             
             // editor 
             
@@ -60,23 +58,29 @@ function(
   .directive( 'lsysLib', [
     '$http',
     'lsys',
+    'paginator',
     function(
       $http,
-      lsys ){
+      lsys,
+      paginator ){
       return {
         template: [
           
           '<div style="background:#DDD">',
-            '<div lsys-card="sys" id="$index" ng-repeat="sys in lsys"></div>',
+            '<div lsys-card="sys" id="$index" ng-repeat="sys in paginator.items()"></div>',
             '<div class="clearfix"></div>',
+            '<div paginator="paginator"></div>',
           '</div>'
           
         ].join(' '),
         link: function( scope ){
           $http.get( './lib/lsys/lsys.json' ).then(
             function( d ){
-              scope.lsys = d.data.map( function( item ){
-                return new lsys( item )
+              scope.paginator = new paginator({
+                list: d.data.map( function( item ){
+                  return new lsys( item )
+                }),
+                perPage: 12
               })
             }
           )

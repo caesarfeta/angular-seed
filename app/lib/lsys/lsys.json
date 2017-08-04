@@ -195,17 +195,6 @@
     "duration": 1
   },
   {
-    "label": "octagon flower",
-    "times": 4,
-    "angle": 45,
-    "start": "ABBA",
-    "rules": [
-      "A=B-A-B-A-B",
-      "B=A+B+A-A+B+A"
-    ],
-    "duration": 1
-  },
-  {
     "label": "triple triangle",
     "times": 2,
     "angle": 120,

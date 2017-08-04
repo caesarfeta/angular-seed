@@ -7540,6 +7540,12 @@ input.dbpedia-search-input {
   padding: 5px;
   margin: 5px;
 }
+.lsysCard label {
+  margin: 5px;
+}
+.lsysCard .edit {
+  float: right;
+}
 .elem-notate .lites {
   position: absolute;
 }
