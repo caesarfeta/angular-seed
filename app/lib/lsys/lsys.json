@@ -22,6 +22,32 @@
     "duration": 1
   },
   {
+    "label": "holy chainring",
+    "times": 6,
+    "angle": 45,
+    "start": "DDDD",
+    "rules": [
+      "L=+R-F-R+", 
+      "R=-L+F+L-",
+      "C=L--F--LL--F--L",
+      "D=CC+CC"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "southwest placemat",
+    "times": 5,
+    "angle": 60,
+    "start": "D-D-D",
+    "rules": [
+      "A=B-A-B", 
+      "B=B+A--A+B",
+      "C=AAAA",
+      "D=CC-CC"
+    ],
+    "duration": 1
+  },
+  {
     "label": "d-pad flower",
     "times": 3,
     "angle": 90,
@@ -74,6 +100,28 @@
     "duration": 1
   },
   {
+    "label": "insect head crystals",
+    "times": 5,
+    "angle": 45,
+    "start": "AA",
+    "rules": [
+      "A=+A--B--A+", 
+      "B=B+B"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "y and stops",
+    "times": 4,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=+A--B--A++", 
+      "B=B+B"
+    ],
+    "duration": 1
+  },
+  {
     "label": "angel telephone",
     "times": 4,
     "angle": 45,
@@ -107,6 +155,17 @@
     "duration": 1
   },
   {
+    "label": "cloud donut",
+    "times": 5,
+    "angle": 30,
+    "start": "AAAAA",
+    "rules": [
+      "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "lumpy x mandala",
     "times": 5,
     "angle": 45,
@@ -124,6 +183,39 @@
     "start": "AAAA",
     "rules": [
       "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "pile of jacks",
+    "times": 5,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=A+B+AA+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "architecture dandelion",
+    "times": 4,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B++A++B",
+      "B=A+B+A--A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "stanley cups and pacifiers",
+    "times": 3,
+    "angle": 45,
+    "start": "A-A-A-A-A-A-A-A",
+    "rules": [
+      "A=B-A-BB-A-B", 
       "B=A+B+A-A+B+A"
     ],
     "duration": 1
@@ -217,6 +309,18 @@
     "duration": 1
   },
   {
+    "label": "starfish booger rims",
+    "times": 5,
+    "angle": 60,
+    "start": "C++C++C++C++C++C",
+    "rules": [
+      "A=AB-BA",
+      "B=A+B+A",
+      "C=ABBA-ABBA"
+    ],
+    "duration": 1
+  },
+  {
     "label": "gem pear",
     "times": 2,
     "angle": 60,
@@ -239,10 +343,43 @@
     "duration": 1
   },
   {
+    "label": "soggy pinwheel",
+    "times": 4,
+    "angle": 30,
+    "start": "ABBABBA",
+    "rules": [
+      "A=B+A-B++",
+      "B=B+A-A++"
+    ],
+    "duration": 1
+  },
+  {
     "label": "microchip",
     "times": 3,
     "angle": 90,
     "start": "F",
+    "rules": [
+      "F=F+F-F-F-G+F+F+F-F",
+      "G=GGG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "quad-core",
+    "times": 3,
+    "angle": 90,
+    "start": "F-F-F-F",
+    "rules": [
+      "F=F+F-F-F-G+F+F+F-F",
+      "G=GGG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "exploding pyramid",
+    "times": 4,
+    "angle": 120,
+    "start": "F-F-F-F",
     "rules": [
       "F=F+F-F-F-G+F+F+F-F",
       "G=GGG"
@@ -257,6 +394,62 @@
     "rules": [
       "F=F-G+F+G-F",
       "G=GG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "dogtag v",
+    "times": 2,
+    "angle": 60,
+    "start": "ABAB--ABAB",
+    "rules": [
+      "A=B-BAB-B",
+      "B=A-ABA-A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "power pyramid",
+    "times": 5,
+    "angle": 60,
+    "start": "AA++AA++AA",
+    "rules": [
+      "A=BAB",
+      "B=A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "arrows in the machine",
+    "times": 4,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B--A--B",
+      "B=A+B+++B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "botched waffle",
+    "times": 5,
+    "angle": 120,
+    "start": "CC--CC--CC--CC--CC",
+    "rules": [
+      "A=B--A--B",
+      "B=A+B+++B+A",
+      "C=AAAA"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "resistor frame",
+    "times": 4,
+    "angle": 45,
+    "start": "AA",
+    "rules": [
+      "A=B-A-BB-A-B",
+      "B=A+B+A--A+B+A"
     ],
     "duration": 1
   },

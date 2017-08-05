@@ -105,9 +105,13 @@ function(
             
             '<div>',
               '<label>rules</label>',
-              '<div>',
-                '<input type="text" ng-model="lsys.rules[ $index ]" ng-repeat="i in lsys.rules track by $index" />',
+              '<div ng-repeat="i in lsys.rules track by $index">',
+                '<input type="text" ng-model="lsys.rules[ $index ]" />',
+                '<button class="btn btn-sm" ng-click="lsys.rules.splice( $index, 1 )">',
+                  '<i class="fa fa-close"></i>',
+                '</button>',
               '</div>',
+              '<button class="btn btn-sm" ng-click="lsys.rules.push( \'\' )">add</button>',
             '</div>',
             
             '<div>',
