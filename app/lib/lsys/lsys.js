@@ -14,18 +14,48 @@ function(
     return [ radius * Math.cos( angle ), radius * Math.sin( angle ) ]
   }
   return angular.module( 'lsys', [ 'atCommon' ])
+  .service( 'lsysHttp', [
+    '$http',
+    'lsys',
+    '$q',
+    function(
+      $http,
+      lsys,
+      $q ){
+      var self = this
+      self.list = undefined
+      self.load = function(){
+        return $q( function( yes, no ){
+          if ( !!self.list ){
+            return yes( self.list )
+          }
+          $http.get( './lib/lsys/lsys.json' ).then(
+            function( d ){
+              self.list = d.data.map( function( item ){
+                return new lsys( item )
+              })
+              return yes( self.list )
+            },
+            function( e ){
+              return no( e )
+            }
+          )
+        })
+      }
+      return self
+    }
+  ])
   .directive( 'lsysCard', [
-    function( $http ){
+    '$location',
+    function( $location ){
       return {
         scope: {
           lsysCard: '=',
-          id: '='
         },
         template: [
           
           '<div class="lsysCard">',
-            '<label>{{ lsys.label }}</label>',
-            '<div>{{ lsys.id }}</div>',
+            '<label><a href="" ng-click="goTo( lsys.id )">{{ lsys.label }}</a></label>',
             '<div lsys="lsys"></div>',
             
             // play
@@ -43,7 +73,6 @@ function(
             // editor 
             
             '<div ng-if="editor" lsys-ctrl="lsys"></div>',
-              
 //            '<button class="btn btn-sm" ng-click="lsys.clear()">clear</button>',
           '</div>'
           
@@ -51,17 +80,18 @@ function(
         link: function( scope ){
           scope.lsys = scope.lsysCard
           scope.editor = false
+          scope.goTo = function( id ){
+            $location.url( '/lsys/' + id )
+          }
         }
       }
     }
   ])
   .directive( 'lsysLib', [
-    '$http',
-    'lsys',
+    'lsysHttp',
     'paginator',
     function(
-      $http,
-      lsys,
+      lsysHttp,
       paginator ){
       return {
         scope: {
@@ -70,19 +100,17 @@ function(
         template: [
           
           '<div style="background:#DDD">',
-            '<div lsys-card="sys" id="$index" ng-repeat="sys in paginator.items()"></div>',
+            '<div lsys-card="sys" ng-repeat="sys in paginator.items()"></div>',
             '<div class="clearfix"></div>',
             '<div paginator="paginator"></div>',
           '</div>'
           
         ].join(' '),
         link: function( scope ){
-          $http.get( './lib/lsys/lsys.json' ).then(
-            function( d ){
+          lsysHttp.load().then(
+            function( list ){
               scope.paginator = new paginator({
-                list: d.data.map( function( item ){
-                  return new lsys( item )
-                }),
+                list: list,
                 perPage: 8,
                 updateUrl: true,
                 currentPage: scope.lsysLib
@@ -129,33 +157,25 @@ function(
               '<input type="number" ng-model="lsys.times" ng-enter="lsys.draw()" />',
             '</div>',
             
-//            '<div>',
-//              '<label>duration</label>',
-//              '<input type="number" ng-model="lsys.duration" ng-enter="lsys.draw()" />',
-//            '</div>',
-          
           '</div>'
           
         ].join(' '),
         link: function( scope ){
           scope.lsys = scope.lsysCtrl
-          console.log( scope.lsysCtrl )
         }
       }
     }
   ])
   .directive( 'lsysSketch', [
-    '$http',
-    'lsys',
-    function( $http ){
+    'lsysHttp',
+    function( lsysHttp ){
       return {
         scope: {
           lsysSketch: '='
         },
         template: [
           
-          '<div>',
-            '<h1>lsysSketch</h1>',
+          '<div ng-if="!!lsys">',
             '<label>{{ lsys.label }}</label>',
             '<div lsys="lsys"></div>',
             '<div lsysCtrl="lsys"></div>',
@@ -163,9 +183,11 @@ function(
           
         ].join(' '),
         link: function( scope ){
-          $http.get( './lib/lsys/lsys.json' ).then(
-            function( d ){
-              scope.lsys = d.data[ scope.lsysSketch ]
+          lsysHttp.load().then(
+            function( list ){
+              scope.lsys = _.find( list, function( sys ){
+                return sys.id == scope.lsysSketch
+              })
             }
           )
         }
