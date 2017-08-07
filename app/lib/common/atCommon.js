@@ -83,7 +83,7 @@ function(
       }
       paginator.prototype.index = function(){
         var self = this
-        return self.currentPage - 1
+        return parseInt( self.currentPage ) - 1
       }
       paginator.prototype.pageCount = function(){
         var self = this
@@ -129,16 +129,16 @@ function(
           self.currentPage = 1
         }
         if ( self.currentPage > self.pageCount() ){
-          self.currentPage = self.pageCount
+          self.currentPage = parseInt( self.pageCount )
         }
       }
       paginator.prototype.back = function(){
         var self = this
-        self.goTo( self.currentPage-1 )
+        self.goTo( parseInt( self.currentPage ) - 1 )
       }
       paginator.prototype.next = function(){
         var self = this
-        self.goTo( self.currentPage+1 )
+        self.goTo( parseInt( self.currentPage ) + 1 )
       }
       paginator.prototype.goTo = function( n ){
         var self = this
@@ -150,11 +150,11 @@ function(
       }
       paginator.prototype.groupBack = function(){
         var self = this
-        self.goTo( self.currentPage - self.inGroup )
+        self.goTo( parseInt( self.currentPage ) - self.inGroup )
       }
       paginator.prototype.groupNext = function(){
         var self = this
-        self.goTo( self.currentPage + self.inGroup )
+        self.goTo( parseInt( self.currentPage ) + self.inGroup )
       }
       paginator.prototype.items = function(){
         var self = this

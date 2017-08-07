@@ -39,10 +39,10 @@ function( angular, viz ){
       
       // lsys
       
-      var lsys = {
+      var lsysList = {
         template: [
           
-          '<div lsys-lib="id"></div>'
+          '<div lsys-lib="page"></div>'
           
         ].join(' '),
         controller: [
@@ -51,13 +51,11 @@ function( angular, viz ){
           function(
             $scope,
             $routeParams ){
-              console.log( $routeParams.id, !!$routeParams.id )
-              $scope.id = ( !!$routeParams.id ) ? $routeParams.id : 1
+              $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
           }
         ]
       }
-      /*
-      var lsysSketch = {
+      var lsys = {
         template: [
           
           '<div lsys-sketch="id"></div>'
@@ -71,9 +69,9 @@ function( angular, viz ){
           }
         ]
       }
-      */
-      $routeProvider.when('/lsys', lsys )
       $routeProvider.when('/lsys/:id', lsys )
+      $routeProvider.when('/lsys/list', lsysList )
+      $routeProvider.when('/lsys/list/:page', lsysList )
     }
   ])
   
