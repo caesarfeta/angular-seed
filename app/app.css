@@ -7550,6 +7550,9 @@ input.dbpedia-search-input {
 .lsysCard .edit {
   float: right;
 }
+.lsysLib {
+  margin-bottom: 100px;
+}
 .lsysSketch .lsysCard {
   width: 100%;
 }

@@ -68,7 +68,9 @@ require.config({
             exports: 'dat'
         },
         bootstrap: {
-            deps:['angular']
+            deps:[
+              'angular'
+            ]
         },
         'colorpicker.module': {
             deps:['bootstrap']

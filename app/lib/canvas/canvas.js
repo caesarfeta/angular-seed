@@ -4,6 +4,14 @@ define([
 'angularRoute'
 ],
 function( angular, viz ){
+  angular.module( 'about', [])
+  .config([
+    '$routeProvider',
+    function( $routeProvider ){
+      
+    }
+  ])
+  
   angular.module( 'myApp.view.canvas', [
     'ngRoute',
     'lsys'
@@ -71,6 +79,34 @@ function( angular, viz ){
       }
       $routeProvider.when('/lsys/:id', lsys )
       $routeProvider.when('/lsys/list/:page', lsysList )
+      
+      var about = {
+        template: [
+          
+          '<div class="about container">',
+            '<div class="row">',
+              '<div class="col-xs-2">',
+                '<img src="http://placehold.it/100x200" />',
+              '</div>',
+              '<div class="col-xs-10">',
+                '<p>{{ ::blurb }}</p>',
+                '<p>{{ ::other }}</p>',
+                '<p>{{ ::contact }}</p>',
+              '</div>',
+            '</div>',
+          '</div>'
+          
+        ].join(' '),
+        controller: [
+          '$scope',
+          function( $scope ){
+            $scope.blurb = 'Hello. My name is Adam Tavares. I am a programmer, artist, and nature enthusiast. I write software to explore data and generate mathematical art. I hope my site let\'s you explore Nature\'s wonderful shapes, colors, and patterns.'
+            $scope.other = 'In my free time I explore forests, draw cartoons, and play capoeira. I currently live in beautiful Providence, Rhode Island.'
+            $scope.contact = 'Contact me at adamtavares@gmail.com.'
+          }
+        ]
+      }
+      $routeProvider.when('/about', about )
     }
   ])
   

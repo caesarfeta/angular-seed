@@ -111,7 +111,7 @@ function(
         },
         template: [
           
-          '<div style="background:#DDD">',
+          '<div class="lsysLib">',
             '<div lsys-card="sys" ng-repeat="sys in paginator.items()"></div>',
             '<div class="clearfix"></div>',
             '<div paginator="paginator"></div>',

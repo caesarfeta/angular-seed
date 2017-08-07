@@ -8,7 +8,7 @@ function(
   $,
   utils ){
   
-  angular.module( 'atCommon', [] )
+  angular.module( 'atCommon', [ 'ui.bootstrap' ])
   .directive( 'paginator', [
     function(){
       return {
@@ -382,7 +382,9 @@ function(
           
           '<ul class="menu">',
             '<li ng-repeat="( name, url ) in atMenu">',
-              '<a ng-class="style( url )" href="#/{{ url }}">{{ name }}</a>',
+              '<button class="btn btn-sm" ng-class="style( url )" ng-click="goTo( url )">',
+                '{{ name }}',
+              '</button>',
             '</li>',
             '<li><i class="fa fa-{{ last() }}"></i></li>',
           '</ul>'
@@ -400,9 +402,13 @@ function(
             )
           }
           
+          scope.goTo = function( url ){
+            $location.url( url )
+          }
+          
           scope.style = function( url ){
             return {
-              selected: $location.url().lastIndexOf( url ) != -1
+              "btn-primary": $location.url().lastIndexOf( url ) != -1
             }
           }
           
