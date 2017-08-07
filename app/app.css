@@ -7540,11 +7540,30 @@ input.dbpedia-search-input {
   padding: 5px;
   margin: 5px;
 }
+.lsysCard .lsysRules .btn {
+  margin: 1px 0;
+}
 .lsysCard label {
+  display: block;
   margin: 5px;
 }
 .lsysCard .edit {
   float: right;
+}
+.lsysSketch .lsysCard {
+  width: 100%;
+}
+.lsysSketch .lsys {
+  width: 500px;
+  height: 500px;
+}
+.lsysSketch .lsysDisplay {
+  display: inline-block;
+}
+.lsysSketch .lsysCtrl {
+  display: inline-block;
+  vertical-align: top;
+  margin-left: 10px;
 }
 .elem-notate .lites {
   position: absolute;

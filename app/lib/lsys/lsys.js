@@ -55,31 +55,43 @@ function(
         template: [
           
           '<div class="lsysCard">',
-            '<label><a href="" ng-click="goTo( lsys.id )">{{ lsys.label }}</a></label>',
-            '<div lsys="lsys"></div>',
             
-            // play
+            // display
             
-            '<button class="btn btn-sm" ng-click="lsys.draw()">',
-              '<i class="fa fa-play"></i>',
-            '</button>',
+            '<div class="lsysDisplay">',
+              '<label><a href="" ng-click="goTo( lsys.id )">{{ lsys.label }}</a></label>',
+              '<div lsys="lsys"></div>',
+              
+              // play
+              
+              '<button class="btn btn-sm" ng-click="lsys.draw()">',
+                '<i class="fa fa-play"></i>',
+              '</button>',
+              
+              // tweak
+              
+              '<button class="btn btn-sm"',
+                      'href=""',
+                      'ng-class="{ \'active\': !!tweak }"',
+                      'ng-click="tweak = !tweak">',
+                '{{ ( !tweak ) ? "tweak" : "done" }}',
+              '</button>',
+            '</div>',
             
-            // edit
+            // controls
             
-            '<button class="btn btn-sm edit" href="" ng-class="{ \'active\': !!editor }" ng-click="editor = !editor">',
-              '{{ ( !editor ) ? "tweak" : "done" }}',
-            '</button>',
-            
-            // editor 
-            
-            '<div ng-if="editor" lsys-ctrl="lsys"></div>',
-//            '<button class="btn btn-sm" ng-click="lsys.clear()">clear</button>',
+            '<div class="lsysCtrl">',
+              
+              // editor 
+              
+              '<div ng-if="tweak" lsys-ctrl="lsys"></div>',
+            '</div>',
           '</div>'
           
         ].join(' '),
         link: function( scope ){
           scope.lsys = scope.lsysCard
-          scope.editor = false
+          scope.tweak = false
           scope.goTo = function( id ){
             $location.url( '/lsys/' + id )
           }
@@ -136,7 +148,7 @@ function(
               '<input type="text" ng-model="lsys.start" ng-enter="lsys.draw()" />',
             '</div>',
             
-            '<div>',
+            '<div class="lsysRules">',
               '<label>rules</label>',
               '<div ng-repeat="i in lsys.rules track by $index">',
                 '<input type="text" ng-model="lsys.rules[ $index ]" ng-enter="lsys.draw()" />',
@@ -175,10 +187,8 @@ function(
         },
         template: [
           
-          '<div ng-if="!!lsys">',
-            '<label>{{ lsys.label }}</label>',
-            '<div lsys="lsys"></div>',
-            '<div lsysCtrl="lsys"></div>',
+          '<div ng-if="!!lsys" class="lsysSketch">',
+            '<div lsys-card="lsys"></div>',
           '</div>'
           
         ].join(' '),
