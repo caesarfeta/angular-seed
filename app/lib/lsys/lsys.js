@@ -34,7 +34,7 @@ function(
             // edit
             
             '<button class="btn btn-sm edit" href="" ng-class="{ \'active\': !!editor }" ng-click="editor = !editor">',
-              '{{ ( !editor ) ? "more" : "less" }}',
+              '{{ ( !editor ) ? "tweak" : "done" }}',
             '</button>',
             
             // editor 
@@ -64,6 +64,9 @@ function(
       lsys,
       paginator ){
       return {
+        scope: {
+          lsysLib: '='
+        },
         template: [
           
           '<div style="background:#DDD">',
@@ -80,7 +83,9 @@ function(
                 list: d.data.map( function( item ){
                   return new lsys( item )
                 }),
-                perPage: 12
+                perPage: 8,
+                updateUrl: true,
+                currentPage: scope.lsysLib
               })
             }
           )
@@ -100,13 +105,13 @@ function(
             
             '<div>',
               '<label>start</label>',
-              '<input type="text" ng-model="lsys.start" />',
+              '<input type="text" ng-model="lsys.start" ng-enter="lsys.draw()" />',
             '</div>',
             
             '<div>',
               '<label>rules</label>',
               '<div ng-repeat="i in lsys.rules track by $index">',
-                '<input type="text" ng-model="lsys.rules[ $index ]" />',
+                '<input type="text" ng-model="lsys.rules[ $index ]" ng-enter="lsys.draw()" />',
                 '<button class="btn btn-sm" ng-click="lsys.rules.splice( $index, 1 )">',
                   '<i class="fa fa-close"></i>',
                 '</button>',
@@ -116,18 +121,19 @@ function(
             
             '<div>',
               '<label>angle</label>',
-              '<input type="number" ng-model="lsys.angle" />',
+              '<input type="number" ng-model="lsys.angle" ng-enter="lsys.draw()" />',
             '</div>',
             
             '<div>',
               '<label>times</label>',
-              '<input type="number" ng-model="lsys.times" />',
+              '<input type="number" ng-model="lsys.times" ng-enter="lsys.draw()" />',
             '</div>',
             
-            '<div>',
-              '<label>duration</label>',
-              '<input type="number" ng-model="lsys.duration" />',
-            '</div>',
+//            '<div>',
+//              '<label>duration</label>',
+//              '<input type="number" ng-model="lsys.duration" ng-enter="lsys.draw()" />',
+//            '</div>',
+          
           '</div>'
           
         ].join(' '),

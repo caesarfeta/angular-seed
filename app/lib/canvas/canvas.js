@@ -1,6 +1,5 @@
 define([ 
 'angular',
-//'lib/viz/viz',
 'lib/lsys/lsys',
 'angularRoute'
 ],
@@ -43,11 +42,21 @@ function( angular, viz ){
       var lsys = {
         template: [
           
-          '<div lsys-lib></div>'
+          '<div lsys-lib="id"></div>'
           
         ].join(' '),
-        controller: function(){}
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            $scope,
+            $routeParams ){
+              console.log( $routeParams.id, !!$routeParams.id )
+              $scope.id = ( !!$routeParams.id ) ? $routeParams.id : 1
+          }
+        ]
       }
+      /*
       var lsysSketch = {
         template: [
           
@@ -58,14 +67,13 @@ function( angular, viz ){
           '$scope',
           '$routeParams',
           function( $scope, $routeParams ){
-            console.log( $routeParams )
             $scope.id = $routeParams.id
-            console.log( $scope.id )
           }
         ]
       }
+      */
       $routeProvider.when('/lsys', lsys )
-      $routeProvider.when('/lsys/:id', lsysSketch )
+      $routeProvider.when('/lsys/:id', lsys )
     }
   ])
   

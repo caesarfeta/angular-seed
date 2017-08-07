@@ -35,13 +35,39 @@
     "duration": 1
   },
   {
-    "label": "southwest placemat",
+    "label": "bumble ball",
+    "times": 6,
+    "angle": 48,
+    "start": "DDDDD",
+    "rules": [
+      "L=+R-F-R+", 
+      "R=-L+F+L-",
+      "C=L--F--LL--F--L",
+      "D=CC+CC"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "q-bert fruit",
     "times": 5,
     "angle": 60,
     "start": "D-D-D",
     "rules": [
       "A=B-A-B", 
       "B=B+A--A+B",
+      "C=AAAA",
+      "D=CC-CC"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "knobby granny star",
+    "times": 3,
+    "angle": 60,
+    "start": "D-D-D",
+    "rules": [
+      "A=B-A-B", 
+      "B=B+A-",
       "C=AAAA",
       "D=CC-CC"
     ],
@@ -72,6 +98,16 @@
     "times": 4,
     "angle": 90,
     "start": "F--F",
+    "rules": [
+      "F=F+F-F-F+F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "quad koch curve napkin",
+    "times": 4,
+    "angle": 90,
+    "start": "F--F-F--F-F--F-F--F",
     "rules": [
       "F=F+F-F-F+F"
     ],
@@ -199,6 +235,17 @@
     "duration": 1
   },
   {
+    "label": "mossy branch",
+    "times": 6,
+    "angle": 45,
+    "start": "AA--AA",
+    "rules": [
+      "A=B-A",
+      "B=A+B++A+B+A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "architecture dandelion",
     "times": 4,
     "angle": 45,
@@ -254,24 +301,24 @@
     "duration": 1
   },
   {
-    "label": "snowflake",
+    "label": "thank you boy",
+    "times": 8,
+    "angle": 90,
+    "start": "FX",
+    "rules": [
+      "X=X+YF++FFF+", 
+      "Y=-FX-Y"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "thornflake",
     "times": 3,
     "angle": 60,
     "start": "F++F++F",
     "rules": [
       "F=F-F++F-F", 
       "X=FF"
-    ],
-    "duration": 1
-  },
-  {
-    "label": "microchip-seed",
-    "times": 1,
-    "angle": 90,
-    "start": "F",
-    "rules": [
-      "F=F+F-F-F-G+F+F+F-F",
-      "G=GGG"
     ],
     "duration": 1
   },
@@ -290,6 +337,39 @@
     "label": "triple triangle",
     "times": 2,
     "angle": 120,
+    "start": "ABA",
+    "rules": [
+      "A=BA-B",
+      "B=AB-A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "hexagon mystery",
+    "times": 4,
+    "angle": 60,
+    "start": "ABA",
+    "rules": [
+      "A=BA-B",
+      "B=AB-A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "translucent jenga blocks",
+    "times": 5,
+    "angle": 60,
+    "start": "ABA",
+    "rules": [
+      "A=BA-B",
+      "B=AB-A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "seven d's",
+    "times": 6,
+    "angle": 60,
     "start": "ABA",
     "rules": [
       "A=BA-B",
@@ -343,10 +423,43 @@
     "duration": 1
   },
   {
+    "label": "secret valley",
+    "times": 7,
+    "angle": 120,
+    "start": "ABA",
+    "rules": [
+      "A=BA-B",
+      "B=AB-A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "hungry hippo trail of destruction",
+    "times": 8,
+    "angle": 120,
+    "start": "ABA",
+    "rules": [
+      "A=BA-B",
+      "B=AB-A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "soggy pinwheel",
     "times": 4,
     "angle": 30,
     "start": "ABBABBA",
+    "rules": [
+      "A=B+A-B++",
+      "B=B+A-A++"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "secret sun or toothy void",
+    "times": 4,
+    "angle": 34,
+    "start": "ABBABBABB",
     "rules": [
       "A=B+A-B++",
       "B=B+A-A++"
@@ -371,6 +484,72 @@
     "start": "F-F-F-F",
     "rules": [
       "F=F+F-F-F-G+F+F+F-F",
+      "G=GGG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "pinwheel gear",
+    "times": 2,
+    "angle": 72,
+    "start": "F-F-F-F-F",
+    "rules": [
+      "F=F+F-F-F-G+F",
+      "G=GG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "mace pentagon",
+    "times": 2,
+    "angle": 72,
+    "start": "F-F-F-F-F",
+    "rules": [
+      "F=F+F-F-F",
+      "G=GG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "ninja star tile",
+    "times": 4,
+    "angle": 45,
+    "start": "F-F-F-F-F",
+    "rules": [
+      "F=F+F-F-F",
+      "G=GG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "play y",
+    "times": 7,
+    "angle": 60,
+    "start": "F-F-F-F-F",
+    "rules": [
+      "F=F+F-F-F--",
+      "G=GG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "y cyclone",
+    "times": 4,
+    "angle": 60,
+    "start": "F-F-F-F-F",
+    "rules": [
+      "F=F+F-F-F",
+      "G=GG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "teapot triangle",
+    "times": 3,
+    "angle": 60,
+    "start": "F-F-F-F-F",
+    "rules": [
+      "F=F-F-GF-",
       "G=GGG"
     ],
     "duration": 1
@@ -431,6 +610,17 @@
     "duration": 1
   },
   {
+    "label": "star kapow",
+    "times": 3,
+    "angle": 70,
+    "start": "AAAA",
+    "rules": [
+      "A=B--A--B",
+      "B=A+B+++B+A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "botched waffle",
     "times": 5,
     "angle": 120,
@@ -443,10 +633,44 @@
     "duration": 1
   },
   {
+    "label": "bicycle spike rope",
+    "times": 3,
+    "angle": 45,
+    "start": "CC--CC--CC--CC--CC",
+    "rules": [
+      "A=B--A--B",
+      "B=A+B+++B+A",
+      "C=A-A-A+++A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "resistor frame",
     "times": 4,
     "angle": 45,
     "start": "AA",
+    "rules": [
+      "A=B-A-BB-A-B",
+      "B=A+B+A--A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "three-way eagle tug of war",
+    "times": 4,
+    "angle": 60,
+    "start": "AA",
+    "rules": [
+      "A=B-A-BB-A-B",
+      "B=A+B+A--A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "ship wheel nut",
+    "times": 5,
+    "angle": 30,
+    "start": "AAAA",
     "rules": [
       "A=B-A-BB-A-B",
       "B=A+B+A--A+B+A"

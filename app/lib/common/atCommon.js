@@ -64,7 +64,8 @@ function(
   ])
   
   .factory( 'paginator', [
-    function(){
+    '$location',
+    function( $location ){
       var paginator = function( config ){
         var self = this
         _.merge( self, {
@@ -73,7 +74,8 @@ function(
           pages: [],
           currentPage: 1,
           perPage: 25,
-          inGroup: 10
+          inGroup: 10,
+          updateUrl: false
         })
         _.merge( self, config )
         self.total = self.list.length
@@ -132,28 +134,27 @@ function(
       }
       paginator.prototype.back = function(){
         var self = this
-        self.currentPage--
-        self.pageRange()
+        self.goTo( self.currentPage-1 )
       }
       paginator.prototype.next = function(){
         var self = this
-        self.currentPage++
-        self.pageRange()
+        self.goTo( self.currentPage+1 )
       }
       paginator.prototype.goTo = function( n ){
         var self = this
+        if ( self.updateUrl ){
+          $location.url( $location.url().replace( /\/\d+$/, '' )  + '/' + n )
+          return
+        }
         self.currentPage = n
-        self.pageRange()
       }
       paginator.prototype.groupBack = function(){
         var self = this
-        self.currentPage = self.currentPage - self.inGroup
-        self.pageRange()
+        self.goTo( self.currentPage - self.inGroup )
       }
       paginator.prototype.groupNext = function(){
         var self = this
-        self.currentPage = self.currentPage + self.inGroup
-        self.pageRange()
+        self.goTo( self.currentPage + self.inGroup )
       }
       paginator.prototype.items = function(){
         var self = this
