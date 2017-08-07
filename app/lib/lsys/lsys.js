@@ -1,10 +1,12 @@
 define([
 'angular',
-'lodash'
+'lodash',
+'../jsSHA'
 ], 
 function(
   angular,
-  _ ){
+  _,
+  jsSHA ){
   Math.toRad = function( degrees ) {
     return degrees * Math.PI / 180
   }
@@ -23,6 +25,7 @@ function(
           
           '<div class="lsysCard">',
             '<label>{{ lsys.label }}</label>',
+            '<div>{{ lsys.id }}</div>',
             '<div lsys="lsys"></div>',
             
             // play
@@ -41,9 +44,6 @@ function(
             
             '<div ng-if="editor" lsys-ctrl="lsys"></div>',
               
-//            '<button class="btn btn-sm" href="#/lsys/{{ id }}">edit</button>',
-//            '<button class="btn btn-sm" ng-click="lsys.xMirror()">x-mirror</button>',
-//            '<button class="btn btn-sm" ng-click="lsys.yMirror()">y-mirror</button>',
 //            '<button class="btn btn-sm" ng-click="lsys.clear()">clear</button>',
           '</div>'
           
@@ -177,12 +177,20 @@ function(
       var lsys = function( config ){
         var self = this
         _.merge( self, {
+          label: undefined,
           times: undefined,
           angle: undefined,
           seed: undefined,
           rules: [],
         })
         _.merge( self, config )
+        
+        // generage id by hashing unique label
+        
+        var sha = new jsSHA("SHA-1", "TEXT")
+        sha.setHMACKey("abc", "TEXT")
+        sha.update( self.label )
+        self.id = sha.getHMAC("HEX")
       }
       lsys.prototype.update = function(){
         var self = this

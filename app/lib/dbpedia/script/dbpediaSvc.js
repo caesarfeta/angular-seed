@@ -112,7 +112,8 @@ function(
         // paginator
         
         self.fungi.paginator = new paginator({
-          list: self.fungi.genus
+          list: self.fungi.genus,
+          perPage: 12
         })
       }
       function httpBkup(){

@@ -70,7 +70,6 @@ function( angular, viz ){
         ]
       }
       $routeProvider.when('/lsys/:id', lsys )
-      $routeProvider.when('/lsys/list', lsysList )
       $routeProvider.when('/lsys/list/:page', lsysList )
     }
   ])
