@@ -45,37 +45,6 @@ function(
       }
     }
   ])
-  .config([
-    '$routeProvider',
-    function( $routeProvider ){
-      $routeProvider.when( '/fungi', {
-        template: [
-          
-          '<div class="fungi">',
-              '<div dbp-fungi-genus-list></div>',
-          '</div>'
-          
-        ].join(' '),
-        controller: function(){}
-      })
-      $routeProvider.when( '/fungi/:genus*', {
-        template: [
-          
-          '<div class="fungi">',
-            '<div dbp-fungi-species-list></div>',
-          '</div>'
-          
-        ].join(' '),
-        controller: [ 
-          '$scope',
-          '$routeParams',
-          function( scope, $routeParams ){
-            scope.genus = $routeParams.genus
-          }
-        ]
-      })
-    }
-  ])
   .directive( 'dbpFungiSpeciesList', [
     'dbpediaSvc',
     '$timeout',
