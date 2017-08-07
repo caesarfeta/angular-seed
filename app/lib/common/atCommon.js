@@ -408,7 +408,7 @@ function(
           
           scope.style = function( url ){
             return {
-              "btn-primary": $location.url().lastIndexOf( url ) != -1
+              "btn-primary": $location.url().lastIndexOf( url.split('/')[0] ) != -1
             }
           }
           
