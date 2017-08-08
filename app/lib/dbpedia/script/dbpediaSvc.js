@@ -176,13 +176,18 @@ function(
             limit: 25 
           }),
           success: function( r ){
+            var list = _.uniqBy( r.data.results.bindings, function( item ){
+              console.log( item.name.value )
+              return item.name.value
+            })
+            
             // paginator
-        
+            
             self.img.paginator = new paginator({
-              list: r.data.results.bindings,
+              list: list,
               perPage: 12
             })
-            self.img.result = r.data.results.bindings
+            self.img.result = list
           },
           error: function( r ){}
         }).then( 

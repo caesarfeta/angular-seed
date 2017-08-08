@@ -7403,6 +7403,7 @@ body {
   position: fixed;
   bottom: 0;
   left: 50%;
+  transform: translate(-50%, 0);
 }
 .spinner {
   display: inline-block;
@@ -7493,6 +7494,9 @@ input.dbpedia-search-input.scrollStick {
   top: 10px;
   left: 50%;
   margin-left: -100px;
+}
+.dbpedia-bio-species-bg {
+  margin-bottom: 100px;
 }
 .dbpedia-bio-species-bg h1 {
   padding: 10px 20px 0 0;
