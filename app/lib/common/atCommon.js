@@ -60,11 +60,11 @@ function(
       
         ].join(' '),
         link: function( scope, elem ){
-          scope.css = function(){
-            return { 
-              'margin-left' : -1 * $( '.paginator', elem ).width() / 2
-            }
-          }
+          //scope.css = function(){
+          //  return { 
+          //    'margin-left' : -1 * $( '.paginator', elem ).width() / 2
+          //  }
+          //}
         }
       }
     }
@@ -150,6 +150,7 @@ function(
       paginator.prototype.goTo = function( n ){
         var self = this
         if ( self.updateUrl ){
+          console.log( $location.url() )
           $location.url( $location.url().replace( /\/\d+$/, '' )  + '/' + n )
           return
         }

@@ -654,6 +654,17 @@
     "duration": 1
   },
   {
+    "label": "mirrored star duck",
+    "times": 5,
+    "angle": 100,
+    "start": "AA",
+    "rules": [
+      "A=B--A--B",
+      "B=A+B++B+A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "botched waffle",
     "times": 5,
     "angle": 120,

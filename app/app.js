@@ -24,10 +24,6 @@ function( angular ){
   .config([
     '$routeProvider', 
     function( $routeProvider ){
-      $routeProvider.otherwise({ 
-        redirectTo: '/specierch'
-      })
-      
       var plexvas = {
         template: [
           
@@ -138,25 +134,23 @@ function( angular ){
         template: [
           
           '<div style="margin-top:10px" class="about container">',
-            '<div class="row">',
-              '<div class="col-md-3 col-xs-12">',
-                '<img src="http://placehold.it/200x200" />',
-              '</div>',
-              '<div class="col-md-9 col-xs-12">',
-                '<p>{{ ::blurb }}</p>',
-                '<p>{{ ::contact }}</p>',
-              '</div>',
-            '</div>',
+            '<img style="float:left; margin: 0 10px 10px 0" src="/app/assets/img/adam_tavares.jpg" />',
+            '<p style="max-width: 800px">{{ ::blurb }}</p>',
+            '<p>{{ ::contact }}</p>',
           '</div>'
           
         ].join(' '),
         controller: [
           '$scope',
           function( $scope ){
-            $scope.blurb = 'My name is Adam Tavares. I am a programmer, artist, and Nature enthusiast. I write software to explore data and generate mathematical art. I hope my site helps you explore Nature\'s wonderful shapes, colors, and patterns.'
-            $scope.contact = 'Contact me at adamtavares@gmail.com.'
+            $scope.blurb = 'My name is Adam Tavares. I am a programmer, artist, and Nature enthusiast. I live in beautiful Providence, Rhode Island where I write software to explore data and generate beautiful images. I hope my site helps you uncover Nature\'s wonderful shapes, colors, and patterns.'
+            $scope.contact = 'Contact me at adamtavares@gmail.com'
           }
         ]
+      })
+      
+      $routeProvider.otherwise({ 
+        redirectTo: '/specierch'
       })
     }
   ])
