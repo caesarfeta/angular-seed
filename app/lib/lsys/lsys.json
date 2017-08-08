@@ -445,6 +445,17 @@
     "duration": 1
   },
   {
+    "label": "noxious cloud",
+    "times": 6,
+    "angle": 45,
+    "start": "AAA",
+    "rules": [
+      "A=B-A-B--B",
+      "B=A++A+B+A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "mountain range",
     "times": 6,
     "angle": 120,

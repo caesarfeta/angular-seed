@@ -176,6 +176,12 @@ function(
             limit: 25 
           }),
           success: function( r ){
+            // paginator
+        
+            self.img.paginator = new paginator({
+              list: r.data.results.bindings,
+              perPage: 12
+            })
             self.img.result = r.data.results.bindings
           },
           error: function( r ){}

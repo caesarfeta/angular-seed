@@ -17,7 +17,7 @@ function(
           
           '<div class="dbpedia-bio-species-bg" ng-show="on()">',
             '<div class="dbpedia-bio-species clearfix"',
-                 'ng-repeat="species in dbpedia.img.result">',
+                 'ng-repeat="species in dbpedia.img.paginator.items()">',
               '<h2 class="name" ng-bind-html="species.name.value | highlight:dbpedia.img.search"></h2>',
               '<img ng-src="{{ species.img.value }}"/>',
               '<table class="taxonomy">',
@@ -31,6 +31,7 @@ function(
               '</table>',
               '<div class="abstract" ng-bind-html="species.abstract.value | highlight:dbpedia.img.search"></div>',
             '</div>',
+            '<div paginator="dbpedia.img.paginator"></div>',
           '</div>'
           
         ].join(' '),
