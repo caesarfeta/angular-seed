@@ -11,20 +11,20 @@ function( module ){
         link: function( scope, elem ){
           
           function compile(){
-            var history = angular.copy( dbpedia.img.history );
+            var history = angular.copy( dbpedia.img.history )
             history = history.map( function( key ){
-              return "<dbp-key>" + key + "</dbp-key>"
-            });
-            history[ history.length -1 ] =  "and " + history[ history.length -1 ];
-            elem.html( $compile( history.join(', '))( scope ));
+              return '<dbp-key>' + key + '</dbp-key>'
+            })
+            history.pop()
+            var html = '<span>' + history.join(', ') + ', and </span>'
+            elem.html( $compile( html )( scope ))
           }
-          compile();
-          
+          compile()
           scope.$watch( 
             function(){ return dbpedia.img.history },
             function( n,o ){
               if ( n==undefined || n==o ){ return }
-              compile();
+              compile()
             }
           )
         }

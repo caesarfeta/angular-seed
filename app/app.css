@@ -7485,7 +7485,7 @@ body {
 }
 input.dbpedia-search-input {
   padding: 5px;
-  margin: 0 0 0 15px;
+  margin: 0 0 0 5px;
   width: 200px;
 }
 input.dbpedia-search-input.scrollStick {
@@ -7535,6 +7535,9 @@ input.dbpedia-search-input.scrollStick {
   font-size: 10px;
   height: 500px;
   resize: none;
+}
+.specierch {
+  margin-top: 10px;
 }
 .lsys {
   width: 100%;

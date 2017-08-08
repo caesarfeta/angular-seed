@@ -391,7 +391,7 @@ function(
           '<ul class="menu">',
             '<li ng-repeat="( name, url ) in atMenu">',
               '<button class="btn btn-sm" ng-class="style( url )" ng-click="goTo( url )">',
-                '{{ name }}',
+                '{{ name.toUpperCase() }}',
               '</button>',
             '</li>',
             '<li><i class="fa fa-{{ last() }}"></i></li>',
