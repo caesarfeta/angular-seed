@@ -127,7 +127,6 @@ function( angular ){
               '</div>',
               '<div class="col-md-9 col-xs-12">',
                 '<p>{{ ::blurb }}</p>',
-                '<p>{{ ::other }}</p>',
                 '<p>{{ ::contact }}</p>',
               '</div>',
             '</div>',
@@ -137,8 +136,7 @@ function( angular ){
         controller: [
           '$scope',
           function( $scope ){
-            $scope.blurb = 'My name is Adam Tavares. I am a programmer, artist, and nature enthusiast. I write software to explore data and generate mathematical art. I hope my site helps you explore Nature\'s wonderful shapes, colors, and patterns.'
-            $scope.other = 'In my free time I explore forests, draw cartoons, and play capoeira. I currently live in beautiful Providence, Rhode Island.'
+            $scope.blurb = 'My name is Adam Tavares. I am a programmer, artist, and Nature enthusiast. I write software to explore data and generate mathematical art. I hope my site helps you explore Nature\'s wonderful shapes, colors, and patterns.'
             $scope.contact = 'Contact me at adamtavares@gmail.com.'
           }
         ]

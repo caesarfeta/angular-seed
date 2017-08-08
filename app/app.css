@@ -7282,7 +7282,7 @@ address {
 /* app css stylesheet */
 html,
 body {
-  background-color: #EEE;
+  background-color: #DDD;
 }
 .stick {
   position: fixed;
@@ -7568,6 +7568,9 @@ input.dbpedia-search-input {
   vertical-align: top;
   margin-left: 10px;
 }
+.lsysDump {
+  padding: 20px;
+}
 .elem-notate .lites {
   position: absolute;
 }
@@ -7606,7 +7609,7 @@ input.dbpedia-search-input {
 .specierch .controls {
   padding: 0 20px;
   width: 100%;
-  background-color: #EEE;
+  background-color: #DDD;
 }
 .window-wrap {
   width: 300px;

@@ -202,6 +202,28 @@
     "duration": 1
   },
   {
+    "label": "caterpillar arch",
+    "times": 5,
+    "angle": 15,
+    "start": "AAAAA",
+    "rules": [
+      "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "green bean",
+    "times": 4,
+    "angle": 15,
+    "start": "AAAAA",
+    "rules": [
+      "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "lumpy x mandala",
     "times": 5,
     "angle": 45,

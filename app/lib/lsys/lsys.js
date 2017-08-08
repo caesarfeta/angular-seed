@@ -45,12 +45,30 @@ function(
       return self
     }
   ])
+  .directive( 'lsysDump', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<div class="lsysDump">',
+            '<label>draw path</label>',
+            '<p>',
+              '{{ lsys.output }}',
+            '</p>',
+          '</div>'
+          
+        ].join(''),
+        link: function( scope ){}
+      }
+    }
+  ])
   .directive( 'lsysCard', [
     '$location',
     function( $location ){
       return {
         scope: {
-          lsysCard: '=',
+          lsysCard: '='
         },
         template: [
           
@@ -136,9 +154,7 @@ function(
   .directive( 'lsysCtrl', [
     function(){
       return {
-        scope: {
-          lsysCtrl: '='
-        },
+        scope: true,
         template: [
           
           '<div class="lsysCtrl">',
@@ -171,10 +187,7 @@ function(
             
           '</div>'
           
-        ].join(' '),
-        link: function( scope ){
-          scope.lsys = scope.lsysCtrl
-        }
+        ].join(' ')
       }
     }
   ])
@@ -189,6 +202,7 @@ function(
           
           '<div ng-if="!!lsys" class="lsysSketch">',
             '<div lsys-card="lsys"></div>',
+            '<div lsys-dump></div>',
           '</div>'
           
         ].join(' '),
