@@ -17,7 +17,7 @@ function(
         },
         template: [
       
-          '<ul ng-if="!!paginator"',
+          '<ul ng-style="css()" ng-if="!!paginator"',
               'class="paginator pagination-sm pagination">',
           
             // group back
@@ -58,7 +58,14 @@ function(
         
           '</ul>'
       
-        ].join(' ')
+        ].join(' '),
+        link: function( scope, elem ){
+          scope.css = function(){
+            return { 
+              'margin-left' : -1 * $( '.paginator', elem ).width() / 2
+            }
+          }
+        }
       }
     }
   ])

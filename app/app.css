@@ -7402,7 +7402,7 @@ body {
 .paginator {
   position: fixed;
   bottom: 0;
-  right: 10px;
+  left: 50%;
 }
 .spinner {
   display: inline-block;
@@ -7462,6 +7462,7 @@ body {
 }
 .fungi {
   background: #DDD;
+  padding-bottom: 100px;
 }
 .fungi .item {
   background: #F2F2F2;
