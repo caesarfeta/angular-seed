@@ -167,7 +167,7 @@ function(
       
       self.img = {}
       self.img.result = null
-      self.img.search = null
+      self.img.search = 'blue'
       self.img.history = [ 'ghost', 'death', 'gold', 'rainbow', 'glass' ]
       self.img.http = function(){
         return self.http({
