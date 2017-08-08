@@ -434,6 +434,17 @@
     "duration": 1
   },
   {
+    "label": "ghost leaves",
+    "times": 4,
+    "angle": 60,
+    "start": "AAA",
+    "rules": [
+      "A=B-A-B--B",
+      "B=A++A+B+A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "mountain range",
     "times": 6,
     "angle": 120,

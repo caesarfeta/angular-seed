@@ -45,7 +45,34 @@ function(
       return self
     }
   ])
-  .directive( 'lsysDump', [
+  .directive( 'lsysJson', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<div class="lsysJson">',
+            '<label>save starter</label>',
+            '<textarea>{{ text() }}</textarea>',
+          '</div>',
+          
+        ].join(''),
+        link: function( scope ){
+          scope.text = function(){
+            return JSON.stringify({
+              label: 'untitled',
+              times: scope.lsys.times,
+              angle: scope.lsys.angle,
+              start: scope.lsys.start,
+              rules: scope.lsys.rules,
+              duration: scope.lsys.duration
+            }, ' ', 2 )
+          }
+        }
+      }
+    }
+  ])
+  .directive( 'lsysDrawPath', [
     function(){
       return {
         scope: true,
@@ -102,7 +129,7 @@ function(
               
               // editor 
               
-              '<div ng-if="tweak" lsys-ctrl="lsys"></div>',
+              '<div ng-if="tweak" lsys-ctrl></div>',
             '</div>',
           '</div>'
           
@@ -202,7 +229,11 @@ function(
           
           '<div ng-if="!!lsys" class="lsysSketch">',
             '<div lsys-card="lsys"></div>',
-            '<div lsys-dump></div>',
+            '<div lsys-draw-path></div>',
+            
+            // json config
+            
+            '<div lsys-json></div>',
           '</div>'
           
         ].join(' '),

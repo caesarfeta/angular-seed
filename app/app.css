@@ -7533,6 +7533,14 @@ input.dbpedia-search-input {
   width: 100%;
   height: 300px;
 }
+.lsysJson {
+  padding: 20px;
+}
+.lsysJson textarea {
+  padding: 5px;
+  width: 100%;
+  height: 400px;
+}
 .lsysCard {
   width: 300px;
   float: left;
@@ -7540,6 +7548,9 @@ input.dbpedia-search-input {
   background-color: #F2F2F2;
   padding: 5px;
   margin: 5px;
+}
+.lsysCard .lsys {
+  margin: 10px 0;
 }
 .lsysCard .lsysRules .btn {
   margin: 1px 0;
@@ -7555,6 +7566,7 @@ input.dbpedia-search-input {
   margin-bottom: 100px;
 }
 .lsysSketch .lsysCard {
+  float: none;
   width: 100%;
 }
 .lsysSketch .lsys {
@@ -7570,6 +7582,7 @@ input.dbpedia-search-input {
   margin-left: 10px;
 }
 .lsysDump {
+  margin-top: 10px;
   padding: 20px;
 }
 .elem-notate .lites {
