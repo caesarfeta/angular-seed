@@ -44,6 +44,28 @@
     "duration": 1
   },
   {
+    "label": "hilbert thatch",
+    "times": 3,
+    "angle": 90,
+    "start": "X+X+X+X",
+    "rules": [
+      "X=XFYFX+F+YFXFY-F-XFYFX",
+      "Y=YFXFY-F-XFYFX+F+YFXFY"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "hilbert eight",
+    "times": 3,
+    "angle": 90,
+    "start": "X+X+X+X-X-X-X-X",
+    "rules": [
+      "X=XFYFX+F+YFXFY-F-XFYFX",
+      "Y=YFXFY-F-XFYFX+F+YFXFY"
+    ],
+    "duration": 1
+  },
+  {
     "label": "holy chainring",
     "times": 6,
     "angle": 45,
@@ -392,6 +414,46 @@
     "duration": 1
   },
   {
+    "label": "sunny snowflake",
+    "times": 3,
+    "angle": 45,
+    "start": "F+F+F+F+F+F+F+F",
+    "rules": [
+      "F=F---F+F+F+F+F+F+F---F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "cyclone star",
+    "times": 4,
+    "angle": 72,
+    "start": "F+F+F+F+F",
+    "rules": [
+      "F=F-F+F+F+F--F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "toothy wheel",
+    "times": 2,
+    "angle": 160,
+    "start": "F+F+F+F+F+F+F+F+F",
+    "rules": [
+      "F=F-F+F+F+F--F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "vibra-black star",
+    "times": 3,
+    "angle": 135,
+    "start": "F+F+F+F+F+F+F+F+F",
+    "rules": [
+      "F=F-F+F+F+F--F"
+    ],
+    "duration": 1
+  },
+  {
     "label": "tiger triangle",
     "times": 4,
     "angle": 60,
@@ -410,6 +472,36 @@
     "rules": [
       "A=B++A++B",
       "B=A+B+A--A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "electrosun",
+    "times": 4,
+    "angle": 135,
+    "start": "F+F+F+F+F+F+F+F+F",
+    "rules": [
+      "F=F-F+F+F--F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "powerline core",
+    "times": 2,
+    "angle": 190,
+    "start": "F+F+F+F+F+F+F+F+F",
+    "rules": [
+      "F=F--F-F+F+F--F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "wobble donut",
+    "times": 3,
+    "angle": 10,
+    "start": "F+F+F+F+F+F+F+F+F",
+    "rules": [
+      "F=F--F-F+F+F--F"
     ],
     "duration": 1
   },
@@ -474,8 +566,29 @@
     "angle": 60,
     "start": "F++F++F",
     "rules": [
-      "F=F-F++F-F", 
-      "X=FF"
+      "F=F-F++F-F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "peano-gosper curve",
+    "times": 4,
+    "angle": 60,
+    "start": "X",
+    "rules": [
+      "X=X+YF++YF-FX--FXFX-YF+",
+      "Y=-FX+YFYF++YF+FX--FX-Y"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "tight tight peano-gosper curve",
+    "times": 5,
+    "angle": 60,
+    "start": "X",
+    "rules": [
+      "X=X+YF++YF-FX--FXFX-YF+",
+      "Y=-FX+YFYF++YF+FX--FX-Y"
     ],
     "duration": 1
   },
