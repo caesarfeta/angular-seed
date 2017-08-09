@@ -7577,7 +7577,7 @@ input.dbpedia-search-input.scrollStick {
   float: right;
 }
 .lsysLib {
-  margin-bottom: 100px;
+  margin: 20px 0 100px 20px;
 }
 .lsysSketch .lsysCard {
   float: none;

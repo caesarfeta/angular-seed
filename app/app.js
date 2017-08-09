@@ -133,20 +133,17 @@ function( angular ){
       $routeProvider.when( '/about', {
         template: [
           
-          '<div style="margin-top:10px" class="about container">',
-            '<img style="float:left; margin: 0 10px 10px 0" src="/app/assets/img/adam_tavares.jpg" />',
-            '<p style="max-width: 800px">{{ ::blurb }}</p>',
-            '<p>{{ ::contact }}</p>',
+          '<div style="margin-top:10px; padding: 10px 10px 0 10px; background-color: #F2F2F2" class="about container">',
+            '<img style="float:left; margin: 0 20px 10px 0" src="assets/img/adam_tavares.jpg" />',
+            '<div style="max-width: 900px">',
+              '<p>My name is Adam Tavares. I am a programmer, artist, and Nature enthusiast. I live in beautiful Providence, Rhode Island where I write software to explore data and generate beautiful images. When I\'m not at my computer I\'m exploring forests near my home, playing capoeira, or drawing cartoons.</p>',
+              '<p class="text-center">Contact me &mdash; <a href="mailto://adamtavares@gmail.com" target="_blank">adamtavares@gmail.com</a></p>',
+              '<p class="text-center">See my photos, cartoons, and videos &mdash; <a href="http://instagram.com/adam.tavares" target="_blank">instagram.com/adam.tavares</a></p>',
+              '<p class="text-center">I hope this site helps you uncover Nature\'s wonderful shapes, colors, and patterns</p>',
+            '</div>',
           '</div>'
           
-        ].join(' '),
-        controller: [
-          '$scope',
-          function( $scope ){
-            $scope.blurb = 'My name is Adam Tavares. I am a programmer, artist, and Nature enthusiast. I live in beautiful Providence, Rhode Island where I write software to explore data and generate beautiful images. I hope my site helps you uncover Nature\'s wonderful shapes, colors, and patterns.'
-            $scope.contact = 'Contact me at adamtavares@gmail.com'
-          }
-        ]
+        ].join(' ')
       })
       
       $routeProvider.otherwise({ 

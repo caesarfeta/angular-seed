@@ -1,5 +1,27 @@
 [
   {
+    "label": "tri-triforce",
+    "times": 2,
+    "angle": 120,
+    "start": "F-G-G",
+    "rules": [
+      "F=F-G+F+G-F",
+      "G=GG"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "sierpinski classic",
+    "times": 3,
+    "angle": 120,
+    "start": "F-G-G",
+    "rules": [
+      "F=F-G+F+G-F",
+      "G=GG"
+    ],
+    "duration": 1
+  },
+  {
     "label": "mini partial hexagon sierpinski triangle",
     "times": 6,
     "angle": 60,
@@ -74,6 +96,19 @@
     "duration": 1
   },
   {
+    "label": "knobby granny star deluxe",
+    "times": 3,
+    "angle": 60,
+    "start": "D-D-D",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-",
+      "C=AAAAB",
+      "D=CC-CC"
+    ],
+    "duration": 1
+  },
+  {
     "label": "d-pad flower",
     "times": 3,
     "angle": 90,
@@ -110,6 +145,29 @@
     "start": "F--F-F--F-F--F-F--F",
     "rules": [
       "F=F+F-F-F+F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "radiation pyramid",
+    "times": 6,
+    "angle": 120,
+    "start": "C++C++C++C++C++C",
+    "rules": [
+      "A=AB-BA",
+      "B=A+B+A",
+      "C=ABBA-ABBA"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "good lord which switch",
+    "times": 6,
+    "angle": 90,
+    "start": "L",
+    "rules": [
+      "L=+RFF-LFL-FFR+",
+      "R=-LFF+RFR+FFL-"
     ],
     "duration": 1
   },
@@ -191,6 +249,72 @@
     "duration": 1
   },
   {
+    "label": "honey ker-splat",
+    "times": 5,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "whoa there buddy too close",
+    "times": 3,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-AA"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "star rose",
+    "times": 5,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "the irradiated eye of the goldfish god",
+    "times": 5,
+    "angle": 45,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-A+B"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "which way which way",
+    "times": 5,
+    "angle": 60,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-A+B"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "briar patch triangle",
+    "times": 6,
+    "angle": 120,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-A+B"
+    ],
+    "duration": 1
+  },
+  {
     "label": "cloud donut",
     "times": 5,
     "angle": 30,
@@ -264,6 +388,17 @@
     "rules": [
       "A=B-A",
       "B=A+B++A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "tiger triangle",
+    "times": 4,
+    "angle": 60,
+    "start": "AAAA",
+    "rules": [
+      "A=B++A++B",
+      "B=A+B+A--"
     ],
     "duration": 1
   },
@@ -445,6 +580,17 @@
     "duration": 1
   },
   {
+    "label": "booger blades",
+    "times": 5,
+    "angle": 30,
+    "start": "AAAAA",
+    "rules": [
+      "A=B-A-B--B",
+      "B=A++A+B+A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "noxious cloud",
     "times": 6,
     "angle": 45,
@@ -588,7 +734,7 @@
     "duration": 1
   },
   {
-    "label": "teapot triangle",
+    "label": "isle of man teapot triangle",
     "times": 3,
     "angle": 60,
     "start": "F-F-F-F-F",
@@ -606,17 +752,6 @@
     "rules": [
       "F=F+F-F-F-G+F+F+F-F",
       "G=GGG"
-    ],
-    "duration": 1
-  },
-  {
-    "label": "sierpinski classic",
-    "times": 3,
-    "angle": 120,
-    "start": "F-G-G",
-    "rules": [
-      "F=F-G+F+G-F",
-      "G=GG"
     ],
     "duration": 1
   },
@@ -729,17 +864,6 @@
     "rules": [
       "A=B-A-BB-A-B",
       "B=A+B+A--A+B+A"
-    ],
-    "duration": 1
-  },
-  {
-    "label": "tri-triforce",
-    "times": 2,
-    "angle": 120,
-    "start": "F-G-G",
-    "rules": [
-      "F=F-G+F+G-F",
-      "G=GG"
     ],
     "duration": 1
   }

@@ -168,7 +168,7 @@ function(
             function( list ){
               scope.paginator = new paginator({
                 list: list,
-                perPage: 8,
+                perPage: 4,
                 updateUrl: true,
                 currentPage: scope.lsysLib
               })
