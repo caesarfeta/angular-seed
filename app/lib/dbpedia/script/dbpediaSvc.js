@@ -167,7 +167,7 @@ function(
       
       self.img = {}
       self.img.result = null
-      self.img.search = 'blue'
+      self.img.search = 'octopus'
       self.img.history = [ 'ghost', 'death', 'gold', 'rainbow', 'glass' ]
       self.img.http = function(){
         return self.http({
@@ -177,7 +177,6 @@ function(
           }),
           success: function( r ){
             var list = _.uniqBy( r.data.results.bindings, function( item ){
-              console.log( item.name.value )
               return item.name.value
             })
             

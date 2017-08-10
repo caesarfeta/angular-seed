@@ -424,12 +424,55 @@
     "duration": 1
   },
   {
+    "label": "star crystals",
+    "times": 3,
+    "angle": 144,
+    "start": "GGGGGG",
+    "rules": [
+      "F=F+FF+FFF+FFFF++FFF+FF+F",
+      "G=FFF+FF"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "everybody is a star",
+    "times": 3,
+    "angle": 144,
+    "start": "F+F+F+F+F+F+F+F",
+    "rules": [
+      "F=F---F+F+F+F+F+F+F---F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "star spinout",
+    "times": 2,
+    "angle": 144,
+    "start": "GGGGGG",
+    "rules": [
+      "F=F+FF+FFF+FFFF++FFF+FF+F",
+      "G=FFF+FF"
+    ],
+    "duration": 1
+  },
+  {
     "label": "cyclone star",
     "times": 4,
     "angle": 72,
     "start": "F+F+F+F+F",
     "rules": [
       "F=F-F+F+F+F--F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "kinda mayan",
+    "times": 6,
+    "angle": 30,
+    "start": "AA-AA-AA-AA-AA",
+    "rules": [
+      "A=B--A--B",
+      "B=A+B+++B+A"
     ],
     "duration": 1
   },

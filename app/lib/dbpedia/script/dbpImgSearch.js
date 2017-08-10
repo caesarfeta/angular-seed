@@ -26,7 +26,7 @@ function( module ){
             if ( tp < 0 ){
               $( elem ).addClass( 'scrollStick' )
             }
-            else if ( window.pageYOffset < tp ){
+            else if ( window.pageYOffset == 0 ){
               $( elem ).removeClass( 'scrollStick' )
             }
           }, 500, { leading: true }))
