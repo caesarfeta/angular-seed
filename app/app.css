@@ -7400,10 +7400,9 @@ body {
   margin: 0 5px;
 }
 .paginator {
-  position: fixed;
-  bottom: 5px;
-  right: 5px;
-  margin: 0;
+  display: table;
+  margin: auto;
+  padding-top: 25px;
 }
 .spinner {
   display: inline-block;
@@ -7491,7 +7490,7 @@ input.dbpedia-search-input {
 }
 input.dbpedia-search-input.scrollStick {
   position: fixed;
-  bottom: 10px;
+  top: 10px;
   left: 50%;
   margin-left: -100px;
 }
