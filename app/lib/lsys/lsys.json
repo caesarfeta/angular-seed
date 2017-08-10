@@ -326,6 +326,17 @@
     "duration": 1
   },
   {
+    "label": "pop tart mandala",
+    "times": 5,
+    "angle": 30,
+    "start": "AAAAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-A+B"
+    ],
+    "duration": 1
+  },
+  {
     "label": "briar patch triangle",
     "times": 6,
     "angle": 120,
