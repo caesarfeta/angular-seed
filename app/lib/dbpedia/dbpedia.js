@@ -6,6 +6,7 @@ define([
 './script/dbpImgHistory',
 './script/dbpImgSearch',
 './script/dbpKey',
-'./script/dbpSpecies'
+'./script/dbpSpecies',
+'./script/dbpFungi'
 ], 
 function(){})

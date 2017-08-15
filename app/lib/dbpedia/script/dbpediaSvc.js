@@ -197,7 +197,8 @@ function(
             
             self.img.paginator = new paginator({
               list: list,
-              perPage: 12
+              perPage: 12,
+              updateUrl: true
             })
             self.img.result = list
           },
