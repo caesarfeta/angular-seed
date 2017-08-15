@@ -1,8 +1,14 @@
 define([ 
-'lodash'
+'lodash',
+'../jsSHA'
 ],
-function( _ ){
+function(
+  _,
+  jsSHA ){
   'use strict'
+  
+  // hashing utility
+  
   var utils = {}
   utils.nTimes = function( n, func ){
     var array = []
@@ -18,6 +24,12 @@ function( _ ){
   }
   utils.range = function( i ){
     return i ? utils.range( i-1 ).concat( i ) : []
+  }
+  utils.sha = function( string ){
+    var sha = new jsSHA( 'SHA-1', 'TEXT' )
+    sha.setHMACKey( 'abc', 'TEXT' )
+    sha.update( string )
+    return sha.getHMAC( 'HEX' )
   }
   return utils
 })

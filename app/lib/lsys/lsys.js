@@ -1,12 +1,12 @@
 define([
 'angular',
 'lodash',
-'../jsSHA'
+'../utils/utils'
 ], 
 function(
   angular,
   _,
-  jsSHA ){
+  utils ){
   Math.toRad = function( degrees ) {
     return degrees * Math.PI / 180
   }
@@ -16,11 +16,9 @@ function(
   return angular.module( 'lsys', [ 'atCommon' ])
   .service( 'lsysHttp', [
     '$http',
-    'lsys',
     '$q',
     function(
       $http,
-      lsys,
       $q ){
       var self = this
       self.list = undefined
@@ -31,9 +29,7 @@ function(
           }
           $http.get( './lib/lsys/lsys.json' ).then(
             function( d ){
-              self.list = d.data.map( function( item ){
-                return new lsys( item )
-              })
+              self.list = d.data
               return yes( self.list )
             },
             function( e ){
@@ -78,7 +74,7 @@ function(
         scope: true,
         template: [
           
-          '<div class="lsysDump">',
+          '<div ng-if="!!lsys.output" class="lsysDump">',
             '<label>draw path</label>',
             '<p>',
               '{{ lsys.output }}',
@@ -92,7 +88,10 @@ function(
   ])
   .directive( 'lsysCard', [
     '$location',
-    function( $location ){
+    'lsys',
+    function(
+      $location,
+      lsys ){
       return {
         scope: {
           lsysCard: '='
@@ -135,7 +134,7 @@ function(
           
         ].join(' '),
         link: function( scope ){
-          scope.lsys = scope.lsysCard
+          scope.lsys = new lsys( scope.lsysCard )
           scope.tweak = false
           scope.goTo = function( id ){
             $location.url( '/lsys/' + id )
@@ -220,7 +219,12 @@ function(
   ])
   .directive( 'lsysSketch', [
     'lsysHttp',
-    function( lsysHttp ){
+    'lsys',
+    '$timeout',
+    function(
+      lsysHttp,
+      lsys,
+      $timeout ){
       return {
         scope: {
           lsysSketch: '='
@@ -240,9 +244,10 @@ function(
         link: function( scope ){
           lsysHttp.load().then(
             function( list ){
-              scope.lsys = _.find( list, function( sys ){
-                return sys.id == scope.lsysSketch
+              var json = _.find( list, function( sys ){
+                return !!sys.label && utils.sha( sys.label ) == scope.lsysSketch
               })
+              scope.lsys = new lsys( json )
             }
           )
         }
@@ -264,10 +269,7 @@ function(
         
         // generage id by hashing unique label
         
-        var sha = new jsSHA("SHA-1", "TEXT")
-        sha.setHMACKey("abc", "TEXT")
-        sha.update( self.label )
-        self.id = sha.getHMAC("HEX")
+        self.id = utils.sha( self.label )
       }
       lsys.prototype.update = function(){
         var self = this

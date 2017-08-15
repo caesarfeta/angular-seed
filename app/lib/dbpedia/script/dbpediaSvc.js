@@ -170,6 +170,7 @@ function(
       self.img.search = 'octopus'
       self.img.history = [ 'ghost', 'death', 'gold', 'rainbow', 'glass' ]
       self.img.http = function(){
+        self.img.history = _.union( self.img.history, [ self.img.search ])
         return self.http({
           query: dbpediaQuery.img({ 
             search: self.img.search, 
@@ -205,9 +206,7 @@ function(
           
           // success
           
-          function(){ 
-            self.img.history = _.union( self.img.history, [ self.img.search ])
-          },
+          function(){},
           
           // error
           
