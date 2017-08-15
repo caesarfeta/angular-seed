@@ -508,6 +508,16 @@
     "duration": 1
   },
   {
+    "label": "star slash",
+    "times": 2,
+    "angle": 144,
+    "start": "F+F+F+F+F+F+F+F+F",
+    "rules": [
+      "F=F-F+F+F+F--F"
+    ],
+    "duration": 1
+  },
+  {
     "label": "tiger triangle",
     "times": 4,
     "angle": 60,

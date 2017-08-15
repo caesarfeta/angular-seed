@@ -94,41 +94,49 @@ function(
       lsys ){
       return {
         scope: {
-          lsysCard: '='
+          lsysCard: '=',
+          sketch: '='
         },
         template: [
           
-          '<div class="lsysCard">',
-            
-            // display
-            
-            '<div class="lsysDisplay">',
-              '<label><a href="" ng-click="goTo( lsys.id )">{{ lsys.label }}</a></label>',
-              '<div lsys="lsys"></div>',
+          '<div>',
+            '<div class="lsysCard">',
               
-              // play
+              // display
               
-              '<button class="btn btn-sm" ng-click="lsys.draw()">',
-                '<i class="fa fa-play"></i>',
-              '</button>',
+              '<div class="lsysDisplay">',
+                '<label><a href="" ng-click="goTo( lsys.id )">{{ lsys.label }}</a></label>',
+                '<div lsys="lsys"></div>',
+                
+                // play
+                
+                '<button class="btn btn-sm" ng-click="lsys.draw()">',
+                  '<i class="fa fa-play"></i>',
+                '</button>',
+                
+                // tweak
+                
+                '<button class="btn btn-sm"',
+                        'href=""',
+                        'ng-class="{ \'active\': !!tweak }"',
+                        'ng-click="tweak = !tweak">',
+                  '{{ ( !tweak ) ? "tweak" : "done" }}',
+                '</button>',
+              '</div>',
               
-              // tweak
+              // controls
               
-              '<button class="btn btn-sm"',
-                      'href=""',
-                      'ng-class="{ \'active\': !!tweak }"',
-                      'ng-click="tweak = !tweak">',
-                '{{ ( !tweak ) ? "tweak" : "done" }}',
-              '</button>',
+              '<div class="lsysCtrl">',
+                
+                // editor 
+                
+                '<div ng-if="tweak" lsys-ctrl></div>',
+              '</div>',
             '</div>',
             
-            // controls
-            
-            '<div class="lsysCtrl">',
-              
-              // editor 
-              
-              '<div ng-if="tweak" lsys-ctrl></div>',
+            '<div ng-if="sketch">',
+              '<div lsys-draw-path></div>',
+              '<div lsys-json></div>',
             '</div>',
           '</div>'
           
@@ -219,11 +227,9 @@ function(
   ])
   .directive( 'lsysSketch', [
     'lsysHttp',
-    'lsys',
     '$timeout',
     function(
       lsysHttp,
-      lsys,
       $timeout ){
       return {
         scope: {
@@ -232,22 +238,16 @@ function(
         template: [
           
           '<div ng-if="!!lsys" class="lsysSketch">',
-            '<div lsys-card="lsys"></div>',
-            '<div lsys-draw-path></div>',
-            
-            // json config
-            
-            '<div lsys-json></div>',
+            '<div lsys-card="lsys" sketch="true"></div>',
           '</div>'
           
         ].join(' '),
         link: function( scope ){
           lsysHttp.load().then(
             function( list ){
-              var json = _.find( list, function( sys ){
+              scope.lsys = _.find( list, function( sys ){
                 return !!sys.label && utils.sha( sys.label ) == scope.lsysSketch
               })
-              scope.lsys = new lsys( json )
             }
           )
         }
