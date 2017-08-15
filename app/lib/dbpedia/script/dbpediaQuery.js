@@ -29,25 +29,26 @@ function( module ){
       
       self.img = function( config ){
         return '\
+        PREFIX dbpedia: <http://dbpedia.org/ontology/>\
         PREFIX dbpedia2: <http://dbpedia.org/property/>\
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>\
         SELECT  ?name, ?kingdom, ?phylum, ?class, ?order, ?family, ?genus, ?species, ?subspecies, ?img, ?abstract\
         WHERE {\
-          ?s  <http://dbpedia.org/ontology/kingdom> ?hasValue;\
+          ?s  dbpedia:kingdom ?hasValue;\
             rdfs:label ?name\
             FILTER regex( ?name, "' + config.search + '", "i" )\
             FILTER ( langMatches( lang( ?name ), "EN" ))\
           ?animal rdfs:label ?name;\
             foaf:depiction ?img;\
-            <http://dbpedia.org/ontology/kingdom> ?kingdom\
-            OPTIONAL { ?animal <http://dbpedia.org/ontology/order> ?order . }\
-            OPTIONAL { ?animal <http://dbpedia.org/ontology/phylum> ?phylum . }\
-            OPTIONAL { ?animal <http://dbpedia.org/ontology/class> ?class . }\
-            OPTIONAL { ?animal <http://dbpedia.org/ontology/family> ?family . }\
-            OPTIONAL { ?animal <http://dbpedia.org/ontology/genus> ?genus . }\
-            OPTIONAL { ?animal <http://dbpedia.org/ontology/species> ?species . }\
+            dbpedia:kingdom ?kingdom\
+            OPTIONAL { ?animal dbpedia:order ?order . }\
+            OPTIONAL { ?animal dbpedia:phylum ?phylum . }\
+            OPTIONAL { ?animal dbpedia:class ?class . }\
+            OPTIONAL { ?animal dbpedia:family ?family . }\
+            OPTIONAL { ?animal dbpedia:genus ?genus . }\
+            OPTIONAL { ?animal dbpedia2:species ?species . }\
             OPTIONAL {\
-              ?animal <http://dbpedia.org/ontology/abstract> ?abstract\
+              ?animal dbpedia:abstract ?abstract\
               FILTER ( langMatches( lang( ?abstract ), "EN" ))\
             }\
         }\

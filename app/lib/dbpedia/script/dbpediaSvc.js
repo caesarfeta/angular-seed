@@ -179,6 +179,12 @@ function(
             var list = _.uniqBy( r.data.results.bindings, function( item ){
               return item.name.value
             })
+            _.each( list, function( item ){
+              if ( !!item.species ){
+                item.species.value = item.species.value.replace( /^\w+\. /, '' )
+                item.species.value = item.species.value.charAt( 0 ).toUpperCase() + item.species.value.slice( 1 )
+              }
+            })
             
             // paginator
             
