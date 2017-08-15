@@ -20,7 +20,6 @@ function( module ){
           
         ].join(' '),
         link: function( scope, elem ){
-          
           $( window ).scroll( _.throttle( function(){
             var tp = $( elem ).get(0).getBoundingClientRect().top
             if ( tp < 0 ){
@@ -38,11 +37,15 @@ function( module ){
   .directive( 'dbpImgSearch', [
     'dbpediaSvc',
     'spinSvc',
-    function( dbpedia, spinSvc ){
+    '$location',
+    function(
+      dbpedia,
+      spinSvc,
+      $location ){
       return {
         restrict: 'E',
         replace: true,
-        scope: {},
+        scope: true,
         template: [
           
           '<span>',
@@ -52,6 +55,7 @@ function( module ){
           
         ].join(' '),
         link: function( scope, elem ){
+          console.log( scope.term, scope.page )
           scope.dbpedia = dbpedia;
           scope.run = function(){
             dbpedia.img.http()

@@ -104,7 +104,9 @@ function( angular ){
         controller: [ 
           '$scope',
           '$routeParams',
-          function( scope, $routeParams ){
+          function(
+            scope,
+            $routeParams ){
             scope.genus = $routeParams.genus
           }
         ]
@@ -112,7 +114,7 @@ function( angular ){
       
       // specierch
       
-      $routeProvider.when('/specierch', {
+      $routeProvider.when('/specierch/:term?/:page?', {
         template: [
           
           '<div class="specierch">',
@@ -125,7 +127,16 @@ function( angular ){
           '</div>',
           
         ].join(' '),
-        controller: function(){}
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            scope,
+            $routeParams ){
+            scope.term = ( !!$routeParams.term ) ? $routeParams.term : undefined
+            scope.page = ( !!$routeParams.page ) ? $routeParams.page : undefined
+          }
+        ]
       })
       
       // about
