@@ -179,10 +179,16 @@ function(
             var list = _.uniqBy( r.data.results.bindings, function( item ){
               return item.name.value
             })
+            
+            // some quick cleanup
+            
             _.each( list, function( item ){
               if ( !!item.species ){
                 item.species.value = item.species.value.replace( /^\w+\. /, '' )
                 item.species.value = item.species.value.charAt( 0 ).toUpperCase() + item.species.value.slice( 1 )
+              }
+              if ( !!item.genus ){
+                item.genus.value = item.genus.value.split('_')[ 0 ]
               }
             })
             
