@@ -5,8 +5,11 @@ function( module ){
   module.directive( 'dbpImgHistory',[
     'dbpediaSvc',
     '$compile',
-    function( dbpedia, $compile ){
+    function(
+      dbpedia,
+      $compile ){
       return {
+        scope: true,
         replace: true,
         link: function( scope, elem ){
           

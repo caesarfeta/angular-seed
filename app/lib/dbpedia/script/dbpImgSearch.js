@@ -15,7 +15,7 @@ function( module ){
           '<input class="dbpedia-search-input"',
                  'type="text"',
                  'ng-model="dbpedia.img.search"',
-                 'ng-enter="run()"',
+                 'ng-enter="reload()"',
                  'placeholder="keyword" />',
           
         ].join(' '),
@@ -35,13 +35,7 @@ function( module ){
     }
   ])
   .directive( 'dbpImgSearch', [
-    'dbpediaSvc',
-    'spinSvc',
-    '$location',
-    function(
-      dbpedia,
-      spinSvc,
-      $location ){
+    function(){
       return {
         restrict: 'E',
         replace: true,
@@ -53,15 +47,7 @@ function( module ){
             '<spinner spin-id="dbpedia-http"></spinner>',
           '</span>'
           
-        ].join(' '),
-        link: function( scope, elem ){
-          console.log( scope.term, scope.page )
-          scope.dbpedia = dbpedia;
-          scope.run = function(){
-            dbpedia.img.http()
-          }
-          scope.run()
-        }
+        ].join(' ')
       }
     }
   ])
