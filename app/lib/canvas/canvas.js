@@ -1,14 +1,9 @@
 define([ 
-'angular',
-'lib/lsys/lsys',
-'angularRoute'
+'angular'
 ],
 function( angular, viz ){
   
-  angular.module( 'myApp.view.canvas', [
-    'ngRoute',
-    'lsys'
-  ])
+  angular.module( 'myApp.view.canvas', [])
   .service( 'iCanvasSvc', [
     function(){
       var self = this
@@ -54,49 +49,6 @@ function( angular, viz ){
         return y / this.zoom - this.pan.y
       }
       return iCanvas
-    }
-  ])
-  .directive( 'iCanvasCtrl', [
-    function(){
-      return {
-        scope: {
-          iCanvasCtrl: '='
-        },
-        template: [
-          
-          '<form>',
-            '<div class="form-group">',
-              '<label>x</label>',
-              '<input type="number" ng-model="ctrl.pan.x" step="{{ step( ctrl.pan.x ) }}" />',
-            '</div>',
-            '<div class="form-group">',
-              '<label>y</label>',
-              '<input type="number" ng-model="ctrl.pan.y" step="{{ step( ctrl.pan.y ) }}" />',
-            '</div>',
-            '<div class="form-group">',
-              '<label>zoom</label>',
-              '<input type="number" ng-model="ctrl.zoom" step="{{ step( ctrl.zoom ) }}" />',
-            '</div>',
-            '<div class="form-group">',
-              '<label>cycle</label>',
-              '<input type="number" ng-model="ctrl.cycle" />',
-            '</div>',
-          '</form>'
-          
-        ].join(' '),
-        link: function( scope ){
-          scope.ctrl = scope.iCanvasCtrl
-          scope.step = function( i ){
-            var str = i.toString()
-            
-            // calculate optimal step
-            
-            return ( str.indexOf('.') == -1 ) ?
-              Math.pow( 10, str.length-2 ) : 
-              Math.pow( 10, str.split('.')[1].length*-1 )
-          }
-        }
-      }
     }
   ])
   .directive( 'iCanvas', [
@@ -149,6 +101,50 @@ function( angular, viz ){
       }
     }
   ])
+  .directive( 'iCanvasCtrl', [
+    function(){
+      return {
+        scope: {
+          iCanvasCtrl: '='
+        },
+        template: [
+          
+          '<form>',
+            '<div class="form-group">',
+              '<label>x</label>',
+              '<input type="number" ng-model="ctrl.pan.x" step="{{ step( ctrl.pan.x ) }}" />',
+            '</div>',
+            '<div class="form-group">',
+              '<label>y</label>',
+              '<input type="number" ng-model="ctrl.pan.y" step="{{ step( ctrl.pan.y ) }}" />',
+            '</div>',
+            '<div class="form-group">',
+              '<label>zoom</label>',
+              '<input type="number" ng-model="ctrl.zoom" step="{{ step( ctrl.zoom ) }}" />',
+            '</div>',
+            '<div class="form-group">',
+              '<label>cycle</label>',
+              '<input type="number" ng-model="ctrl.cycle" />',
+            '</div>',
+          '</form>'
+          
+        ].join(' '),
+        link: function( scope ){
+          scope.ctrl = scope.iCanvasCtrl
+          scope.step = function( i ){
+            var str = i.toString()
+            
+            // calculate optimal step
+            
+            return ( str.indexOf('.') == -1 ) ?
+              Math.pow( 10, str.length-2 ) : 
+              Math.pow( 10, str.split('.')[1].length*-1 )
+          }
+        }
+      }
+    }
+  ])
+  /*
   .directive('canvasCubeTest', [
     function(){
       return {
@@ -161,4 +157,5 @@ function( angular, viz ){
       }
     }
   ])
+  */
 })

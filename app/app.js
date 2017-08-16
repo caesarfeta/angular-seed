@@ -4,9 +4,11 @@ define([
 'lib/specierch/specierch',
 'lib/mapper/mapper',
 'lib/canvas/canvas',
+'lib/lsys/lsys',
 'lib/color-kit/color-kit',
 'lib/version/version',
-'lib/atPixels/atPixels.angular'
+'lib/atPixels/atPixels.angular',
+'lib/threeD/threeD'
 ], 
 function( angular ){
   
@@ -16,10 +18,12 @@ function( angular ){
     'ngRoute',
     'myApp.view.specierch',
     'myApp.view.canvas',
+    'lsys',
     'myApp.view.mapper',
     'myApp.view.colorKit',
     'myApp.version',
-    'atPixels'
+    'atPixels',
+    'threeD'
   ])
   .config([
     '$routeProvider', 
@@ -158,14 +162,25 @@ function( angular ){
         ]
       })
       
+      // threeD
+      
+      $routeProvider.when( '/threed', {
+        template: [
+          
+          '<div three-d></div>'
+          
+        ].join(''),
+        controller: [ function(){} ]
+      })
+      
       // about
       
       $routeProvider.when( '/about', {
         template: [
           
-          '<div style="margin-top:10px; padding: 10px 10px 0 10px; background-color: #F2F2F2" class="about container">',
-            '<img style="float:left; margin: 0 20px 10px 0" src="assets/img/adam_tavares.jpg" />',
-            '<div style="max-width: 900px">',
+          '<div class="about container">',
+            '<img src="assets/img/adam_tavares.jpg" />',
+            '<div class="blurb">',
               '<p>My name is Adam Tavares. I am a programmer, artist, and Nature enthusiast. I live in lovely Providence, Rhode Island where I write software to explore data and generate beautiful patterns and structures. When I\'m not at my computer I\'m exploring forests near my home, playing capoeira, or drawing cartoons.</p>',
               '<p class="text-center">Contact me &mdash; <a href="mailto://adamtavares@gmail.com" target="_blank">adamtavares@gmail.com</a></p>',
               '<p class="text-center">See my photos, cartoons, and videos &mdash; <a href="http://instagram.com/adam.tavares" target="_blank">instagram.com/adam.tavares</a></p>',

@@ -315,10 +315,32 @@
     "duration": 1
   },
   {
+    "label": "fuzzy bone star",
+    "times": 6,
+    "angle": 144,
+    "start": "AAAAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-A+B"
+    ],
+    "duration": 1
+  },
+  {
     "label": "which way which way",
     "times": 5,
     "angle": 60,
     "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=B+A-A+B"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "honey comb star",
+    "times": 5,
+    "angle": 60,
+    "start": "A+A+A+A+A+A",
     "rules": [
       "A=B-A-B",
       "B=B+A-A+B"
@@ -354,6 +376,17 @@
     "start": "AAAAA",
     "rules": [
       "A=B-A-B", 
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "lumpy invader",
+    "times": 6,
+    "angle": 30,
+    "start": "+A+A--A--A+A",
+    "rules": [
+      "A=B-A-B",
       "B=A+B+A-A+B+A"
     ],
     "duration": 1

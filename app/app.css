@@ -7366,6 +7366,18 @@ body {
 .img-mutate-live textarea {
   height: auto;
 }
+.about {
+  margin-top: 10px;
+  padding: 10px 10px 0 10px;
+  background-color: #F2F2F2;
+}
+.about img {
+  float: left;
+  margin: 0 20px 10px 0;
+}
+.about .blurb {
+  max-width: 900px;
+}
 .at-version {
   position: fixed;
   bottom: 0;
@@ -7408,21 +7420,10 @@ body {
   position: fixed;
   width: 50px;
   height: 20px;
-  margin: 50% auto;
+  margin: 25% auto;
   /* Will not center vertically and won't work in IE6/7. */
   left: 0;
   right: 0;
-  /*
-  display: inline-block;
-  width: 50px;
-  height: 20px;
-  font-size: 20px;
-  position: fixed;
-  margin-left: -25px;
-  margin-top: -10px;
-  top: 50%;
-  right: 50%;
-  */
 }
 .spinner > div {
   background-color: #333;
