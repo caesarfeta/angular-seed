@@ -12,10 +12,8 @@ function(
   .directive( 'threeD', [
     function(){
       return {
-        scope: true,
+        scope: {},
         link: function( scope, elem ){
-          console.log( THREE )
-          console.log( THREE.OBJLoader )
           var container
           var camera, scene, renderer
           var mouseX = 0, mouseY = 0
@@ -106,6 +104,12 @@ function(
             camera.lookAt( scene.position )
             renderer.render( scene, camera )
           }
+          
+          console.log( THREE )
+          console.log( THREE.OBJLoader )
+          scope.$on( '$destroy', function(){
+            container.remove()
+          })
         }
       }
     }
