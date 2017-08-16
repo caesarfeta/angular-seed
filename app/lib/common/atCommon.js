@@ -75,7 +75,7 @@ function(
           pages: [],
           currentPage: 1,
           perPage: 25,
-          inGroup: 10,
+          inGroup: 5,
           updateUrl: false
         })
         _.merge( self, config )
