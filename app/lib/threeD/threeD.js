@@ -43,7 +43,6 @@ function(
             manager.onProgress = function( item, loaded, total ){
               console.log( item, loaded, total )
             }
-            
             var texture = new THREE.Texture()
             var onProgress = function( xhr ){
               if ( xhr.lengthComputable ){
@@ -51,13 +50,12 @@ function(
                 console.log( Math.round(percentComplete, 2) + '% downloaded' )
               }
             }
-            
             var onError = function( xhr ){}
-            // var loader = new THREE.ImageLoader( manager )
-            // loader.load( 'textures/UV_Grid_Sm.jpg', function( image ){
-            //   texture.image = image
-            //   texture.needsUpdate = true
-            // })
+            var loader = new THREE.ImageLoader( manager )
+            loader.load( './lib/threeD/texture/UV_Grid_Sm.jpg', function( image ){
+              texture.image = image
+              texture.needsUpdate = true
+            })
             
             // model
             
@@ -68,10 +66,9 @@ function(
                   child.material.map = texture
                 }
               })
-              object.position.y = - 95
+              object.position.y = 0
               scene.add( object )
             }, onProgress, onError )
-            
             renderer = new THREE.WebGLRenderer()
             renderer.setPixelRatio( window.devicePixelRatio )
             renderer.setSize( window.innerWidth, window.innerHeight )
@@ -89,8 +86,8 @@ function(
           }
           
           function onDocumentMouseMove( event ){
-            mouseX = ( event.clientX - windowHalfX ) / 2
-            mouseY = ( event.clientY - windowHalfY ) / 2
+            mouseX = ( event.clientX - windowHalfX )
+            mouseY = ( event.clientY - windowHalfY )
           }
           
           function animate(){
@@ -105,9 +102,8 @@ function(
             renderer.render( scene, camera )
           }
           
-          console.log( THREE )
-          console.log( THREE.OBJLoader )
           scope.$on( '$destroy', function(){
+            cancelAnimationFrame( animate )
             container.remove()
           })
         }
