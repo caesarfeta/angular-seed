@@ -1,5 +1,6 @@
 define([ 
 'angular',
+'lodash',
 '../utils/utils',
 'threejs',
 'OBJLoader',
@@ -7,6 +8,7 @@ define([
 ],
 function( 
   angular,
+  _,
   utils,
   THREE,
   OBJLoader,
@@ -52,13 +54,11 @@ function(
         scope: {},
         template: [
           
-          '<div ng-if="!!list">',
-            '<div ng-repeat="item in list">',
-              '<a href="/app/#/threed/{{ ::item.id }}">',
-                '<label>{{ ::item.label }}</label>',
-              '</a>',
-            '</div>',
-          '</div>'
+          '<ul class="container" ng-if="!!list">',
+            '<li ng-repeat="item in list">',
+              '<a href="/app/#/threed/{{ ::item.id }}">{{ ::item.label }}</a>',
+            '</li>',
+          '</ul>'
           
         ].join(' '),
         link: function( scope, elem ){
@@ -94,6 +94,8 @@ function(
               animate()
             }
           )
+          
+          var mesh = undefined
           function init( config ){
             container = document.createElement( 'div' )
             document.body.appendChild( container )
@@ -124,14 +126,14 @@ function(
             }
             var onError = function( xhr ){}
             
-            // model
+            // retrieve model
             
             var loader = undefined
-            switch( config.loader ){
+            switch( config.loader ){  
               case 'OBJ':
                 loader = new THREE.OBJLoader( manager )
-                loader.load( config.url, function( object ){
-                  object.traverse( function( child ){
+                loader.load( config.url, function( mesh ){
+                  mesh.traverse( function( child ){
                     if ( child instanceof THREE.Mesh ){
                       child.material = new THREE.MeshPhongMaterial({
                         color: 0xffffff,
@@ -140,8 +142,8 @@ function(
                       })
                     }
                   })
-                  object.position.y = 0
-                  scene.add( object )
+                  mesh.position.y = 0
+                  scene.add( mesh )
                 }, onProgress, onError )
                 break
               case 'STL':
@@ -152,7 +154,7 @@ function(
                     specular: 0x111111,
                     shininess: 200
                   })
-                  var mesh = new THREE.Mesh( geometry, material )
+                  mesh = new THREE.Mesh( geometry, material )
                   mesh.position.set( 0, - 0.25, 0.6 )
                   mesh.rotation.set( 0, - Math.PI / 2, 0 )
                   mesh.scale.set( 2, 2, 2 )
@@ -162,13 +164,21 @@ function(
                 })
                 break
             }
-
             renderer = new THREE.WebGLRenderer()
             renderer.setPixelRatio( window.devicePixelRatio )
             renderer.setSize( window.innerWidth, window.innerHeight )
             container.appendChild( renderer.domElement )
             document.addEventListener( 'mousemove', onDocumentMouseMove, false )
             window.addEventListener( 'resize', onWindowResize, false )
+            
+            // detect mousedown and mouseup
+            
+            document.addEventListener( 'mousedown', function(){
+              mousedown = true
+            })
+            document.addEventListener( 'mouseup', function(){
+              mousedown = false
+            })
           }
           
           function onWindowResize() {
@@ -179,10 +189,40 @@ function(
             renderer.setSize( window.innerWidth, window.innerHeight )
           }
           
-          function onDocumentMouseMove( event ){
-            mouseX = ( event.clientX - windowHalfX ) * 2
-            mouseY = ( event.clientY - windowHalfY ) * 2
+          // mouse move
+          
+          var mousedown = false
+          var prev = {
+            clientX: undefined,
+            clientY: undefined
           }
+          var mousedownMove = _.debounce( function( event ){
+            prev.clientX = undefined
+            prev.clientY = undefined
+          }, 100 )
+          function onDocumentMouseMove( event ){
+            if ( mousedown ){
+              
+              // update previous
+              
+              if ( !!prev.clientX && prev.clientY ){
+                mesh.rotation.x += ( event.clientX - prev.clientX ) * .01
+                mesh.rotation.y += ( event.clientY - prev.clientY ) * .01
+              }
+              prev.clientX = event.clientX
+              prev.clientY = event.clientY
+              
+              // clear
+              
+              mousedownMove( event )
+            }
+            else {
+              mouseX = ( event.clientX - windowHalfX ) * .5
+              mouseY = ( event.clientY - windowHalfY ) * .5
+            }
+          }
+          
+          // animate and render
           
           function animate(){
             requestAnimationFrame( animate )
