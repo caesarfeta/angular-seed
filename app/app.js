@@ -96,7 +96,6 @@ function( angular ){
         ].join(' '),
         controller: function(){}
       })
-      
       $routeProvider.when( '/fungi/:genus*', {
         template: [
           
@@ -164,12 +163,26 @@ function( angular ){
       
       // threeD
       
-      $routeProvider.when( '/threed', {
+      $routeProvider.when( '/threed/:id', {
         template: [
           
-          '<div three-d></div>'
+          '<div three-d="{{ ::id }}"></div>'
           
-        ].join(''),
+        ].join(' '),
+        controller: [
+          '$scope',
+          '$routeParams',
+          function( $scope, $routeParams ){
+            $scope.id = $routeParams.id
+          }
+        ]
+      })
+      $routeProvider.when( '/threed/list/:page', {
+        template: [
+          
+          '<div three-d-list></div>'
+          
+        ].join(' '),
         controller: [ function(){} ]
       })
       

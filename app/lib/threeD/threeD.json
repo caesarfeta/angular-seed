@@ -1,6 +1,17 @@
 [
   {
     "label": "Developing Hilbert Curve",
-    "file": "./lib/threeD/obj/developing_hilbert_curve.obj"
+    "loader": "OBJ",
+    "url": "./lib/threeD/obj/developing_hilbert_curve.obj"
+  },
+  {
+    "label": "Mobius Net",
+    "loader": "STL",
+    "url": "./lib/threeD/stl/mobius_net.stl"
+  },
+  {
+    "label": "Menger Sponge",
+    "loader": "STL",
+    "url": "./lib/threeD/stl/menger_sponge_order_3.stl"
   }
 ]

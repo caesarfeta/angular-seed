@@ -38,6 +38,7 @@ require.config({
     'THREE.TrackballControls': 'bower_components/threejs/examples/js/controls/TrackballControls',
     'THREE.OrthographicTrackballControls': 'bower_components/threejs/examples/js/controls/OrthographicTrackballControls',
     OBJLoader: 'bower_components/threejs/examples/js/loaders/OBJLoader',
+    STLLoader: 'bower_components/threejs/examples/js/loaders/STLLoader',
     stats: 'bower_components/Physijs/examples/js/stats',
     lodash: 'bower_components/lodash/dist/lodash',
     'color-thief': 'bower_components/color-thief/src/color-thief',
@@ -79,6 +80,9 @@ require.config({
       exports: 'THREE'
     },
     OBJLoader: {
+      deps:['threejs']
+    },
+    STLLoader: {
       deps:['threejs']
     },
     'THREE.TrackballControls': {
