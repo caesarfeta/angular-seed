@@ -74,7 +74,10 @@ function(
   ])
   .directive( 'threeD', [
     'threeDData',
-    function( threeDData ){
+    '$http',
+    function(
+      threeDData,
+      $http ){
       return {
         scope: {
           threeD: '@'
@@ -163,6 +166,13 @@ function(
                   mesh.receiveShadow = true
                   scene.add( mesh )
                 })
+                break
+              case 'COORD':
+                $http.get( config.url ).then(
+                  function( r ){
+                    console.log( r )
+                  }
+                )
                 break
             }
             renderer = new THREE.WebGLRenderer()

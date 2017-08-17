@@ -13,5 +13,10 @@
     "label": "Menger Sponge",
     "loader": "STL",
     "url": "./lib/threeD/stl/menger_sponge_order_3.stl"
+  },
+  {
+    "label": "Hexagon Sierpinski Triangle",
+    "loader": "COORD",
+    "url": "./lib/threeD/coord/hexagon_sierpinski.coord"
   }
 ]

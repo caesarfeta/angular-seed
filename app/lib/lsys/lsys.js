@@ -81,8 +81,22 @@ function(
             '</p>',
           '</div>'
           
-        ].join(''),
-        link: function( scope ){}
+        ].join(' ')
+      }
+    }
+  ])
+  .directive( 'lsysCoords', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<div ng-if="!!lsys.coords" class="lsysJson">',
+            '<button class="btn btn-sm" ng-click="lsys.buildObj()">print coordinates</button>',
+            '<textarea ng-if="!!lsys.coordString">{{ lsys.coordString }}</textarea>',
+          '</div>'
+          
+        ].join(' ')
       }
     }
   ])
@@ -137,6 +151,7 @@ function(
             '<div ng-if="sketch">',
               '<div lsys-draw-path></div>',
               '<div lsys-json></div>',
+              '<div lsys-coords></div>',
             '</div>',
           '</div>'
           
@@ -338,6 +353,7 @@ function(
         // calc draw delay
         
         self.delay = ( self.duration * 1000 ) / self.coords.length
+        self.coordString = null
       }
       
       lsys.prototype.init = function( canvas ){
@@ -386,16 +402,11 @@ function(
         self.ctx.closePath()
       }
       
-      lsys.prototype.xMirror = function(){
+      lsys.prototype.buildObj = function(){
         var self = this
-        self.output = self.output + _.reverse( self.output.split('')).join('')
-        self.update()
-        self.draw()
-      }
-      
-      lsys.prototype.yMirror = function(){
-        var self = this
-        console.log( 'yMirror' )
+        self.coordString = self.coords.map( function( item ){
+          return item[0].toFixed( 6 ) + ', ' + item[1].toFixed( 6 ) + ', 0'
+        }).join( "\n" )
       }
       
       return lsys
