@@ -132,7 +132,8 @@ function(
             switch( config.loader ){  
               case 'OBJ':
                 loader = new THREE.OBJLoader( manager )
-                loader.load( config.url, function( mesh ){
+                loader.load( config.url, function( item ){
+                  mesh = item
                   mesh.traverse( function( child ){
                     if ( child instanceof THREE.Mesh ){
                       child.material = new THREE.MeshPhongMaterial({
@@ -206,8 +207,8 @@ function(
               // update previous
               
               if ( !!prev.clientX && prev.clientY ){
-                mesh.rotation.x += ( event.clientX - prev.clientX ) * .01
-                mesh.rotation.y += ( event.clientY - prev.clientY ) * .01
+                mesh.rotation.y += ( event.clientX - prev.clientX ) * .01
+                mesh.rotation.x += ( event.clientY - prev.clientY ) * .01 
               }
               prev.clientX = event.clientX
               prev.clientY = event.clientY
