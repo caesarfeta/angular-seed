@@ -2,17 +2,18 @@ define([
 'angular',
 'lodash',
 '../utils/utils',
-'threejs',
 'OBJLoader',
-'STLLoader'
+'STLLoader',
+'threejs',
+'../three.meshline/src/THREE.MeshLine'
 ],
 function( 
   angular,
   _,
   utils,
-  THREE,
   OBJLoader,
-  STLLoader ){
+  STLLoader,
+  THREE ){
   'use strict';
   angular.module( 'threeD', [])
   .service( 'threeDData', [
@@ -170,7 +171,26 @@ function(
               case 'COORD':
                 $http.get( config.url ).then(
                   function( r ){
-                    console.log( r )
+                    var material = new THREE.MeshLineMaterial()
+                    var geometry = new THREE.Geometry()
+                    _.each( r.data.split( '\n' ), function( item ){
+                      var coords = item.split( ', ' )
+                      var R = 100
+                      var long = coords[0] / R
+                      var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
+                      geometry.vertices.push( new THREE.Vector3(
+                        R * Math.cos( lat ) * Math.cos( long ),
+                        R * Math.cos( lat ) * Math.sin( long ),
+                        R * Math.sin( lat )
+//                        coords[0], coords[1], coords[2]
+                      ))
+                    })
+                    var line = new THREE.MeshLine()
+                    line.setGeometry( geometry, function(){
+                      return .5
+                    })
+                    mesh = new THREE.Mesh( line.geometry, material )
+                    scene.add( mesh )
                   }
                 )
                 break
@@ -247,7 +267,12 @@ function(
             renderer.render( scene, camera )
           }
           
+          // free up memory used by threejs
+          
           scope.$on( '$destroy', function(){
+            while( scene.children.length > 0 ){ 
+              scene.remove( scene.children[ 0 ] )
+            }
             cancelAnimationFrame( animate )
             container.remove()
           })

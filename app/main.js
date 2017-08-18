@@ -1,24 +1,23 @@
 // finds test files for karma
 
-var baseUrl = null;
-if( window.__karma__ ){
-    baseUrl = '/base';
-    var allTestFiles = [];
-    var TEST_REGEXP = /spec\.js$/;
-    var pathToModule = function( path ){
-        return path.replace(/^\/base\/app\//, '').replace(/\.js$/, '');
-    };
-
-    Object.keys( window.__karma__.files ).forEach(
-        function( file ){
-            if ( TEST_REGEXP.test(file) ){
-                
-                // Normalize paths to RequireJS module names.
-                
-                allTestFiles.push( pathToModule( file ));
-            }
-        }
-    );
+var baseUrl = null
+if ( window.__karma__ ){
+  baseUrl = '/base'
+  var allTestFiles = []
+  var TEST_REGEXP = /spec\.js$/
+  var pathToModule = function( path ){
+    return path.replace( /^\/base\/app\//, '' ).replace( /\.js$/, '' )
+  }
+  Object.keys( window.__karma__.files ).forEach(
+    function( file ){
+      if ( TEST_REGEXP.test( file )){
+        
+        // Normalize paths to RequireJS module names.
+        
+        allTestFiles.push( pathToModule( file ))
+      }
+    }
+  )
 }
 // main config for 3rd party dependencies
 
@@ -37,6 +36,7 @@ require.config({
     threejs: 'bower_components/threejs/build/three',
     'THREE.TrackballControls': 'bower_components/threejs/examples/js/controls/TrackballControls',
     'THREE.OrthographicTrackballControls': 'bower_components/threejs/examples/js/controls/OrthographicTrackballControls',
+    'THREE.MeshLine': 'lib/three.meshline/src/THREE.MeshLine',
     OBJLoader: 'bower_components/threejs/examples/js/loaders/OBJLoader',
     STLLoader: 'bower_components/threejs/examples/js/loaders/STLLoader',
     stats: 'bower_components/Physijs/examples/js/stats',
@@ -89,6 +89,9 @@ require.config({
       deps:['threejs']
     },
     'THREE.OrthographicTrackballControls': {
+      deps:['threejs']
+    },
+    'THREE.MeshLine': {
       deps:['threejs']
     },
     stats: {

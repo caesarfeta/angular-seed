@@ -405,7 +405,9 @@ function(
       lsys.prototype.buildObj = function(){
         var self = this
         self.coordString = self.coords.map( function( item ){
-          return item[0].toFixed( 6 ) + ', ' + item[1].toFixed( 6 ) + ', 0'
+          var x = item[0] * self.scale
+          var y = item[1] * self.scale
+          return x.toFixed( 6 ) + ', ' + y.toFixed( 6 ) + ', 0'
         }).join( "\n" )
       }
       

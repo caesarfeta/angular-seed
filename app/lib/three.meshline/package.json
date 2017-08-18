@@ -1,0 +1,62 @@
+{
+  "name": "three.meshline",
+  "version": "1.0.3",
+  "description": "Mesh replacement for THREE.Line",
+  "main": "src/THREE.MeshLine.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spite/THREE.MeshLine.git"
+  },
+  "keywords": [
+    "lines",
+    "threejs",
+    "mesh",
+    "line"
+  ],
+  "files": [
+    "LICENSE",
+    "History.md",
+    "README.md",
+    "src/THREE.MeshLine.js"
+  ],
+  "author": {
+    "name": "Jaume Sanchez",
+    "email": "the.spite@gmail.com",
+    "url": "https://www.clicktorelease.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spite/THREE.MeshLine/issues"
+  },
+  "homepage": "https://github.com/spite/THREE.MeshLine#readme",
+  "gitHead": "c2e28a027b48188ff3fd059953ca97016dcad511",
+  "_id": "three.meshline@1.0.3",
+  "_shasum": "85e9190d9de16bbdcffcc083746c3ea82be15a9b",
+  "_from": "three.meshline@*",
+  "_npmVersion": "3.8.6",
+  "_nodeVersion": "6.0.0",
+  "_npmUser": {
+    "name": "spite",
+    "email": "the.spite@gmail.com"
+  },
+  "dist": {
+    "shasum": "85e9190d9de16bbdcffcc083746c3ea82be15a9b",
+    "tarball": "https://registry.npmjs.org/three.meshline/-/three.meshline-1.0.3.tgz"
+  },
+  "maintainers": [
+    {
+      "name": "spite",
+      "email": "the.spite@gmail.com"
+    }
+  ],
+  "_npmOperationalInternal": {
+    "host": "packages-12-west.internal.npmjs.com",
+    "tmp": "tmp/three.meshline-1.0.3.tgz_1485730242922_0.33020045165903866"
+  },
+  "directories": {},
+  "_resolved": "https://registry.npmjs.org/three.meshline/-/three.meshline-1.0.3.tgz",
+  "readme": "ERROR: No README data found!"
+}
