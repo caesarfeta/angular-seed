@@ -17,61 +17,109 @@
   {
     "label": "Hexagon Sierpinski Triangle",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/hexagon_sierpinski.coord"
   },
   {
     "label": "Peano Gospher Hemisphere",
     "loader": "COORD",
+    "transform": "SPHERE",
+    "url": "./lib/threeD/coord/peano.coord"
+  },
+  {
+    "label": "Peano Gospher Hemisphere - BARRELL",
+    "loader": "COORD",
+    "transform": "BARRELL",
     "url": "./lib/threeD/coord/peano.coord"
   },
   {
     "label": "Eye of the Goldfish God Hempisphere",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/goldfish_god.coord"
   },
   {
     "label": "Sparkle Mat",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/sparkle_mat.coord"
+  },
+  {
+    "label": "Sparkle Mat Nine",
+    "loader": "COORD",
+    "transform": "SPHERE",
+    "url": "./lib/threeD/coord/sparkle_mat_nine.coord"
+  },
+  {
+    "label": "Sparkle Mat Nine - FUNNEL",
+    "loader": "COORD",
+    "transform": "FUNNEL",
+    "url": "./lib/threeD/coord/sparkle_mat_nine.coord"
+  },
+  {
+    "label": "Sparkle Mat Nine - BARRELL",
+    "loader": "COORD",
+    "transform": "TUBE",
+    "url": "./lib/threeD/coord/sparkle_mat_nine.coord"
   },
   {
     "label": "Q-Bert Fruit",
     "loader": "COORD",
+    "transform": "SPHERE",
+    "url": "./lib/threeD/coord/qbert_fruit.coord"
+  },
+  {
+    "label": "Q-Bert Fruit - BARRELL",
+    "loader": "COORD",
+    "transform": "BARRELL",
     "url": "./lib/threeD/coord/qbert_fruit.coord"
   },
   {
     "label": "Which Way Which Way",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/which_way.coord"
   },
   {
     "label": "Star Spinout",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/star_spinout.coord"
   },
   {
     "label": "Cloud Donut",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/cloud_donut.coord"
   },
   {
     "label": "Secret Valley",
     "loader": "COORD",
+    "transform": "SPHERE",
+    "url": "./lib/threeD/coord/secret_valley.coord"
+  },
+  {
+    "label": "Secret Valley - FUNNEL",
+    "loader": "COORD",
+    "transform": "FUNNEL",
     "url": "./lib/threeD/coord/secret_valley.coord"
   },
   {
     "label": "Lumpy Mandala",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/lumpy_mandala.coord"
   },
   {
     "label": "Starfish Booger Rims",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/starfish_booger_rims.coord"
   },
   {
     "label": "Quadcore",
     "loader": "COORD",
+    "transform": "SPHERE",
     "url": "./lib/threeD/coord/quadcore.coord"
   }
 ]

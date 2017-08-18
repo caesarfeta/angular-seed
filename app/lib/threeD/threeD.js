@@ -173,20 +173,85 @@ function(
                   function( r ){
                     var material = new THREE.MeshLineMaterial()
                     var geometry = new THREE.Geometry()
-                    _.each( r.data.split( '\n' ), function( item ){
-                      var coords = item.split( ', ' )
-                      var R = 100
-                      var long = coords[0] / R
-                      var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
-                      geometry.vertices.push( new THREE.Vector3(
-                        R * Math.cos( lat ) * Math.cos( long ),
-                        R * Math.cos( lat ) * Math.sin( long ),
-                        R * Math.sin( lat )
-//                        coords[0], coords[1], coords[2]
-                      ))
-                    })
-                    var line = new THREE.MeshLine()
-                    line.setGeometry( geometry, function(){
+                    
+                    // different transformations
+                    
+                    switch ( config.transform ){
+                      case 'SPHERE':
+                        var xs = []
+                        var ys = []
+                        _.each( r.data.split( '\n' ), function( item, i ){
+                          var coords = item.split( ', ' )
+                          xs.push( coords[ 0 ])
+                          ys.push( coords[ 1 ])
+                        })
+                        var L = _.max( xs ) - _.min( xs )
+                        var H = _.max( ys ) - _.min( ys )
+                        var R = ( L > H ) ? L : H
+                        _.each( r.data.split( '\n' ), function( item, i ){
+                          var coords = item.split( ', ' )
+                          var long = coords[0] / R
+                          var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
+                          geometry.vertices.push( new THREE.Vector3(
+                            R * Math.cos( lat ) * Math.cos( long ),
+                            R * Math.cos( lat ) * Math.sin( long ),
+                            R * Math.sin( lat )
+                          ))
+                        })
+                        break
+                      case 'FUNNEL':
+                        var R = 100
+                        _.each( r.data.split( '\n' ), function( item, i ){
+                          var coords = item.split( ', ' )
+                          var long = coords[0] / R
+                          var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
+                          geometry.vertices.push( new THREE.Vector3(
+                            R * Math.cos( lat ) * Math.cos( long ),
+                            R * Math.cos( lat ) * Math.sin( long ),
+                            coords[ 1 ],
+                          ))
+                        })
+                        break
+                      case 'BARRELL':
+                        var xs = []
+                        var ys = []
+                        _.each( r.data.split( '\n' ), function( item, i ){
+                          var coords = item.split( ', ' )
+                          xs.push( coords[ 0 ])
+                          ys.push( coords[ 1 ])
+                        })
+                        var L = _.max( xs ) - _.min( xs )
+                        var H = _.max( ys ) - _.min( ys )
+                        var R = 100
+                        var Hp = 500
+                        _.each( r.data.split( '\n' ), function( item, i ){
+                          var coords = item.split( ', ' )
+                          var long = coords[0] / R
+                          var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
+                          geometry.vertices.push( new THREE.Vector3(
+                            R * Math.cos( lat ) * Math.cos( long ),
+                            R * Math.cos( lat ) * Math.sin( long ),
+                            R * Math.sin( coords[ 1 ])
+                          ))
+                        })
+                        break
+                      default:
+                        _.each( r.data.split( '\n' ), function( item, i ){
+                          var coords = item.split( ', ' )
+                          var R = 100
+                          var long = coords[0] / R
+                          var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
+                          geometry.vertices.push( new THREE.Vector3(
+                            coords[ 0 ],
+                            coords[ 1 ],
+                            coords[ 2 ]
+                          ))
+                        })
+                        break
+                    }
+                    
+                    var line = new THREE.MeshLine({ color: 0xffffff })
+                    line.setGeometry( geometry, function( p ){
                       return .5
                     })
                     mesh = new THREE.Mesh( line.geometry, material )
