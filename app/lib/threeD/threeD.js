@@ -171,7 +171,7 @@ function(
               case 'COORD':
                 $http.get( config.url ).then(
                   function( r ){
-                    var material = new THREE.MeshLineMaterial()
+                    // var material = new THREE.MeshLineMaterial()
                     var geometry = new THREE.Geometry()
                     
                     // different transformations
@@ -212,26 +212,13 @@ function(
                           ))
                         })
                         break
-                      case 'BARRELL':
-                        var xs = []
-                        var ys = []
+                      case 'STEP':
                         _.each( r.data.split( '\n' ), function( item, i ){
                           var coords = item.split( ', ' )
-                          xs.push( coords[ 0 ])
-                          ys.push( coords[ 1 ])
-                        })
-                        var L = _.max( xs ) - _.min( xs )
-                        var H = _.max( ys ) - _.min( ys )
-                        var R = 100
-                        var Hp = 500
-                        _.each( r.data.split( '\n' ), function( item, i ){
-                          var coords = item.split( ', ' )
-                          var long = coords[0] / R
-                          var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
                           geometry.vertices.push( new THREE.Vector3(
-                            R * Math.cos( lat ) * Math.cos( long ),
-                            R * Math.cos( lat ) * Math.sin( long ),
-                            R * Math.sin( coords[ 1 ])
+                            coords[ 0 ] * .25,
+                            coords[ 1 ] * .25,
+                            i * .025
                           ))
                         })
                         break
@@ -249,19 +236,26 @@ function(
                         })
                         break
                     }
-                    
-                    var line = new THREE.MeshLine({ color: 0xffffff })
-                    line.setGeometry( geometry, function( p ){
-                      return .5
+                    var line = new THREE.TubeGeometry( 
+                      new THREE.CatmullRomCurve3( geometry.vertices ),
+                      10000,
+                      1,
+                      5,
+                      false
+                    )
+                    var material = new THREE.MeshPhongMaterial({
+                      color: 0xffffff,
+                      specular: 0x111111,
+                      shininess: 200
                     })
-                    mesh = new THREE.Mesh( line.geometry, material )
+                    mesh = new THREE.Mesh( line, material )
                     scene.add( mesh )
                   }
                 )
                 break
             }
             renderer = new THREE.WebGLRenderer()
-            renderer.setPixelRatio( window.devicePixelRatio )
+            // renderer.setPixelRatio( window.devicePixelRatio )
             renderer.setSize( window.innerWidth, window.innerHeight )
             container.appendChild( renderer.domElement )
             document.addEventListener( 'mousemove', onDocumentMouseMove, false )

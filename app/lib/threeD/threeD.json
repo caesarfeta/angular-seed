@@ -27,9 +27,9 @@
     "url": "./lib/threeD/coord/peano.coord"
   },
   {
-    "label": "Peano Gospher Hemisphere - BARRELL",
+    "label": "Peano Gospher Hemisphere - STEP",
     "loader": "COORD",
-    "transform": "BARRELL",
+    "transform": "STEP",
     "url": "./lib/threeD/coord/peano.coord"
   },
   {
@@ -57,9 +57,9 @@
     "url": "./lib/threeD/coord/sparkle_mat_nine.coord"
   },
   {
-    "label": "Sparkle Mat Nine - BARRELL",
+    "label": "Sparkle Mat Nine - STEP",
     "loader": "COORD",
-    "transform": "TUBE",
+    "transform": "STEP",
     "url": "./lib/threeD/coord/sparkle_mat_nine.coord"
   },
   {
@@ -69,9 +69,9 @@
     "url": "./lib/threeD/coord/qbert_fruit.coord"
   },
   {
-    "label": "Q-Bert Fruit - BARRELL",
+    "label": "Q-Bert Fruit - STEP",
     "loader": "COORD",
-    "transform": "BARRELL",
+    "transform": "STEP",
     "url": "./lib/threeD/coord/qbert_fruit.coord"
   },
   {
@@ -105,9 +105,21 @@
     "url": "./lib/threeD/coord/secret_valley.coord"
   },
   {
+    "label": "Secret Valley - STEP",
+    "loader": "COORD",
+    "transform": "STEP",
+    "url": "./lib/threeD/coord/secret_valley.coord"
+  },
+  {
     "label": "Lumpy Mandala",
     "loader": "COORD",
     "transform": "SPHERE",
+    "url": "./lib/threeD/coord/lumpy_mandala.coord"
+  },
+  {
+    "label": "Lumpy Mandala - STEP",
+    "loader": "COORD",
+    "transform": "STEP",
     "url": "./lib/threeD/coord/lumpy_mandala.coord"
   },
   {
@@ -121,5 +133,17 @@
     "loader": "COORD",
     "transform": "SPHERE",
     "url": "./lib/threeD/coord/quadcore.coord"
+  },
+  {
+    "label": "Star Rose",
+    "loader": "COORD",
+    "transform": "SPHERE",
+    "url": "./lib/threeD/coord/star_rose.coord"
+  },
+  {
+    "label": "Play Y - STEP",
+    "loader": "COORD",
+    "transform": "STEP",
+    "url": "./lib/threeD/coord/play_y.coord"
   }
 ]

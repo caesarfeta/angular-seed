@@ -12,11 +12,11 @@ require.config({
     text: 'bower_components/requirejs-text/text',
     d3: 'bower_components/d3/d3',
     topojson: 'bower_components/topojson/topojson',
-    threejs: 'bower_components/threejs/build/three',
-    'THREE.TrackballControls': 'bower_components/threejs/examples/js/controls/TrackballControls',
-    'THREE.OrthographicTrackballControls': 'bower_components/threejs/examples/js/controls/OrthographicTrackballControls',
-    OBJLoader: 'bower_components/threejs/examples/js/loaders/OBJLoader',
-    STLLoader: 'bower_components/threejs/examples/js/loaders/STLLoader',
+    threejs: 'bower_components/three.js/build/three',
+    'THREE.TrackballControls': 'bower_components/three.js/examples/js/controls/TrackballControls',
+    'THREE.OrthographicTrackballControls': 'bower_components/three.js/examples/js/controls/OrthographicTrackballControls',
+    OBJLoader: 'bower_components/three.js/examples/js/loaders/OBJLoader',
+    STLLoader: 'bower_components/three.js/examples/js/loaders/STLLoader',
     stats: 'bower_components/Physijs/examples/js/stats',
     lodash: 'bower_components/lodash/dist/lodash',
     'color-thief': 'bower_components/color-thief/src/color-thief',
@@ -55,7 +55,7 @@ require.config({
       exports: 'topojson'
     },
     threejs: {
-      exports: 'THREE'
+      // exports: 'THREE'
     },
     OBJLoader: {
       deps:['threejs']

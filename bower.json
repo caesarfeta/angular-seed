@@ -31,10 +31,13 @@
     "dat.gui": "*",
     "timbre": "~14.11.25",
     "ng-directive-lazy-image": "afkl-lazy-image#^0.3.4",
-    "bootstrap": "~3.3.7"
+    "bootstrap": "~3.3.7",
+    "three.js": "threejs#r82"
   },
   "devDependencies": {},
   "resolutions": {
-    "angular": "~1.4.0"
+    "angular": "~1.4.0",
+    "threejs": "r59",
+    "three.js": "r82"
   }
 }
