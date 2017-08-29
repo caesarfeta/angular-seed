@@ -57,14 +57,33 @@ function(
         scope: {},
         template: [
           
-          '<ul class="container" ng-if="!!list">',
-            '<li ng-repeat="item in list">',
-              '<img ng-src="{{ ::item.thumb }}" />',
-              '<a href="/app/#/threed/{{ ::item.id }}">{{ ::item.label }}</a>',
-              '<span>{{ ::item.transform }}</span>',
-              '<span>{{ ::item.lineType }}</span>',
-            '</li>',
-          '</ul>'
+          '<div class="container" ng-if="!!list">',
+            
+            '<div class="lsysCard"',
+                 'ng-repeat="item in list">',
+              '<div class="lsysDisplay">',
+                '<label>',
+                  '<a href="/app/#/threed/{{ ::item.id }}">{{ ::item.label }}</a>',
+                '</label>',
+                '<img ng-src="{{ ::item.thumb }}" />',
+                
+                // info table
+                
+                '<table class="table">',
+                  '<tr>',
+                    '<th>transform</th>',
+                    '<th>lineType</th>',
+                  '</tr>',
+                  '<tr>',
+                    '<td>{{ ::item.transform }}</td>',
+                    '<td>{{ ::item.lineType || "DEFAULT" }}</td>',
+                  '</tr>',
+                '</table>',
+                
+              '</div>',
+            '</div>',
+            
+          '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
