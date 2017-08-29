@@ -11,9 +11,10 @@ require.config({
     'colorpicker.module': 'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min',
     text: 'bower_components/requirejs-text/text',
     d3: 'bower_components/d3/d3',
-    Hammer: 'bower_components/hammerjs/hammer.min',
+    //Hammer: 'bower_components/hammerjs/hammer.min',
     topojson: 'bower_components/topojson/topojson',
     threejs: 'bower_components/three.js/build/three',
+    //threejs: 'bower_components/threejs/build/three',
     'THREE.TrackballControls': 'bower_components/three.js/examples/js/controls/TrackballControls',
     'THREE.OrthographicTrackballControls': 'bower_components/three.js/examples/js/controls/OrthographicTrackballControls',
     OBJLoader: 'bower_components/three.js/examples/js/loaders/OBJLoader',
@@ -56,7 +57,7 @@ require.config({
       exports: 'topojson'
     },
     threejs: {
-      // exports: 'THREE'
+      exports: 'THREE'
     },
     OBJLoader: {
       deps:['threejs']

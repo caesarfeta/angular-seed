@@ -5,7 +5,6 @@ define([
 'OBJLoader',
 'STLLoader',
 'threejs',
-'Hammer',
 '../three.meshline/src/THREE.MeshLine'
 ],
 function( 
@@ -14,8 +13,7 @@ function(
   utils,
   OBJLoader,
   STLLoader,
-  THREE,
-  Hammer ){
+  THREE ){
   'use strict';
   angular.module( 'threeD', [])
   .service( 'threeDData', [
@@ -62,20 +60,28 @@ function(
             '<div class="lsysCard"',
                  'ng-repeat="item in list">',
               '<div class="lsysDisplay">',
+                
+                // label
+                
                 '<label>',
                   '<a href="/app/#/threed/{{ ::item.id }}">{{ ::item.label }}</a>',
                 '</label>',
-                '<img ng-src="{{ ::item.thumb }}" />',
+                
+                // thumb
+                
+                '<a href="/app/#/threed/{{ ::item.id }}">',
+                  '<img ng-src="{{ ::item.thumb }}" />',
+                '</a>',
                 
                 // info table
                 
                 '<table class="table">',
                   '<tr>',
                     '<th>transform</th>',
-                    '<th>lineType</th>',
+                    '<td>{{ ::item.transform }}</td>',
                   '</tr>',
                   '<tr>',
-                    '<td>{{ ::item.transform }}</td>',
+                    '<th>lineType</th>',
                     '<td>{{ ::item.lineType || "DEFAULT" }}</td>',
                   '</tr>',
                 '</table>',
@@ -130,13 +136,19 @@ function(
             camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 )
             camera.position.z = 250
             
-            // register with hammer for pinch controls
+            // zoom
             
-            var mc = new Hammer.Manager( document )
-            var pinch = new Hammer.Pinch()
-            mc.add([ pinch ])
-            mc.on( 'pinch', function( e ){
-              console.log( e )
+            var zoomFactor = 0.95
+            var keyListener = document.addEventListener( 'keydown', function( e ){
+              switch( e.which ){
+                case 65: // A
+                  camera.fov *= zoomFactor
+                  break
+                case 90: // Z
+                  camera.fov /= zoomFactor
+                  break
+              }
+              camera.updateProjectionMatrix()
             })
             
             // scene
@@ -288,7 +300,10 @@ function(
                         mesh = new THREE.Mesh( line, material )
                         break
                       default :
-                        mesh = new THREE.Line( geometry, new THREE.LineBasicMaterial({ color: 0xccccff }))
+                        mesh = new THREE.Line( geometry, new THREE.LineBasicMaterial({
+                          color: 0xeeeeff,
+                          linewidth: 10
+                        }))
                     }
                     scene.add( mesh )
                   }
@@ -296,7 +311,7 @@ function(
                 break
             }
             renderer = new THREE.WebGLRenderer()
-            // renderer.setPixelRatio( window.devicePixelRatio )
+            //renderer.setPixelRatio( window.devicePixelRatio )
             renderer.setSize( window.innerWidth, window.innerHeight )
             container.appendChild( renderer.domElement )
             document.addEventListener( 'mousemove', onDocumentMouseMove, false )
