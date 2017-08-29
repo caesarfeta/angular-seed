@@ -59,7 +59,10 @@ function(
           
           '<ul class="container" ng-if="!!list">',
             '<li ng-repeat="item in list">',
+              '<img ng-src="{{ ::item.thumb }}" />',
               '<a href="/app/#/threed/{{ ::item.id }}">{{ ::item.label }}</a>',
+              '<span>{{ ::item.transform }}</span>',
+              '<span>{{ ::item.lineType }}</span>',
             '</li>',
           '</ul>'
           
