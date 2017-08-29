@@ -32,7 +32,8 @@
     "timbre": "~14.11.25",
     "ng-directive-lazy-image": "afkl-lazy-image#^0.3.4",
     "bootstrap": "~3.3.7",
-    "three.js": "threejs#r82"
+    "three.js": "threejs#r82",
+    "hammerjs": "hammer#^2.0.8"
   },
   "devDependencies": {},
   "resolutions": {

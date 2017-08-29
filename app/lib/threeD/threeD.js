@@ -5,6 +5,7 @@ define([
 'OBJLoader',
 'STLLoader',
 'threejs',
+'Hammer',
 '../three.meshline/src/THREE.MeshLine'
 ],
 function( 
@@ -13,7 +14,8 @@ function(
   utils,
   OBJLoader,
   STLLoader,
-  THREE ){
+  THREE,
+  Hammer ){
   'use strict';
   angular.module( 'threeD', [])
   .service( 'threeDData', [
@@ -105,6 +107,15 @@ function(
             document.body.appendChild( container )
             camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 )
             camera.position.z = 250
+            
+            // register with hammer for pinch controls
+            
+            var mc = new Hammer.Manager( document )
+            var pinch = new Hammer.Pinch()
+            mc.add([ pinch ])
+            mc.on( 'pinch', function( e ){
+              console.log( e )
+            })
             
             // scene
             
@@ -236,19 +247,27 @@ function(
                         })
                         break
                     }
-                    var line = new THREE.TubeGeometry( 
-                      new THREE.CatmullRomCurve3( geometry.vertices ),
-                      10000,
-                      1,
-                      5,
-                      false
-                    )
-                    var material = new THREE.MeshPhongMaterial({
-                      color: 0xffffff,
-                      specular: 0x111111,
-                      shininess: 200
-                    })
-                    mesh = new THREE.Mesh( line, material )
+                    
+                    
+                    switch ( config.lineType ) {
+                      case 'TUBE':
+                        var line = new THREE.TubeGeometry( 
+                          new THREE.CatmullRomCurve3( geometry.vertices ),
+                          10000,
+                          1,
+                          5,
+                          false
+                        )
+                        var material = new THREE.MeshPhongMaterial({
+                          color: 0xffffff,
+                          specular: 0x111111,
+                          shininess: 200
+                        })
+                        mesh = new THREE.Mesh( line, material )
+                        break
+                      default :
+                        mesh = new THREE.Line( geometry, new THREE.LineBasicMaterial({ color: 0xccccff }))
+                    }
                     scene.add( mesh )
                   }
                 )
