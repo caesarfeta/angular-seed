@@ -2,17 +2,16 @@ define([
 'angular',
 'lodash',
 '../utils/utils',
-'OBJLoader',
-'STLLoader',
-'threejs',
+'THREE',
+'THREE.OBJLoader',
+'THREE.STLLoader',
+'THREE.OBJExporter',
 '../three.meshline/src/THREE.MeshLine'
 ],
 function( 
   angular,
   _,
   utils,
-  OBJLoader,
-  STLLoader,
   THREE ){
   'use strict';
   angular.module( 'threeD', [])
@@ -146,6 +145,10 @@ function(
                   break
                 case 90: // Z
                   camera.fov /= zoomFactor
+                  break
+                case 83: // S
+                  var exporter = new THREE.OBJExporter()
+                  saveString( exporter.parse( mesh ), config.id + '.obj' )
                   break
               }
               camera.updateProjectionMatrix()
@@ -305,6 +308,9 @@ function(
                           linewidth: 10
                         }))
                     }
+                    
+                    // add mesh to scene
+                    
                     scene.add( mesh )
                   }
                 )
@@ -380,6 +386,23 @@ function(
             camera.position.y += ( - mouseY - camera.position.y ) * .5
             camera.lookAt( scene.position )
             renderer.render( scene, camera )
+          }
+          
+          // save obj model
+          
+          function saveString( text, filename ){
+            save( new Blob( [ text ], {
+              type: 'text/plain'
+            }), filename )
+          }
+          
+          function save( blob, filename ){
+            var link = document.createElement( 'a' )
+            link.style.display = 'none'
+            document.body.appendChild( link ) // Firefox workaround, see #6594
+            link.href = URL.createObjectURL( blob )
+            link.download = filename || 'data.json'
+            link.click()
           }
           
           // free up memory used by threejs

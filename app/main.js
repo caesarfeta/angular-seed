@@ -19,8 +19,6 @@ if ( window.__karma__ ){
     }
   )
 }
-// main config for 3rd party dependencies
-
 require.config({
   paths: {
     jquery: 'bower_components/jquery/dist/jquery',
@@ -32,14 +30,12 @@ require.config({
     'colorpicker.module': 'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min',
     text: 'bower_components/requirejs-text/text',
     d3: 'bower_components/d3/d3',
-    //Hammer: 'bower_components/hammerjs/hammer.min',
     topojson: 'bower_components/topojson/topojson',
     threejs: 'bower_components/three.js/build/three',
-    //threejs: 'bower_components/threejs/build/three',
-    'THREE.TrackballControls': 'bower_components/three.js/examples/js/controls/TrackballControls',
-    'THREE.OrthographicTrackballControls': 'bower_components/three.js/examples/js/controls/OrthographicTrackballControls',
-    OBJLoader: 'bower_components/three.js/examples/js/loaders/OBJLoader',
-    STLLoader: 'bower_components/three.js/examples/js/loaders/STLLoader',
+    THREE: 'lib/THREE',
+    'THREE.OBJExporter': 'bower_components/three.js/examples/js/exporters/OBJExporter',
+    'THREE.OBJLoader': 'bower_components/three.js/examples/js/loaders/OBJLoader',
+    'THREE.STLLoader': 'bower_components/three.js/examples/js/loaders/STLLoader',
     stats: 'bower_components/Physijs/examples/js/stats',
     lodash: 'bower_components/lodash/dist/lodash',
     'color-thief': 'bower_components/color-thief/src/color-thief',
@@ -80,17 +76,14 @@ require.config({
     threejs: {
       exports: 'THREE'
     },
-    OBJLoader: {
-      deps:['threejs']
+    'THREE.OBJExporter': {
+      deps: ['THREE']
     },
-    STLLoader: {
-      deps:['threejs']
+    'THREE.OBJLoader': {
+      deps: ['THREE']
     },
-    'THREE.TrackballControls': {
-      deps:['threejs']
-    },
-    'THREE.OrthographicTrackballControls': {
-      deps:['threejs']
+    'THREE.STLLoader': {
+      deps: ['THREE']
     },
     stats: {
       exports: 'Stats'
