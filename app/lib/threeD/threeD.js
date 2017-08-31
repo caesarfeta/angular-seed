@@ -342,6 +342,25 @@ function(
                         })
                         mesh = new THREE.Mesh( line, material )
                         break
+                      case 'RIBBON':
+                        var dots = new THREE.Geometry();
+                        for ( var i=2; i<geometry.vertices.length; i+=3 ){
+                          var a = geometry.vertices[i-2]
+                          var b = geometry.vertices[i-1]
+                          var c = geometry.vertices[i]
+                          if ( !!a && !!b && !!c ){
+                            var _a = a.sub( b )
+                            var _c = c.sub( b )
+                            dots.vertices.push( b.add( _a.add( _c ).setLength( .05 )))
+                          }
+                          console.log( b, dots.vertices[ dots.vertices.length-1 ] )
+                        }
+                        var dotMaterial = new THREE.PointsMaterial({
+                          color: 0xeeeeff,
+                          size: 4
+                        })
+                        mesh = new THREE.Points( dots, dotMaterial )
+                        break
                       default :
                         mesh = new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0xeeeeff,
