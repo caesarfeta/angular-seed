@@ -1,5 +1,5 @@
 define([ 
-'threejs',
+'THREE',
 ],
 function( THREE ){
   "use strict"

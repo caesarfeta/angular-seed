@@ -36,6 +36,7 @@ require.config({
     'THREE.OBJExporter': 'bower_components/three.js/examples/js/exporters/OBJExporter',
     'THREE.OBJLoader': 'bower_components/three.js/examples/js/loaders/OBJLoader',
     'THREE.STLLoader': 'bower_components/three.js/examples/js/loaders/STLLoader',
+    'THREE.MeshLine': 'lib/three.meshline/src/THREE.MeshLine',
     stats: 'bower_components/Physijs/examples/js/stats',
     lodash: 'bower_components/lodash/dist/lodash',
     'color-thief': 'bower_components/color-thief/src/color-thief',
@@ -83,6 +84,9 @@ require.config({
       deps: ['THREE']
     },
     'THREE.STLLoader': {
+      deps: ['THREE']
+    },
+    'THREE.MeshLine': {
       deps: ['THREE']
     },
     stats: {

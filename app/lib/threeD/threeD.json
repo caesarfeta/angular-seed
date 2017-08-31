@@ -72,7 +72,15 @@
   {
     "label": "Which Way Which Way",
     "loader": "COORD",
+    "transform": "DISC",
+    "thumb": "http://placehold.it/290x290",
+    "url": "./lib/threeD/coord/which_way.coord"
+  },
+  {
+    "label": "Which Way Which Way TUBE",
+    "loader": "COORD",
     "transform": "SPHERE",
+    "lineType": "TUBE",
     "thumb": "http://placehold.it/290x290",
     "url": "./lib/threeD/coord/which_way.coord"
   },
@@ -87,6 +95,12 @@
     "label": "Cloud Donut",
     "loader": "COORD",
     "transform": "SPHERE",
+    "thumb": "http://placehold.it/290x290",
+    "url": "./lib/threeD/coord/cloud_donut.coord"
+  },
+  {
+    "label": "Cloud Donut Flat",
+    "loader": "COORD",
     "thumb": "http://placehold.it/290x290",
     "url": "./lib/threeD/coord/cloud_donut.coord"
   },
@@ -144,6 +158,12 @@
     "label": "Star Rose",
     "loader": "COORD",
     "transform": "SPHERE",
+    "thumb": "http://placehold.it/290x290",
+    "url": "./lib/threeD/coord/star_rose.coord"
+  },
+  {
+    "label": "Star Rose Flat",
+    "loader": "COORD",
     "thumb": "http://placehold.it/290x290",
     "url": "./lib/threeD/coord/star_rose.coord"
   },

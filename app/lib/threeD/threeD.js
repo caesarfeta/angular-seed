@@ -3,16 +3,17 @@ define([
 'lodash',
 '../utils/utils',
 'THREE',
+'../three.meshline/src/THREE.MeshLine',
 'THREE.OBJLoader',
 'THREE.STLLoader',
-'THREE.OBJExporter',
-'../three.meshline/src/THREE.MeshLine'
+'THREE.OBJExporter'
 ],
 function( 
   angular,
   _,
   utils,
-  THREE ){
+  THREE,
+  MeshLine ){
   'use strict';
   angular.module( 'threeD', [])
   .service( 'threeDData', [
@@ -49,15 +50,20 @@ function(
   ])
   .directive( 'threeDList', [
     'threeDData',
-    function( threeDData ){
+    'paginator',
+    function(
+      threeDData,
+      paginator ){
       return {
-        scope: {},
+        scope: {
+          threeDList: '='
+        },
         template: [
           
-          '<div class="container" ng-if="!!list">',
+          '<div class="container" ng-if="!!paginator.items()">',
             
             '<div class="lsysCard"',
-                 'ng-repeat="item in list">',
+                 'ng-repeat="item in paginator.items()">',
               '<div class="lsysDisplay">',
                 
                 // label
@@ -77,7 +83,7 @@ function(
                 '<table class="table">',
                   '<tr>',
                     '<th>transform</th>',
-                    '<td>{{ ::item.transform }}</td>',
+                    '<td>{{ ::item.transform || "FLAT" }}</td>',
                   '</tr>',
                   '<tr>',
                     '<th>lineType</th>',
@@ -88,14 +94,23 @@ function(
               '</div>',
             '</div>',
             
+            // paginator buttons
+            
+            '<div class="clearfix"></div>',
+            '<div paginator="paginator"></div>',
+            
           '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
-          scope.list = []
           threeDData.get().then(
             function( list ){
-              scope.list = list
+              scope.paginator = new paginator({
+                list: list,
+                perPage: 12,
+                updateUrl: true,
+                currentPage: scope.threeDList
+              })
             }
           )
         }
@@ -225,6 +240,28 @@ function(
                     // different transformations
                     
                     switch ( config.transform ){
+                      case 'DISC':
+                        var xs = []
+                        var ys = []
+                        _.each( r.data.split( '\n' ), function( item, i ){
+                          var coords = item.split( ', ' )
+                          xs.push( coords[ 0 ])
+                          ys.push( coords[ 1 ])
+                        })
+                        var L = _.max( xs ) - _.min( xs )
+                        var H = _.max( ys ) - _.min( ys )
+                        var R = ( L > H ) ? L : H
+                        _.each( r.data.split( '\n' ), function( item, i ){
+                          var coords = item.split( ', ' )
+                          var long = coords[0] / R
+                          var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
+                          geometry.vertices.push( new THREE.Vector3(
+                            R * Math.cos( lat ) * Math.cos( long ),
+                            R * Math.cos( lat ) * Math.sin( long ),
+                            R * Math.sin( lat ) * 0.05
+                          ))
+                        })
+                        break
                       case 'SPHERE':
                         var xs = []
                         var ys = []
@@ -273,9 +310,6 @@ function(
                       default:
                         _.each( r.data.split( '\n' ), function( item, i ){
                           var coords = item.split( ', ' )
-                          var R = 100
-                          var long = coords[0] / R
-                          var lat = 2 * Math.atan( Math.exp( coords[1] / R )) - Math.PI / 2
                           geometry.vertices.push( new THREE.Vector3(
                             coords[ 0 ],
                             coords[ 1 ],
@@ -288,11 +322,12 @@ function(
                     
                     switch ( config.lineType ) {
                       case 'TUBE':
+                        var check = new THREE.CatmullRomCurve3( geometry.vertices )
                         var line = new THREE.TubeGeometry( 
-                          new THREE.CatmullRomCurve3( geometry.vertices ),
+                          check,
                           10000,
                           1,
-                          5,
+                          2,
                           false
                         )
                         var material = new THREE.MeshPhongMaterial({

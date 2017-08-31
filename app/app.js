@@ -180,10 +180,18 @@ function( angular ){
       $routeProvider.when( '/threed/list/:page', {
         template: [
           
-          '<div three-d-list></div>'
+          '<div three-d-list="page"></div>'
           
         ].join(' '),
-        controller: [ function(){} ]
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            $scope,
+            $routeParams ){
+              $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
+          }
+        ]
       })
       
       // about
