@@ -51,9 +51,11 @@ function(
   .directive( 'threeDList', [
     'threeDData',
     'paginator',
+    '$location',
     function(
       threeDData,
-      paginator ){
+      paginator,
+      $location ){
       return {
         scope: {
           threeDList: '='
@@ -69,12 +71,12 @@ function(
                 // label
                 
                 '<label>',
-                  '<a href="/app/#/threed/{{ ::item.id }}">{{ ::item.label }}</a>',
+                  '<a ng-click="goTo( item.id )" href="">{{ ::item.label }}</a>',
                 '</label>',
                 
                 // thumb
                 
-                '<a href="/app/#/threed/{{ ::item.id }}">',
+                '<a ng-click="goTo( item.id )" href="">',
                   '<img ng-src="{{ ::item.thumb }}" />',
                 '</a>',
                 
@@ -103,6 +105,9 @@ function(
           
         ].join(' '),
         link: function( scope, elem ){
+          scope.goTo = function( id ){
+            $location.url( '/threed/' + id )
+          }
           threeDData.get().then(
             function( list ){
               scope.paginator = new paginator({
