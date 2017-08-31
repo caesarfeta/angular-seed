@@ -60,7 +60,7 @@ function(
         },
         template: [
           
-          '<div class="container" ng-if="!!paginator.items()">',
+          '<div ng-if="!!paginator.items()">',
             
             '<div class="lsysCard"',
                  'ng-repeat="item in paginator.items()">',
@@ -107,7 +107,7 @@ function(
             function( list ){
               scope.paginator = new paginator({
                 list: list,
-                perPage: 12,
+                perPage: 4,
                 updateUrl: true,
                 currentPage: scope.threeDList
               })

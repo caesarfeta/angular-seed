@@ -1,79 +1,72 @@
 [
   {
-    "label": "Hexagon Sierpinski Triangle",
-    "loader": "COORD",
-    "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
-    "url": "./lib/threeD/coord/hexagon_sierpinski.coord"
-  },
-  {
     "label": "Peano Gosper Hemisphere",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/01.png",
     "url": "./lib/threeD/coord/peano.coord"
   },
   {
     "label": "Peano Gosper Stairs",
     "loader": "COORD",
     "transform": "STEP",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/00.png",
     "url": "./lib/threeD/coord/peano.coord"
   },
   {
     "label": "Eye of the Goldfish God Hempisphere",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/02.png",
     "url": "./lib/threeD/coord/goldfish_god.coord"
   },
   {
     "label": "Sparkle Mat",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/03.png",
     "url": "./lib/threeD/coord/sparkle_mat.coord"
   },
   {
     "label": "Sparkle Mat Nine",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/22.png",
     "url": "./lib/threeD/coord/sparkle_mat_nine.coord"
   },
   {
     "label": "Sparkle Mat Origin",
     "loader": "COORD",
     "transform": "FUNNEL",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/21.png",
     "url": "./lib/threeD/coord/sparkle_mat_nine.coord"
   },
   {
     "label": "Sparkle Mat Nine Staircase",
     "loader": "COORD",
     "transform": "STEP",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/07.png",
     "url": "./lib/threeD/coord/sparkle_mat_nine.coord"
   },
   {
     "label": "Q-Bert Fruit",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/06.png",
     "url": "./lib/threeD/coord/qbert_fruit.coord"
   },
   {
     "label": "Q-Bert Fruit Stairs",
     "loader": "COORD",
     "transform": "STEP",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/17.png",
     "url": "./lib/threeD/coord/qbert_fruit.coord"
   },
   {
     "label": "Which Way Which Way",
     "loader": "COORD",
     "transform": "DISC",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/05.png",
     "url": "./lib/threeD/coord/which_way.coord"
   },
   {
@@ -81,69 +74,69 @@
     "loader": "COORD",
     "transform": "SPHERE",
     "lineType": "TUBE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/04.png",
     "url": "./lib/threeD/coord/which_way.coord"
   },
   {
     "label": "Star Spinout",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/08.png",
     "url": "./lib/threeD/coord/star_spinout.coord"
   },
   {
     "label": "Cloud Donut",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/09.png",
     "url": "./lib/threeD/coord/cloud_donut.coord"
   },
   {
     "label": "Cloud Donut Flat",
     "loader": "COORD",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/10.png",
     "url": "./lib/threeD/coord/cloud_donut.coord"
   },
   {
     "label": "Secret Valley",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/11.png",
     "url": "./lib/threeD/coord/secret_valley.coord"
   },
   {
     "label": "Secret Valley Funnel",
     "loader": "COORD",
     "transform": "FUNNEL",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/12.png",
     "url": "./lib/threeD/coord/secret_valley.coord"
   },
   {
     "label": "Secret Valley Stairs",
     "loader": "COORD",
     "transform": "STEP",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/13.png",
     "url": "./lib/threeD/coord/secret_valley.coord"
   },
   {
     "label": "Lumpy Mandala",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/14.png",
     "url": "./lib/threeD/coord/lumpy_mandala.coord"
   },
   {
     "label": "Lumpy Mandala Stairs",
     "loader": "COORD",
     "transform": "STEP",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/15.png",
     "url": "./lib/threeD/coord/lumpy_mandala.coord"
   },
   {
     "label": "Starfish Booger Rims",
     "loader": "COORD",
     "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/16.png",
     "url": "./lib/threeD/coord/starfish_booger_rims.coord"
   },
   {
@@ -151,27 +144,20 @@
     "loader": "COORD",
     "transform": "SPHERE",
     "lineType": "TUBE",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/18.png",
     "url": "./lib/threeD/coord/quadcore.coord"
-  },
-  {
-    "label": "Star Rose",
-    "loader": "COORD",
-    "transform": "SPHERE",
-    "thumb": "http://placehold.it/290x290",
-    "url": "./lib/threeD/coord/star_rose.coord"
   },
   {
     "label": "Star Rose Flat",
     "loader": "COORD",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/20.png",
     "url": "./lib/threeD/coord/star_rose.coord"
   },
   {
     "label": "Play Y Stairs",
     "loader": "COORD",
     "transform": "STEP",
-    "thumb": "http://placehold.it/290x290",
+    "thumb": "./lib/threeD/coord/thumb/19.png",
     "url": "./lib/threeD/coord/play_y.coord"
   }
 ]
