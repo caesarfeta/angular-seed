@@ -343,17 +343,44 @@ function(
                         mesh.add( new THREE.Mesh( line, material ))
                         break
                       case 'RIBBON':
-                        var dots = new THREE.Geometry();
-                        var shift = new THREE.Vector3( .00005, 0, 0 )
-                        for ( var i=1; i<geometry.vertices.length; i+=1 ){
-                          var a = geometry.vertices[i].clone()
-                          dots.vertices.push( a.addScalar( 3 ) )
+                        for ( var i=1; i<geometry.vertices.length; i+=2 ){
+                          var a = geometry.vertices[i-1]
+                          var b = geometry.vertices[i]
+                          var c = geometry.vertices[i-1].clone()
+                          var d = geometry.vertices[i].clone()
+                          c.addScalar( 3 )
+                          d.addScalar( 3 )
+                          var dots = new THREE.Geometry([ c, d ])
+                          var shape = new THREE.Shape()
+                          shape.moveTo( a.x, a.y, a.z )
+                          shape.lineTo( b.x, b.y, b.z )
+                          shape.lineTo( c.x, c.y, c.z )
+                          shape.lineTo( d.x, d.y, d.z )
+                          shape.lineTo( a.x, a.y, a.z )
+                          var extrudeSettings = {
+                            steps: 2,
+                            amount: 16,
+                            bevelEnabled: true,
+                            bevelThickness: 1,
+                            bevelSize: 1,
+                            bevelSegments: 1
+                          }
+                          mesh.add(
+                            new THREE.Mesh(
+                              new THREE.ShapeGeometry( shape ),
+                              new THREE.MeshBasicMaterial({ color: 0xeeeeff })
+                            )
+                          )
                         }
+                        
+                        // check dots
+                        
                         var dotMaterial = new THREE.PointsMaterial({
-                          color: 0xeeeeff,
+                          color: 0xff0000,
                           size: 4
                         })
                         mesh.add( new THREE.Points( dots, dotMaterial ))
+                        
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0xeeeeff,
