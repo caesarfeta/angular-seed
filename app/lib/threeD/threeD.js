@@ -342,45 +342,40 @@ function(
                         })
                         mesh.add( new THREE.Mesh( line, material ))
                         break
-                      case 'RIBBON':
-                        for ( var i=1; i<geometry.vertices.length; i+=2 ){
-                          var a = geometry.vertices[i-1]
-                          var b = geometry.vertices[i]
-                          var c = geometry.vertices[i-1].clone()
-                          var d = geometry.vertices[i].clone()
-                          c.addScalar( 3 )
-                          d.addScalar( 3 )
-                          var dots = new THREE.Geometry([ c, d ])
-                          var shape = new THREE.Shape()
-                          shape.moveTo( a.x, a.y, a.z )
-                          shape.lineTo( b.x, b.y, b.z )
-                          shape.lineTo( c.x, c.y, c.z )
-                          shape.lineTo( d.x, d.y, d.z )
-                          shape.lineTo( a.x, a.y, a.z )
-                          var extrudeSettings = {
-                            steps: 2,
-                            amount: 16,
-                            bevelEnabled: true,
-                            bevelThickness: 1,
-                            bevelSize: 1,
-                            bevelSegments: 1
-                          }
-                          mesh.add(
-                            new THREE.Mesh(
-                              new THREE.ShapeGeometry( shape ),
-                              new THREE.MeshBasicMaterial({ color: 0xeeeeff })
-                            )
+                      case 'DOTS':
+                        mesh.add( new THREE.Points( geometry,
+                          new THREE.PointsMaterial({
+                            color: 0xeeeeff,
+                            size: 4
+                          })
+                        ))
+                        break
+                      case 'SOLID':
+                        var shape = new THREE.Shape( geometry.vertices.map( function( v ){
+                          var _v = new THREE.Vector2( v.x, v.y )
+                          _v.multiplyScalar( 0.25 )
+                          return _v
+                        }))
+                        mesh.add(
+                          new THREE.Mesh(
+                            new THREE.ExtrudeGeometry( shape,
+                              {
+                                amount: 8,
+                                bevelEnabled: true,
+                                bevelSegments: 2,
+                                steps: 2,
+                                bevelSize: 1,
+                                bevelThickness: 1
+                              }
+                            ),
+                            new THREE.MeshPhongMaterial({
+                              color: 0xffffff,
+                              specular: 0x111111,
+                              shininess: 200
+                            })
                           )
-                        }
-                        
-                        // check dots
-                        
-                        var dotMaterial = new THREE.PointsMaterial({
-                          color: 0xff0000,
-                          size: 4
-                        })
-                        mesh.add( new THREE.Points( dots, dotMaterial ))
-                        
+                        )
+                        break
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0xeeeeff,

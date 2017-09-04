@@ -30,8 +30,8 @@
   {
     "label": "Sparkle Mat Ribbon",
     "loader": "COORD",
-    "lineType": "RIBBON",
     "thumb": "",
+    "lineType": "SOLID",
     "url": "./lib/threeD/coord/sparkle_mat.coord"
   },
   {
@@ -109,6 +109,13 @@
     "loader": "COORD",
     "transform": "SPHERE",
     "thumb": "./lib/threeD/coord/thumb/11.png",
+    "url": "./lib/threeD/coord/secret_valley.coord"
+  },
+  {
+    "label": "Secret Valley Dots",
+    "loader": "COORD",
+    "transform": "SPHERE",
+    "lineType": "DOTS",
     "url": "./lib/threeD/coord/secret_valley.coord"
   },
   {
