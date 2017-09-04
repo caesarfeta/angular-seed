@@ -315,9 +315,9 @@ function(
                         _.each( r.data.split( '\n' ), function( item, i ){
                           var coords = item.split( ', ' )
                           geometry.vertices.push( new THREE.Vector3(
-                            coords[ 0 ],
-                            coords[ 1 ],
-                            coords[ 2 ]
+                            coords[ 0 ] * 1.0,
+                            coords[ 1 ] * 1.0,
+                            coords[ 2 ] * 1.0
                           ))
                         })
                         break
@@ -376,26 +376,32 @@ function(
                         )
                         break
                       case 'RIBBON':
-                        mesh.add( new THREE.Points( geometry,
-                          new THREE.PointsMaterial({
-                            color: 0xeeeeff,
-                            size: 4
-                          })
-                        ))
+                        // mesh.add( new THREE.Points( geometry,
+                        //   new THREE.PointsMaterial({
+                        //     color: 0xeeeeff,
+                        //     size: 4
+                        //   })
+                        // ))
                         var dots = new THREE.Geometry()
-                        for ( var i=1; i<geometry.vertices.length-1; i++ ){
-                          var a = geometry.vertices[i-1].clone()
-                          var c = geometry.vertices[i+1].clone()
-                          var al = a.sub( geometry.vertices[i] ).length()
-                          var cl = c.sub( geometry.vertices[i] ).length()
-                          var b = geometry.vertices[i].clone()
-                          console.log( al, cl )
-                          a.multiplyScalar( al )
-                          c.multiplyScalar( cl )
-                          
-                          dots.vertices.push( a )
-                          dots.vertices.push( c )
+                        for ( var i=1; i<geometry.vertices.length; i++ ){
+                          var a = geometry.vertices[i-1].clone().sub( geometry.vertices[i] )
+                          var check = ( !!geometry.vertices[i+1] ) ? geometry.vertices[i+1] : geometry.vertices[1]
+                          var c = check.clone().sub( geometry.vertices[i] )
+                          var al = a.length()
+                          var cl = c.length()
+                          a.multiplyScalar( cl )
+                          c.multiplyScalar( al )
+                          /*
+                          var indent = new THREE.Vector3().addVectors( a, c ).setLength( 5 )
+                          var d = new THREE.Vector3().addVectors( geometry.vertices[i].clone(), indent )
+                          var e = geometry.vertices[i].clone().add( indent )
+                          */
+                          dots.vertices.push( new THREE.Vector3().addVectors(
+                            geometry.vertices[i].clone(),
+                            new THREE.Vector3().addVectors( a, c ).setLength( 5 )
+                          ))
                         }
+                        console.log( dots.vertices.length )
                         mesh.add( new THREE.Points( dots,
                           new THREE.PointsMaterial({
                             color: 0xffaaaa,
