@@ -239,7 +239,6 @@ function(
               case 'COORD':
                 $http.get( config.url ).then(
                   function( r ){
-                    // var material = new THREE.MeshLineMaterial()
                     var geometry = new THREE.Geometry()
                     
                     // different transformations
@@ -376,6 +375,33 @@ function(
                           )
                         )
                         break
+                      case 'RIBBON':
+                        mesh.add( new THREE.Points( geometry,
+                          new THREE.PointsMaterial({
+                            color: 0xeeeeff,
+                            size: 4
+                          })
+                        ))
+                        var dots = new THREE.Geometry()
+                        for ( var i=1; i<geometry.vertices.length-1; i++ ){
+                          var a = geometry.vertices[i-1].clone()
+                          var c = geometry.vertices[i+1].clone()
+                          var al = a.sub( geometry.vertices[i] ).length()
+                          var cl = c.sub( geometry.vertices[i] ).length()
+                          var b = geometry.vertices[i].clone()
+                          console.log( al, cl )
+                          a.multiplyScalar( al )
+                          c.multiplyScalar( cl )
+                          
+                          dots.vertices.push( a )
+                          dots.vertices.push( c )
+                        }
+                        mesh.add( new THREE.Points( dots,
+                          new THREE.PointsMaterial({
+                            color: 0xffaaaa,
+                            size: 4
+                          })
+                        ))
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0xeeeeff,

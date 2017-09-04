@@ -28,10 +28,17 @@
     "url": "./lib/threeD/coord/sparkle_mat.coord"
   },
   {
-    "label": "Sparkle Mat Ribbon",
+    "label": "Sparkle Mat Solid",
     "loader": "COORD",
     "thumb": "",
     "lineType": "SOLID",
+    "url": "./lib/threeD/coord/sparkle_mat.coord"
+  },
+  {
+    "label": "Sparkle Mat Ribbon",
+    "loader": "COORD",
+    "thumb": "",
+    "lineType": "RIBBON",
     "url": "./lib/threeD/coord/sparkle_mat.coord"
   },
   {
