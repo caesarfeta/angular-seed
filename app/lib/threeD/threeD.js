@@ -403,6 +403,34 @@ function(
                           )){
                             dots[i+1].negate()
                           }
+                          
+                          mesh.add( new THREE.Line(
+                            new THREE.Geometry([
+                              geometry.vertices[i].x,
+                              geometry.vertices[i].y,
+                              geometry.vertices[i+1].x,
+                              geometry.vertices[i+1].y 
+                            ]),
+                            new THREE.LineBasicMaterial({
+                              color: 0xeeeeff,
+                              linewidth: 10
+                            })
+                          ))
+                          
+                          mesh.add( new THREE.Line(
+                            new THREE.Geometry([
+                              dots.vertices[i].x,
+                              dots.vertices[i].y,
+                              dots.vertices[i+1].x,
+                              dots.vertices[i+1].y 
+                            ]),
+                            new THREE.LineBasicMaterial({
+                              color: 0xeeffee,
+                              linewidth: 10
+                            })
+                          ))
+                          
+                          /*
                           var shape = new THREE.Shape([
                               geometry.vertices[i],
                               dots.vertices[i],
@@ -414,6 +442,7 @@ function(
                               return _v
                             })
                           )
+                          */
                           /*
                           mesh.add(
                             new THREE.Mesh(
@@ -438,6 +467,7 @@ function(
                             size: 4
                           })
                         ))
+                        break
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0xeeeeff,
