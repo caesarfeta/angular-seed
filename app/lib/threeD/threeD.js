@@ -386,31 +386,28 @@ function(
                           // When do I negate indent vector?
                           
                           var d = new THREE.Vector3().addVectors( a, c )
-                          var dot = new THREE.Vector3().addVectors(
-                            geometry.vertices[i].clone(),
-                            d.setLength( 5 )
-                          )
-                          dots.vertices.push( dot )
+                          d.setLength( 5 )
+                          dots.vertices.push( d )
                         }
-                        console.log( dots.vertices.length, geometry.vertices.length )
-                        for ( var i=0; i<dots.vertices.length-1; i+=2 ){
-                          if ( intersects(
-                            geometry.vertices[i].x,
-                            geometry.vertices[i].y,
-                            geometry.vertices[i+1].x,
-                            geometry.vertices[i+1].y,
-                            dots.vertices[i+1].x,
-                            dots.vertices[i+1].y,
-                            dots.vertices[i].x,
-                            dots.vertices[i].y
-                          )){
-                            //dots.vertices[i+1].negate()
+                        for ( var i=1; i<dots.vertices.length; i++ ){
+                          var geo2 = geometry.vertices[i].clone()
+                          var dot2 = new THREE.Vector3().addVectors( geo2, dots.vertices[i] )
+                          var geo1 = geometry.vertices[i-1].clone()
+                          var dot1 = new THREE.Vector3().addVectors( geo1, dots.vertices[i-1] )
+                          if ( intersects( geo1.x, geo1.y, geo2.x, geo2.y, dot1.x, dot1.y, dot2.x, dot2.y )){
+                            dots.vertices[i].negate()
                           }
                           var shape = new THREE.Shape([
+                              geometry.vertices[i-1],
                               geometry.vertices[i],
-                              geometry.vertices[i+1],
-                              dots.vertices[i+1],
-                              dots.vertices[i]
+                              new THREE.Vector3().addVectors(
+                                geo2,
+                                dots.vertices[i]
+                              ),
+                              new THREE.Vector3().addVectors(
+                                geo1,
+                                dots.vertices[i-1]
+                              )
                             ].map( function( v ){
                               var _v = new THREE.Vector2( v.x, v.y )
                               _v.multiplyScalar( 1.0 )
@@ -433,10 +430,7 @@ function(
                             )
                           )
                         }
-                        mesh.add( new THREE.Line( dots, new THREE.LineBasicMaterial({
-                          color: 0x00ff00,
-                          linewidth: 10
-                        })))
+                        break
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0x0000ff,
