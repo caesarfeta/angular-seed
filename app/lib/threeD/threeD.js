@@ -433,7 +433,7 @@ function(
                         break
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
-                          color: 0x0000ff,
+                          color: 0xeeeeff,
                           linewidth: 10
                         })))
                     }
@@ -444,18 +444,6 @@ function(
                   }
                 )
                 break
-            }
-            
-            function line_intersects( p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y ){
-              var s1_x, s1_y, s2_x, s2_y
-              s1_x = p1_x - p0_x
-              s1_y = p1_y - p0_y
-              s2_x = p3_x - p2_x
-              s2_y = p3_y - p2_y
-              var s, t
-              s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y)
-              t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y)
-              return ( s >= 0 && s <= 1 && t >= 0 && t <= 1 )
             }
             
             function intersects(a,b,c,d,p,q,r,s) {
