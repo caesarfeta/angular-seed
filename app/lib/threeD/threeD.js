@@ -372,49 +372,90 @@ function(
                         )
                         break
                       case 'RIBBON':
+                        /*
+                          
+                          Two bugs...
+                          
+                          1. If normalized adjacent vectors are collinear 
+                          then the indent vector has to be perpendicular to the current one
+                          
+                          2. Two the length of the indent vector is not independent 
+                          of the angles of the adjacent vectors
+                          
+                        */
                         var dots = new THREE.Geometry()
                         for ( var i=0; i<geometry.vertices.length; i++ ){
                           
+                          // first
+                          
+                          if ( i == 0 ){
+                            var a = geometry.vertices[i+1].clone().sub( geometry.vertices[i] )
+                            var d = new THREE.Vector3()
+                            d.x = a.y
+                            d.y = a.x
+                            d.setLength( 5 )
+                            dots.vertices.push( d )
+                            continue
+                          }
+                          
+                          // last
+                          
+                          if ( i == geometry.vertices.length-1 ){
+                            var a = geometry.vertices[i-1].clone().sub( geometry.vertices[i] )
+                            var d = new THREE.Vector3()
+                            d.x = a.y
+                            d.y = a.x
+                            d.setLength( 10 )
+                            dots.vertices.push( d )
+                            continue
+                          }
                           // calculate angular bisectors
                           
-                          var _a = ( !!geometry.vertices[i-1] ) ? geometry.vertices[i-1] : geometry.vertices[geometry.vertices.length-1]
-                          var a = _a.clone().sub( geometry.vertices[i] )
-                          var _c = ( !!geometry.vertices[i+1] ) ? geometry.vertices[i+1] : geometry.vertices[0]
-                          var c = _c.clone().sub( geometry.vertices[i] )
+                          var a = geometry.vertices[i-1].clone().sub( geometry.vertices[i] )
+                          var c = geometry.vertices[i+1].clone().sub( geometry.vertices[i] )
                           var al = a.length()
                           var cl = c.length()
                           a.multiplyScalar( cl )
                           c.multiplyScalar( al )
                           var d = new THREE.Vector3().addVectors( a, c )
-                          if ( a.x == c.x * -1 && a.y == c.y * -1 ){
-                            d = new THREE.Vector3().crossVectors( a, c )
-                            console.log( 'crossVectors' )
+                          
+                          var ia = a.normalize()
+                          var ic = c.normalize()
+                          
+                          if ( Math.abs( ia.x ) == Math.abs( ic.x ) && 
+                               Math.abs( ia.y ) == Math.abs( ic.y )){
+                            d = new THREE.Vector3().crossVectors(
+                              
+                              // add a miniscule amount to avoid division by zero bypass
+                              
+                              a.clone().addScalar( Number.EPSILON ),
+                              c.clone().addScalar( Number.EPSILON )
+                            )
                           }
-                          d.setLength( 5 )
+                          d.setLength( 10 )
+                          var check = d.clone().add( geometry.vertices[i] )
+                          if ( intersects( 
+                            geometry.vertices[i-1].x,
+                            geometry.vertices[i-1].y,
+                            geometry.vertices[i].x,
+                            geometry.vertices[i].y,
+                            dots.vertices[i-1].x,
+                            dots.vertices[i-1].y,
+                            check.x,
+                            check.y
+                          )){
+                            d.negate()
+                          }
+                          d.add( geometry.vertices[i] )
                           dots.vertices.push( d )
                         }
+                        /*
                         for ( var i=1; i<dots.vertices.length; i++ ){
-                          var geo2 = geometry.vertices[i].clone()
-                          var dot2 = new THREE.Vector3().addVectors( geo2, dots.vertices[i] )
-                          var geo1 = geometry.vertices[i-1].clone()
-                          var dot1 = new THREE.Vector3().addVectors( geo1, dots.vertices[i-1] )
-                          
-                          // if angle bisector line crosses original flip it outside
-                          
-                          if ( intersects( geo1.x, geo1.y, geo2.x, geo2.y, dot1.x, dot1.y, dot2.x, dot2.y )){
-                            dots.vertices[i].negate()
-                          }
                           var shape = new THREE.Shape([
                               geometry.vertices[i-1],
                               geometry.vertices[i],
-                              new THREE.Vector3().addVectors(
-                                geo2,
-                                dots.vertices[i]
-                              ),
-                              new THREE.Vector3().addVectors(
-                                geo1,
-                                dots.vertices[i-1]
-                              )
+                              dots.vertices[i],
+                              dots.vertices[i-1]
                             ].map( function( v ){
                               var _v = new THREE.Vector2( v.x, v.y )
                               _v.multiplyScalar( 1.0 )
@@ -447,6 +488,18 @@ function(
                           }
                         }
                         break
+                        */
+                        
+                        // test dots
+                        
+                        mesh.add( new THREE.Points( dots,
+                          new THREE.PointsMaterial({
+                            color: 0xeeeeff,
+                            size: 4
+                          })
+                        ))
+                        
+                        
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0xeeeeff,
