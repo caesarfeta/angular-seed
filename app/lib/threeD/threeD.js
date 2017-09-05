@@ -373,10 +373,11 @@ function(
                         break
                       case 'RIBBON':
                         var dots = new THREE.Geometry()
-                        for ( var i=1; i<geometry.vertices.length; i++ ){
-                          var a = geometry.vertices[i-1].clone().sub( geometry.vertices[i] )
-                          var check = ( !!geometry.vertices[i+1] ) ? geometry.vertices[i+1] : geometry.vertices[1]
-                          var c = check.clone().sub( geometry.vertices[i] )
+                        for ( var i=0; i<geometry.vertices.length; i++ ){
+                          var _a = ( !!geometry.vertices[i-1] ) ? geometry.vertices[i-1] : geometry.vertices[geometry.vertices.length-1]
+                          var a = _a.clone().sub( geometry.vertices[i] )
+                          var _c = ( !!geometry.vertices[i+1] ) ? geometry.vertices[i+1] : geometry.vertices[0]
+                          var c = _c.clone().sub( geometry.vertices[i] )
                           var al = a.length()
                           var cl = c.length()
                           a.multiplyScalar( cl )
@@ -385,65 +386,37 @@ function(
                           // When do I negate indent vector?
                           
                           var d = new THREE.Vector3().addVectors( a, c )
-                          dots.vertices.push( new THREE.Vector3().addVectors(
+                          var dot = new THREE.Vector3().addVectors(
                             geometry.vertices[i].clone(),
                             d.setLength( 5 )
-                          ))
+                          )
+                          dots.vertices.push( dot )
                         }
+                        console.log( dots.vertices.length, geometry.vertices.length )
                         for ( var i=0; i<dots.vertices.length-1; i+=2 ){
                           if ( intersects(
                             geometry.vertices[i].x,
                             geometry.vertices[i].y,
                             geometry.vertices[i+1].x,
                             geometry.vertices[i+1].y,
-                            dots.vertices[i].x,
-                            dots.vertices[i].y,
                             dots.vertices[i+1].x,
-                            dots.vertices[i+1].y
+                            dots.vertices[i+1].y,
+                            dots.vertices[i].x,
+                            dots.vertices[i].y
                           )){
-                            dots[i+1].negate()
+                            //dots.vertices[i+1].negate()
                           }
-                          
-                          mesh.add( new THREE.Line(
-                            new THREE.Geometry([
-                              geometry.vertices[i].x,
-                              geometry.vertices[i].y,
-                              geometry.vertices[i+1].x,
-                              geometry.vertices[i+1].y 
-                            ]),
-                            new THREE.LineBasicMaterial({
-                              color: 0xeeeeff,
-                              linewidth: 10
-                            })
-                          ))
-                          
-                          mesh.add( new THREE.Line(
-                            new THREE.Geometry([
-                              dots.vertices[i].x,
-                              dots.vertices[i].y,
-                              dots.vertices[i+1].x,
-                              dots.vertices[i+1].y 
-                            ]),
-                            new THREE.LineBasicMaterial({
-                              color: 0xeeffee,
-                              linewidth: 10
-                            })
-                          ))
-                          
-                          /*
                           var shape = new THREE.Shape([
                               geometry.vertices[i],
-                              dots.vertices[i],
+                              geometry.vertices[i+1],
                               dots.vertices[i+1],
-                              geometry.vertices[i+1]
+                              dots.vertices[i]
                             ].map( function( v ){
                               var _v = new THREE.Vector2( v.x, v.y )
-                              _v.multiplyScalar( 0.25 )
+                              _v.multiplyScalar( 1.0 )
                               return _v
                             })
                           )
-                          */
-                          /*
                           mesh.add(
                             new THREE.Mesh(
                               new THREE.ExtrudeGeometry( shape,
@@ -459,18 +432,14 @@ function(
                               })
                             )
                           )
-                          */
                         }
-                        mesh.add( new THREE.Points( dots,
-                          new THREE.PointsMaterial({
-                            color: 0xffaaaa,
-                            size: 4
-                          })
-                        ))
-                        break
+                        mesh.add( new THREE.Line( dots, new THREE.LineBasicMaterial({
+                          color: 0x00ff00,
+                          linewidth: 10
+                        })))
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
-                          color: 0xeeeeff,
+                          color: 0x0000ff,
                           linewidth: 10
                         })))
                     }
