@@ -360,11 +360,7 @@ function(
                             new THREE.ExtrudeGeometry( shape,
                               {
                                 amount: 8,
-                                bevelEnabled: true,
-                                bevelSegments: 2,
-                                steps: 2,
-                                bevelSize: 1,
-                                bevelThickness: 1
+                                bevelEnabled: false
                               }
                             ),
                             new THREE.MeshPhongMaterial({
@@ -376,12 +372,6 @@ function(
                         )
                         break
                       case 'RIBBON':
-                        // mesh.add( new THREE.Points( geometry,
-                        //   new THREE.PointsMaterial({
-                        //     color: 0xeeeeff,
-                        //     size: 4
-                        //   })
-                        // ))
                         var dots = new THREE.Geometry()
                         for ( var i=1; i<geometry.vertices.length; i++ ){
                           var a = geometry.vertices[i-1].clone().sub( geometry.vertices[i] )
@@ -391,23 +381,64 @@ function(
                           var cl = c.length()
                           a.multiplyScalar( cl )
                           c.multiplyScalar( al )
-                          /*
-                          var indent = new THREE.Vector3().addVectors( a, c ).setLength( 5 )
-                          var d = new THREE.Vector3().addVectors( geometry.vertices[i].clone(), indent )
-                          var e = geometry.vertices[i].clone().add( indent )
-                          */
+                          
+                          // When do I negate indent vector?
+                          
+                          var d = new THREE.Vector3().addVectors( a, c )
                           dots.vertices.push( new THREE.Vector3().addVectors(
                             geometry.vertices[i].clone(),
-                            new THREE.Vector3().addVectors( a, c ).setLength( 5 )
+                            d.setLength( 5 )
                           ))
                         }
-                        console.log( dots.vertices.length )
+                        for ( var i=0; i<dots.vertices.length-1; i+=2 ){
+                          if ( line_intersects(
+                            geometry.vertices[i].x,
+                            geometry.vertices[i].y,
+                            geometry.vertices[i+1].x,
+                            geometry.vertices[i+1].y,
+                            dots.vertices[i].x,
+                            dots.vertices[i].y,
+                            dots.vertices[i+1].x,
+                            dots.vertices[i+1].y
+                          )){
+                            dots[i+1].negate()
+                          }
+                          var shape = new THREE.Shape([
+                              geometry.vertices[i],
+                              dots.vertices[i],
+                              dots.vertices[i+1],
+                              geometry.vertices[i+1]
+                            ].map( function( v ){
+                              var _v = new THREE.Vector2( v.x, v.y )
+                              _v.multiplyScalar( 0.25 )
+                              return _v
+                            })
+                          )
+                          mesh.add(
+                            new THREE.Mesh(
+                              new THREE.ExtrudeGeometry( shape,
+                                {
+                                  amount: 8,
+                                  bevelEnabled: false
+                                }
+                              ),
+                              new THREE.MeshPhongMaterial({
+                                color: 0xffffff,
+                                specular: 0x111111,
+                                shininess: 200
+                              })
+                            )
+                          )
+                        }
+                        /*
                         mesh.add( new THREE.Points( dots,
                           new THREE.PointsMaterial({
                             color: 0xffaaaa,
                             size: 4
                           })
                         ))
+                        */
+                        break
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0xeeeeff,
@@ -422,8 +453,22 @@ function(
                 )
                 break
             }
+            
+            function line_intersects( p0_x, p0_y, p1_x, p1_y, p2_x, p2_y, p3_x, p3_y ){
+              var s1_x, s1_y, s2_x, s2_y
+              s1_x = p1_x - p0_x
+              s1_y = p1_y - p0_y
+              s2_x = p3_x - p2_x
+              s2_y = p3_y - p2_y
+              var s, t
+              s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y)
+              t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y)
+              var check = ( s >= 0 && s <= 1 && t >= 0 && t <= 1 )
+              console.log( check )
+              return check
+            }
+            
             renderer = new THREE.WebGLRenderer()
-            //renderer.setPixelRatio( window.devicePixelRatio )
             renderer.setSize( window.innerWidth, window.innerHeight )
             container.appendChild( renderer.domElement )
             document.addEventListener( 'mousemove', onDocumentMouseMove, false )

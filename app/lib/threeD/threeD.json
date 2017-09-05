@@ -35,6 +35,13 @@
     "url": "./lib/threeD/coord/sparkle_mat.coord"
   },
   {
+    "label": "Thornflake Solid",
+    "loader": "COORD",
+    "thumb": "",
+    "lineType": "SOLID",
+    "url": "./lib/threeD/coord/thornflake.coord"
+  },
+  {
     "label": "Sparkle Mat Ribbon",
     "loader": "COORD",
     "thumb": "",
