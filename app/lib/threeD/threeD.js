@@ -374,6 +374,9 @@ function(
                       case 'RIBBON':
                         var dots = new THREE.Geometry()
                         for ( var i=0; i<geometry.vertices.length; i++ ){
+                          
+                          // calculate angular bisectors
+                          
                           var _a = ( !!geometry.vertices[i-1] ) ? geometry.vertices[i-1] : geometry.vertices[geometry.vertices.length-1]
                           var a = _a.clone().sub( geometry.vertices[i] )
                           var _c = ( !!geometry.vertices[i+1] ) ? geometry.vertices[i+1] : geometry.vertices[0]
@@ -382,10 +385,11 @@ function(
                           var cl = c.length()
                           a.multiplyScalar( cl )
                           c.multiplyScalar( al )
-                          
-                          // When do I negate indent vector?
-                          
                           var d = new THREE.Vector3().addVectors( a, c )
+                          if ( a.x == c.x * -1 && a.y == c.y * -1 ){
+                            d = new THREE.Vector3().crossVectors( a, c )
+                            console.log( 'crossVectors' )
+                          }
                           d.setLength( 5 )
                           dots.vertices.push( d )
                         }
@@ -394,6 +398,9 @@ function(
                           var dot2 = new THREE.Vector3().addVectors( geo2, dots.vertices[i] )
                           var geo1 = geometry.vertices[i-1].clone()
                           var dot1 = new THREE.Vector3().addVectors( geo1, dots.vertices[i-1] )
+                          
+                          // if angle bisector line crosses original flip it outside
+                          
                           if ( intersects( geo1.x, geo1.y, geo2.x, geo2.y, dot1.x, dot1.y, dot2.x, dot2.y )){
                             dots.vertices[i].negate()
                           }
@@ -414,21 +421,30 @@ function(
                               return _v
                             })
                           )
-                          mesh.add(
-                            new THREE.Mesh(
-                              new THREE.ExtrudeGeometry( shape,
-                                {
-                                  amount: 8,
-                                  bevelEnabled: false
-                                }
-                              ),
-                              new THREE.MeshPhongMaterial({
-                                color: 0xffffff,
-                                specular: 0x111111,
-                                shininess: 200
-                              })
+                          
+                          // catch error
+                          
+                          try {
+                            mesh.add(
+                              new THREE.Mesh(
+                                new THREE.ExtrudeGeometry( shape,
+                                  {
+                                    steps: 16,
+                                    amount: 20,
+                                    bevelEnabled: false
+                                  }
+                                ),
+                                new THREE.MeshPhongMaterial({
+                                  color: 0xffffff,
+                                  specular: 0x111111,
+                                  shininess: 200
+                                })
+                              )
                             )
-                          )
+                          }
+                          catch( e ){
+                            console.log( e )
+                          }
                         }
                         break
                       default :

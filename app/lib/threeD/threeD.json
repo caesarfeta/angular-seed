@@ -14,6 +14,20 @@
     "url": "./lib/threeD/coord/peano.coord"
   },
   {
+    "label": "Peano Gosper Solid",
+    "loader": "COORD",
+    "lineType": "SOLID",
+    "thumb": "",
+    "url": "./lib/threeD/coord/peano_solid.coord"
+  },
+  {
+    "label": "Peano 3",
+    "loader": "COORD",
+    "lineType": "RIBBON",
+    "thumb": "",
+    "url": "./lib/threeD/coord/peano_3.coord"
+  },
+  {
     "label": "Eye of the Goldfish God Hempisphere",
     "loader": "COORD",
     "transform": "SPHERE",
@@ -91,7 +105,15 @@
     "url": "./lib/threeD/coord/which_way.coord"
   },
   {
-    "label": "Which Way Which Way TUBE",
+    "label": "Which Way Which Way Ribbon",
+    "loader": "COORD",
+    "transform": "DISC",
+    "lineType": "RIBBON",
+    "thumb": "",
+    "url": "./lib/threeD/coord/which_way.coord"
+  },
+  {
+    "label": "Which Way Which Way Tube",
     "loader": "COORD",
     "transform": "SPHERE",
     "lineType": "TUBE",
@@ -123,6 +145,14 @@
     "loader": "COORD",
     "transform": "SPHERE",
     "thumb": "./lib/threeD/coord/thumb/11.png",
+    "url": "./lib/threeD/coord/secret_valley.coord"
+  },
+  {
+    "label": "Secret Valley Ribbon",
+    "loader": "COORD",
+    "transform": "SPHERE",
+    "lineType": "RIBBON",
+    "thumb": "",
     "url": "./lib/threeD/coord/secret_valley.coord"
   },
   {
@@ -179,6 +209,13 @@
     "label": "Star Rose Flat",
     "loader": "COORD",
     "thumb": "./lib/threeD/coord/thumb/20.png",
+    "url": "./lib/threeD/coord/star_rose.coord"
+  },
+  {
+    "label": "Star Rose Ribbon",
+    "loader": "COORD",
+    "lineType": "RIBBON",
+    "thumb": "",
     "url": "./lib/threeD/coord/star_rose.coord"
   },
   {
