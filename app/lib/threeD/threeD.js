@@ -391,7 +391,7 @@ function(
                           ))
                         }
                         for ( var i=0; i<dots.vertices.length-1; i+=2 ){
-                          if ( line_intersects(
+                          if ( intersects(
                             geometry.vertices[i].x,
                             geometry.vertices[i].y,
                             geometry.vertices[i+1].x,
@@ -414,6 +414,7 @@ function(
                               return _v
                             })
                           )
+                          /*
                           mesh.add(
                             new THREE.Mesh(
                               new THREE.ExtrudeGeometry( shape,
@@ -429,16 +430,14 @@ function(
                               })
                             )
                           )
+                          */
                         }
-                        /*
                         mesh.add( new THREE.Points( dots,
                           new THREE.PointsMaterial({
                             color: 0xffaaaa,
                             size: 4
                           })
                         ))
-                        */
-                        break
                       default :
                         mesh.add( new THREE.Line( geometry, new THREE.LineBasicMaterial({
                           color: 0xeeeeff,
@@ -463,10 +462,20 @@ function(
               var s, t
               s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / (-s2_x * s1_y + s1_x * s2_y)
               t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / (-s2_x * s1_y + s1_x * s2_y)
-              var check = ( s >= 0 && s <= 1 && t >= 0 && t <= 1 )
-              console.log( check )
-              return check
+              return ( s >= 0 && s <= 1 && t >= 0 && t <= 1 )
             }
+            
+            function intersects(a,b,c,d,p,q,r,s) {
+              var det, gamma, lambda;
+              det = (c - a) * (s - q) - (r - p) * (d - b);
+              if (det === 0) {
+                return false;
+              } else {
+                lambda = ((s - q) * (r - a) + (p - r) * (s - b)) / det;
+                gamma = ((b - d) * (r - a) + (c - a) * (s - b)) / det;
+                return (0 < lambda && lambda < 1) && (0 < gamma && gamma < 1);
+              }
+            };
             
             renderer = new THREE.WebGLRenderer()
             renderer.setSize( window.innerWidth, window.innerHeight )
