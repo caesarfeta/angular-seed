@@ -85,6 +85,21 @@ function(
       }
     }
   ])
+  .directive( 'lsysScad', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<div ng-if="!!lsys.coords" class="lsysJson">',
+            '<button class="btn btn-sm" ng-click="lsys.buildScad()">print scad</button>',
+            '<textarea ng-if="!!lsys.scadString">{{ lsys.scadString }}</textarea>',
+          '</div>'
+          
+        ].join(' '),
+      }
+    }
+  ])
   .directive( 'lsysCoords', [
     function(){
       return {
@@ -152,6 +167,7 @@ function(
               '<div lsys-draw-path></div>',
               '<div lsys-json></div>',
               '<div lsys-coords></div>',
+              '<div lsys-scad></div>',
             '</div>',
           '</div>'
           
@@ -409,6 +425,22 @@ function(
           var y = item[1] * self.scale
           return x.toFixed( 6 ) + ', ' + y.toFixed( 6 ) + ', 0'
         }).join( "\n" )
+      }
+      
+      lsys.prototype.buildScad = function(){
+        var self = this;
+        self.scadString = [
+          'use <./Extrude_Along_Path/files/path_extrude.scad>','\n',
+          'myPoints = [[0,0],[2.5,0],[2.5,25],[0,25]];','\n',
+          'myPath = [','\n',
+            self.coords.map( function( item ){
+              var x = item[0] * self.scale
+              var y = item[1] * self.scale
+              return '[ ' + x +', ' + y + ', 0 ]'
+            }).join( ',' ),
+          '];','\n',
+          'path_extrude(points=myPoints, path=myPath);'
+        ].join(' ')
       }
       
       return lsys

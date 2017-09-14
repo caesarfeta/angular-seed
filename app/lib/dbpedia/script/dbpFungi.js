@@ -6,6 +6,38 @@ function(
   module,
   Masonry ){
   module
+  .directive( 'dbpFungiSearchBar', [
+    'dbpediaSvc',
+    '$timeout',
+    function( dbpedia, $timeout ){
+      return {
+        scope: true,
+        replace: true,
+        template: [
+        
+          '<input class="dbpedia-search-input"',
+                 'type="text"',
+                 'ng-model="dbpedia.fungi.search"',
+                 'ng-enter="dbpedia.fungi.reload()"',
+                 'placeholder="keyword" />',
+        
+        ].join(' '),
+        link: function( scope, elem ){
+          scope.dbpedia = dbpedia
+          $( window ).scroll( _.throttle( function(){
+            var tp = $( elem ).get(0).getBoundingClientRect().top
+            if ( tp < 0 ){
+              $( elem ).addClass( 'scrollStick' )
+            }
+            else if ( window.pageYOffset == 0 ){
+              $( elem ).removeClass( 'scrollStick' )
+            }
+          }, 500, { leading: true }))
+        
+        }
+      }
+    }
+  ])
   .directive( 'dbpFungiSpeciesList', [
     'dbpediaSvc',
     '$timeout',
@@ -101,6 +133,7 @@ function(
         template: [
           
           '<div class="container">',
+            '<div dbp-fungi-search-bar></div>',
             '<spinner spin-id="dbpedia-http"></spinner>',
             '<div ng-if="!!dbpedia.fungi.genus"',
                  'class="list">',

@@ -61,6 +61,10 @@ function(
       self.fungi = {}
       self.fungi.result = null
       self.fungi.genus = null
+      self.fungi.search = null
+      self.fungi.reload = function(){
+        console.log( 'reload!!!')
+      }
       function prep( r ){
         
         // simplify the results
