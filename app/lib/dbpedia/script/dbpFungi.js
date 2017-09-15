@@ -14,12 +14,15 @@ function(
         scope: true,
         replace: true,
         template: [
-        
-          '<input class="dbpedia-search-input"',
-                 'type="text"',
-                 'ng-model="dbpedia.fungi.search"',
-                 'ng-enter="dbpedia.fungi.filter()"',
-                 'placeholder="keyword" />',
+          
+          '<div style="padding:25px 0">',
+            '<span>Filter fungi with </span>',
+            '<input class="dbpedia-search-input"',
+                   'type="text"',
+                   'ng-model="dbpedia.fungi.search"',
+                   'ng-enter="dbpedia.fungi.filter()"',
+                   'placeholder="a keyword" />',
+          '</div>'
         
         ].join(' '),
         link: function( scope, elem ){
