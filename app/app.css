@@ -7505,6 +7505,7 @@ input.dbpedia-search-input.scrollStick {
   top: 10px;
   left: 50%;
   margin-left: -100px;
+  z-index: 1;
 }
 .dbpedia-bio-species-bg {
   margin-bottom: 100px;

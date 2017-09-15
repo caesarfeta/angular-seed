@@ -63,7 +63,15 @@ function(
       self.fungi.genus = null
       self.fungi.search = null
       self.fungi.reload = function(){
-        console.log( 'reload!!!')
+        var re = new RegExp( self.fungi.search, 'i' )
+        _.each( self.fungi.genus, function( genus ){
+          _.each( genus.species, function( species ){
+            if ( re.test( species.name ) ||
+                 re.test( species.comment )){
+              console.log( species, 'found!')
+            }
+          })
+        })
       }
       function prep( r ){
         
@@ -74,7 +82,8 @@ function(
             img: item.img.value,
             name: item.name.value,
             comment: item.comment.value,
-            genus: item.name.value.split(' ')[0]
+            genus: item.name.value.split(' ')[0],
+            show: true
           }
         })
         
