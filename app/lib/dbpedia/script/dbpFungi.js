@@ -18,7 +18,7 @@ function(
           '<input class="dbpedia-search-input"',
                  'type="text"',
                  'ng-model="dbpedia.fungi.search"',
-                 'ng-enter="dbpedia.fungi.reload()"',
+                 'ng-enter="dbpedia.fungi.filter()"',
                  'placeholder="keyword" />',
         
         ].join(' '),
@@ -83,7 +83,10 @@ function(
   ])
   .directive( 'dbpFungiItem', [
     '$location',
-    function( $location ){
+    'dbpediaSvc',
+    function(
+      $location,
+      dbpediaSvc ){
       return {
         scope: true,
         replace: true,
@@ -94,10 +97,16 @@ function(
             // link
             
             '<a href="{{ ::url( item.name ) }}" ng-if="!!item.count">',
+              
+              // name and species count
+              
               '<div class="title">',
-                '<h2 class="name">{{ ::item.name }}</h2>',
+                '<h2 class="name" ng-bind-html="item.name | highlight:dbpedia.fungi.search"></h2>',
                 '<span>{{ ::item.count }}</span>',
               '</div>',
+              
+              // match count
+              
               '<img ng-src="{{ ::item.img }}" img-onload="masonry.layout()" />',
             '</a>',
             
@@ -110,11 +119,12 @@ function(
             
             // comment
             
-            '<div class="comment">{{ ::item.comment }}</div>',
+            '<div class="comment" ng-bind-html="item.comment | highlight:dbpedia.fungi.search"></div>',
           '</div>'
           
         ].join(' '),
         link: function( scope ){
+          scope.dbpedia = dbpediaSvc
           scope.url = function( name ){
             return $location.absUrl() + '/' + name
           }

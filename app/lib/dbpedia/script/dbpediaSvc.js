@@ -62,16 +62,37 @@ function(
       self.fungi.result = null
       self.fungi.genus = null
       self.fungi.search = null
-      self.fungi.reload = function(){
+      self.fungi.filter = function(){
+        
+        // clear if search term is empty
+        
+        if ( !self.fungi.search ){
+          _.each( self.fungi.genus, function( genus ){
+            genus.find = 0
+          })
+        }
+        
+        // something to check?
+        
         var re = new RegExp( self.fungi.search, 'i' )
         _.each( self.fungi.genus, function( genus ){
+          genus.find = 0
+          if ( re.test( genus.name ) || re.test( genus.comment )){
+            genus.find += 1
+          }
           _.each( genus.species, function( species ){
-            if ( re.test( species.name ) ||
-                 re.test( species.comment )){
-              console.log( species, 'found!')
+            if ( re.test( species.name ) || re.test( species.comment )){
+              genus.find += 1
             }
           })
         })
+        
+        // sort results by find frequency
+        
+        self.fungi.genus.sort( function( a, b ){
+          return b.find - a.find
+        })
+        self.fungi.paginator.list = self.fungi.genus
       }
       function prep( r ){
         
@@ -82,8 +103,7 @@ function(
             img: item.img.value,
             name: item.name.value,
             comment: item.comment.value,
-            genus: item.name.value.split(' ')[0],
-            show: true
+            genus: item.name.value.split(' ')[0]
           }
         })
         
