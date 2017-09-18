@@ -1,14 +1,14 @@
+.scrollStick {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  margin-left: -100px !important;
+  z-index: 1;
+}
 input.dbpedia-search-input {
   padding: 5px;
   margin: 0 0 0 5px;
   width: 200px;
-  &.scrollStick {
-    position: fixed;
-    top: 10px;
-    left: 50%;
-    margin-left: -100px;
-    z-index: 1;
-  }
 }
 .dbpedia-bio-species-bg {
   margin-bottom: 100px;
@@ -21,7 +21,7 @@ input.dbpedia-search-input {
 .dbpedia-bio-species {
   border-radius: 5px;
   background-color: #fdfdfd;
-  margin: 10px;
+  margin: 10px auto;
   padding-bottom: 20px;
   max-width: 700px;
   &:first {
@@ -37,6 +37,7 @@ input.dbpedia-search-input {
   .taxonomy {
     width:35%;
     float: left;
+    margin: 0 5px 5px 5px;
     box-sizing: border-box;
     display: table;
     tr td:first-child {

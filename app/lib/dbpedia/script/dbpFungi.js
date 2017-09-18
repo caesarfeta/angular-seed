@@ -19,15 +19,14 @@ function(
         replace: true,
         template: [
           
-          '<span>',
+          '<div style="margin:auto; width:255px">',
             '<input class="dbpedia-search-input fungi-search-bar"',
                    'type="text"',
                    'ng-model="filter"',
                    'ng-enter="runFilter()"',
                    'placeholder="keyword" />',
-            '<button class="btn btn-sm" ng-click="runFilter()">Filter</button>',
-            '<button class="btn btn-sm" ng-class="{ disabled: !filter }" ng-click="clear()">Clear</button>',
-          '</span>'
+            '<button class="btn btn-sm" ng-click="runFilter()">Filter</button>',,
+          '</div>'
         
         ].join(' '),
         link: function( scope, elem ){
@@ -43,12 +42,12 @@ function(
             $location.path( '/fungi/filter/' + scope.filter )
           }
           $( window ).scroll( _.throttle( function(){
-            var tp = $( 'input', elem ).get(0).getBoundingClientRect().top
+            var tp = $( elem ).get(0).getBoundingClientRect().top
             if ( tp < 0 ){
-              $( 'input', elem ).addClass( 'scrollStick' )
+              $( elem ).addClass( 'scrollStick' )
             }
             else if ( window.pageYOffset == 0 ){
-              $( 'input', elem ).removeClass( 'scrollStick' )
+              $( elem ).removeClass( 'scrollStick' )
             }
           }, 500, { leading: true }))
         

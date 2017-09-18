@@ -387,7 +387,6 @@ function(
                 '{{ name.toUpperCase() }}',
               '</button>',
             '</li>',
-            '<li><i class="fa fa-{{ last() }}"></i></li>',
           '</ul>'
           
         ].join(''),
@@ -396,12 +395,6 @@ function(
         },
         replace: true,
         link: function( scope, elem ){
-          
-          scope.last = function(){
-            return $location.url().substr( 
-              $location.url().lastIndexOf('/') + 1
-            )
-          }
           
           scope.goTo = function( url ){
             $location.url( url )
