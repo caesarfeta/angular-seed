@@ -19,6 +19,9 @@ function(
       return self
     }
   ])
+  
+  // search for species by keyword
+  
   .service( 'dbpediaSpecies', [
     'dbpedia',
     'dbpediaQuery',
@@ -68,9 +71,11 @@ function(
           }
         })
       }
-      
     }
   ])
+  
+  // fungi specific dbpedia search
+  
   .service( 'dbpediaFungi', [
     '$q',
     '$http',
@@ -86,44 +91,7 @@ function(
       var self = this;
       self.result = null
       self.genus = null
-      self.search = null
-      self.filter = function(){
-        
-        // clear if search term is empty
-        
-        if ( !self.search ){
-          _.each( self.genus, function( genus ){
-            genus.find = 0
-          })
-        }
-        
-        // something to check?
-        
-        var re = new RegExp( self.search, 'i' )
-        _.each( self.genus, function( genus ){
-          genus.filter = 0
-          if ( re.test( genus.name ) || re.test( genus.comment )){
-            genus.filter += 1
-          }
-          _.each( genus.species, function( species ){
-            if ( re.test( species.name ) || re.test( species.comment )){
-              genus.filter += 1
-            }
-          })
-        })
-        
-        // sort results by find frequency
-        
-        self.genus.sort( function( a, b ){
-          return b.find - a.find
-        })
-        self.paginator = new paginator({
-          list: self.genus,
-          perPage: 12,
-          updateUrl: true
-        })
-      }
-      function prep( r ){
+      function prep( r, filter ){
         
         // simplify the results
         
@@ -135,6 +103,15 @@ function(
             genus: item.name.value.split(' ')[0]
           }
         })
+        
+        // apply the filter
+        
+        if ( !!filter ){
+          var re = new RegExp( filter, 'i' )
+          self.result = _.filter( self.result, function( item ){
+            return re.test( item.name ) || re.test( item.comment )
+          })
+        }
         
         // what's the genus?
         
@@ -184,7 +161,7 @@ function(
       }
       self.waiting = false
       self.ready = false
-      self.http = function(){
+      self.http = function( filter ){
         self.waiting = true
         return $q( function( yes, no ){
           dbpedia.http({
@@ -192,7 +169,7 @@ function(
             success: function( r ){
               self.waiting = false
               self.ready = true
-              prep( r )
+              prep( r, filter )
               yes()
             },
             error: function( r ){
@@ -200,7 +177,7 @@ function(
                function( r ){
                  self.waiting = false
                  self.ready = true
-                 prep( r )
+                 prep( r, filter )
                  yes()
                },
                function(){
@@ -213,9 +190,11 @@ function(
           })
         })
       }
-      
     }
   ])
+  
+  // base dbpedia query service
+  
   .service( 'dbpedia', [
     '$http',
     '$q',
@@ -274,7 +253,6 @@ function(
           error: function( r ){ self.query.result = r }
         })
       }
-      
     }
   ])
 })

@@ -104,7 +104,7 @@ function( angular ){
           }
         ]
       })
-      $routeProvider.when( '/fungi/filter/:term/:page?', {
+      $routeProvider.when( '/fungi/filter/:filter/:page?', {
         template: [
           
           '<div class="fungi">',
@@ -118,7 +118,7 @@ function( angular ){
           function(
             $scope,
             $routeParams ){
-              $scope.term = ( !!$routeParams.term ) ? $routeParams.term : ''
+              $scope.filter = ( !!$routeParams.filter ) ? $routeParams.filter : ''
               $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
           }
         ]
@@ -232,7 +232,7 @@ function( angular ){
               '<p>My name is Adam Tavares. I am a programmer, artist, and Nature enthusiast. I live in lovely Providence, Rhode Island where I write software to explore data and generate beautiful patterns and structures. When I\'m not at my computer I\'m exploring forests near my home, playing capoeira, or drawing cartoons.</p>',
               '<p class="text-center">Contact me &mdash; <a href="mailto://adamtavares@gmail.com" target="_blank">adamtavares@gmail.com</a></p>',
               '<p class="text-center">See my photos, cartoons, and videos &mdash; <a href="http://instagram.com/adam.tavares" target="_blank">instagram.com/adam.tavares</a></p>',
-              '<p class="text-center">I hope this site helps you uncover Nature\'s wonderful shapes, colors, and patterns</p>',
+              '<p class="text-center">I hope this site helps you discover Nature\'s wonderful shapes, colors, and patterns</p>',
             '</div>',
           '</div>'
           

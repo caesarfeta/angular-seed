@@ -19,26 +19,36 @@ function(
         replace: true,
         template: [
           
-          '<input class="dbpedia-search-input fungi-search-bar"',
-                 'type="text"',
-                 'ng-model="search"',
-                 'ng-enter="filter()"',
-                 'placeholder="Filter with a keyword" />',
+          '<span>',
+            '<input class="dbpedia-search-input fungi-search-bar"',
+                   'type="text"',
+                   'ng-model="filter"',
+                   'ng-enter="runFilter()"',
+                   'placeholder="keyword" />',
+            '<button class="btn btn-sm" ng-click="runFilter()">Filter</button>',
+            '<button class="btn btn-sm" ng-class="{ disabled: !filter }" ng-click="clear()">Clear</button>',
+          '</span>'
         
         ].join(' '),
         link: function( scope, elem ){
           scope.dbpedia = dbpedia
-          scope.search = ''
-          scope.filter = function(){
-            $location.path( '/fungi/filter/' + scope.search )
+          scope.clear = function(){
+            $location.path( '/fungi' )
+          }
+          scope.runFilter = function(){
+            if ( !scope.filter ){
+              scope.clear()
+              return
+            }
+            $location.path( '/fungi/filter/' + scope.filter )
           }
           $( window ).scroll( _.throttle( function(){
-            var tp = $( elem ).get(0).getBoundingClientRect().top
+            var tp = $( 'input', elem ).get(0).getBoundingClientRect().top
             if ( tp < 0 ){
-              $( elem ).addClass( 'scrollStick' )
+              $( 'input', elem ).addClass( 'scrollStick' )
             }
             else if ( window.pageYOffset == 0 ){
-              $( elem ).removeClass( 'scrollStick' )
+              $( 'input', elem ).removeClass( 'scrollStick' )
             }
           }, 500, { leading: true }))
         
@@ -113,7 +123,7 @@ function(
               // name and species count
               
               '<div class="title">',
-                '<h2 class="name" ng-bind-html="item.name | highlight:dbpedia.fungi.search"></h2>',
+                '<h2 class="name" ng-bind-html="item.name | highlight:filter"></h2>',
                 '<span>{{ ::item.count }}</span>',
               '</div>',
               
@@ -131,7 +141,7 @@ function(
             
             // comment
             
-            '<div class="comment" ng-bind-html="item.comment | highlight:dbpedia.fungi.search"></div>',
+            '<div class="comment" ng-bind-html="item.comment | highlight:filter"></div>',
           '</div>'
           
         ].join(' '),
@@ -156,8 +166,8 @@ function(
         scope: true,
         template: [
           
+          '<div dbp-fungi-search-bar></div>',
           '<div class="container">',
-            '<div dbp-fungi-search-bar></div>',
             '<spinner spin-id="dbpedia-http"></spinner>',
             '<div ng-if="!!dbpedia.fungi.genus"',
                  'class="list">',
@@ -176,7 +186,7 @@ function(
               columnWidth: 350
             })
           }
-          dbpedia.fungi.http().then( function(){
+          dbpedia.fungi.http( scope.filter ).then( function(){
             dbpedia.fungi.paginator.currentPage = scope.page
             $timeout( function(){
               init()
