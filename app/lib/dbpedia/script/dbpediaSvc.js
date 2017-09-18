@@ -101,13 +101,13 @@ function(
         
         var re = new RegExp( self.search, 'i' )
         _.each( self.genus, function( genus ){
-          genus.find = 0
+          genus.filter = 0
           if ( re.test( genus.name ) || re.test( genus.comment )){
-            genus.find += 1
+            genus.filter += 1
           }
           _.each( genus.species, function( species ){
             if ( re.test( species.name ) || re.test( species.comment )){
-              genus.find += 1
+              genus.filter += 1
             }
           })
         })
@@ -117,7 +117,11 @@ function(
         self.genus.sort( function( a, b ){
           return b.find - a.find
         })
-        self.paginator.list = self.fungi.genus
+        self.paginator = new paginator({
+          list: self.genus,
+          perPage: 12,
+          updateUrl: true
+        })
       }
       function prep( r ){
         
@@ -171,7 +175,8 @@ function(
         
         self.paginator = new paginator({
           list: self.genus,
-          perPage: 12
+          perPage: 12,
+          updateUrl: true
         })
       }
       function httpBkup(){

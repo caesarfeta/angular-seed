@@ -15,14 +15,11 @@ function(
         replace: true,
         template: [
           
-          '<div style="padding:25px 0">',
-            '<span>Filter fungi with </span>',
-            '<input class="dbpedia-search-input"',
-                   'type="text"',
-                   'ng-model="dbpedia.fungi.search"',
-                   'ng-enter="dbpedia.fungi.filter()"',
-                   'placeholder="a keyword" />',
-          '</div>'
+          '<input class="dbpedia-search-input fungi-search-bar"',
+                 'type="text"',
+                 'ng-model="dbpedia.fungi.search"',
+                 'ng-enter="dbpedia.fungi.filter()"',
+                 'placeholder="Filter with a keyword" />',
         
         ].join(' '),
         link: function( scope, elem ){
@@ -97,6 +94,10 @@ function(
           
           '<div ng-model="item" class="item masonry-brick">',
             
+            // filter count
+            
+            '<span style="float: right" ng-if="!!item.filter">{{ item.filter }}</span>',
+            
             // link
             
             '<a href="{{ ::url( item.name ) }}" ng-if="!!item.count">',
@@ -129,7 +130,9 @@ function(
         link: function( scope ){
           scope.dbpedia = dbpediaSvc
           scope.url = function( name ){
-            return $location.absUrl() + '/' + name
+            var url = $location.absUrl()
+            var i = url.indexOf( '#' ) + 1
+            return url.substring( 0, i ) + '/fungi/genus/' + name
           }
         }
       }
@@ -142,7 +145,7 @@ function(
       dbpedia,
       $timeout ){
       return {
-        scope: {},
+        scope: true,
         template: [
           
           '<div class="container">',
@@ -166,14 +169,9 @@ function(
             })
           }
           dbpedia.fungi.http().then( function(){
+            dbpedia.fungi.paginator.currentPage = scope.page
             $timeout( function(){
               init()
-              scope.$watch(
-                function(){ return dbpedia.fungi.paginator.currentPage },
-                function( n ){ 
-                  $timeout( function(){ init() })
-                }
-              )
             })
           })
           scope.dbpedia = dbpedia

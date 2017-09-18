@@ -86,7 +86,7 @@ function( angular ){
       
       // fungi
       
-      $routeProvider.when( '/fungi', {
+      $routeProvider.when( '/fungi/:page?', {
         template: [
           
           '<div class="fungi">',
@@ -94,9 +94,36 @@ function( angular ){
           '</div>'
           
         ].join(' '),
-        controller: function(){}
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            $scope,
+            $routeParams ){
+              $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
+          }
+        ]
       })
-      $routeProvider.when( '/fungi/:genus*', {
+      $routeProvider.when( '/fungi/filter/:term/:page', {
+        template: [
+          
+          '<div class="fungi">',
+            '<div dbp-fungi-genus-list></div>',
+          '</div>'
+          
+        ].join(' '),
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            scope,
+            $routeParams ){
+              $scope.term = ( !!$routeParams.term ) ? $routeParams.term : ''
+              $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
+          }
+        ]
+      })
+      $routeProvider.when( '/fungi/genus/:genus*', {
         template: [
           
           '<div class="fungi">',
