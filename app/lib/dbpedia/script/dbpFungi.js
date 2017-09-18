@@ -8,8 +8,12 @@ function(
   module
   .directive( 'dbpFungiSearchBar', [
     'dbpediaSvc',
+    '$location',
     '$timeout',
-    function( dbpedia, $timeout ){
+    function(
+      dbpedia,
+      $location,
+      $timeout ){
       return {
         scope: true,
         replace: true,
@@ -17,13 +21,17 @@ function(
           
           '<input class="dbpedia-search-input fungi-search-bar"',
                  'type="text"',
-                 'ng-model="dbpedia.fungi.search"',
-                 'ng-enter="dbpedia.fungi.filter()"',
+                 'ng-model="search"',
+                 'ng-enter="filter()"',
                  'placeholder="Filter with a keyword" />',
         
         ].join(' '),
         link: function( scope, elem ){
           scope.dbpedia = dbpedia
+          scope.search = ''
+          scope.filter = function(){
+            $location.path( '/fungi/filter/' + scope.search )
+          }
           $( window ).scroll( _.throttle( function(){
             var tp = $( elem ).get(0).getBoundingClientRect().top
             if ( tp < 0 ){

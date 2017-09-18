@@ -104,7 +104,7 @@ function( angular ){
           }
         ]
       })
-      $routeProvider.when( '/fungi/filter/:term/:page', {
+      $routeProvider.when( '/fungi/filter/:term/:page?', {
         template: [
           
           '<div class="fungi">',
@@ -116,7 +116,7 @@ function( angular ){
           '$scope',
           '$routeParams',
           function(
-            scope,
+            $scope,
             $routeParams ){
               $scope.term = ( !!$routeParams.term ) ? $routeParams.term : ''
               $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
