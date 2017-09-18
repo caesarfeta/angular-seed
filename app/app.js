@@ -123,7 +123,7 @@ function( angular ){
           }
         ]
       })
-      $routeProvider.when( '/fungi/genus/:genus*', {
+      $routeProvider.when( '/fungi/genus/:genus*/:filter?', {
         template: [
           
           '<div class="fungi">',
@@ -138,6 +138,7 @@ function( angular ){
             scope,
             $routeParams ){
             scope.genus = $routeParams.genus
+            scope.filter = $routeParams.filter
           }
         ]
       })

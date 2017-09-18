@@ -150,7 +150,11 @@ function(
           scope.url = function( name ){
             var url = $location.absUrl()
             var i = url.indexOf( '#' ) + 1
-            return url.substring( 0, i ) + '/fungi/genus/' + name
+            var newUrl = url.substring( 0, i ) + '/fungi/genus/' + name
+            if ( !!scope.filter ) {
+              newUrl = newUrl + '/' + scope.filter
+            }
+            return newUrl
           }
         }
       }
