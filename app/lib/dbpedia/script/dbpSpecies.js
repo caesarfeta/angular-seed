@@ -19,7 +19,7 @@ function(
             '<div class="dbpedia-bio-species clearfix"',
                  'ng-repeat="species in dbpedia.img.paginator.items()">',
               '<h2 class="name" ng-bind-html="species.name.value | highlight:dbpedia.img.search"></h2>',
-              '<img ng-src="{{ species.img.value }}"/>',
+              '<a href="{{ species.img.value}}"><img ng-src="{{ species.img.value }}"/></a>',
               '<table class="taxonomy">',
                 '<tr><td>Kingdom</td><td>{{ species.kingdom.value | shrinkLink }}</td></tr>',
                 '<tr><td>Phylum</td><td>{{ species.phylum.value | shrinkLink }}</td></tr>',
