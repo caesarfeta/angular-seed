@@ -18,14 +18,16 @@
     "loader": "COORD",
     "lineType": "SOLID",
     "thumb": "",
-    "url": "./lib/threeD/coord/peano_solid.coord"
+    "url": "./lib/threeD/coord/peano_solid.coord",
+    "hide": true
   },
   {
     "label": "Peano 3",
     "loader": "COORD",
     "lineType": "RIBBON",
     "thumb": "",
-    "url": "./lib/threeD/coord/peano_3.coord"
+    "url": "./lib/threeD/coord/peano_3.coord",
+    "hide": true
   },
   {
     "label": "Eye of the Goldfish God Hempisphere",
@@ -60,7 +62,8 @@
     "loader": "COORD",
     "thumb": "",
     "lineType": "RIBBON",
-    "url": "./lib/threeD/coord/sparkle_mat.coord"
+    "url": "./lib/threeD/coord/sparkle_mat.coord",
+    "hide": true
   },
   {
     "label": "Sparkle Mat Nine",
@@ -110,7 +113,8 @@
     "transform": "DISC",
     "lineType": "RIBBON",
     "thumb": "",
-    "url": "./lib/threeD/coord/which_way.coord"
+    "url": "./lib/threeD/coord/which_way.coord",
+    "hide": true
   },
   {
     "label": "Which Way Which Way Tube",
@@ -153,7 +157,8 @@
     "transform": "SPHERE",
     "lineType": "RIBBON",
     "thumb": "",
-    "url": "./lib/threeD/coord/secret_valley.coord"
+    "url": "./lib/threeD/coord/secret_valley.coord",
+    "hide": true
   },
   {
     "label": "Secret Valley Dots",
@@ -216,7 +221,8 @@
     "loader": "COORD",
     "lineType": "RIBBON",
     "thumb": "",
-    "url": "./lib/threeD/coord/star_rose.coord"
+    "url": "./lib/threeD/coord/star_rose.coord",
+    "hide": true
   },
   {
     "label": "Play Y Stairs",

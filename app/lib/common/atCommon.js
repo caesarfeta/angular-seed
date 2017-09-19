@@ -79,6 +79,9 @@ function(
           updateUrl: false
         })
         _.merge( self, config )
+        self.list = _.filter( self.list, function( item ){
+          return !item.hide
+        })
         self.total = self.list.length
         self.pages = _.chunk( self.list, self.perPage )
       }
