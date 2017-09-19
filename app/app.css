@@ -7576,7 +7576,8 @@ input.dbpedia-search-input {
   height: 300px;
 }
 .lsysJson {
-  padding: 20px;
+  padding: 5px;
+  float: left;
 }
 .lsysJson textarea {
   padding: 5px;

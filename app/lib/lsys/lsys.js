@@ -54,7 +54,7 @@ function(
           
         ].join(''),
         link: function( scope ){
-          scope.show = true
+          scope.show = false
           scope.text = function(){
             return JSON.stringify({
               label: 'untitled',
