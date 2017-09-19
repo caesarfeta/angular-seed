@@ -1,3 +1,4 @@
+/* app css stylesheet */
 /* third-party css */
 @import "bower_components/angular-bootstrap-colorpicker/css/colorpicker.css";
 @import "bower_components/font-awesome/css/font-awesome.min.css";
@@ -7279,10 +7280,9 @@ address {
   padding: 9px;
   border-radius: 3px;
 }
-/* app css stylesheet */
 html,
 body {
-  background-color: #DDD;
+  background-color: #ddd;
 }
 .stick {
   position: fixed;
@@ -7292,6 +7292,11 @@ body {
   float: left;
   width: 50%;
   box-sizing: border-box;
+}
+.input-spacer {
+  display: inline-block;
+  width: 1px;
+  height: 30px;
 }
 /* clearfix */
 .clearfix:after,
@@ -7473,8 +7478,11 @@ body {
   }
 }
 .fungi-search-bar {
-  display: inline-block;
+  width: 260px;
   margin: 10px auto !important;
+}
+.fungi-search-bar .floater {
+  float: left;
 }
 .fungi {
   background: #DDD;
@@ -7658,7 +7666,7 @@ input.dbpedia-search-input {
 .specierch .controls {
   padding: 0 20px;
   width: 100%;
-  background-color: #DDD;
+  background-color: #ddd;
 }
 .window-wrap {
   width: 300px;

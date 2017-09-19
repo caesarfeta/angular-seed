@@ -19,13 +19,27 @@ function(
         replace: true,
         template: [
           
-          '<div style="margin:auto; width:255px">',
-            '<input class="dbpedia-search-input fungi-search-bar"',
-                   'type="text"',
-                   'ng-model="filter"',
-                   'ng-enter="runFilter()"',
-                   'placeholder="keyword" />',
-            '<button class="btn btn-sm" ng-click="runFilter()">Filter</button>',,
+          '<div class="fungi-search-bar">',
+            '<span class="input-spacer"></span>',
+            '<div class="floater">',
+              
+              // input
+              
+              '<input class="dbpedia-search-input"',
+                     'type="text"',
+                     'ng-model="filter"',
+                     'ng-enter="runFilter()"',
+                     'placeholder="keyword" />',
+              
+              // button
+              
+              '<button class="btn btn-sm"',
+                      'ng-click="runFilter()">',
+                'Filter',
+              '</button>',
+              
+            '</div>',
+            '<span class="clearfix"></span>',
           '</div>'
         
         ].join(' '),
@@ -42,12 +56,12 @@ function(
             $location.path( '/fungi/filter/' + scope.filter )
           }
           $( window ).scroll( _.throttle( function(){
-            var tp = $( elem ).get(0).getBoundingClientRect().top
+            var tp = $( '.floater', elem ).get(0).getBoundingClientRect().top
             if ( tp < 0 ){
-              $( elem ).addClass( 'scrollStick' )
+              $( '.floater', elem ).addClass( 'scrollStick' )
             }
             else if ( window.pageYOffset == 0 ){
-              $( elem ).removeClass( 'scrollStick' )
+              $( '.floater', elem ).removeClass( 'scrollStick' )
             }
           }, 500, { leading: true }))
         

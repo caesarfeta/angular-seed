@@ -1,26 +1,34 @@
+
+/* app css stylesheet */
+
+@bg-color: #ddd;
+@card-color: #fdfdfd;
+
 /* third-party css */
 
 @import "bower_components/bootstrap/less/**/*";
 @import "bower_components/angular-bootstrap-colorpicker/css/colorpicker.css";
 @import "bower_components/font-awesome/css/font-awesome.min.css";
 
-/* app css stylesheet */
-
-@bg-color: #DDD;
-
 html, body {
-	background-color: @bg-color;
+  background-color: @bg-color;
 }
 
 .stick {
-	position: fixed;
-	top: 0;
+  position: fixed;
+  top: 0;
 }
 
 .half {
   float: left;
   width: 50%;
   box-sizing: border-box;
+}
+
+.input-spacer {
+  display: inline-block;
+  width: 1px;
+  height: 30px;
 }
 
 

@@ -1,6 +1,9 @@
 .fungi-search-bar {
-  display: inline-block;
+  width: 260px;
   margin: 10px auto !important;
+  & .floater {
+    float: left;
+  }
 }
 .fungi {
   background: #DDD;
@@ -16,7 +19,7 @@
       width: 100%;
     }
     border-radius: 5px;
-    background: #fdfdfd;
+    background: @card-color;
     width: 340px;
     padding: 10px;
     margin: 5px;
