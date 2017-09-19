@@ -72,9 +72,11 @@ function(
   .directive( 'dbpFungiSpeciesList', [
     'dbpediaSvc',
     '$timeout',
+    'paginator',
     function(
       dbpedia,
-      $timeout ){
+      $timeout,
+      paginator ){
       return {
         scope: true,
         template: [
@@ -82,18 +84,25 @@ function(
           '<div>',
             '<spinner spin-id="dbpedia-http"></spinner>',
             '<div class="container">',
-              '<div ng-repeat="item in list">',
+              '<div ng-repeat="item in paginator.items()">',
                 '<div dbp-fungi-item></div>',
               '</div>',
             '</div>',
+            '<div paginator="paginator"></div>',
           '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
           scope.fungi = dbpedia.fungi
           function init(){
-            scope.list = _.filter( dbpedia.fungi.result, function( item ){
-              return item.genus == scope.genus
+            scope.paginator = new paginator({
+              list: _.filter( dbpedia.fungi.result, function( item ){
+                return item.genus == scope.genus
+              }),
+              perPage: 12,
+              onClick: function(){
+                $timeout( function(){ relayout() })
+              }
             })
           }
           if ( !dbpedia.fungi.result && !dbpedia.fungi.ready ){
@@ -102,12 +111,13 @@ function(
           else {
             init()
           }
-          $timeout( function(){
+          function relayout(){
             scope.masonry = new Masonry( $( '.container', elem ).get(0), {
               itemSelector: '.masonry-brick',
               columnWidth: 350
             })
-          })
+          }
+          $timeout( function(){ relayout() })
         }
       }
     }

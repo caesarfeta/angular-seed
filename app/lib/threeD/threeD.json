@@ -46,14 +46,14 @@
   {
     "label": "Sparkle Mat Solid",
     "loader": "COORD",
-    "thumb": "",
+    "thumb": "./lib/threeD/coord/thumb/23.png",
     "lineType": "SOLID",
     "url": "./lib/threeD/coord/sparkle_mat.coord"
   },
   {
     "label": "Thornflake Solid",
     "loader": "COORD",
-    "thumb": "",
+    "thumb": "./lib/threeD/coord/thumb/24.png",
     "lineType": "SOLID",
     "url": "./lib/threeD/coord/thornflake.coord"
   },
@@ -165,6 +165,7 @@
     "loader": "COORD",
     "transform": "SPHERE",
     "lineType": "DOTS",
+    "thumb": "./lib/threeD/coord/thumb/25.png",
     "url": "./lib/threeD/coord/secret_valley.coord"
   },
   {

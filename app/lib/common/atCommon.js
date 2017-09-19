@@ -151,6 +151,9 @@ function(
           return
         }
         self.currentPage = n
+        if ( !!self.onClick ){
+          self.onClick()
+        }
       }
       paginator.prototype.groupBack = function(){
         var self = this
