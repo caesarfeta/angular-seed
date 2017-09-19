@@ -48,12 +48,13 @@ function(
         template: [
           
           '<div class="lsysJson">',
-            '<label>save starter</label>',
-            '<textarea>{{ text() }}</textarea>',
+            '<button class="btn btn-sm" ng-click="show=!show">JSON</button>',
+            '<textarea ng-if="!!show">{{ text() }}</textarea>',
           '</div>',
           
         ].join(''),
         link: function( scope ){
+          scope.show = true
           scope.text = function(){
             return JSON.stringify({
               label: 'untitled',
@@ -74,14 +75,15 @@ function(
         scope: true,
         template: [
           
-          '<div ng-if="!!lsys.output" class="lsysDump">',
-            '<label>draw path</label>',
-            '<p>',
-              '{{ lsys.output }}',
-            '</p>',
+          '<div ng-if="!!lsys.output" class="lsysJson">',
+            '<button class="btn btn-sm" ng-click="show=!show">PATH</button>',
+            '<textarea ng-if="!!show">{{ lsys.output }}</textarea>',
           '</div>'
           
-        ].join(' ')
+        ].join(' '),
+        link: function( scope ){
+          scope.show = false
+        }
       }
     }
   ])
@@ -92,11 +94,14 @@ function(
         template: [
           
           '<div ng-if="!!lsys.coords" class="lsysJson">',
-            '<button class="btn btn-sm" ng-click="lsys.buildScad()">print scad</button>',
-            '<textarea ng-if="!!lsys.scadString">{{ lsys.scadString }}</textarea>',
+            '<button class="btn btn-sm" ng-click="lsys.buildScad(); show=!show">SCAD</button>',
+            '<textarea ng-if="!!lsys.scadString && !!show">{{ lsys.scadString }}</textarea>',
           '</div>'
           
         ].join(' '),
+        link: function( scope ){
+          scope.show = false
+        }
       }
     }
   ])
@@ -107,11 +112,14 @@ function(
         template: [
           
           '<div ng-if="!!lsys.coords" class="lsysJson">',
-            '<button class="btn btn-sm" ng-click="lsys.buildObj()">print coordinates</button>',
-            '<textarea ng-if="!!lsys.coordString">{{ lsys.coordString }}</textarea>',
+            '<button class="btn btn-sm" ng-click="lsys.buildObj(); show=!show">COORDS</button>',
+            '<textarea ng-if="!!lsys.coordString && !!show">{{ lsys.coordString }}</textarea>',
           '</div>'
           
-        ].join(' ')
+        ].join(' '),
+        link: function( scope ){
+          scope.show = false
+        }
       }
     }
   ])
@@ -164,8 +172,8 @@ function(
             '</div>',
             
             '<div ng-if="sketch">',
-              '<div lsys-draw-path></div>',
               '<div lsys-json></div>',
+              '<div lsys-draw-path></div>',
               '<div lsys-coords></div>',
               '<div lsys-scad></div>',
             '</div>',
