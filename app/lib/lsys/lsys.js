@@ -147,9 +147,9 @@ function(
                 
                 '<button class="btn btn-sm"',
                         'href=""',
-                        'ng-class="{ \'active\': !!tweak }"',
-                        'ng-click="tweak = !tweak">',
-                  '{{ ( !tweak ) ? "tweak" : "done" }}',
+                        'ng-class="{ \'active\': !!lsys.tweak }"',
+                        'ng-click="lsys.tweak = !lsys.tweak">',
+                  '{{ ( !lsys.tweak ) ? "tweak" : "done" }}',
                 '</button>',
               '</div>',
               
@@ -159,7 +159,7 @@ function(
                 
                 // editor 
                 
-                '<div ng-if="tweak" lsys-ctrl></div>',
+                '<div ng-if="lsys.tweak" lsys-ctrl></div>',
               '</div>',
             '</div>',
             
@@ -174,7 +174,6 @@ function(
         ].join(' '),
         link: function( scope ){
           scope.lsys = new lsys( scope.lsysCard )
-          scope.tweak = false
           scope.goTo = function( id ){
             $location.url( '/lsys/' + id )
           }
@@ -279,6 +278,7 @@ function(
               scope.lsys = _.find( list, function( sys ){
                 return !!sys.label && utils.sha( sys.label ) == scope.lsysSketch
               })
+              scope.lsys.tweak = true
             }
           )
         }
@@ -295,6 +295,7 @@ function(
           angle: undefined,
           seed: undefined,
           rules: [],
+          tweak: false
         })
         _.merge( self, config )
         
