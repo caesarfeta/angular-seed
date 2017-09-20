@@ -32,7 +32,7 @@ function( module ){
         PREFIX dbpedia: <http://dbpedia.org/ontology/>\
         PREFIX dbpedia2: <http://dbpedia.org/property/>\
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>\
-        SELECT  ?name, ?kingdom, ?phylum, ?class, ?order, ?family, ?genus, ?species, ?subspecies, ?img, ?abstract\
+        SELECT  ?name, ?kingdom, ?phylum, ?class, ?order, ?family, ?genus, ?species, ?subspecies, ?img, ?abstract, ?url\
         WHERE {\
           ?s  dbpedia:kingdom ?hasValue;\
             rdfs:label ?name\
@@ -50,7 +50,8 @@ function( module ){
             OPTIONAL {\
               ?animal dbpedia:abstract ?abstract\
               FILTER ( langMatches( lang( ?abstract ), "EN" ))\
-            }\
+            . }\
+            OPTIONAL { ?animal foaf:isPrimaryTopicOf ?url }\
         }\
         GROUP BY ?name\
         LIMIT ' + config.limit

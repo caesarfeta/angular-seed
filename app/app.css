@@ -7563,6 +7563,13 @@ input.dbpedia-search-input {
   box-sizing: border-box;
   padding: 0 20px;
 }
+.dbpedia-bio-species h2 {
+  float: left;
+}
+.dbpedia-bio-species .wiki-link {
+  float: right;
+  margin: 10px;
+}
 .dbpedia-query-area {
   font-size: 10px;
   height: 500px;
