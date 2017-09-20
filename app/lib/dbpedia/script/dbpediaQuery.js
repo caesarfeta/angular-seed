@@ -14,12 +14,13 @@ function( module ){
         PREFIX : <http://dbpedia.org/resource/>\
         PREFIX dbpedia2: <http://dbpedia.org/property/>\
         PREFIX foaf: <http://xmlns.com/foaf/0.1/>\
-        SELECT ?img ?name ?comment\
+        SELECT ?img ?name ?comment ?url\
         WHERE {\
           ?s <http://dbpedia.org/ontology/kingdom> :Fungi;\
             rdfs:label ?name;\
             rdfs:comment ?comment;\
-            foaf:depiction ?img\
+            foaf:depiction ?img;\
+            foaf:isPrimaryTopicOf ?url\
             FILTER ( langMatches( lang( ?name ), "EN" ))\
             FILTER ( langMatches( lang( ?comment ), "EN" ))\
         }'

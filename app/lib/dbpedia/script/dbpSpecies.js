@@ -18,14 +18,10 @@ function(
           '<div class="dbpedia-bio-species-bg" ng-show="on()">',
             '<div class="dbpedia-bio-species clearfix"',
                  'ng-repeat="species in dbpedia.img.paginator.items()">',
+              
+              // title
+              
               '<h2 class="name" ng-bind-html="species.name.value | highlight:dbpedia.img.search"></h2>',
-              
-              // wikipedia link
-              
-              '<a class="fa fa-external-link wiki-link"',
-                 'href="{{ species.url.value }}"',
-                 'title="{{ species.url.value }}">',
-              '</a>',
               
               // img
               
@@ -46,7 +42,19 @@ function(
               // abstract
               
               '<div class="abstract" ng-bind-html="species.abstract.value | highlight:dbpedia.img.search"></div>',
+              '<div class="clearfix"></div>',
+              
+              // wikipedia link
+              
+              '<a class="fa fa-external-link wiki-link"',
+                 'href="{{ species.url.value }}"',
+                 'title="{{ species.url.value }}">',
+              '</a>',
+              
             '</div>',
+            
+            // paginator
+            
             '<div paginator="dbpedia.img.paginator"></div>',
           '</div>'
           

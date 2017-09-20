@@ -100,7 +100,8 @@ function(
             img: item.img.value,
             name: item.name.value,
             comment: item.comment.value,
-            genus: item.name.value.split(' ')[0]
+            genus: item.name.value.split(' ')[0],
+            url: item.url.value
           }
         })
         

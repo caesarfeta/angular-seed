@@ -35,7 +35,7 @@ function(
               
               '<button class="btn btn-sm"',
                       'ng-click="runFilter()">',
-                'Filter',
+                'filter',
               '</button>',
               
             '</div>',
@@ -135,10 +135,6 @@ function(
           
           '<div ng-model="item" class="item masonry-brick">',
             
-            // filter count
-            
-            '<span style="float: right" ng-if="!!item.filter">{{ item.filter }}</span>',
-            
             // link
             
             '<a href="{{ ::url( item.name ) }}" ng-if="!!item.count">',
@@ -165,6 +161,14 @@ function(
             // comment
             
             '<div class="comment" ng-bind-html="item.comment | highlight:filter"></div>',
+            
+            // wikipedia link
+            
+            '<a class="fa fa-external-link wiki-link"',
+               'href="{{ item.url }}"',
+               'title="{{ item.url }}">',
+            '</a>',
+            
           '</div>'
           
         ].join(' '),
