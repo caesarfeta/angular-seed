@@ -206,7 +206,15 @@ function(
                 '<div dbp-fungi-item></div>',
               '</div>',
             '</div>',
+            
+            // paginator
+            
             '<div paginator="dbpedia.fungi.paginator"></div>',
+            
+            // shoutout
+            
+            '<div pedia-shoutout></div>',
+            
           '</div>'
           
         ].join(' '),

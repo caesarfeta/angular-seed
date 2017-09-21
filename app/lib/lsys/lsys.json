@@ -403,6 +403,17 @@
     "duration": 1
   },
   {
+    "label": "double flake",
+    "times": 6,
+    "angle": 60,
+    "start": "AB-BA",
+    "rules": [
+      "A=B+B+B",
+      "B=A-A-A"
+    ],
+    "duration": 1
+  },
+  {
     "label": "green bean",
     "times": 4,
     "angle": 15,
@@ -421,6 +432,28 @@
     "rules": [
       "A=B-A-B", 
       "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "bonecomb hexagon",
+    "times": 5,
+    "angle": 60,
+    "start": "AAAA",
+    "rules": [
+      "A=B-A-B",
+      "B=A+B+A-A+B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "hexachip",
+    "times": 5,
+    "angle": 60,
+    "start": "AAAAAA",
+    "rules": [
+      "A=B-AB",
+      "B=AB+AA+"
     ],
     "duration": 1
   },
@@ -506,6 +539,16 @@
     "start": "F+F+F+F+F",
     "rules": [
       "F=F-F+F+F+F--F"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "coral spinner",
+    "times": 5,
+    "angle": 72,
+    "start": "F+F+F+F+F",
+    "rules": [
+      "F=F+F+F--F"
     ],
     "duration": 1
   },
@@ -995,6 +1038,17 @@
     "rules": [
       "A=B--A--B",
       "B=A+B+++B+A"
+    ],
+    "duration": 1
+  },
+  {
+    "label": "kazerp",
+    "times": 4,
+    "angle": 144,
+    "start": "F-F-F-F-F",
+    "rules": [
+      "F=F+F-G",
+      "G=GG"
     ],
     "duration": 1
   },

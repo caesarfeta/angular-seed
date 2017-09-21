@@ -7486,7 +7486,7 @@ body {
 }
 .fungi {
   background: #DDD;
-  padding-bottom: 100px;
+  padding-bottom: 20px;
 }
 .fungi .wiki-link {
   float: right;
@@ -7524,7 +7524,7 @@ input.dbpedia-search-input {
   width: 200px;
 }
 .dbpedia-bio-species-bg {
-  margin-bottom: 100px;
+  margin-bottom: 20px;
 }
 .dbpedia-bio-species-bg h1 {
   padding: 10px 20px 0 0;
@@ -7580,6 +7580,11 @@ input.dbpedia-search-input {
 }
 .specierch {
   margin-top: 10px;
+}
+.pedia-shoutout {
+  width: 100%;
+  text-align: center;
+  margin-top: 50px;
 }
 .lsys {
   width: 100%;

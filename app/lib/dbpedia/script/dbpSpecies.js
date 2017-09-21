@@ -6,6 +6,18 @@ function(
   module,
   Masonry ){
   module
+  .directive( 'pediaShoutout', [
+    function(){
+      return {
+        replace: true,
+        template: [
+          
+          '<div class="pedia-shoutout">Please consider contributing to the <a href="http://wiki.dbpedia.org/about">DBpedia</a> project to keep this app and others like it alive!</div>'
+          
+        ].join(' ')
+      }
+    }
+  ])
   .directive( 'dbpSpecies', [
     'dbpediaSvc',
     function( dbpedia ){
@@ -56,6 +68,11 @@ function(
             // paginator
             
             '<div paginator="dbpedia.img.paginator"></div>',
+            
+            // shoutout
+            
+            '<div pedia-shoutout></div>',
+            
           '</div>'
           
         ].join(' '),

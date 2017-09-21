@@ -13,7 +13,9 @@ function(
   Math.toCart = function( radius, angle ) {
     return [ radius * Math.cos( angle ), radius * Math.sin( angle ) ]
   }
-  return angular.module( 'lsys', [ 'atCommon' ])
+  return angular.module( 'lsys', [
+    'atCommon'
+  ])
   .service( 'lsysHttp', [
     '$http',
     '$q',
@@ -64,6 +66,41 @@ function(
               rules: scope.lsys.rules,
               duration: scope.lsys.duration
             }, ' ', 2 )
+          }
+        }
+      }
+    }
+  ])
+  .directive( 'lsysSvg', [
+    '$compile',
+    function( $compile ){
+      return {
+        scope: true,
+        template: [
+          
+          '<div ng-if="!!lsys.coords" class="lsysJson">',
+            '<button class="btn btn-sm" ng-click="show=!show">SVG</button>',
+            '<div class="compile" ng-if="!!show">',
+              '{{ ::points() }}',
+            '</div>',
+          '</div>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          scope.show = false
+          scope.points = function(){
+            var points = scope.lsys.coords.map( function( item ){
+              return ( item[0] + scope.lsys.nudgeX ) * scope.lsys.scale + ',' + 
+                     ( item[1] + scope.lsys.nudgeY ) * scope.lsys.scale
+            }).join(' ')
+            $( '.compile', elem ).html( $compile([
+              '<svg height="'+ scope.lsys.canvas.height +'"',
+                   'width="' + scope.lsys.canvas.width + '">',
+                '<polyline',
+                  'points="' + points + '"',
+                  'style="fill:none; stroke:black; stroke-width:2" />',
+              '</svg>'
+            ].join(' '))( scope ))
           }
         }
       }
@@ -176,6 +213,7 @@ function(
               '<div lsys-draw-path></div>',
               '<div lsys-coords></div>',
               '<div lsys-scad></div>',
+              '<div lsys-svg></div>',
             '</div>',
           '</div>'
           
