@@ -25,6 +25,7 @@ function( angular ){
             '<ul class="dropdown-menu" uib-dropdown-menu role="menu">',
               '<li role="menuitem">',
                 '<a href="" ng-click="change( \'livingHinge\' )">living hinge</a>',
+                '<a href="" ng-click="change( \'sineWave\' )">sine wave</a>',
               '</li>',
             '</ul>',
           '</div>',
@@ -32,7 +33,12 @@ function( angular ){
         ].join(''),
         link: function( scope ){
           var config = {
-            "livingHinge": { "json": "mainline" }
+            livingHinge: { 
+              id: 'living hinge'
+            },
+            sineWave: {
+              id: 'sine wave'
+            }
           }
           scope.change = function( id ){
             scope.config.json = JSON.stringify( config[ id ], ' ', 2 )
@@ -61,7 +67,8 @@ function( angular ){
     }
   ])
   .directive( 'texturizerSvg', [
-    function(){
+    '$compile',
+    function( $compile ){
       return {
         scope: true,
         template: [
@@ -71,11 +78,19 @@ function( angular ){
           '</svg>'
           
         ].join(''),
-        link: function( scope ){
+        link: function( scope, elem ){
           scope.$watch(
             function(){ return scope.config.json },
             function(){
-              console.log( 'do something' )
+              if ( !scope.config.json ){
+                return
+              }
+              var json = JSON.parse( scope.config.json )
+              console.log( json )
+              
+              // do something fancy here
+              
+              elem.html( $compile( '<div>' + json.id + '</div>' )( scope ))
             }
           )
         }
