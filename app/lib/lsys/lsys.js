@@ -93,14 +93,16 @@ function(
               return ( item[0] + scope.lsys.nudgeX ) * scope.lsys.scale + ',' + 
                      ( item[1] + scope.lsys.nudgeY ) * scope.lsys.scale
             }).join(' ')
-            $( '.compile', elem ).html( $compile([
-              '<svg height="'+ scope.lsys.canvas.height +'"',
+            var html = [
+              '<svg id="svgdownload"',
+                   'height="' + scope.lsys.canvas.height + '"',
                    'width="' + scope.lsys.canvas.width + '">',
                 '<polyline',
                   'points="' + points + '"',
                   'style="fill:none; stroke:black; stroke-width:2" />',
               '</svg>'
-            ].join(' '))( scope ))
+            ].join(' ')
+            $( '.compile', elem ).html( $compile( html )( scope ))
           }
         }
       }

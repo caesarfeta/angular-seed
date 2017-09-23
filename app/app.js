@@ -8,7 +8,8 @@ define([
 'lib/color-kit/color-kit',
 'lib/version/version',
 'lib/atPixels/atPixels.angular',
-'lib/threeD/threeD'
+'lib/threeD/threeD',
+'lib/texturizer/texturizer'
 ], 
 function( angular ){
   
@@ -23,7 +24,8 @@ function( angular ){
     'myApp.view.colorKit',
     'myApp.version',
     'atPixels',
-    'threeD'
+    'threeD',
+    'texturizer'
   ])
   .config([
     '$routeProvider', 
@@ -220,6 +222,15 @@ function( angular ){
               $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
           }
         ]
+      })
+      
+      $routeProvider.when( '/texturizer', {
+        template: [
+          
+          '<div texturizer></div>'
+          
+        ].join(' '),
+        controller: [ function(){} ]
       })
       
       // about
