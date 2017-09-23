@@ -7684,6 +7684,13 @@ input.dbpedia-search-input {
   width: 100%;
   background-color: #ddd;
 }
+.texturizer {
+  padding: 10px;
+}
+.texturizer textarea {
+  width: 500px;
+  height: 200px;
+}
 .window-wrap {
   width: 300px;
 }

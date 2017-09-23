@@ -37,7 +37,15 @@ function( angular ){
               id: 'living hinge'
             },
             sineWave: {
-              id: 'sine wave'
+              id: 'sine wave',
+              origin: {
+                x: -Math.PI,
+                y: 0
+              },
+              amplitude: 1,       // wave amplitude
+              rarity: 0.5,        // point spacing
+              freq: 0.5,          // angular frequency
+              phase: Math.PI * 2  // phase angle
             }
           }
           scope.change = function( id ){
@@ -66,18 +74,105 @@ function( angular ){
       }
     }
   ])
+  .directive( 'texturizerSineWave', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="100%" height="400"',
+               'viewBox="-7.5 -1.5 15 3"',
+               'preserveAspectRatio="xMidYMid slice">',
+            '<g id="sines" fill="none" stroke-width=".02" ></g>',
+          '</svg>',
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var config = [
+            [ 0, 0 ],
+            [ 0.512286623256592433, 0.512286623256592433 ],
+            [ 1.002313685767898599, 1 ],
+            [ Math.PI/2, 1]
+          ]
+          approximateCubicBezier(
+            $( '#sines', elem ).get( 0 ),
+            config,
+            'stroke:black;'
+          )
+          function approximateCubicBezier( svg, controls, style ){
+            var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" ), data;
+            
+            //Bezier control points:
+            //https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths#Curve_commands
+            
+            var controlStart = controls[0], 
+                control1 = controls[1], 
+                control2 = controls[2], 
+                controlEnd = controls[3],
+                x, y,
+                x1, y1,
+                x2, y2,
+                quarterX = controlEnd[0],
+                startX = -(4 * quarterX),
+                negateY = false;
+                
+            function negateYs(){
+                if ( negateY ){
+                  y = -y
+                  y1 = -y1
+                  y2 = -y2
+                }
+            }
+            
+            for ( x = startX; x<6; ){
+              if ( x === startX ){
+                y = controlStart[1]
+                x1 = x + control1[0]
+                y1 = control1[1]
+                negateYs()
+                data = 'M' +[x,y]+ ' C' +[x1,y1]+ ' '
+              }
+              else {
+                
+                // x1/y1 are always "mirrors" of the previous x2/y2,
+                // so we can use the simpler "S" syntax instead of a new "C":
+                
+                data += ' S'
+              }
+              
+              // Going from y=0 to y=+-1:
+              
+              x2 = x + control2[0]
+              y2 = control2[1]
+              x += quarterX
+              y = controlEnd[1]
+              negateYs()
+              data += [x2,y2] + ' ' + [x,y]
+              
+              //Going from y=+- back to y=0:
+              
+              x2 = (x + quarterX) - control1[0]
+              y2 = control1[1]
+              x += quarterX
+              y = controlStart[1]
+              negateYs()
+              data += ' S' + [x2,y2] + ' ' + [x,y]
+              negateY = !negateY
+            }
+            path.setAttribute( 'd', data )
+            path.setAttribute( 'style', style )
+            svg.appendChild( path )
+          }
+        }
+      }
+    }
+  ])
   .directive( 'texturizerSvg', [
     '$compile',
     function( $compile ){
       return {
         scope: true,
-        template: [
-          
-          '<svg width="1000" height="1000">',
-              '<line x1="-1" y1="90.30110189154914" x2="0" y2="90.10641753376618" style="stroke:black;stroke-width:1"></line><line x1="0" y1="90.10641753376618" x2="1" y2="90.01058658160228" style="stroke:black;stroke-width:1"></line><line x1="1" y1="90.01058658160228" x2="2" y2="90.01456654625395" style="stroke:black;stroke-width:1"></line><line x1="2" y1="90.01456654625395" x2="3" y2="90.11831766123" style="stroke:black;stroke-width:1"></line><line x1="3" y1="90.11831766123" x2="4" y2="90.32080327968514" style="stroke:black;stroke-width:1"></line><line x1="4" y1="90.32080327968514" x2="5" y2="90.62000023225261" style="stroke:black;stroke-width:1"></line><line x1="5" y1="90.62000023225261" x2="6" y2="91.01291904188373" style="stroke:black;stroke-width:1"></line><line x1="6" y1="91.01291904188373" x2="7" y2="91.49563379371435" style="stroke:black;stroke-width:1"></line><line x1="7" y1="91.49563379371435" x2="8" y2="92.06332136150847" style="stroke:black;stroke-width:1"></line><line x1="8" y1="92.06332136150847" x2="9" y2="92.71030959874123" style="stroke:black;stroke-width:1"></line><line x1="9" y1="92.71030959874123" x2="10" y2="93.4301340128121" style="stroke:black;stroke-width:1"></line><line x1="10" y1="93.4301340128121" x2="11" y2="94.215602356118" style="stroke:black;stroke-width:1"></line><line x1="11" y1="94.215602356118" x2="12" y2="95.05886648861392" style="stroke:black;stroke-width:1"></line><line x1="12" y1="95.05886648861392" x2="13" y2="95.95150079383401" style="stroke:black;stroke-width:1"></line><line x1="13" y1="95.95150079383401" x2="14" y2="96.88458636486621" style="stroke:black;stroke-width:1"></line><line x1="14" y1="96.88458636486621" x2="15" y2="97.84880011912185" style="stroke:black;stroke-width:1"></line><line x1="15" y1="97.84880011912185" x2="16" y2="98.83450795149507" style="stroke:black;stroke-width:1"></line><line x1="16" y1="98.83450795149507" x2="17" y2="99.83186099515649" style="stroke:black;stroke-width:1"></line>',
-          '</svg>'
-          
-        ].join(''),
         link: function( scope, elem ){
           scope.$watch(
             function(){ return scope.config.json },
@@ -86,11 +181,12 @@ function( angular ){
                 return
               }
               var json = JSON.parse( scope.config.json )
-              console.log( json )
               
               // do something fancy here
               
-              elem.html( $compile( '<div>' + json.id + '</div>' )( scope ))
+              elem.html(
+                $compile( '<div texturizer-sine-wave></div>' )( scope )
+              )
             }
           )
         }
