@@ -45,11 +45,18 @@ function( angular ){
               amplitude: 1,       // wave amplitude
               rarity: 0.5,        // point spacing
               freq: 0.5,          // angular frequency
-              phase: Math.PI * 2  // phase angle
+              phase: Math.PI * 2, // phase angle
+              tweak: [
+                [ 0, 0 ],
+                [ 0.512286623256592433, 0.512286623256592433 ],
+                [ 1.002313685767898599, 1 ],
+                [ Math.PI/2, 1]
+              ]
             }
           }
           scope.change = function( id ){
             scope.config.json = JSON.stringify( config[ id ], ' ', 2 )
+            scope.update()
           }
         }
       }
@@ -65,12 +72,7 @@ function( angular ){
                     'ng-model="config.json">',
           '</textarea>'
           
-        ].join(' '),
-        link: function( scope ){
-          scope.update = function(){
-            console.log( 'update' )
-          }
-        }
+        ].join(' ')
       }
     }
   ])
@@ -89,23 +91,15 @@ function( angular ){
           
         ].join(' '),
         link: function( scope, elem ){
-          var config = [
-            [ 0, 0 ],
-            [ 0.512286623256592433, 0.512286623256592433 ],
-            [ 1.002313685767898599, 1 ],
-            [ Math.PI/2, 1]
-          ]
+          var config = scope.json.tweak
           approximateCubicBezier(
             $( '#sines', elem ).get( 0 ),
             config,
             'stroke:black;'
           )
           function approximateCubicBezier( svg, controls, style ){
-            var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" ), data;
-            
-            //Bezier control points:
-            //https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths#Curve_commands
-            
+            var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
+            var data = ''
             var controlStart = controls[0], 
                 control1 = controls[1], 
                 control2 = controls[2], 
@@ -160,6 +154,9 @@ function( angular ){
               data += ' S' + [x2,y2] + ' ' + [x,y]
               negateY = !negateY
             }
+            
+            // draw the line
+            
             path.setAttribute( 'd', data )
             path.setAttribute( 'style', style )
             svg.appendChild( path )
@@ -175,12 +172,12 @@ function( angular ){
         scope: true,
         link: function( scope, elem ){
           scope.$watch(
-            function(){ return scope.config.json },
+            function(){ return scope.run },
             function(){
               if ( !scope.config.json ){
                 return
               }
-              var json = JSON.parse( scope.config.json )
+              scope.json = JSON.parse( scope.config.json )
               
               // do something fancy here
               
@@ -209,6 +206,10 @@ function( angular ){
         link: function( scope ){
           scope.config = {
             json: null
+          }
+          scope.run = 0
+          scope.update = function(){
+            scope.run += 1
           }
         }
       }
