@@ -34,10 +34,15 @@ function( angular ){
         link: function( scope ){
           var config = {
             livingHinge: { 
-              id: 'living hinge'
+              id: 'texturizer-living-hinge',
+              total: 250,
+              height: 500,
+              width: 1,
+              hSpace: 5,
+              vSpace: 2
             },
             sineWave: {
-              id: 'sine wave',
+              id: 'texturizer-sine-wave',
               origin: {
                 x: -Math.PI,
                 y: 0
@@ -92,13 +97,13 @@ function( angular ){
         ].join(' '),
         link: function( scope, elem ){
           var config = scope.json.tweak
+          var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
           approximateCubicBezier(
             $( '#sines', elem ).get( 0 ),
             config,
             'stroke:black;'
           )
           function approximateCubicBezier( svg, controls, style ){
-            var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
             var data = ''
             var controlStart = controls[0], 
                 control1 = controls[1], 
@@ -165,6 +170,41 @@ function( angular ){
       }
     }
   ])
+  .directive( 'texturizerLivingHinge', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="100%" height="%100">',
+            '<g id="hinges" fill="black" stroke-width=".02" ></g>',
+          '</svg>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var n = scope.json.total
+          function drawHinge( svg, config, i ){
+            console.log( svg, config, i )
+            var rect = document.createElementNS( "http://www.w3.org/2000/svg", "rect" )
+            rect.setAttribute( 'x', i*( config.width + config.hSpace ))
+            rect.setAttribute( 'y', 0 )
+            rect.setAttribute( 'width', config.width )
+            rect.setAttribute( 'height', config.height )
+            svg.appendChild( rect )
+          }
+          while ( !!n ){
+            drawHinge(
+              $( '#hinges', elem ).get( 0 ),
+              scope.json,
+              Math.abs( n-scope.json.total )
+            )
+            n--
+          }
+        }
+      }
+    }
+  ])
   .directive( 'texturizerSvg', [
     '$compile',
     function( $compile ){
@@ -182,7 +222,7 @@ function( angular ){
               // do something fancy here
               
               elem.html(
-                $compile( '<div texturizer-sine-wave></div>' )( scope )
+                $compile( '<div ' + scope.json.id + '></div>' )( scope )
               )
             }
           )
