@@ -178,7 +178,7 @@ function( angular ){
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="100%" height="100%">',
+               'width="100%" height="800">',
             '<g id="hinges" fill="black" stroke-width=".02" ></g>',
           '</svg>'
           
@@ -187,7 +187,6 @@ function( angular ){
           var n = scope.json.total
           function drawRect( config ){
             var rect = document.createElementNS( "http://www.w3.org/2000/svg", "rect" )
-            console.log( config )
             rect.setAttribute( 'x', config.x )
             rect.setAttribute( 'y', config.y )
             rect.setAttribute( 'width', config.width )
@@ -203,10 +202,7 @@ function( angular ){
               
               // what's the individual line length?
               
-              var lineLength = config.height / nLines
-              if ( nLines > 1 ){
-                lineLength = lineLength - config.vSpace
-              }
+              var lineLength = ( config.height - config.vSpace * nLines ) / nLines
               var n = 0
               while ( n < nLines ){
                 
