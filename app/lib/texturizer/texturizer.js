@@ -23,27 +23,38 @@ function( angular ){
             // menu
             
             '<ul class="dropdown-menu" uib-dropdown-menu role="menu">',
-              '<li role="menuitem">',
-                '<a href="" ng-click="change( \'livingHinge\' )">living hinge</a>',
-                '<a href="" ng-click="change( \'sineWave\' )">sine wave</a>',
+              '<li role="menuitem" ng-repeat="opt in options track by $index">',
+                '<a href="" ng-click="change( opt.id )">{{ opt.id }}</a>',
               '</li>',
             '</ul>',
           '</div>',
           
         ].join(''),
         link: function( scope ){
-          var config = {
-            livingHinge: { 
-              id: 'texturizer-living-hinge',
+          scope.options = [
+            {
+              id: 'slim hinge',
+              renderer: 'texturizer-living-hinge',
               total: 250,
               height: 100,
-              width: 10,
-              hSpace: 5,
+              width: 2,
+              hSpace: 2,
               vSpace: 5,
-              chunk: [ 1, 2, 3, 4, 5 ]
+              chunk: [ 1, 2 ]
             },
-            sineWave: {
-              id: 'texturizer-sine-wave',
+            {
+              id: 'chunky hinge',
+              renderer: 'texturizer-living-hinge',
+              total: 250,
+              height: 300,
+              width: 10,
+              hSpace: 2,
+              vSpace: 5,
+              chunk: [ 1, 2, 3 ]
+            },
+            {
+              id: 'sine wave',
+              renderer: 'texturizer-sine-wave',
               origin: {
                 x: -Math.PI,
                 y: 0
@@ -59,9 +70,14 @@ function( angular ){
                 [ Math.PI/2, 1]
               ]
             }
-          }
+          ]
+          
           scope.change = function( id ){
-            scope.config.json = JSON.stringify( config[ id ], ' ', 2 )
+            scope.config.json = JSON.stringify( 
+              _.find( scope.options, function( item ){
+                return item.id == id
+              } 
+            ), ' ', 2 )
             scope.update()
           }
         }
@@ -259,7 +275,7 @@ function( angular ){
               // do something fancy here
               
               elem.html(
-                $compile( '<div ' + scope.json.id + '></div>' )( scope )
+                $compile( '<div ' + scope.json.renderer + '></div>' )( scope )
               )
             }
           )
