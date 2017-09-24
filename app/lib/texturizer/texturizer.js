@@ -36,10 +36,11 @@ function( angular ){
             livingHinge: { 
               id: 'texturizer-living-hinge',
               total: 250,
-              height: 500,
-              width: 1,
+              height: 100,
+              width: 10,
               hSpace: 5,
-              vSpace: 2
+              vSpace: 5,
+              chunk: [ 1, 2, 3, 4, 5 ]
             },
             sineWave: {
               id: 'texturizer-sine-wave',
@@ -177,15 +178,55 @@ function( angular ){
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="100%" height="%100">',
+               'width="100%" height="100%">',
             '<g id="hinges" fill="black" stroke-width=".02" ></g>',
           '</svg>'
           
         ].join(' '),
         link: function( scope, elem ){
           var n = scope.json.total
+          function drawRect( config ){
+            var rect = document.createElementNS( "http://www.w3.org/2000/svg", "rect" )
+            console.log( config )
+            rect.setAttribute( 'x', config.x )
+            rect.setAttribute( 'y', config.y )
+            rect.setAttribute( 'width', config.width )
+            rect.setAttribute( 'height', config.height )
+            return rect
+          }
           function drawHinge( svg, config, i ){
-            console.log( svg, config, i )
+            
+            // work on that multi vertical line renderer
+            
+            if ( !!config.chunk && !!config.chunk.length ){
+              var nLines = config.chunk[ i % config.chunk.length ]
+              
+              // what's the individual line length?
+              
+              var lineLength = config.height / nLines
+              if ( nLines > 1 ){
+                lineLength = lineLength - config.vSpace
+              }
+              var n = 0
+              while ( n < nLines ){
+                
+                // draw that rectangle
+                
+                svg.appendChild(
+                  drawRect({
+                    x: i*( config.width + config.hSpace ),
+                    y: n * ( lineLength + config.vSpace ),
+                    width: config.width,
+                    height: lineLength
+                  })
+                )
+                n++
+              }
+              return
+            }
+            
+            // single line
+            
             var rect = document.createElementNS( "http://www.w3.org/2000/svg", "rect" )
             rect.setAttribute( 'x', i*( config.width + config.hSpace ))
             rect.setAttribute( 'y', 0 )
