@@ -50,7 +50,18 @@ function( angular ){
               width: 10,
               hSpace: 2,
               vSpace: 5,
-              chunk: [ 1, 2, 3 ]
+              chunk: [ 2 ]
+            },
+            {
+              id: 'offset hinge',
+              renderer: 'texturizer-living-hinge',
+              total: 250,
+              height: 300,
+              width: 10,
+              hSpace: 2,
+              vSpace: 5,
+              vOffset: 10,
+              chunk: [ 1 ]
             },
             {
               id: 'sine wave',
@@ -211,40 +222,45 @@ function( angular ){
           }
           function drawHinge( svg, config, i ){
             
+            config = _.merge({
+              vOffset: 0,
+              chunk: [ 1 ] 
+            }, config )
+            
             // work on that multi vertical line renderer
             
-            if ( !!config.chunk && !!config.chunk.length ){
-              var nLines = config.chunk[ i % config.chunk.length ]
+            var nLines = config.chunk[ i % config.chunk.length ]
+            
+            // what's the individual line length?
+            
+            var lineLength = ( config.height - config.vSpace * nLines ) / nLines
+            var n = 0
+            while ( n < nLines ){
               
-              // what's the individual line length?
+              // draw that rectangle
               
-              var lineLength = ( config.height - config.vSpace * nLines ) / nLines
-              var n = 0
-              while ( n < nLines ){
-                
-                // draw that rectangle
-                
-                svg.appendChild(
-                  drawRect({
+              var y = n*( lineLength + config.vSpace ) + i*config.vOffset
+              var check =  y + lineLength + config.vSpace
+              if ( check > config.height ){
+                svg.appendChild( drawRect({
                     x: i*( config.width + config.hSpace ),
-                    y: n * ( lineLength + config.vSpace ),
+                    y: 0,
                     width: config.width,
-                    height: lineLength
+                    height: check % config.height - config.vSpace
                   })
                 )
-                n++
+                console.log( check, config.height, check % config.height )
               }
-              return
+              svg.appendChild(
+                drawRect({
+                  x: i*( config.width + config.hSpace ),
+                  y: y % config.height,
+                  width: config.width,
+                  height: lineLength
+                })
+              )
+              n++
             }
-            
-            // single line
-            
-            var rect = document.createElementNS( "http://www.w3.org/2000/svg", "rect" )
-            rect.setAttribute( 'x', i*( config.width + config.hSpace ))
-            rect.setAttribute( 'y', 0 )
-            rect.setAttribute( 'width', config.width )
-            rect.setAttribute( 'height', config.height )
-            svg.appendChild( rect )
           }
           while ( !!n ){
             drawHinge(
