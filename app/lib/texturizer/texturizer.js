@@ -30,8 +30,11 @@ function(
             
             // menu
             
-            '<ul class="dropdown-menu" uib-dropdown-menu role="menu">',
-              '<li role="menuitem" ng-repeat="opt in options track by $index">',
+            '<ul class="dropdown-menu"',
+                'uib-dropdown-menu',
+                'role="menu">',
+              '<li role="menuitem"',
+                  'ng-repeat="opt in options track by $index">',
                 '<a href="" ng-click="change( opt.id )">{{ opt.id }}</a>',
               '</li>',
             '</ul>',
@@ -41,64 +44,63 @@ function(
         link: function( scope ){
           scope.options = [
             {
-              id: 'circle',
+              id: 'bullseye',
               renderer: 'texturizer-bullseye',
               circles: [
                 {
                   total: 20,
                   width: 2,
                   space: 2,
-                  x: 400,
-                  y: 400
+                  x: 200,
+                  y: 200
                 }
               ]
             },
             {
-              id: 'slim hinge',
-              renderer: 'texturizer-living-hinge',
+              id: 'slim bars',
+              renderer: 'texturizer-stacked-bars',
               total: 250,
               height: 100,
               width: 2,
               hSpace: 2,
               vSpace: 5,
-              chunk: [ 1, 2 ]
+              chunk: [ 1, 2, 3 ]
             },
             {
-              id: 'chunky hinge',
-              renderer: 'texturizer-living-hinge',
+              id: 'chunky bars',
+              renderer: 'texturizer-stacked-bars',
               total: 250,
               height: 300,
               width: 10,
               hSpace: 2,
               vSpace: 5,
-              chunk: [ 2 ]
+              chunk: [ 2, 1 ]
             },
             {
-              id: 'offset hinge',
-              renderer: 'texturizer-living-hinge',
+              id: 'offset bars',
+              renderer: 'texturizer-stacked-bars',
               total: 250,
               height: 300,
-              width: 10,
+              width: 5,
               hSpace: 2,
               vSpace: 5,
-              chunk: [ 1, [ 1, 0.5 ] ]
+              chunk: [
+                [ 1, 0.1 ],
+                [ 1, 0.5 ],
+                [ 1, 0.25 ],
+                [ 1, 0.75 ],
+                [ 1, 0.9 ]
+              ]
             },
             {
               id: 'sine wave',
               renderer: 'texturizer-sine-wave',
-              origin: {
-                x: -Math.PI,
-                y: 0
-              },
-              amplitude: 1,       // wave amplitude
-              rarity: 0.5,        // point spacing
-              freq: 0.5,          // angular frequency
-              phase: Math.PI * 2, // phase angle
-              tweak: [
-                [ 0, 0 ],
-                [ 0.512286623256592433, 0.512286623256592433 ],
-                [ 1.002313685767898599, 1 ],
-                [ Math.PI/2, 1 ]
+              waves: [
+                {
+                  total: 10,
+                  width: 400,
+                  unit: 10
+                }
               ]
             }
           ]
@@ -181,86 +183,52 @@ function(
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
                'width="100%" height="800">',
-            '<g id="circles" fill="black" stroke-width=".02" ></g>',
+            '<g id="waves" fill="black" stroke-width=".02" ></g>',
           '</svg>'
           
         ].join(' '),
         link: function( scope, elem ){
-          var config = scope.json.tweak
-          var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
-          approximateCubicBezier(
-            $( '#sines', elem ).get( 0 ),
-            config,
-            'stroke:black;'
-          )
-          function approximateCubicBezier( svg, controls, style ){
-            var data = ''
-            var controlStart = controls[0], 
-                control1 = controls[1], 
-                control2 = controls[2], 
-                controlEnd = controls[3],
-                x, y,
-                x1, y1,
-                x2, y2,
-                quarterX = controlEnd[0],
-                startX = -(4 * quarterX),
-                negateY = false;
-                
-            function negateYs(){
-              if ( negateY ){
-                y = -y
-                y1 = -y1
-                y2 = -y2
+          var config = scope.json
+          var n = 0
+          function position( x, config ){
+            return ( Math.sin( Math.sqrt( x * config.frequency ) - config.offset )) * x * 0.1 * config.amplitude
+          }
+          function drawWave( svg, config, n ){
+            config = _.merge({
+              offset: 0,
+              frequency: 0.25,
+              amplitude: 1
+            }, config )
+            var i = 0
+            while ( i < config.total ){
+              var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
+              var data = [ 'M 0 ' + position( 0, config )]
+              var j = 0
+              while( j < config.width / config.unit ){
+                data.push( 'L ' + j + ' ' + position( j*config.unit, config ))
+                j++
               }
+              path.setAttribute( 'd', data.join(' ') )
+              path.setAttribute( 'stroke', 'black' )
+              path.setAttribute( 'stroke-width', 2 )
+              path.setAttribute( 'fill', 'none' )
+              svg.appendChild( path )
+              i++
             }
-            
-            for ( x = startX; x<6; ){
-              if ( x === startX ){
-                y = controlStart[1]
-                x1 = x + control1[0]
-                y1 = control1[1]
-                negateYs()
-                data = 'M' +[x,y]+ ' C' +[x1,y1]+ ' '
-              }
-              else {
-                
-                // x1/y1 are always "mirrors" of the previous x2/y2,
-                // so we can use the simpler "S" syntax instead of a new "C":
-                
-                data += ' S'
-              }
-              
-              // Going from y=0 to y=+-1:
-              
-              x2 = x + control2[0]
-              y2 = control2[1]
-              x += quarterX
-              y = controlEnd[1]
-              negateYs()
-              data += [x2,y2] + ' ' + [x,y]
-              
-              //Going from y=+- back to y=0:
-              
-              x2 = (x + quarterX) - control1[0]
-              y2 = control1[1]
-              x += quarterX
-              y = controlStart[1]
-              negateYs()
-              data += ' S' + [x2,y2] + ' ' + [x,y]
-              negateY = !negateY
-            }
-            
-            // draw the line
-            
-            path.setAttribute( 'd', data )
-            path.setAttribute( 'style', style )
-            svg.appendChild( path )
+          }
+          while( n < config.waves.length ){
+            drawWave(
+              $( '#waves', elem ).get( 0 ),
+              config.waves[ n ],
+              n
+            )
+            n++
           }
         }
       }
     }
   ])
-  .directive( 'texturizerLivingHinge', [
+  .directive( 'texturizerStackedBars', [
     function(){
       return {
         scope: true,
