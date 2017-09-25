@@ -33,6 +33,13 @@ function( angular ){
         link: function( scope ){
           scope.options = [
             {
+              id: 'circles',
+              renderer: 'texturizer-bullseye',
+              total: 250,
+              width: 2,
+              hSpace: 2,
+            },
+            {
               id: 'slim hinge',
               renderer: 'texturizer-living-hinge',
               total: 250,
@@ -108,6 +115,36 @@ function( angular ){
       }
     }
   ])
+  .directive( 'texturizerBullseye', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="100%" height="400">',
+            '<g id="circles"></g>',
+          '</svg>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var n = scope.json.total
+          function drawCircle( svg, config, i ){
+            // <circle cx="100" cy="50" r="40" stroke="black" stroke-width="2" fill="none" />
+            console.log( svg, config, i )
+          }
+          while ( !!n ){
+            drawCircle(
+              $( '#circles', elem ).get( 0 ),
+              scope.json,
+              Math.abs( n-scope.json.total )
+            )
+            n--
+          }
+        }
+      }
+    }
+  ])
   .directive( 'texturizerSineWave', [
     function(){
       return {
@@ -115,11 +152,9 @@ function( angular ){
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="100%" height="400"',
-               'viewBox="-7.5 -1.5 15 3"',
-               'preserveAspectRatio="xMidYMid slice">',
-            '<g id="sines" fill="none" stroke-width=".02" ></g>',
-          '</svg>',
+               'width="100%" height="800">',
+            '<g id="circles" fill="black" stroke-width=".02" ></g>',
+          '</svg>'
           
         ].join(' '),
         link: function( scope, elem ){
@@ -144,11 +179,11 @@ function( angular ){
                 negateY = false;
                 
             function negateYs(){
-                if ( negateY ){
-                  y = -y
-                  y1 = -y1
-                  y2 = -y2
-                }
+              if ( negateY ){
+                y = -y
+                y1 = -y1
+                y2 = -y2
+              }
             }
             
             for ( x = startX; x<6; ){
@@ -205,7 +240,7 @@ function( angular ){
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
                'width="100%" height="800">',
-            '<g id="hinges" fill="black" stroke-width=".02" ></g>',
+            '<g id="hinges" fill="black"></g>',
           '</svg>'
           
         ].join(' '),
@@ -244,10 +279,14 @@ function( angular ){
               
               var y = ( n*( lineLength + config.vSpace ) + lineLength*offsetPercent ) % config.height
               var x = i*( config.width + config.hSpace )
+              
+              // wrap rectangle if necessary
+              
               var overlap = y + lineLength + config.vSpace - config.height
               var diff = ( overlap > 0 ) ? overlap : 0
               if ( !!diff){
-                svg.appendChild( drawRect({
+                svg.appendChild(
+                  drawRect({
                     x: i*( config.width + config.hSpace ),
                     y: 0,
                     width: config.width,
@@ -255,6 +294,9 @@ function( angular ){
                   })
                 )
               }
+              
+              // draw that thing
+              
               svg.appendChild(
                 drawRect({
                   x: x,
