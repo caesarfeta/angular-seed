@@ -99,7 +99,8 @@ function(
                 {
                   total: 10,
                   width: 400,
-                  unit: 10
+                  unit: 10,
+                  space: 5
                 }
               ]
             }
@@ -202,10 +203,13 @@ function(
             var i = 0
             while ( i < config.total ){
               var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
-              var data = [ 'M 0 ' + position( 0, config )]
               var j = 0
+              var data = []
               while( j < config.width / config.unit ){
-                data.push( 'L ' + j + ' ' + position( j*config.unit, config ))
+                var pre = ( j == 0 ) ? 'M' : 'L'
+                var y = Math.sin( j ) * config.amplitude + i * config.space
+                console.log( y )
+                data.push( pre + ' ' + j * config.unit + ' ' + y )
                 j++
               }
               path.setAttribute( 'd', data.join(' ') )
