@@ -1,8 +1,16 @@
 define([
-'angular'
+'angular',
+'../utils/utils'
 ], 
-function( angular ){
+function(
+  angular,
+  utils ){
   angular.module( 'texturizer', [])
+  .service( 'utilsTest', [
+    function(){
+      return utils
+    }
+  ])
   .directive( 'texturizerStarter', [
     function(){
       return {
@@ -33,11 +41,17 @@ function( angular ){
         link: function( scope ){
           scope.options = [
             {
-              id: 'circles',
+              id: 'circle',
               renderer: 'texturizer-bullseye',
-              total: 250,
-              width: 2,
-              space: 2,
+              circles: [
+                {
+                  total: 20,
+                  width: 2,
+                  space: 2,
+                  x: 400,
+                  y: 400
+                }
+              ]
             },
             {
               id: 'slim hinge',
@@ -67,7 +81,7 @@ function( angular ){
               width: 10,
               hSpace: 2,
               vSpace: 5,
-              chunk: [ 1, [ 1, 0.5 ]]
+              chunk: [ 1, [ 1, 0.5 ] ]
             },
             {
               id: 'sine wave',
@@ -84,7 +98,7 @@ function( angular ){
                 [ 0, 0 ],
                 [ 0.512286623256592433, 0.512286623256592433 ],
                 [ 1.002313685767898599, 1 ],
-                [ Math.PI/2, 1]
+                [ Math.PI/2, 1 ]
               ]
             }
           ]
@@ -128,24 +142,32 @@ function( angular ){
           
         ].join(' '),
         link: function( scope, elem ){
-          var n = scope.json.total
+          var n = scope.json.circles.length
+          function drawCircles( svg, config ){
+            var i = 0
+            while( i < config.total ){
+              drawCircle( svg, config, i )
+              i++
+            }
+          }
           function drawCircle( svg, config, i ){
             var circle = document.createElementNS( "http://www.w3.org/2000/svg", "circle" )
-            circle.setAttribute( 'cx', 400 )
-            circle.setAttribute( 'cy', 400 )
+            circle.setAttribute( 'cx', config.x )
+            circle.setAttribute( 'cy', config.y )
             circle.setAttribute( 'r', config.width * config.space * i )
             circle.setAttribute( 'stroke-width', config.width )
             circle.setAttribute( 'stroke', 'black' )
             circle.setAttribute( 'fill', 'none' )
             svg.appendChild( circle )
           }
-          while ( !!n ){
-            drawCircle(
+          var i = 0
+          while ( i < scope.json.circles.length ){
+            drawCircles(
               $( '#circles', elem ).get( 0 ),
-              scope.json,
-              Math.abs( n-scope.json.total )
+              scope.json.circles[ i ],
+              Math.abs( n-scope.json.circles.length )
             )
-            n--
+            i++
           }
         }
       }

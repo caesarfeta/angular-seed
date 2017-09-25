@@ -1053,6 +1053,16 @@
     "duration": 1
   },
   {
+    "label": "starshine",
+    "times": 6,
+    "angle": 72,
+    "start": "F-F-F-F-F-",
+    "rules": [
+      "F=--F+F-F+F"
+    ],
+    "duration": 1
+  },
+  {
     "label": "star kapow",
     "times": 3,
     "angle": 70,
