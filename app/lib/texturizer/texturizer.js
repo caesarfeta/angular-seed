@@ -60,8 +60,7 @@ function( angular ){
               width: 10,
               hSpace: 2,
               vSpace: 5,
-              vOffset: 10,
-              chunk: [ 1 ]
+              chunk: [ 1, [ 1, 0.5 ]]
             },
             {
               id: 'sine wave',
@@ -223,13 +222,17 @@ function( angular ){
           function drawHinge( svg, config, i ){
             
             config = _.merge({
-              vOffset: 0,
               chunk: [ 1 ] 
             }, config )
             
             // work on that multi vertical line renderer
             
             var nLines = config.chunk[ i % config.chunk.length ]
+            var offsetPercent = 0
+            if ( Array.isArray( nLines)){
+              offsetPercent = nLines[1]
+              nLines = nLines[0]
+            }
             
             // what's the individual line length?
             
@@ -239,24 +242,25 @@ function( angular ){
               
               // draw that rectangle
               
-              var y = n*( lineLength + config.vSpace ) + i*config.vOffset
-              var check =  y + lineLength + config.vSpace
-              if ( check > config.height ){
+              var y = ( n*( lineLength + config.vSpace ) + lineLength*offsetPercent ) % config.height
+              var x = i*( config.width + config.hSpace )
+              var overlap = y + lineLength + config.vSpace - config.height
+              var diff = ( overlap > 0 ) ? overlap : 0
+              if ( !!diff){
                 svg.appendChild( drawRect({
                     x: i*( config.width + config.hSpace ),
                     y: 0,
                     width: config.width,
-                    height: check % config.height - config.vSpace
+                    height: diff - config.vSpace
                   })
                 )
-                console.log( check, config.height, check % config.height )
               }
               svg.appendChild(
                 drawRect({
-                  x: i*( config.width + config.hSpace ),
-                  y: y % config.height,
+                  x: x,
+                  y: y,
                   width: config.width,
-                  height: lineLength
+                  height: lineLength - diff
                 })
               )
               n++
