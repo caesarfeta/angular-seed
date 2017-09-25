@@ -37,7 +37,7 @@ function( angular ){
               renderer: 'texturizer-bullseye',
               total: 250,
               width: 2,
-              hSpace: 2,
+              space: 2,
             },
             {
               id: 'slim hinge',
@@ -122,16 +122,26 @@ function( angular ){
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="100%" height="400">',
-            '<g id="circles"></g>',
+               'width="800" height="800">',
+            '<g id="circles" fill="none"></g>',
           '</svg>'
           
         ].join(' '),
         link: function( scope, elem ){
           var n = scope.json.total
           function drawCircle( svg, config, i ){
+            var circle = document.createElementNS( "http://www.w3.org/2000/svg", "circle" )
+            
             // <circle cx="100" cy="50" r="40" stroke="black" stroke-width="2" fill="none" />
+            
             console.log( svg, config, i )
+            circle.setAttribute( 'cx', 400 )
+            circle.setAttribute( 'cy', 400 )
+            circle.setAttribute( 'r', config.width * config.space * i )
+            circle.setAttribute( 'stroke-width', config.width )
+            circle.setAttribute( 'stroke', 'black' )
+            circle.setAttribute( 'fill', 'none' )
+            svg.appendChild( circle )
           }
           while ( !!n ){
             drawCircle(
