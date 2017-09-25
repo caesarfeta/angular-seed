@@ -131,10 +131,6 @@ function( angular ){
           var n = scope.json.total
           function drawCircle( svg, config, i ){
             var circle = document.createElementNS( "http://www.w3.org/2000/svg", "circle" )
-            
-            // <circle cx="100" cy="50" r="40" stroke="black" stroke-width="2" fill="none" />
-            
-            console.log( svg, config, i )
             circle.setAttribute( 'cx', 400 )
             circle.setAttribute( 'cy', 400 )
             circle.setAttribute( 'r', config.width * config.space * i )
@@ -265,7 +261,6 @@ function( angular ){
             return rect
           }
           function drawHinge( svg, config, i ){
-            
             config = _.merge({
               chunk: [ 1 ] 
             }, config )
