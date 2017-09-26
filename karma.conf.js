@@ -1,4 +1,5 @@
 module.exports = function( config ){
+  process.env[ 'KARMA_TEST_PATTERN' ] != null ? process.env[ 'KARMA_TEST_PATTERN' ] : 'spec\.js$'
   config.set({
     basePath : './',
     files : [
