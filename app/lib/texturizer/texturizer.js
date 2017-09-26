@@ -93,14 +93,41 @@ function(
               ]
             },
             {
-              id: 'sine wave',
-              renderer: 'texturizer-sine-wave',
+              id: 'jagged wave',
+              renderer: 'texturizer-jagged-wave',
               waves: [
                 {
-                  total: 10,
-                  width: 400,
-                  unit: 10,
-                  space: 5
+                  "total": 100,
+                  "width": 400,
+                  "unit": 15,
+                  "space": 15,
+                 "amplitude": 50
+                }
+              ]
+            },
+            {
+              id: 'regular polygons',
+              renderer: 'texturizer_reg_poly',
+              sideLength: 100,
+              nSides: [ 3, 4, 5, 6, 8 ]
+            },
+            {
+              id: 'jagged waves',
+              renderer: 'texturizer-jagged-wave',
+              waves: [
+                {
+                  "total": 100,
+                  "width": 400,
+                  "unit": 15,
+                  "space": 15,
+                  "amplitude": 50
+                },
+                {
+                  "total": 100,
+                  "width": 400,
+                  "unit": 15,
+                  "space": 18,
+                  "amplitude": 50
                 }
               ]
             }
@@ -129,6 +156,61 @@ function(
           '</textarea>'
           
         ].join(' ')
+      }
+    }
+  ])
+  .directive( 'texturizerRegPoly', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="800" height="800">',
+            '<g id="polys" fill="none"></g>',
+          '</svg>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var config = scope.json
+          _.each( config.nSides, function( n ){
+            drawPoly(
+              $( '#polys', elem ).get( 0 ),
+              scope.json,
+              n
+            )
+          })
+          function drawPoly( svg, config, n ){
+            var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
+            var angle = Math.PI*2 / n
+            
+            // find radius of the circle that contains polygon
+            
+            var r = config.sideLength / ( 2 * Math.sin( Math.PI / n ))
+            
+            // position the polygon
+            
+            function pos( p ){
+              return p*r+250
+            }
+            var points = []
+            for ( var i=0; i < Math.PI*2; i+=angle ){
+              points.push([ 
+                Math.sin( i ),
+                Math.cos( i )
+              ])
+            }
+            points.push( _.first( points ))
+            var d = points.map( function( point, i ){
+              return (( !i ) ? 'M' : 'L' ) + pos( point[0] ) + ' ' + pos( point[1] )
+            }).join(' ')
+            path.setAttribute( 'd', d )
+            path.setAttribute( 'stroke-width', 1 )
+            path.setAttribute( 'stroke', 'black' )
+            path.setAttribute( 'fill', 'none' )
+            svg.appendChild( path )
+          }
+        }
       }
     }
   ])
@@ -176,7 +258,7 @@ function(
       }
     }
   ])
-  .directive( 'texturizerSineWave', [
+  .directive( 'texturizerJaggedWave', [
     function(){
       return {
         scope: true,
@@ -184,7 +266,7 @@ function(
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
                'width="100%" height="800">',
-            '<g id="waves" fill="black" stroke-width=".02" ></g>',
+            '<g id="waves"></g>',
           '</svg>'
           
         ].join(' '),
@@ -203,14 +285,13 @@ function(
             var i = 0
             while ( i < config.total ){
               var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
-              var j = 0
+              var x = 0
               var data = []
-              while( j < config.width / config.unit ){
-                var pre = ( j == 0 ) ? 'M' : 'L'
-                var y = Math.sin( j ) * config.amplitude + i * config.space
-                console.log( y )
-                data.push( pre + ' ' + j * config.unit + ' ' + y )
-                j++
+              while( x < config.width ){
+                var pre = ( x == 0 ) ? 'M' : 'L'
+                var y = Math.sin( x ) * config.amplitude + i * config.space + config.amplitude*2
+                data.push( pre + ' ' + x * config.unit + ' ' + y )
+                x++
               }
               path.setAttribute( 'd', data.join(' ') )
               path.setAttribute( 'stroke', 'black' )
