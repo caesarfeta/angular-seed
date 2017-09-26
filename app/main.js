@@ -26,6 +26,7 @@ require.config({
     angular: 'bower_components/angular/angular',
     angularRoute: 'bower_components/angular-route/angular-route',
     angularMocks: 'bower_components/angular-mocks/angular-mocks',
+    angularSvgDownload: 'bower_components/angular-downloadsvg-directive/angular-downloadsvg-directive.min',
     bootstrap: 'bower_components/angular-bootstrap/ui-bootstrap.min',
     'colorpicker.module': 'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min',
     text: 'bower_components/requirejs-text/text',
@@ -58,6 +59,9 @@ require.config({
     angularMocks: {
       deps:['angular'],
       exports:'angular.mock'
+    },
+    angularSvgDownload: {
+      deps:['angular']
     },
     'color-thief': {
       exports: 'ColorLib'

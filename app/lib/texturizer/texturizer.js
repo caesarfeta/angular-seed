@@ -1,11 +1,12 @@
 define([
 'angular',
-'../utils/utils'
+'../utils/utils',
+'angularSvgDownload'
 ], 
 function(
   angular,
   utils ){
-  angular.module( 'texturizer', [])
+  angular.module( 'texturizer', [ 'hc.downloader' ])
   .service( 'utilsTest', [
     function(){
       return utils
@@ -188,7 +189,7 @@ function(
             
             var r = config.sideLength / ( 2 * Math.sin( Math.PI / n ))
             
-            // position the polygon
+            // scale and position the polygon
             
             function pos( p ){
               return p*r+250
@@ -201,6 +202,9 @@ function(
               ])
             }
             points.push( _.first( points ))
+            
+            // set the svg attributes
+            
             var d = points.map( function( point, i ){
               return (( !i ) ? 'M' : 'L' ) + pos( point[0] ) + ' ' + pos( point[1] )
             }).join(' ')
@@ -432,12 +436,25 @@ function(
         template: [
           
           '<div class="texturizer">',
+            
+            // controls
+            
             '<div texturizer-starter></div>',
             '<div texturizer-ctrl></div>',
+            
+            // download button
+            
+            '<button class="btn btn-sm"',
+                    'svg-download title="texturizer">',
+              'Download SVG',
+            '</button>',
+            
+            // svg
+            
             '<div texturizer-svg></div>',
           '</div>'
           
-        ].join(''),
+        ].join(' '),
         link: function( scope ){
           scope.config = {
             json: null
