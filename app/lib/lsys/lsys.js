@@ -14,6 +14,7 @@ function(
     return [ radius * Math.cos( angle ), radius * Math.sin( angle ) ]
   }
   return angular.module( 'lsys', [
+    'hc.downloader',
     'atCommon'
   ])
   .service( 'lsysHttp', [
@@ -80,8 +81,14 @@ function(
           
           '<div ng-if="!!lsys.coords" class="lsysJson">',
             '<button class="btn btn-sm" ng-click="show=!show">SVG</button>',
-            '<div class="compile" ng-if="!!show">',
-              '{{ ::points() }}',
+            '<div ng-if="!!show">',
+              '<div class="compile">',
+                '{{ ::points() }}',
+              '</div>',
+              '<button class="btn btn-sm"',
+                      'svg-download title="{{ ::lsys.id }}">',
+                'Save SVG',
+              '</button>',
             '</div>',
           '</div>'
           

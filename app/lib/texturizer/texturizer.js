@@ -6,7 +6,9 @@ define([
 function(
   angular,
   utils ){
-  angular.module( 'texturizer', [ 'hc.downloader' ])
+  angular.module( 'texturizer', [
+    'hc.downloader'
+  ])
   .service( 'utilsTest', [
     function(){
       return utils
@@ -446,7 +448,7 @@ function(
             
             '<button class="btn btn-sm"',
                     'svg-download title="texturizer">',
-              'Download SVG',
+              'Save SVG',
             '</button>',
             
             // svg
