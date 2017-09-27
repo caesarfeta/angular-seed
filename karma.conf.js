@@ -1,5 +1,5 @@
 module.exports = function( config ){
-  process.env[ 'REGEX' ] != null ? process.env[ 'REGEX' ] : 'spec\.js$'
+  console.log( process.env )
   config.set({
     basePath : './',
     files : [
@@ -29,6 +29,12 @@ module.exports = function( config ){
     junitReporter : {
       outputFile: 'test_out/unit.xml',
       suite: 'unit'
+    },
+    client: {
+      captureConsole: true,
+      args: [
+        process.env[ 'KARMA_REGEX' ] != null ? process.env[ 'KARMA_REGEX' ] : 'spec\.js$'
+      ]
     }
   })
 }
