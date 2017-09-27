@@ -1,5 +1,4 @@
 module.exports = function( config ){
-  console.log( process.env )
   config.set({
     basePath : './',
     files : [

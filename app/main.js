@@ -1,9 +1,9 @@
 // finds test files for karma
 
-var args = window.__karma__.config.args
 var baseUrl = null
-var testRegex = new RegExp( args[0] )
 if ( window.__karma__ ){
+  var args = window.__karma__.config.args
+  var testRegex = new RegExp( args[0] )
   baseUrl = '/base'
   var allTestFiles = []
   var pathToModule = function( path ){
