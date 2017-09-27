@@ -1,11 +1,10 @@
 module.exports = function( config ){
-  process.env[ 'KARMA_TEST_PATTERN' ] != null ? process.env[ 'KARMA_TEST_PATTERN' ] : 'spec\.js$'
+  process.env[ 'REGEX' ] != null ? process.env[ 'REGEX' ] : 'spec\.js$'
   config.set({
     basePath : './',
     files : [
       { pattern: 'app/bower_components/**/*.js', included: false },
       { pattern: 'app/lib/**/*.js', included: false },
-      { pattern: 'app/view*/**/*.js', included: false },
       { pattern: 'app/bower_tests/**/*.js', included: false },
       { pattern: 'app/app.js', included: false },
       'app/main.js'

@@ -297,7 +297,7 @@ function(
                           geometry.vertices.push( new THREE.Vector3(
                             R * Math.cos( lat ) * Math.cos( long ),
                             R * Math.cos( lat ) * Math.sin( long ),
-                            coords[ 1 ],
+                            coords[ 1 ]
                           ))
                         })
                         break

@@ -1,9 +1,11 @@
 define([ 
 'lodash',
+'./insertIntersectData',
 '../jsSHA'
 ],
 function(
   _,
+  data,
   jsSHA ){
   'use strict'
   
@@ -49,42 +51,57 @@ function(
     return y1 - slope( x1, y1, x2, y2 ) * x1
   }
   
-  utils.math = {
-    lineIntersect: function( a, b, c, d ){
-      var x11 = a[0]
-      var y11 = a[1]
-      var x12 = b[0]
-      var y12 = b[1]
-      var x21 = c[0]
-      var y21 = c[1]
-      var x22 = d[0]
-      var y22 = d[1]
-      var slope1, slope2, yint1, yint2, intx, inty;
-      if ( x11 == x21 && y11 == y21 ){
-        return [ x11, y11 ]
-      }
-      if ( x12 == x22 && y12 == y22 ){
-        return [ x12, y22 ]
-      }
-      slope1 = slope( x11, y11, x12, y12 )
-      slope2 = slope( x21, y21, x22, y22 )
-      if ( slope1 === slope2 ){
-        return false
-      }
-      yint1 = yInt( x11, y11, x12, y12 )
-      yint2 = yInt( x21, y21, x22, y22 )
-      if ( yint1 === yint2 ){
-        return yint1 === false ? false : [ 0, yint1 ]
-      }
-      if ( slope1 === false ){
-        return [ y21, slope2 * y21 + yint2 ]
-      }
-      if ( slope2 === false ){
-        return [ y11, slope1 * y11 + yint1 ]
-      }
-      intx = ( slope1 * x11 + yint1 - yint2) / slope2
-      return [ intx, slope1 * intx + yint1 ]
+  function lineIntersect( a, b, c, d ){
+    var x11 = a[0]
+    var y11 = a[1]
+    var x12 = b[0]
+    var y12 = b[1]
+    var x21 = c[0]
+    var y21 = c[1]
+    var x22 = d[0]
+    var y22 = d[1]
+    var slope1, slope2, yint1, yint2, intx, inty;
+    if ( x11 == x21 && y11 == y21 ){
+      return [ x11, y11 ]
     }
+    if ( x12 == x22 && y12 == y22 ){
+      return [ x12, y22 ]
+    }
+    slope1 = slope( x11, y11, x12, y12 )
+    slope2 = slope( x21, y21, x22, y22 )
+    if ( slope1 === slope2 ){
+      return false
+    }
+    yint1 = yInt( x11, y11, x12, y12 )
+    yint2 = yInt( x21, y21, x22, y22 )
+    if ( yint1 === yint2 ){
+      return yint1 === false ? false : [ 0, yint1 ]
+    }
+    if ( slope1 === false ){
+      return [ y21, slope2 * y21 + yint2 ]
+    }
+    if ( slope2 === false ){
+      return [ y11, slope1 * y11 + yint1 ]
+    }
+    intx = ( slope1 * x11 + yint1 - yint2) / slope2
+    return [ intx, slope1 * intx + yint1 ]
+  }
+  
+  utils.math = {
+    insertIntersects: function( points ){
+      points = data
+      for ( var i=0; i<points.length-1; i+=2 ){
+        var ii = !!points[i+1] ? i+1 : 0
+        for ( var j=0; j<points.length-1; j+=2 ){
+          var jj = !!points[j+1] ? j+1 : 0
+          var intersect = lineIntersect( points[i], points[ii], points[j], points[jj] )
+          if ( Number.isFinite( intersect[0] ) && Number.isFinite( intersect[1] )){
+            console.log( intersect, i )
+          }
+        }
+      }
+    },
+    lineIntersect: lineIntersect
   }
   
   // find the greatest common denominator of an array of numbers

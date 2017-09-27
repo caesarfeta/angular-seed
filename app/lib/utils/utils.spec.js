@@ -1,18 +1,33 @@
 define([
-'./utils', 
+'./utils',
+'lodash' 
 ],
-function( utils ){
+function(
+  utils,
+  _ ){
   describe( 'utils', function() {
     it( '!!math.lineIntersect', function(){
       expect( !!utils.math.lineIntersect ).toBe( true )
     })
     it( 'math.lineIntersect', function(){
-      expect(
-        utils.math.lineIntersect(
-          [ 1, 1 ], [ -1, -1 ],
-          [ -1, 1 ], [ 1, -1 ] 
-        )
-      ).toBe( [ 0, 0 ] )
+      var tests = [
+        {
+          points: [
+            [ 1, 1 ], [ -1, -1 ],
+            [ -1, 1 ], [ 1, -1 ] 
+          ],
+          result: [ 0, 0 ]
+        }
+      ]
+      var results = tests.map( function( item ){
+        return _.isEqual( utils.math.lineIntersect(
+          item.points[0],
+          item.points[1],
+          item.points[2],
+          item.points[3]
+        ), item.result )
+      })
+      expect( _.every( results )).toBe( true )
     })
   })
 })
