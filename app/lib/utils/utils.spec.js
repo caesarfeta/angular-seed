@@ -1,10 +1,20 @@
 define([
 './utils',
-'lodash' 
+'lodash',
+'./grandmaStar',
+'./lumpyX'
 ],
 function(
   utils,
-  _ ){
+  _,
+  grandmaStar,
+  lumpyX  ){
+  
+  var data = {
+    lumpyX: lumpyX,
+    grandmaStar: grandmaStar
+  }
+  
   describe( 'utils', function() {
     it( '!!math.lineIntersect', function(){
       expect( !!utils.math.lineIntersect ).toBe( true )
@@ -17,6 +27,13 @@ function(
             [ -1, 1 ], [ 1, -1 ] 
           ],
           result: [ 0, 0 ]
+        },
+        {
+          points: [
+            [ 1, 1 ], [ 2, 2 ],
+            [ -1, -1 ], [ -2, -2 ]
+          ],
+          result: [ Infinity, Infinity ]
         }
       ]
       var results = tests.map( function( item ){
@@ -29,5 +46,6 @@ function(
       })
       expect( _.every( results )).toBe( true )
     })
+    
   })
 })

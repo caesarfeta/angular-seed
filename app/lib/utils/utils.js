@@ -1,11 +1,9 @@
 define([ 
 'lodash',
-'./insertIntersectData',
 '../jsSHA'
 ],
 function(
   _,
-  data,
   jsSHA ){
   'use strict'
   
@@ -89,7 +87,6 @@ function(
   
   utils.math = {
     insertIntersects: function( points ){
-      points = data
       for ( var i=0; i<points.length-1; i+=2 ){
         var ii = !!points[i+1] ? i+1 : 0
         for ( var j=0; j<points.length-1; j+=2 ){
@@ -99,6 +96,19 @@ function(
             console.log( intersect, i )
           }
         }
+      }
+    },
+    circle :{
+      nCoords: function( n ){
+        var angle = Math.PI*2 / n
+        var points = []
+        for ( var i=0; i < Math.PI*2; i+=angle ){
+          points.push([ 
+            Math.sin( i ),
+            Math.cos( i )
+          ])
+        }
+        return points
       }
     },
     lineIntersect: lineIntersect

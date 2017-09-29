@@ -2,16 +2,15 @@
 
 var baseUrl = null
 if ( window.__karma__ ){
-  var args = window.__karma__.config.args
-  var testRegex = new RegExp( args[0] )
   baseUrl = '/base'
   var allTestFiles = []
+  var TEST_REGEXP = /spec\.js$/
   var pathToModule = function( path ){
     return path.replace( /^\/base\/app\//, '' ).replace( /\.js$/, '' )
   }
   Object.keys( window.__karma__.files ).forEach(
     function( file ){
-      if ( testRegex.test( file ) && file.indexOf( '.spec.js') != -1 ){
+      if ( TEST_REGEXP.test( file )){
         
         // Normalize paths to RequireJS module names.
         

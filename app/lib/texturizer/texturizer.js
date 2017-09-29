@@ -14,8 +14,199 @@ function(
       return utils
     }
   ])
-  .directive( 'texturizerStarter', [
+  .service( 'texturizerOptions', [
     function(){
+      return [
+        {
+          id: 'explode',
+          renderer: 'texturizer-explode',
+          x: 0,
+          y: 0,
+          total: 100,
+          r: [ 20, 40 ],
+          width: 2
+        },
+        {
+          id: 'arcs',
+          renderer: 'texturizer-arcs',
+          x: 0,
+          y: 0,
+          r: 30,
+          width: 5
+        },
+        {
+          id: 'bullseye',
+          renderer: 'texturizer-bullseye',
+          circles: [
+            {
+              total: 20,
+              width: 2,
+              space: 2,
+              x: 200,
+              y: 200
+            }
+          ]
+        },
+        {
+          id: 'slim bars',
+          renderer: 'texturizer-stacked-bars',
+          total: 250,
+          height: 100,
+          width: 2,
+          hSpace: 2,
+          vSpace: 5,
+          chunk: [ 1, 2, 3 ]
+        },
+        {
+          id: 'chunky bars',
+          renderer: 'texturizer-stacked-bars',
+          total: 250,
+          height: 300,
+          width: 10,
+          hSpace: 2,
+          vSpace: 5,
+          chunk: [ 2, 1 ]
+        },
+        {
+          id: 'offset bars',
+          renderer: 'texturizer-stacked-bars',
+          total: 250,
+          height: 300,
+          width: 5,
+          hSpace: 2,
+          vSpace: 5,
+          chunk: [
+            [ 1, 0.1 ],
+            [ 1, 0.5 ],
+            [ 1, 0.25 ],
+            [ 1, 0.75 ],
+            [ 1, 0.9 ]
+          ]
+        },
+        {
+          id: 'jagged wave',
+          renderer: 'texturizer-jagged-wave',
+          waves: [
+            {
+              "total": 100,
+              "width": 400,
+              "unit": 15,
+              "space": 15,
+             "amplitude": 50
+            }
+          ]
+        },
+        {
+          id: 'regular polygons',
+          renderer: 'texturizer_reg_poly',
+          sideLength: 100,
+          nSides: [ 3, 4, 5, 6, 8 ]
+        },
+        {
+          id: 'jagged waves',
+          renderer: 'texturizer-jagged-wave',
+          waves: [
+            {
+              "total": 100,
+              "width": 400,
+              "unit": 15,
+              "space": 15,
+              "amplitude": 50
+            },
+            {
+              "total": 100,
+              "width": 400,
+              "unit": 15,
+              "space": 18,
+              "amplitude": 50
+            }
+          ]
+        }
+      ]
+    }
+  ])
+  .directive( 'texturizerExplode', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="800" height="800">',
+            '<g id="explode" fill="none"></g>',
+          '</svg>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var config = scope.json
+          function draw( svg, config ){
+            var points = utils.math.circle.nCoords( config.total )
+            _.each( points, function( point ){
+              var space = config.r[1]
+              var path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
+              path.setAttribute( 'd', [
+                
+                `M ${ point[0] * config.r[0] + space } ${ point[1] * config.r[0] + space }`,
+                `L ${ point[0] * config.r[1] + space } ${ point[1] * config.r[1] + space }`
+                
+              ].join(' '))
+              path.setAttribute( 'stroke-width', config.width )
+              path.setAttribute( 'stroke', 'black' )
+              path.setAttribute( 'fill', 'none' )
+              svg.appendChild( path )
+            })
+          }
+          draw(
+            $( '#explode', elem ).get( 0 ),
+            config
+          )
+        }
+      }
+    }
+  ])
+  .directive( 'texturizerArcs', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="800" height="800">',
+            '<g id="arcs" fill="none"></g>',
+          '</svg>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var config = scope.json
+          function draw( svg, config ){
+            var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
+            var cx = 100
+            var cy = 100
+            var r = 30
+            path.setAttribute( 'd', [
+              
+              `M ${ config.x - config.r + config.width }, ${ config.y + config.r + config.width }`,
+              `m ${ 1 * config.r }, 0`,
+              `a ${ config.r } ${ config.r }, 0 1,0 ${ config.r*2 },0`,
+              `a ${ config.r } ${ config.r }, 0 1,0 ${ config.r*-2 },0`
+              
+            ].join(' '))
+            path.setAttribute( 'stroke-width', config.width )
+            path.setAttribute( 'stroke', 'black' )
+            path.setAttribute( 'fill', 'none' )
+            svg.appendChild( path )
+          }
+          draw(
+            $( '#arcs', elem ).get( 0 ),
+            config
+          )
+        }
+      }
+    }
+  ])
+  .directive( 'texturizerStarter', [
+    'texturizerOptions',
+    function( texturizerOptions ){
       return {
         scope: true,
         template: [
@@ -45,97 +236,7 @@ function(
           
         ].join(''),
         link: function( scope ){
-          scope.options = [
-            {
-              id: 'bullseye',
-              renderer: 'texturizer-bullseye',
-              circles: [
-                {
-                  total: 20,
-                  width: 2,
-                  space: 2,
-                  x: 200,
-                  y: 200
-                }
-              ]
-            },
-            {
-              id: 'slim bars',
-              renderer: 'texturizer-stacked-bars',
-              total: 250,
-              height: 100,
-              width: 2,
-              hSpace: 2,
-              vSpace: 5,
-              chunk: [ 1, 2, 3 ]
-            },
-            {
-              id: 'chunky bars',
-              renderer: 'texturizer-stacked-bars',
-              total: 250,
-              height: 300,
-              width: 10,
-              hSpace: 2,
-              vSpace: 5,
-              chunk: [ 2, 1 ]
-            },
-            {
-              id: 'offset bars',
-              renderer: 'texturizer-stacked-bars',
-              total: 250,
-              height: 300,
-              width: 5,
-              hSpace: 2,
-              vSpace: 5,
-              chunk: [
-                [ 1, 0.1 ],
-                [ 1, 0.5 ],
-                [ 1, 0.25 ],
-                [ 1, 0.75 ],
-                [ 1, 0.9 ]
-              ]
-            },
-            {
-              id: 'jagged wave',
-              renderer: 'texturizer-jagged-wave',
-              waves: [
-                {
-                  "total": 100,
-                  "width": 400,
-                  "unit": 15,
-                  "space": 15,
-                 "amplitude": 50
-                }
-              ]
-            },
-            {
-              id: 'regular polygons',
-              renderer: 'texturizer_reg_poly',
-              sideLength: 100,
-              nSides: [ 3, 4, 5, 6, 8 ]
-            },
-            {
-              id: 'jagged waves',
-              renderer: 'texturizer-jagged-wave',
-              waves: [
-                {
-                  "total": 100,
-                  "width": 400,
-                  "unit": 15,
-                  "space": 15,
-                  "amplitude": 50
-                },
-                {
-                  "total": 100,
-                  "width": 400,
-                  "unit": 15,
-                  "space": 18,
-                  "amplitude": 50
-                }
-              ]
-            }
-          ]
-          
+          scope.options = texturizerOptions
           scope.change = function( id ){
             scope.config.json = JSON.stringify( 
               _.find( scope.options, function( item ){
@@ -185,7 +286,11 @@ function(
           })
           function drawPoly( svg, config, n ){
             var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
-            var angle = Math.PI*2 / n
+            
+            // get the unit circle points for n segments
+            
+            var points = utils.math.circle.nCoords( n )
+            points.push( _.first( points ))
             
             // find radius of the circle that contains polygon
             
@@ -196,14 +301,6 @@ function(
             function pos( p ){
               return p*r+250
             }
-            var points = []
-            for ( var i=0; i < Math.PI*2; i+=angle ){
-              points.push([ 
-                Math.sin( i ),
-                Math.cos( i )
-              ])
-            }
-            points.push( _.first( points ))
             
             // set the svg attributes
             
