@@ -99,13 +99,14 @@ function(
       }
     },
     circle :{
-      nCoords: function( n ){
+      nCoords: function( n, offset ){
         var angle = Math.PI*2 / n
+        offset = angle * ( !!offset ) ? offset : 0
         var points = []
         for ( var i=0; i < Math.PI*2; i+=angle ){
           points.push([ 
-            Math.sin( i ),
-            Math.cos( i )
+            Math.sin( i + offset ),
+            Math.cos( i + offset )
           ])
         }
         return points

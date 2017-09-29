@@ -18,13 +18,40 @@ function(
     function(){
       return [
         {
-          id: 'explode',
-          renderer: 'texturizer-explode',
-          x: 0,
-          y: 0,
-          total: 100,
-          r: [ 20, 40 ],
-          width: 2
+          "id": "explode",
+          "renderer": "texturizer-explode",
+          "explosions": [
+            {
+              "x": 0,
+              "y": 0,
+              "total": 100,
+              "r": [
+                200,
+                300
+              ],
+              "width": 1
+            },
+            {
+              "x": 100,
+              "y": 100,
+              "total": 50,
+              "r": [
+                100,
+                200
+              ],
+              "width": 1
+            },
+            {
+              "x": 250,
+              "y": 250,
+              "total": 100,
+              "r": [
+                50,
+                175
+              ],
+              "width": 1
+            }
+          ]
         },
         {
           id: 'arcs',
@@ -138,16 +165,16 @@ function(
           
         ].join(' '),
         link: function( scope, elem ){
-          var config = scope.json
           function draw( svg, config ){
             var points = utils.math.circle.nCoords( config.total )
             _.each( points, function( point ){
-              var space = config.r[1]
+              var r = _.clone( config.r ).sort()
+              var space = r[1]
               var path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
               path.setAttribute( 'd', [
                 
-                `M ${ point[0] * config.r[0] + space } ${ point[1] * config.r[0] + space }`,
-                `L ${ point[0] * config.r[1] + space } ${ point[1] * config.r[1] + space }`
+                `M ${ point[0] * r[0] + space + config.x } ${ point[1] * r[0] + space + config.y }`,
+                `L ${ point[0] * r[1] + space + config.x } ${ point[1] * r[1] + space + config.y }`
                 
               ].join(' '))
               path.setAttribute( 'stroke-width', config.width )
@@ -156,10 +183,12 @@ function(
               svg.appendChild( path )
             })
           }
-          draw(
-            $( '#explode', elem ).get( 0 ),
-            config
-          )
+          _.each( scope.json.explosions, function( config ){
+            draw(
+              $( '#explode', elem ).get( 0 ),
+              config
+            )
+          })
         }
       }
     }
