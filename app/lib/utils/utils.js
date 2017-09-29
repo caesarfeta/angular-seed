@@ -103,7 +103,7 @@ function(
         var angle = Math.PI*2 / n
         offset = angle * ( !!offset ) ? offset : 0
         var points = []
-        for ( var i=0; i < Math.PI*2; i+=angle ){
+        for ( var i=0; i <= Math.PI*2; i+=angle ){
           points.push([ 
             Math.sin( i + offset ),
             Math.cos( i + offset )

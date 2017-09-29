@@ -55,6 +55,17 @@
     "duration": 1
   },
   {
+    "label": "hilbert thatch mo betta",
+    "times": 3,
+    "angle": 90,
+    "start": "X+FX+FX+FX",
+    "rules": [
+      "X=XFYFX+F+YFXFY-F-XFYFX",
+      "Y=YFXFY-F-XFYFX+F+YFXFY"
+    ],
+    "duration": 1
+  },
+  {
     "label": "hilbert eight",
     "times": 3,
     "angle": 90,

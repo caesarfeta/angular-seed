@@ -1,11 +1,13 @@
 define([
 'angular',
 '../utils/utils',
+'lodash',
 'angularSvgDownload'
 ], 
 function(
   angular,
-  utils ){
+  utils,
+  _ ){
   angular.module( 'texturizer', [
     'hc.downloader'
   ])
@@ -127,6 +129,13 @@ function(
           id: 'regular polygons',
           renderer: 'texturizer_reg_poly',
           sideLength: 100,
+          nSides: [ 3, 4, 5, 6, 8 ]
+        },
+        {
+          id: 'regular polygons notch',
+          renderer: 'texturizer_reg_poly',
+          sideLength: 100,
+          notch: true,
           nSides: [ 3, 4, 5, 6, 8 ]
         },
         {
@@ -319,7 +328,6 @@ function(
             // get the unit circle points for n segments
             
             var points = utils.math.circle.nCoords( n )
-            points.push( _.first( points ))
             
             // find radius of the circle that contains polygon
             
@@ -329,6 +337,50 @@ function(
             
             function pos( p ){
               return p*r+250
+            }
+            
+            function drawDot( svg, coord ){
+              var dot = document.createElementNS( "http://www.w3.org/2000/svg", "circle" )
+              dot.setAttribute( 'cx', coord[0] )
+              dot.setAttribute( 'cy', coord[1] )
+              dot.setAttribute( 'fill', 'black' )
+              dot.setAttribute( 'r', 1 )
+              svg.appendChild( dot )
+            }
+            
+            // notch these for press connection
+            
+            if ( !!config.notch ){
+              for ( var i=1; i<points.length; i++ ){
+                
+                // coordinate 1
+                
+                var angle = Math.atan2( 
+                  points[i-1][1] - points[i][1],
+                  points[i-1][0] - points[i][0]
+                )
+                var normal = angle - Math.PI/2
+                var coord = [
+                  ( Math.cos( normal )*config.sideLength ) / 8 + pos( points[i][0] ),
+                  ( Math.sin( normal )*config.sideLength ) / 8 + pos( points[i][1] )
+                ]
+                drawDot( svg, coord )
+                
+                // coordinate 2
+                
+                var coord1 = [
+                  ( Math.cos( angle )*config.sideLength ) / 4 + coord[0],
+                  ( Math.sin( angle )*config.sideLength ) / 4 + coord[1]
+                ]
+                drawDot( svg, coord1 )
+                
+                var reverseNormal = normal + Math.PI
+                var coord2 = [
+                  ( Math.cos( reverseNormal )*config.sideLength ) / 8 + coord1[0],
+                  ( Math.sin( reverseNormal )*config.sideLength ) / 8 + coord1[1]
+                ]
+                drawDot( svg, coord2 )
+              }
             }
             
             // set the svg attributes
