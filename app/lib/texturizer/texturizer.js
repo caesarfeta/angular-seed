@@ -336,7 +336,7 @@ function(
             // scale and position the polygon
             
             function pos( p ){
-              return p*r+250
+              return p*r + 250
             }
             
             function drawDot( svg, coord ){
@@ -350,8 +350,20 @@ function(
             
             // notch these for press connection
             
+            function insertArrayAt( array, arrayToInsert, index ){
+              Array.prototype.splice.apply( array, [ index, 0 ].concat( arrayToInsert ))
+            }
+            
+            // postion the points
+            
+            points = points.map( function( point, i ){
+              return [
+                pos( point[0] ),
+                pos( point[1] )
+              ]
+            })
             if ( !!config.notch ){
-              for ( var i=1; i<points.length; i++ ){
+              for ( var i=points.length-1; i>0; i-- ){
                 
                 // coordinate 1
                 
@@ -361,10 +373,10 @@ function(
                 )
                 var normal = angle - Math.PI/2
                 var coord = [
-                  ( Math.cos( normal )*config.sideLength ) / 8 + pos( points[i][0] ),
-                  ( Math.sin( normal )*config.sideLength ) / 8 + pos( points[i][1] )
+                  ( Math.cos( normal )*config.sideLength ) / 8 + points[i][0],
+                  ( Math.sin( normal )*config.sideLength ) / 8 + points[i][1]
                 ]
-                drawDot( svg, coord )
+                // drawDot( svg, coord )
                 
                 // coordinate 2
                 
@@ -372,21 +384,23 @@ function(
                   ( Math.cos( angle )*config.sideLength ) / 4 + coord[0],
                   ( Math.sin( angle )*config.sideLength ) / 4 + coord[1]
                 ]
-                drawDot( svg, coord1 )
+                // drawDot( svg, coord1 )
                 
                 var reverseNormal = normal + Math.PI
                 var coord2 = [
                   ( Math.cos( reverseNormal )*config.sideLength ) / 8 + coord1[0],
                   ( Math.sin( reverseNormal )*config.sideLength ) / 8 + coord1[1]
                 ]
-                drawDot( svg, coord2 )
+                // drawDot( svg, coord2 )
+                
+                insertArrayAt( points, [ coord2, coord1, coord ], i )
               }
             }
             
             // set the svg attributes
             
             var d = points.map( function( point, i ){
-              return (( !i ) ? 'M' : 'L' ) + pos( point[0] ) + ' ' + pos( point[1] )
+              return (( !i ) ? 'M' : 'L' ) + point[0] + ' ' + point[1]
             }).join(' ')
             path.setAttribute( 'd', d )
             path.setAttribute( 'stroke-width', 1 )
