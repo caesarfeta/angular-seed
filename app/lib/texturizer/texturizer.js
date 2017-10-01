@@ -20,6 +20,18 @@ function(
     function(){
       return [
         {
+          "id": "spiral",
+          "renderer": "texturizer-spiral",
+          "origin": {
+            "x":75,
+            "y":75
+          },
+          "revolutions": 20,
+          "pointCount": 2048,
+          "clockwise": false,
+          "padding": 4
+        },
+        {
           "id": "explode",
           "renderer": "texturizer-explode",
           "explosions": [
@@ -301,6 +313,66 @@ function(
       }
     }
   ])
+  .directive( 'texturizerSpiral', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="800" height="800">',
+            '<g id="spiral" fill="none"></g>',
+          '</svg>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var config = scope.json
+          var svg = $( '#spiral', elem ).get(0)
+          var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
+          var roundTo = function ( input, sigdigs ){
+            return Math.round( input * Math.pow( 10, sigdigs )) / Math.pow( 10, sigdigs )
+          }
+          var makeSpiralPoints = function( config ){
+            var direction = config.clockwise ? 1 : -1
+            var circ = config.padding / ( 2 * Math.PI )
+            var step = ( 2 * Math.PI * config.revolutions ) / config.pointCount
+            var points = [], angle, x, y
+            for ( var i = 0; i <= config.pointCount ; i++ ){
+              angle = direction * step * i
+              x = roundTo( ( circ * angle ) * Math.cos( angle ) + config.origin.x, 2 )
+              y = roundTo( ( circ * angle ) * Math.sin( angle ) + config.origin.y, 2 )
+              points.push( x + " " + y )
+            }
+            return( 'M ' + points.shift() + ' S ' + points.join(' ') )
+          }
+          path.setAttribute( 'd', makeSpiralPoints( config ))
+          path.setAttribute( 'stroke-width', 1 )
+          path.setAttribute( 'stroke', 'black' )
+          path.setAttribute( 'fill', 'none' )
+          svg.appendChild( path )
+        }
+      }
+    }
+  ])
+  .directive( 'texturizerIregPoly', [
+    function(){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="800" height="800">',
+            '<g id="polys" fill="none"></g>',
+          '</svg>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var config = scope.json
+          console.log( config )
+        }
+      }
+    }
+  ])
   .directive( 'texturizerRegPoly', [
     function(){
       return {
@@ -374,7 +446,6 @@ function(
                   points[i-1][0] - points[i][0]
                 )
                 var normal = angle - Math.PI/2
-                var reverseNormal = normal + Math.PI
                 
                 // get coordinates
                 
@@ -382,43 +453,43 @@ function(
                   getX( normal, 8 ) + points[i][0],
                   getY( normal, 8 ) + points[i][1]
                 ]
-                drawDot( svg, [ red[0]+250, red[1]+250 ], 'red' )
+                // drawDot( svg, [ red[0]+250, red[1]+250 ], 'red' )
                 
                 var blue = [
                   getX( angle, 4 ) + red[0],
                   getY( angle, 4 ) + red[1]
                 ]
-                drawDot( svg, [ blue[0]+250, blue[1]+250 ], 'blue' )
+                // drawDot( svg, [ blue[0]+250, blue[1]+250 ], 'blue' )
                 
                 var green = [
                   getX( angle, 4 ) + points[i][0],
                   getY( angle, 4 ) + points[i][1]
                 ]
-                drawDot( svg, [ green[0]+250, green[1]+250 ], 'green' )
+                // drawDot( svg, [ green[0]+250, green[1]+250 ], 'green' )
                 
                 var cyan = [
                   getX( angle, 2 ) + red[0],
                   getY( angle, 2 ) + red[1]
                 ]
-                drawDot( svg, [ cyan[0]+250, cyan[1]+250 ], 'cyan' )
+                // drawDot( svg, [ cyan[0]+250, cyan[1]+250 ], 'cyan' )
                 
                 var yellow = [
-                  getX( angle, 4 ) + green[0],
-                  getY( angle, 4 ) + green[1]
+                  getX( angle, 2 ) + points[i][0],
+                  getY( angle, 2 ) + points[i][1]
                 ]
-                drawDot( svg, [ yellow[0]+250, yellow[1]+250 ], 'yellow' )
+                // drawDot( svg, [ yellow[0]+250, yellow[1]+250 ], 'yellow' )
                 
                 var magenta = [
                   getX( angle, 4 ) + yellow[0],
                   getY( angle, 4 ) + yellow[1]
                 ]
-                drawDot( svg, [ magenta[0]+250, magenta[1]+250 ], 'magenta' )
+                // drawDot( svg, [ magenta[0]+250, magenta[1]+250 ], 'magenta' )
                 
                 var gray = [
                   getX( angle, 4 ) + cyan[0],
                   getY( angle, 4 ) + cyan[1]
                 ]
-                drawDot( svg, [ gray[0]+250, gray[1]+250 ], 'gray' )
+                // drawDot( svg, [ gray[0]+250, gray[1]+250 ], 'gray' )
                 
                 insertArrayAt( points, [
                   magenta,
