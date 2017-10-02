@@ -832,7 +832,7 @@ function(
             '<button class="btn btn-sm"',
                     'ng-class="{ disabled: !config.json }"',
                     'svg-download title="texturizer">',
-              'save',
+              'download',
             '</button>',
             
             // svg
