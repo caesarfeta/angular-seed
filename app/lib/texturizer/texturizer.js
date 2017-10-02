@@ -2,7 +2,8 @@ define([
 'angular',
 '../utils/utils',
 'lodash',
-'angularSvgDownload'
+'angularSvgDownload',
+'bootstrap'
 ], 
 function(
   angular,
@@ -14,6 +15,62 @@ function(
   .service( 'utilsTest', [
     function(){
       return utils
+    }
+  ])
+  .directive( 'texturizerModal', [
+    function(){
+      return {
+        restrict: 'E',
+        scope: true,
+        transclude: true,
+        template: [
+          
+          // modal
+          
+          '<div class="modal fade"',
+               'id="modalWindow">',
+            '<div class="modal-dialog modal-lg">',
+              '<div class="modal-content">',
+                
+                // close button
+                
+                '<div class="modal-header">',
+                  '<button type="button"',
+                          'ng-click="close()"',
+                          'class="close">',
+                    '&times;',
+                  '</button>',
+                '</div>',
+                
+                // body
+                
+                '<div class="modal-body">',
+                  '<ng-transclude></ng-transclude>',
+                '</div>',
+                
+              '</div>',
+            '</div>',
+          '</div>',
+          
+          // trigger
+          
+          '<button',
+            'type="button"',
+            'ng-click="open()"',
+            'class="btn btn-sm">',
+              'tweak',
+          '</button>',
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          scope.open = function(){
+            $( '#modalWindow', elem ).modal( 'show' )
+          }
+          scope.close = function(){
+            $( '#modalWindow', elem ).modal( 'hide' )
+          }
+        }
+      }
     }
   ])
   .service( 'texturizerOptions', [
@@ -268,7 +325,10 @@ function(
   ])
   .directive( 'texturizerStarter', [
     'texturizerOptions',
-    function( texturizerOptions ){
+    '$timeout',
+    function(
+      texturizerOptions,
+      $timeout ){
       return {
         scope: true,
         replace: true,
@@ -282,6 +342,7 @@ function(
                     'type="button"',
                     'class="btn btn-sm"',
                     'uib-dropdown-toggle>',
+              '{{ id }}',
               '<span class="caret"></span>',
             '</button>',
             
@@ -300,12 +361,17 @@ function(
         ].join(''),
         link: function( scope ){
           scope.options = texturizerOptions
+          $timeout( function(){
+            var opt = _.first( scope.options )
+            scope.id = opt.id
+            scope.config.json = JSON.stringify( opt )
+          })
           scope.change = function( id ){
-            scope.config.json = JSON.stringify( 
-              _.find( scope.options, function( item ){
-                return item.id == id
-              } 
-            ), ' ', 2 )
+            var opt = _.find( scope.options, function( item ){
+              return item.id == id
+            })
+            scope.id = opt.id
+            scope.config.json = JSON.stringify( opt, ' ', 2 )
             scope.update()
           }
         }
@@ -749,21 +815,23 @@ function(
         template: [
           
           '<div class="texturizer">',
+            '<texturizer-modal>',
             
-            // controls
-            
-            '<div texturizer-ctrl></div>',
-            
-            // starter button
-            
-            '<div texturizer-starter></div>',
+              // starter button
+              
+              '<div texturizer-starter></div>',
+              
+              // controls
+              
+              '<div texturizer-ctrl></div>',
+            '</texturizer-modal>',
             
             // download button
             
             '<button class="btn btn-sm"',
                     'ng-class="{ disabled: !config.json }"',
                     'svg-download title="texturizer">',
-              'Save',
+              'save',
             '</button>',
             
             // svg

@@ -6,7 +6,8 @@ require.config({
     angularRoute: 'bower_components/angular-route/angular-route',
     angularMocks: 'bower_components/angular-mocks/angular-mocks',
     angularSvgDownload: 'bower_components/angular-downloadsvg-directive/angular-downloadsvg-directive.min',
-    bootstrap: 'bower_components/angular-bootstrap/ui-bootstrap.min',
+    angularBootstrap: 'bower_components/angular-bootstrap/ui-bootstrap.min',
+    bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
     'colorpicker.module': 'bower_components/angular-bootstrap-colorpicker/js/bootstrap-colorpicker-module.min',
     text: 'bower_components/requirejs-text/text',
     d3: 'bower_components/d3/d3',
@@ -31,6 +32,9 @@ require.config({
       deps:['jquery'],
       exports: 'angular'
     },
+    angularBootstrap: {
+      deps: ['bootstrap' ]
+    },
     Masonry: {
       deps:['jquery']
     },
@@ -52,7 +56,7 @@ require.config({
       deps:['angular']
     },
     'colorpicker.module': {
-      deps:['bootstrap']
+      deps:['angularBootstrap']
     },
     topojson: {
       exports: 'topojson'
