@@ -20,6 +20,18 @@ function(
     function(){
       return [
         {
+          "id": "wobble spiral",
+          "renderer": "texturizer-spiral",
+          "origin": {
+            "x": 400,
+            "y": 400
+          },
+          "revolutions": 40,
+          "pointCount": 1024,
+          "clockwise": false,
+          "padding": 6
+        },
+        {
           "id": "spiral",
           "renderer": "texturizer-spiral",
           "origin": {
@@ -259,9 +271,10 @@ function(
     function( texturizerOptions ){
       return {
         scope: true,
+        replace: true,
         template: [
           
-          '<div class="btn-group" uib-dropdown>',
+          '<span class="btn-group" uib-dropdown>',
             
             // button
             
@@ -269,7 +282,7 @@ function(
                     'type="button"',
                     'class="btn btn-sm"',
                     'uib-dropdown-toggle>',
-              'starter <span class="caret"></span>',
+              '<span class="caret"></span>',
             '</button>',
             
             // menu
@@ -282,7 +295,7 @@ function(
                 '<a href="" ng-click="change( opt.id )">{{ opt.id }}</a>',
               '</li>',
             '</ul>',
-          '</div>',
+          '</span>',
           
         ].join(''),
         link: function( scope ){
@@ -739,14 +752,18 @@ function(
             
             // controls
             
-            '<div texturizer-starter></div>',
             '<div texturizer-ctrl></div>',
+            
+            // starter button
+            
+            '<div texturizer-starter></div>',
             
             // download button
             
             '<button class="btn btn-sm"',
+                    'ng-class="{ disabled: !config.json }"',
                     'svg-download title="texturizer">',
-              'Save SVG',
+              'Save',
             '</button>',
             
             // svg
