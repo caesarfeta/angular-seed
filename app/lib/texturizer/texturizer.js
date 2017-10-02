@@ -249,7 +249,7 @@ function(
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="800" height="800">',
+               'width="100%" height="800">',
             '<g id="explode" fill="none"></g>',
           '</svg>'
           
@@ -290,7 +290,7 @@ function(
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="800" height="800">',
+               'width="100%" height="800">',
             '<g id="arcs" fill="none"></g>',
           '</svg>'
           
@@ -342,7 +342,7 @@ function(
                     'type="button"',
                     'class="btn btn-sm"',
                     'uib-dropdown-toggle>',
-              '{{ id }}',
+              '{{ id }}&nbsp;',
               '<span class="caret"></span>',
             '</button>',
             
@@ -364,7 +364,8 @@ function(
           $timeout( function(){
             var opt = _.first( scope.options )
             scope.id = opt.id
-            scope.config.json = JSON.stringify( opt )
+            scope.config.json = JSON.stringify( opt, ' ', 2 )
+            scope.update()
           })
           scope.change = function( id ){
             var opt = _.find( scope.options, function( item ){
@@ -399,7 +400,7 @@ function(
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="800" height="800">',
+               'width="100%" height="800">',
             '<g id="spiral" fill="none"></g>',
           '</svg>'
           
@@ -440,7 +441,7 @@ function(
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="800" height="800">',
+               'width="100%" height="800">',
             '<g id="polys" fill="none"></g>',
           '</svg>'
           
@@ -459,7 +460,7 @@ function(
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="800" height="800">',
+               'width="100%" height="800">',
             '<g id="polys" fill="none"></g>',
           '</svg>'
           
@@ -604,7 +605,7 @@ function(
         template: [
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="800" height="800">',
+               'width="100%" height="800">',
             '<g id="circles" fill="none"></g>',
           '</svg>'
           
