@@ -27,9 +27,9 @@ function(
           
           // modal
           
-          '<div class="modal fade"',
+          '<div class="modal right fade"',
                'id="modalWindow">',
-            '<div class="modal-dialog modal-lg">',
+            '<div class="modal-dialog modal-sm">',
               '<div class="modal-content">',
                 
                 // close button
@@ -194,20 +194,6 @@ function(
           ]
         },
         {
-          id: 'sine wave',
-          renderer: 'texturizer-sine-wave',
-          waves: [
-            {
-              "frequency": 10,
-              "total": 100,
-              "width": 400,
-              "unit": 15,
-              "space": 15,
-              "amplitude": 50
-            }
-          ]
-        },
-        {
           id: 'regular polygons',
           renderer: 'texturizer_reg_poly',
           sideLength: 100,
@@ -221,6 +207,20 @@ function(
           nSides: [ 3, 4, 5, 6, 8 ]
         },
         {
+          id: 'sine wave',
+          renderer: 'texturizer-sine-wave',
+          waves: [
+            {
+              "frequency": 10,
+              "total": 100,
+              "width": 400,
+              "unit": 2,
+              "space": 15,
+              "amplitude": 50
+            }
+          ]
+        },
+        {
           id: 'sine waves',
           renderer: 'texturizer-sine-wave',
           waves: [
@@ -228,7 +228,7 @@ function(
               "frequency": 10,
               "total": 100,
               "width": 400,
-              "unit": 5,
+              "unit": 2,
               "space": 15,
               "amplitude": 50
             },
@@ -236,7 +236,7 @@ function(
               "frequency": 50,
               "total": 100,
               "width": 400,
-              "unit": 15,
+              "unit": 2,
               "space": 18,
               "amplitude": 50
             }
@@ -821,24 +821,26 @@ function(
         template: [
           
           '<div class="texturizer">',
-            '<texturizer-modal>',
-            
-              // starter button
+            '<span class="pull-right">',
+              '<texturizer-modal>',
               
-              '<div texturizer-starter></div>',
+                // starter button
+                
+                '<div texturizer-starter></div>',
+                
+                // controls
+                
+                '<div texturizer-ctrl></div>',
+              '</texturizer-modal>',
               
-              // controls
+              // download button
               
-              '<div texturizer-ctrl></div>',
-            '</texturizer-modal>',
-            
-            // download button
-            
-            '<button class="btn btn-sm"',
-                    'ng-class="{ disabled: !config.json }"',
-                    'svg-download title="texturizer">',
-              'download',
-            '</button>',
+              '<button class="btn btn-sm"',
+                      'ng-class="{ disabled: !config.json }"',
+                      'svg-download title="texturizer">',
+                'download',
+              '</button>',
+            '</span>',
             
             // svg
             
