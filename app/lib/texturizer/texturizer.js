@@ -92,8 +92,8 @@ function(
           "id": "spiral",
           "renderer": "texturizer-spiral",
           "origin": {
-            "x":75,
-            "y":75
+            "x":100,
+            "y":100
           },
           "revolutions": 20,
           "pointCount": 2048,
@@ -150,10 +150,10 @@ function(
           circles: [
             {
               total: 20,
-              width: 2,
-              space: 2,
-              x: 200,
-              y: 200
+              width: 1,
+              space: 20,
+              x: 400,
+              y: 400
             }
           ]
         },
@@ -194,15 +194,16 @@ function(
           ]
         },
         {
-          id: 'jagged wave',
-          renderer: 'texturizer-jagged-wave',
+          id: 'sine wave',
+          renderer: 'texturizer-sine-wave',
           waves: [
             {
+              "frequency": 10,
               "total": 100,
               "width": 400,
               "unit": 15,
               "space": 15,
-             "amplitude": 50
+              "amplitude": 50
             }
           ]
         },
@@ -220,17 +221,19 @@ function(
           nSides: [ 3, 4, 5, 6, 8 ]
         },
         {
-          id: 'jagged waves',
-          renderer: 'texturizer-jagged-wave',
+          id: 'sine waves',
+          renderer: 'texturizer-sine-wave',
           waves: [
             {
+              "frequency": 10,
               "total": 100,
               "width": 400,
-              "unit": 15,
+              "unit": 5,
               "space": 15,
               "amplitude": 50
             },
             {
+              "frequency": 50,
               "total": 100,
               "width": 400,
               "unit": 15,
@@ -642,7 +645,7 @@ function(
       }
     }
   ])
-  .directive( 'texturizerJaggedWave', [
+  .directive( 'texturizerSineWave', [
     function(){
       return {
         scope: true,
@@ -656,26 +659,25 @@ function(
         ].join(' '),
         link: function( scope, elem ){
           var config = scope.json
-          var n = 0
           function position( x, config ){
-            return ( Math.sin( Math.sqrt( x * config.frequency ) - config.offset )) * x * 0.1 * config.amplitude
+            return Math.sin( x / config.frequency ) * config.amplitude
           }
           function drawWave( svg, config, n ){
             config = _.merge({
-              offset: 0,
               frequency: 0.25,
-              amplitude: 1
+              amplitude: 1,
+              unit: 1
             }, config )
             var i = 0
             while ( i < config.total ){
               var path = document.createElementNS( "http://www.w3.org/2000/svg", "path" )
               var x = 0
               var data = []
-              while( x < config.width ){
+              while ( x < config.width ){
                 var pre = ( x == 0 ) ? 'M' : 'L'
-                var y = Math.sin( x ) * config.amplitude + i * config.space + config.amplitude*2
-                data.push( pre + ' ' + x * config.unit + ' ' + y )
-                x++
+                var y = position( x, config ) + i * config.space
+                data.push( pre + ' ' + x + ' ' + y )
+                x += config.unit
               }
               path.setAttribute( 'd', data.join(' ') )
               path.setAttribute( 'stroke', 'black' )
@@ -685,6 +687,7 @@ function(
               i++
             }
           }
+          var n = 0
           while( n < config.waves.length ){
             drawWave(
               $( '#waves', elem ).get( 0 ),
@@ -705,7 +708,7 @@ function(
           
           '<svg xmlns="http://www.w3.org/2000/svg"',
                'width="100%" height="800">',
-            '<g id="hinges" fill="black"></g>',
+            '<g id="hinges" fill="none"></g>',
           '</svg>'
           
         ].join(' '),
@@ -715,6 +718,8 @@ function(
             var rect = document.createElementNS( "http://www.w3.org/2000/svg", "rect" )
             rect.setAttribute( 'x', config.x )
             rect.setAttribute( 'y', config.y )
+            rect.setAttribute( 'stroke', 'black' )
+            rect.setAttribute( 'stroke-width', '1px' )
             rect.setAttribute( 'width', config.width )
             rect.setAttribute( 'height', config.height )
             return rect
