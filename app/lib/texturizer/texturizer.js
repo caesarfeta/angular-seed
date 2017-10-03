@@ -39,7 +39,7 @@ function(
                 '<div class="modal-header">',
                   '<button type="button"',
                           'ng-click="close()"',
-                          'class="close">',
+                          'class="close pull-left">',
                     '&times;',
                   '</button>',
                 '</div>',
@@ -89,6 +89,23 @@ function(
           "pointCount": 1024,
           "clockwise": false,
           "padding": 6
+        },
+        {
+          "id": "spiral flower",
+          "renderer": "texturizer-spiral",
+          "mutator": {
+            "type": "flower",
+            "petals": 5,
+            "amplitude": 20
+          },
+          "origin": {
+            "x":100,
+            "y":100
+          },
+          "revolutions": 20,
+          "pointCount": 2048,
+          "clockwise": false,
+          "padding": 4
         },
         {
           "id": "spiral",
@@ -425,6 +442,14 @@ function(
           var roundTo = function ( input, sigdigs ){
             return Math.round( input * Math.pow( 10, sigdigs )) / Math.pow( 10, sigdigs )
           }
+          var mutators = {
+            flower: function( coord, i, angle, circ ){
+              var anchor = Math.PI*2 / config.mutator.petals
+              var z = anchor - angle % anchor
+              coord[0] = roundTo(( circ * angle ) * Math.cos( angle ) + config.origin.x, 2 )
+              coord[1] = roundTo(( circ * angle ) * Math.sin( angle ) + config.origin.y, 2 )
+            }
+          }
           var makeSpiralPoints = function( config ){
             var direction = config.clockwise ? 1 : -1
             var circ = config.padding / ( 2 * Math.PI )
@@ -432,9 +457,21 @@ function(
             var points = [], angle, x, y
             for ( var i = 0; i <= config.pointCount ; i++ ){
               angle = direction * step * i
-              x = roundTo( ( circ * angle ) * Math.cos( angle ) + config.origin.x, 2 )
-              y = roundTo( ( circ * angle ) * Math.sin( angle ) + config.origin.y, 2 )
-              points.push( x + " " + y )
+              
+              // mutator
+              
+              var coord = []
+              if ( !!config.mutator ){
+                mutators[ config.mutator.type ]( coord, i, angle, circ )
+              }
+              
+              // default spiral
+              
+              else {
+                coord[0] = roundTo(( circ * angle ) * Math.cos( angle ) + config.origin.x, 2 )
+                coord[1] = roundTo(( circ * angle ) * Math.sin( angle ) + config.origin.y, 2 )
+              }
+              points.push( coord[0] + " " + coord[1] )
             }
             return( 'M ' + points.shift() + ' S ' + points.join(' ') )
           }
