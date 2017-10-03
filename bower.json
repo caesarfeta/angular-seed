@@ -32,7 +32,8 @@
     "ng-directive-lazy-image": "afkl-lazy-image#^0.3.4",
     "bootstrap": "~3.3.7",
     "three.js": "threejs#r87",
-    "angular-downloadsvg-directive": "^0.2.0"
+    "angular-downloadsvg-directive": "^0.2.0",
+    "ace": "^1.2.8"
   },
   "devDependencies": {},
   "resolutions": {

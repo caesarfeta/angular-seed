@@ -2,13 +2,15 @@ define([
 'angular',
 '../utils/utils',
 'lodash',
+'ace/ace',
 'angularSvgDownload',
 'bootstrap'
 ], 
 function(
   angular,
   utils,
-  _ ){
+  _,
+  ace ){
   angular.module( 'texturizer', [
     'hc.downloader'
   ])
@@ -221,24 +223,24 @@ function(
           ]
         },
         {
-          id: 'sine waves',
-          renderer: 'texturizer-sine-wave',
-          waves: [
+          "id": "sine waves",
+          "renderer": "texturizer-sine-wave",
+          "waves": [
             {
               "frequency": 10,
               "total": 100,
-              "width": 400,
+              "width": 800,
               "unit": 2,
               "space": 15,
               "amplitude": 50
             },
             {
               "frequency": 50,
-              "total": 100,
-              "width": 400,
+              "total": 50,
+              "width": 800,
               "unit": 2,
-              "space": 18,
-              "amplitude": 50
+              "space": 60,
+              "amplitude": 80
             }
           ]
         }
@@ -389,10 +391,18 @@ function(
         template: [
           
           '<textarea ng-enter="update()"',
+                    'id="texturizer-ctrl"',
                     'ng-model="config.json">',
           '</textarea>'
           
-        ].join(' ')
+        ].join(' '),
+        link: function( scope, elem ){
+          /*
+          var editor = ace.edit( 'texturizer-ctrl' )
+          editor.setTheme( 'ace/theme/monokai' )
+          editor.getSession().setMode( 'ace/mode/javascript' )
+          */
+        }
       }
     }
   ])

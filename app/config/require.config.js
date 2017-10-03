@@ -2,6 +2,7 @@ require.config({
   paths: {
     jquery: 'bower_components/jquery/dist/jquery',
     jqueryUi: 'bower_components/jquery-ui/jquery-ui.min',
+    ace: 'bower_components/ace/lib/ace',
     angular: 'bower_components/angular/angular',
     angularRoute: 'bower_components/angular-route/angular-route',
     angularMocks: 'bower_components/angular-mocks/angular-mocks',
