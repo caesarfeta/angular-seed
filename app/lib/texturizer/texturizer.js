@@ -95,17 +95,17 @@ function(
           "renderer": "texturizer-spiral",
           "mutator": {
             "type": "flower",
-            "petals": 5,
-            "amplitude": 20
+            "petals": 4,
+            "amplitude": 1.5
           },
           "origin": {
-            "x":100,
-            "y":100
+            "x": 300,
+            "y": 300
           },
           "revolutions": 20,
-          "pointCount": 2048,
+          "pointCount": 4096,
           "clockwise": false,
-          "padding": 4
+          "padding": 15
         },
         {
           "id": "spiral",
@@ -444,18 +444,16 @@ function(
           }
           var mutators = {
             flower: function( coord, i, angle, circ ){
-              var anchor = Math.PI*2 / config.mutator.petals
-              var z = anchor - angle % anchor
-              coord[0] = roundTo(( circ * angle ) * Math.cos( angle ) + config.origin.x, 2 )
-              coord[1] = roundTo(( circ * angle ) * Math.sin( angle ) + config.origin.y, 2 )
+              coord[0] = (( Math.sin( angle * config.mutator.petals ) * config.mutator.amplitude ) + circ ) * angle * Math.cos( angle ) + config.origin.x
+              coord[1] = (( Math.sin( angle * config.mutator.petals ) * config.mutator.amplitude ) + circ ) * angle * Math.sin( angle ) + config.origin.y
             }
           }
           var makeSpiralPoints = function( config ){
             var direction = config.clockwise ? 1 : -1
-            var circ = config.padding / ( 2 * Math.PI )
-            var step = ( 2 * Math.PI * config.revolutions ) / config.pointCount
+            var circ = config.padding / ( 2*Math.PI )
+            var step = ( 2*Math.PI * config.revolutions ) / config.pointCount
             var points = [], angle, x, y
-            for ( var i = 0; i <= config.pointCount ; i++ ){
+            for ( var i = 0; i <= config.pointCount; i++ ){
               angle = direction * step * i
               
               // mutator
