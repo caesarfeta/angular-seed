@@ -95,12 +95,12 @@ function(
           "renderer": "texturizer-spiral",
           "mutator": {
             "type": "flower",
-            "petals": 4,
-            "amplitude": 1.5
+            "petals": 5,
+            "amplitude": 0.5
           },
           "origin": {
-            "x": 300,
-            "y": 300
+            "x": 350,
+            "y": 400
           },
           "revolutions": 20,
           "pointCount": 4096,
@@ -407,10 +407,21 @@ function(
         scope: true,
         template: [
           
-          '<textarea ng-enter="update()"',
-                    'id="texturizer-ctrl"',
-                    'ng-model="config.json">',
-          '</textarea>'
+          '<div>',
+            
+            // config area
+            
+            '<textarea ng-enter="update()"',
+                      'id="texturizer-ctrl"',
+                      'ng-model="config.json">',
+            '</textarea>',
+            
+            // error
+            
+            '<div ng-if="!!error.msg" class="alert alert-danger">',
+              '{{ error.msg }}',
+            '</div>',
+          '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
@@ -442,10 +453,13 @@ function(
           var roundTo = function ( input, sigdigs ){
             return Math.round( input * Math.pow( 10, sigdigs )) / Math.pow( 10, sigdigs )
           }
+          function flowerify( angle ){
+            return Math.sin( angle * config.mutator.petals ) * config.mutator.amplitude
+          }
           var mutators = {
             flower: function( coord, i, angle, circ ){
-              coord[0] = (( Math.sin( angle * config.mutator.petals ) * config.mutator.amplitude ) + circ ) * angle * Math.cos( angle ) + config.origin.x
-              coord[1] = (( Math.sin( angle * config.mutator.petals ) * config.mutator.amplitude ) + circ ) * angle * Math.sin( angle ) + config.origin.y
+              coord[0] = ( flowerify( angle ) + circ ) * angle * Math.cos( angle ) + config.origin.x
+              coord[1] = ( flowerify( angle ) + circ ) * angle * Math.sin( angle ) + config.origin.y
             }
           }
           var makeSpiralPoints = function( config ){
@@ -846,7 +860,16 @@ function(
               if ( !scope.config.json ){
                 return
               }
-              scope.json = JSON.parse( scope.config.json )
+              
+              // parse the JSON config
+              
+              scope.error.msg = null
+              try {
+                scope.json = JSON.parse( scope.config.json )
+              }
+              catch( e ){
+                scope.error.msg = "Could not parse JSON"
+              }
               
               // do something fancy here
               
@@ -898,6 +921,9 @@ function(
             json: null
           }
           scope.run = 0
+          scope.error = {
+            msg: null
+          }
           scope.update = function(){
             scope.run += 1
           }
