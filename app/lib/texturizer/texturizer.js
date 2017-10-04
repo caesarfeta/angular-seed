@@ -485,6 +485,12 @@ function(
               }
               points.push( coord[0] + " " + coord[1] )
             }
+            
+            // only an even amount of points
+            
+            if ( config.pointCount % 2 ){
+              points.pop()
+            }
             return( 'M ' + points.shift() + ' S ' + points.join(' ') )
           }
           path.setAttribute( 'd', makeSpiralPoints( config ))
