@@ -106,18 +106,19 @@ function(
           "padding": 6
         },
         {
-          "id": "golden rectangle",
+          "id": "pentagon tile 1",
           "renderer": "texturizer-ireg-poly",
           "x": 600,
           "y": 100,
           "path": [
-            [ 90, 1 ],
-            [ 90, 1.618 ],
-            [ 90, 1 ],
-            [ 90, 1.618 ]
+            [ 60, .5 ],
+            [ 135, 0.9659258262890684 ],
+            [ 105, .5 ],
+            [ 90, .5 ],
+            [ 150, 1 ]
           ],
-          unit: 300
-        }, 
+          unit: 200
+        },
         {
           "id": "spiral flower",
           "renderer": "texturizer-spiral",
@@ -561,8 +562,15 @@ function(
           var angle = 0
           var x = 0
           var y = 0
+          
+          // start at origin
+          
+          config.path.unshift([ 0, 0 ])
+          
+          // get x,y coords from angles and line segment length pairs
+          
           config.path = config.path.map( function( item ){
-            angle += item[ 0 ]
+            angle += 180 - item[ 0 ] // interior to exterior
             var l = item[ 1 ]
             var rad =  angle / 180 * Math.PI
             x += Math.cos( rad ) * l * config.unit
@@ -580,6 +588,7 @@ function(
           
           /*
           // dot style
+          
           _.each( config.path, function( item ){
             texturizerUtils.drawDot( svg, item, 'red' )
           })
