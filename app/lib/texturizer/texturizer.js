@@ -120,6 +120,25 @@ function(
           "padding": 4
         },
         {
+          "id": "quick hinge",
+          "renderer": "texturizer-stacked-bars",
+          "total": 10,
+          "height": 300,
+          "width": 0,
+          "hSpace": 3,
+          "vSpace": 5,
+          "chunk": [
+            [
+              3,
+              0.25
+            ],
+            [
+              3,
+              0.75
+            ]
+          ]
+        },
+        {
           "id": "explode",
           "renderer": "texturizer-explode",
           "explosions": [
@@ -488,7 +507,7 @@ function(
             
             // only an even amount of points
             
-            if ( config.pointCount % 2 ){
+            if ( !points.length % 2 ){
               points.pop()
             }
             return( 'M ' + points.shift() + ' S ' + points.join(' ') )
@@ -780,18 +799,30 @@ function(
         link: function( scope, elem ){
           var n = scope.json.total
           function drawRect( config ){
-            var rect = document.createElementNS( "http://www.w3.org/2000/svg", "rect" )
-            rect.setAttribute( 'x', config.x )
-            rect.setAttribute( 'y', config.y )
-            rect.setAttribute( 'stroke', 'black' )
-            rect.setAttribute( 'stroke-width', '1px' )
-            rect.setAttribute( 'width', config.width )
-            rect.setAttribute( 'height', config.height )
-            return rect
+            if ( config.width == 0 ){
+              var shape = document.createElementNS( "http://www.w3.org/2000/svg", "line" )
+              shape.setAttribute( 'x1', config.x )
+              shape.setAttribute( 'y1', config.y )
+              shape.setAttribute( 'x2', config.x + config.width )
+              shape.setAttribute( 'y2', config.y + config.height )
+            }
+            else {
+              var shape = document.createElementNS( "http://www.w3.org/2000/svg", "rect" )
+              shape.setAttribute( 'x', config.x )
+              shape.setAttribute( 'y', config.y )
+              shape.setAttribute( 'width', config.width )
+              shape.setAttribute( 'height', config.height )
+              shape.setAttribute( 'fill', config.fill )
+            }
+            shape.setAttribute( 'stroke', config.stroke )
+            shape.setAttribute( 'stroke-width', '1px' )
+            return shape
           }
           function drawHinge( svg, config, i ){
             config = _.merge({
-              chunk: [ 1 ] 
+              chunk: [ 1 ],
+              stroke: 'black',
+              fill: 'black'
             }, config )
             
             // work on that multi vertical line renderer
@@ -824,7 +855,9 @@ function(
                     x: i*( config.width + config.hSpace ),
                     y: 0,
                     width: config.width,
-                    height: diff - config.vSpace
+                    height: diff - config.vSpace,
+                    fill: config.fill,
+                    stroke: config.stroke
                   })
                 )
               }
@@ -836,7 +869,9 @@ function(
                   x: x,
                   y: y,
                   width: config.width,
-                  height: lineLength - diff
+                  height: lineLength - diff,
+                  fill: config.fill,
+                  stroke: config.stroke
                 })
               )
               n++
