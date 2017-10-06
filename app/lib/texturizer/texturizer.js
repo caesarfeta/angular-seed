@@ -19,6 +19,21 @@ function(
       return utils
     }
   ])
+  .service( 'texturizerUtils', [
+    function(){
+      var self = this
+      self.drawDot = function( svg, coord, color ){
+        color = ( !color ) ? 'black' : color
+        var dot = document.createElementNS( "http://www.w3.org/2000/svg", "circle" )
+        dot.setAttribute( 'cx', coord[0] )
+        dot.setAttribute( 'cy', coord[1] )
+        dot.setAttribute( 'fill', color )
+        dot.setAttribute( 'r', 5 )
+        svg.appendChild( dot )
+      }
+      return self
+    }
+  ])
   .directive( 'texturizerModal', [
     function(){
       return {
@@ -90,6 +105,16 @@ function(
           "clockwise": false,
           "padding": 6
         },
+        {
+          "id": "ireg poly",
+          "renderer": "texturizer-ireg-poly",
+          "path": [
+            [ 90, 1 ],
+            [ 90, 2 ],
+            [ 90, 1 ],
+            [ 90, 2 ]
+          ]
+        }, 
         {
           "id": "spiral flower",
           "renderer": "texturizer-spiral",
@@ -522,7 +547,8 @@ function(
     }
   ])
   .directive( 'texturizerIregPoly', [
-    function(){
+    'texturizerUtils',
+    function( texturizerUtils ){
       return {
         scope: true,
         template: [
@@ -534,8 +560,35 @@ function(
           
         ].join(' '),
         link: function( scope, elem ){
-          var config = scope.json
-          console.log( config )
+          var config = _.clone( scope.json )
+          config = _.merge({
+            x: 400,
+            y: 400,
+            unit: 100
+          }, config )
+          var svg = $( '#polys', elem ).get( 0 )
+          
+          // convert degrees to radians and build relative coordinate array
+          
+          var angle = 0
+          var x = 0
+          var y = 0
+          config.path = config.path.map( function( item ){
+            angle += item[ 0 ]
+            var l = item[ 1 ]
+            var rad =  angle / 180 * Math.PI
+            x += Math.cos( rad ) * l * config.unit
+            y += Math.sin( rad ) * l * config.unit
+            item[0] = x + config.x
+            item[1] = y + config.y
+            return item
+          })
+          
+          // plot the points
+          
+          _.each( config.path, function( item ){
+            texturizerUtils.drawDot( svg, item, 'red' )
+          })
         }
       }
     }
@@ -571,15 +624,6 @@ function(
             // find radius of the circle that contains polygon
             
             var r = config.sideLength / ( 2 * Math.sin( Math.PI / n ))
-            function drawDot( svg, coord, color ){
-              color = ( !color ) ? 'black' : color
-              var dot = document.createElementNS( "http://www.w3.org/2000/svg", "circle" )
-              dot.setAttribute( 'cx', coord[0] )
-              dot.setAttribute( 'cy', coord[1] )
-              dot.setAttribute( 'fill', color )
-              dot.setAttribute( 'r', 5 )
-              svg.appendChild( dot )
-            }
             
             // notch these for press connection
             
