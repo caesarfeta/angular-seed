@@ -106,14 +106,17 @@ function(
           "padding": 6
         },
         {
-          "id": "ireg poly",
+          "id": "golden rectangle",
           "renderer": "texturizer-ireg-poly",
+          "x": 600,
+          "y": 100,
           "path": [
             [ 90, 1 ],
-            [ 90, 2 ],
+            [ 90, 1.618 ],
             [ 90, 1 ],
-            [ 90, 2 ]
-          ]
+            [ 90, 1.618 ]
+          ],
+          unit: 300
         }, 
         {
           "id": "spiral flower",
@@ -153,14 +156,8 @@ function(
           "hSpace": 3,
           "vSpace": 5,
           "chunk": [
-            [
-              3,
-              0.25
-            ],
-            [
-              3,
-              0.75
-            ]
+            [ 3, 0.25 ],
+            [ 3, 0.75 ]
           ]
         },
         {
@@ -171,30 +168,21 @@ function(
               "x": 0,
               "y": 0,
               "total": 100,
-              "r": [
-                200,
-                300
-              ],
+              "r": [ 200, 300 ],
               "width": 1
             },
             {
               "x": 100,
               "y": 100,
               "total": 50,
-              "r": [
-                100,
-                200
-              ],
+              "r": [ 100, 200 ],
               "width": 1
             },
             {
               "x": 250,
               "y": 250,
               "total": 100,
-              "r": [
-                50,
-                175
-              ],
+              "r": [ 50, 175 ],
               "width": 1
             }
           ]
@@ -562,9 +550,9 @@ function(
         link: function( scope, elem ){
           var config = _.clone( scope.json )
           config = _.merge({
-            x: 400,
-            y: 400,
-            unit: 100
+            x: 200,
+            y: 100,
+            unit: 10
           }, config )
           var svg = $( '#polys', elem ).get( 0 )
           
@@ -584,11 +572,29 @@ function(
             return item
           })
           
+          // close the path
+          
+          config.path.push( _.clone( _.first( config.path )))
+          
           // plot the points
           
+          /*
+          // dot style
           _.each( config.path, function( item ){
             texturizerUtils.drawDot( svg, item, 'red' )
           })
+          */
+          
+          // line style
+          
+          var path = config.path.map( function( point, i ){
+            return (( !i ) ? 'M' : 'L' ) + point[0] + ' ' + point[1]
+          }).join(' ')
+          var shape = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
+          shape.setAttribute( 'd', path )
+          shape.setAttribute( 'stroke', 'black' )
+          shape.setAttribute( 'stroke-width', 1 )
+          svg.appendChild( shape )
         }
       }
     }
