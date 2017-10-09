@@ -31,16 +31,14 @@ function(
         dot.setAttribute( 'r', 5 )
         svg.appendChild( dot )
       }
-      self.notch = function( points, sideLength ){
+      self.notch = function( points, _sideLength ){
         for ( var i=points.length-1; i>0; i-- ){
           
           // calc the sideLength
           
           var x = points[i-1][0] - points[i][0]
           var y = points[i-1][1] - points[i][1]
-          if ( !sideLength ){
-            sideLength = Math.sqrt( x*x + y*y )
-          }
+          var sideLength = ( !!_sideLength ) ? _sideLength : Math.sqrt( x*x + y*y )
           
           // calc required angles for notch points
           
@@ -53,43 +51,36 @@ function(
             getX( normal, 8, sideLength ) + points[i][0],
             getY( normal, 8, sideLength ) + points[i][1]
           ]
-          // drawDot( svg, [ red[0]+250, red[1]+250 ], 'red' )
           
           var blue = [
             getX( angle, 4, sideLength ) + red[0],
             getY( angle, 4, sideLength ) + red[1]
           ]
-          // drawDot( svg, [ blue[0]+250, blue[1]+250 ], 'blue' )
           
           var green = [
             getX( angle, 4, sideLength ) + points[i][0],
             getY( angle, 4, sideLength ) + points[i][1]
           ]
-          // drawDot( svg, [ green[0]+250, green[1]+250 ], 'green' )
           
           var cyan = [
             getX( angle, 2, sideLength ) + red[0],
             getY( angle, 2, sideLength ) + red[1]
           ]
-          // drawDot( svg, [ cyan[0]+250, cyan[1]+250 ], 'cyan' )
           
           var yellow = [
             getX( angle, 2, sideLength ) + points[i][0],
             getY( angle, 2, sideLength ) + points[i][1]
           ]
-          // drawDot( svg, [ yellow[0]+250, yellow[1]+250 ], 'yellow' )
           
           var magenta = [
             getX( angle, 4, sideLength ) + yellow[0],
             getY( angle, 4, sideLength ) + yellow[1]
           ]
-          // drawDot( svg, [ magenta[0]+250, magenta[1]+250 ], 'magenta' )
           
           var gray = [
             getX( angle, 4, sideLength ) + cyan[0],
             getY( angle, 4, sideLength ) + cyan[1]
           ]
-          // drawDot( svg, [ gray[0]+250, gray[1]+250 ], 'gray' )
           
           insertArrayAt( points, [
             magenta,
@@ -662,25 +653,20 @@ function(
             return item
           })
           
-          // close the path
-          
-          config.path.push( _.clone( _.first( config.path )))
-          
           // notch the points
           
           if ( config.notch ){
-            console.log( config.path.length )
             config.path = texturizerUtils.notch( config.path )
-            console.log( config.path.length )
           }
           
           // plot the points
           
           // dot style
-          
+          /*
           _.each( config.path, function( item ){
             texturizerUtils.drawDot( svg, item, 'red' )
           })
+          */
           
           // line style
           
