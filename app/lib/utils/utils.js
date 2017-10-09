@@ -115,6 +115,17 @@ function(
     lineIntersect: lineIntersect
   }
   
+  // get pixels per inch
+  
+  utils.dpi = function(){
+    var div = document.body.appendChild( document.createElement( 'div' ))
+    div.style.width = '1in'
+    div.style.padding = '0'
+    var dpi = div.offsetWidth
+    div.parentNode.removeChild( div )
+    return dpi
+  }
+  
   // find the greatest common denominator of an array of numbers
   
   utils.gcd = function( input ){
