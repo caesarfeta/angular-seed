@@ -198,6 +198,7 @@ function(
           "x": 300,
           "y": 300,
           "notch": true,
+          "notchHeight": 12,
           "path": [
             [ 60, .5 ],
             [ 135, 0.9659258262890684 ],
@@ -698,7 +699,7 @@ function(
           // notch the points
           
           if ( config.notch ){
-            config.path = texturizerUtils.notch( _.reverse( config.path ))
+            config.path = texturizerUtils.notch( _.reverse( config.path ), config.notchHeight )
           }
           
           // plot the points
