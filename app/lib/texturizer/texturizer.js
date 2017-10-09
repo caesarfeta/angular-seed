@@ -34,12 +34,17 @@ function(
       self.notch = function( points, sideLength ){
         for ( var i=points.length-1; i>0; i-- ){
           
+          // calc the sideLength
+          
+          var x = points[i-1][0] - points[i][0]
+          var y = points[i-1][1] - points[i][1]
+          if ( !sideLength ){
+            sideLength = Math.sqrt( x*x + y*y )
+          }
+          
           // calc required angles for notch points
           
-          var angle = Math.atan2( 
-            points[i-1][1] - points[i][1],
-            points[i-1][0] - points[i][0]
-          )
+          var angle = Math.atan2( y, x )
           var normal = angle - Math.PI/2
           
           // get coordinates
@@ -98,19 +103,15 @@ function(
         }
         return points
       }
-      
       function insertArrayAt( array, arrayToInsert, index ){
         Array.prototype.splice.apply( array, [ index, 0 ].concat( arrayToInsert ))
       }
-      
       function getX( angle, denom, sideLength ){
         return ( Math.cos( angle )*sideLength ) / denom
       }
-      
       function getY( angle, denom, sideLength ){
         return ( Math.sin( angle )*sideLength ) / denom
       }
-      
       return self
     }
   ])
@@ -665,15 +666,21 @@ function(
           
           config.path.push( _.clone( _.first( config.path )))
           
+          // notch the points
+          
+          if ( config.notch ){
+            console.log( config.path.length )
+            config.path = texturizerUtils.notch( config.path )
+            console.log( config.path.length )
+          }
+          
           // plot the points
           
-          /*
           // dot style
           
           _.each( config.path, function( item ){
             texturizerUtils.drawDot( svg, item, 'red' )
           })
-          */
           
           // line style
           
@@ -734,7 +741,7 @@ function(
             // notch these for press connection
             
             if ( config.notch ){
-              points = texturizerUtils.notch( points, config.sideLength )
+              points = texturizerUtils.notch( points )
             }
             
             // set the svg attributes
