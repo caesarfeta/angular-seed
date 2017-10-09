@@ -31,7 +31,7 @@ function(
         dot.setAttribute( 'r', 5 )
         svg.appendChild( dot )
       }
-      self.notch = function( points, _sideLength ){
+      self.notch = function( points, _height, _sideLength ){
         for ( var i=points.length-1; i>0; i-- ){
           
           // calc the sideLength
@@ -39,6 +39,7 @@ function(
           var x = points[i-1][0] - points[i][0]
           var y = points[i-1][1] - points[i][1]
           var sideLength = ( !!_sideLength ) ? _sideLength : Math.sqrt( x*x + y*y )
+          var height = ( !!_height ) ? _height : sideLength / 8
           
           // calc required angles for notch points
           
@@ -48,8 +49,8 @@ function(
           // get coordinates
           
           var red = [
-            getX( normal, 8, sideLength ) + points[i][0],
-            getY( normal, 8, sideLength ) + points[i][1]
+            exactX( normal, height ) + points[i][0],
+            exactY( normal, height ) + points[i][1]
           ]
           
           var blue = [
@@ -96,6 +97,12 @@ function(
       }
       function insertArrayAt( array, arrayToInsert, index ){
         Array.prototype.splice.apply( array, [ index, 0 ].concat( arrayToInsert ))
+      }
+      function exactX( angle, sideLength ){
+        return Math.cos( angle )*sideLength
+      }
+      function exactY( angle, sideLength ){
+        return Math.sin( angle )*sideLength
       }
       function getX( angle, denom, sideLength ){
         return ( Math.cos( angle )*sideLength ) / denom
@@ -176,6 +183,14 @@ function(
           "pointCount": 1024,
           "clockwise": false,
           "padding": 6
+        },
+        {
+          "id": "box",
+          "renderer": "texturizer-box",
+          "width": 6,
+          "height": 3,
+          "depth": 3,
+          "thickness": 0.25
         },
         {
           "id": "pentagon tile 1",
@@ -330,6 +345,14 @@ function(
           sideLength: 100,
           notch: true,
           nSides: [ 3, 4, 5, 6, 8 ]
+        },
+        {
+          id: '1/8" plywood cube side',
+          renderer: 'texturizer_reg_poly',
+          sideLength: 100,
+          notch: true,
+          notchHeight: 12, // 1/8 * 96
+          nSides: [ 4 ]
         },
         {
           id: 'sine wave',
@@ -529,14 +552,7 @@ function(
             '</div>',
           '</div>'
           
-        ].join(' '),
-        link: function( scope, elem ){
-          /*
-          var editor = ace.edit( 'texturizer-ctrl' )
-          editor.setTheme( 'ace/theme/monokai' )
-          editor.getSession().setMode( 'ace/mode/javascript' )
-          */
-        }
+        ].join(' ')
       }
     }
   ])
@@ -608,6 +624,32 @@ function(
       }
     }
   ])
+  .directive( 'texturizerBox', [
+    'texturizerUtils',
+    function( texturizerUtils ){
+      return {
+        scope: true,
+        template: [
+          
+          '<svg xmlns="http://www.w3.org/2000/svg"',
+               'width="100%" height="800">',
+            '<g id="polys" fill="none"></g>',
+          '</svg>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          var config = _.clone( scope.json )
+          config = _.merge({
+            width: '6',
+            height: '3',
+            depth: '3',
+            thickness: '.25'
+          })
+          console.log( config )
+        }
+      }
+    }
+  ])
   .directive( 'texturizerIregPoly', [
     'texturizerUtils',
     function( texturizerUtils ){
@@ -660,15 +702,6 @@ function(
           }
           
           // plot the points
-          
-          // dot style
-          /*
-          _.each( config.path, function( item ){
-            texturizerUtils.drawDot( svg, item, 'red' )
-          })
-          */
-          
-          // line style
           
           var path = config.path.map( function( point, i ){
             return (( !i ) ? 'M' : 'L' ) + point[0] + ' ' + point[1]
@@ -727,7 +760,7 @@ function(
             // notch these for press connection
             
             if ( config.notch ){
-              points = texturizerUtils.notch( points )
+              points = texturizerUtils.notch( points, config.notchHeight )
             }
             
             // set the svg attributes
