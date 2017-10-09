@@ -31,6 +31,86 @@ function(
         dot.setAttribute( 'r', 5 )
         svg.appendChild( dot )
       }
+      self.notch = function( points, sideLength ){
+        for ( var i=points.length-1; i>0; i-- ){
+          
+          // calc required angles for notch points
+          
+          var angle = Math.atan2( 
+            points[i-1][1] - points[i][1],
+            points[i-1][0] - points[i][0]
+          )
+          var normal = angle - Math.PI/2
+          
+          // get coordinates
+          
+          var red = [
+            getX( normal, 8, sideLength ) + points[i][0],
+            getY( normal, 8, sideLength ) + points[i][1]
+          ]
+          // drawDot( svg, [ red[0]+250, red[1]+250 ], 'red' )
+          
+          var blue = [
+            getX( angle, 4, sideLength ) + red[0],
+            getY( angle, 4, sideLength ) + red[1]
+          ]
+          // drawDot( svg, [ blue[0]+250, blue[1]+250 ], 'blue' )
+          
+          var green = [
+            getX( angle, 4, sideLength ) + points[i][0],
+            getY( angle, 4, sideLength ) + points[i][1]
+          ]
+          // drawDot( svg, [ green[0]+250, green[1]+250 ], 'green' )
+          
+          var cyan = [
+            getX( angle, 2, sideLength ) + red[0],
+            getY( angle, 2, sideLength ) + red[1]
+          ]
+          // drawDot( svg, [ cyan[0]+250, cyan[1]+250 ], 'cyan' )
+          
+          var yellow = [
+            getX( angle, 2, sideLength ) + points[i][0],
+            getY( angle, 2, sideLength ) + points[i][1]
+          ]
+          // drawDot( svg, [ yellow[0]+250, yellow[1]+250 ], 'yellow' )
+          
+          var magenta = [
+            getX( angle, 4, sideLength ) + yellow[0],
+            getY( angle, 4, sideLength ) + yellow[1]
+          ]
+          // drawDot( svg, [ magenta[0]+250, magenta[1]+250 ], 'magenta' )
+          
+          var gray = [
+            getX( angle, 4, sideLength ) + cyan[0],
+            getY( angle, 4, sideLength ) + cyan[1]
+          ]
+          // drawDot( svg, [ gray[0]+250, gray[1]+250 ], 'gray' )
+          
+          insertArrayAt( points, [
+            magenta,
+            gray,
+            cyan,
+            yellow,
+            green,
+            blue,
+            red
+          ], i )
+        }
+        return points
+      }
+      
+      function insertArrayAt( array, arrayToInsert, index ){
+        Array.prototype.splice.apply( array, [ index, 0 ].concat( arrayToInsert ))
+      }
+      
+      function getX( angle, denom, sideLength ){
+        return ( Math.cos( angle )*sideLength ) / denom
+      }
+      
+      function getY( angle, denom, sideLength ){
+        return ( Math.sin( angle )*sideLength ) / denom
+      }
+      
       return self
     }
   ])
@@ -108,8 +188,9 @@ function(
         {
           "id": "pentagon tile 1",
           "renderer": "texturizer-ireg-poly",
-          "x": 600,
-          "y": 100,
+          "x": 300,
+          "y": 300,
+          "notch": true,
           "path": [
             [ 60, .5 ],
             [ 135, 0.9659258262890684 ],
@@ -609,7 +690,8 @@ function(
     }
   ])
   .directive( 'texturizerRegPoly', [
-    function(){
+    'texturizerUtils',
+    function( texturizerUtils ){
       return {
         scope: true,
         template: [
@@ -640,20 +722,6 @@ function(
             
             var r = config.sideLength / ( 2 * Math.sin( Math.PI / n ))
             
-            // notch these for press connection
-            
-            function insertArrayAt( array, arrayToInsert, index ){
-              Array.prototype.splice.apply( array, [ index, 0 ].concat( arrayToInsert ))
-            }
-            
-            function getX( angle, denom ){
-              return ( Math.cos( angle )*config.sideLength ) / denom
-            }
-            
-            function getY( angle, denom ){
-              return ( Math.sin( angle )*config.sideLength ) / denom
-            }
-            
             // postion the points
             
             points = points.map( function( point, i ){
@@ -662,71 +730,11 @@ function(
                 point[1]*r
               ]
             })
-            if ( !!config.notch ){
-              for ( var i=points.length-1; i>0; i-- ){
-                
-                // calc required angles for notch points
-                
-                var angle = Math.atan2( 
-                  points[i-1][1] - points[i][1],
-                  points[i-1][0] - points[i][0]
-                )
-                var normal = angle - Math.PI/2
-                
-                // get coordinates
-                
-                var red = [
-                  getX( normal, 8 ) + points[i][0],
-                  getY( normal, 8 ) + points[i][1]
-                ]
-                // drawDot( svg, [ red[0]+250, red[1]+250 ], 'red' )
-                
-                var blue = [
-                  getX( angle, 4 ) + red[0],
-                  getY( angle, 4 ) + red[1]
-                ]
-                // drawDot( svg, [ blue[0]+250, blue[1]+250 ], 'blue' )
-                
-                var green = [
-                  getX( angle, 4 ) + points[i][0],
-                  getY( angle, 4 ) + points[i][1]
-                ]
-                // drawDot( svg, [ green[0]+250, green[1]+250 ], 'green' )
-                
-                var cyan = [
-                  getX( angle, 2 ) + red[0],
-                  getY( angle, 2 ) + red[1]
-                ]
-                // drawDot( svg, [ cyan[0]+250, cyan[1]+250 ], 'cyan' )
-                
-                var yellow = [
-                  getX( angle, 2 ) + points[i][0],
-                  getY( angle, 2 ) + points[i][1]
-                ]
-                // drawDot( svg, [ yellow[0]+250, yellow[1]+250 ], 'yellow' )
-                
-                var magenta = [
-                  getX( angle, 4 ) + yellow[0],
-                  getY( angle, 4 ) + yellow[1]
-                ]
-                // drawDot( svg, [ magenta[0]+250, magenta[1]+250 ], 'magenta' )
-                
-                var gray = [
-                  getX( angle, 4 ) + cyan[0],
-                  getY( angle, 4 ) + cyan[1]
-                ]
-                // drawDot( svg, [ gray[0]+250, gray[1]+250 ], 'gray' )
-                
-                insertArrayAt( points, [
-                  magenta,
-                  gray,
-                  cyan,
-                  yellow,
-                  green,
-                  blue,
-                  red
-                ], i )
-              }
+            
+            // notch these for press connection
+            
+            if ( config.notch ){
+              points = texturizerUtils.notch( points, config.sideLength )
             }
             
             // set the svg attributes
