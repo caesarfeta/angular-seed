@@ -656,7 +656,7 @@ function(
           // notch the points
           
           if ( config.notch ){
-            config.path = texturizerUtils.notch( config.path )
+            config.path = texturizerUtils.notch( _.reverse( config.path ))
           }
           
           // plot the points
