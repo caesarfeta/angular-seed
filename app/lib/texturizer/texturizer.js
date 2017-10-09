@@ -1,19 +1,16 @@
 define([
-'angular',
+'./module',
 '../utils/utils',
 'lodash',
 'ace/ace',
-'angularSvgDownload',
 'bootstrap'
 ], 
 function(
-  angular,
+  module,
   utils,
   _,
   ace ){
-  angular.module( 'texturizer', [
-    'hc.downloader'
-  ])
+  module
   .service( 'utilsTest', [
     function(){
       return utils
