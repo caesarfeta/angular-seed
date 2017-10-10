@@ -1,6 +1,7 @@
 define([
 'angular',
-'angularSvgDownload'
+'angularSvgDownload',
+'bootstrap'
 ], 
 function( angular ){
   return angular.module( 'texturizer', [
