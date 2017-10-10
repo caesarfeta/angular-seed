@@ -200,43 +200,35 @@ function(
           var config = _.clone( scope.json )
           config = _.merge({
             x: 200,
-            y: 100,
-            unit: 10
+            y: 100
           }, config )
           var svg = $( '#polys', elem ).get( 0 )
-          
-          // convert degrees to radians and build relative coordinate array
-          
-          var angle = 0
-          var x = 0
-          var y = 0
-          
-          // start at origin
-          
-          config.path.unshift([ 0, 0 ])
-          
-          // get x,y coords from angles and line segment length pairs
-          
-          config.path = config.path.map( function( item ){
-            angle += 180 - item[ 0 ] // interior to exterior
-            var l = item[ 1 ]
-            var rad =  angle / 180 * Math.PI
-            x += Math.cos( rad ) * l * config.unit
-            y += Math.sin( rad ) * l * config.unit
-            item[0] = x + config.x
-            item[1] = y + config.y
-            return item
+          if ( !!config.unit ){
+            config.path = config.path.map( function( item ){
+              item[ 1 ] *= config.unit
+              return item
+            })
+          }
+          var path = texturizerUtils.anglesToCoords( config.path )
+          path = path.map( function( item ){
+            return [
+              item[ 0 ] + config.x,
+              item[ 1 ] + config.y
+            ]
           })
           
           // notch the points
           
           if ( config.notch ){
-            config.path = texturizerUtils.notch( _.reverse( config.path ), config.notchHeight )
+            path = texturizerUtils.notch(
+              _.reverse( path ),
+              config.notchHeight
+            )
           }
           
           // plot the points
           
-          texturizerUtils.drawLine( svg, config.path )
+          texturizerUtils.drawLine( svg, path )
         }
       }
     }

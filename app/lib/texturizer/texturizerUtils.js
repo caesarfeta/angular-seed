@@ -15,6 +15,24 @@ function(
     function(){
       var self = this
       
+      // angles to coordinates
+      
+      self.anglesToCoords = function( angles ){
+        var angle = 0
+        var x = 0
+        var y = 0
+        var items = _.clone( angles )
+        items.unshift([ 0, 0 ])
+        return items.map( function( item ){
+          angle += 180 - item[ 0 ] // interior to exterior
+          var l = item[ 1 ]
+          var rad = angle / 180 * Math.PI
+          x += Math.cos( rad ) * l
+          y += Math.sin( rad ) * l
+          return [ x, y ]
+        })
+      }
+      
       // draw a colored dot
       
       self.drawDot = function( svg, coord, color ){
