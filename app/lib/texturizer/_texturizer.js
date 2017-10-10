@@ -157,32 +157,6 @@ function(
       }
     }
   ])
-  .directive( 'texturizerBox', [
-    'texturizerUtils',
-    function( texturizerUtils ){
-      return {
-        scope: true,
-        template: [
-          
-          '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="100%" height="800">',
-            '<g id="polys" fill="none"></g>',
-          '</svg>'
-          
-        ].join(' '),
-        link: function( scope, elem ){
-          var config = _.clone( scope.json )
-          config = _.merge({
-            width: '6',
-            height: '3',
-            depth: '3',
-            thickness: '.25'
-          })
-          console.log( config )
-        }
-      }
-    }
-  ])
   .directive( 'texturizerIregPoly', [
     'texturizerUtils',
     function( texturizerUtils ){
