@@ -22,29 +22,24 @@ function(
           
         ].join(' '),
         link: function( scope, elem ){
-          var config = _.clone( scope.json )
+          var config = scope.json
           config = _.merge({
-            width: '6',
-            height: '3',
-            depth: '3',
-            thickness: '.25'
-          })
-          var svg = $( '#polys', elem ).get( 0 )
-          var dpi = utils.dpi()
-          config = _.mapValues( config, function( v ){
-            return v * dpi
-          })
-          function side( w, h ){
+            width: 3,
+            height: 3,
+            depth: 1.5,
+            thickness: .25
+          }, config )
+          function side( w, h, thickness ){
             return texturizerUtils.notch(
               
               // path to notch
               
               _.reverse(
                 texturizerUtils.anglesToCoords([
-                  [ 90, h ],
-                  [ 90, w ],
-                  [ 90, h ],
-                  [ 90, w ]
+                  [ 90, h - thickness*2 ],
+                  [ 90, w - thickness*2 ],
+                  [ 90, h - thickness*2 ],
+                  [ 90, w - thickness*2 ]
                 ]).map( function( item ){
                   return [
                     item[ 0 ] + 100,
@@ -55,15 +50,23 @@ function(
               
               // notch thickness
               
-              config.thickness
+              thickness
             )
           }
-          var wxh = side( config.width, config.height )
-          var wxd = side( config.depth, config.height )
-          var hxd = side( config.width, config.depth )
-          texturizerUtils.drawLine( svg, wxh )
-          texturizerUtils.drawLine( svg, wxd )
-          texturizerUtils.drawLine( svg, hxd )
+          function draw( config ){
+            var svg = $( '#polys', elem ).get( 0 )
+            var dpi = utils.dpi()
+            config = _.mapValues( config, function( v ){
+              return v * dpi
+            })
+            var wxh = side( config.width, config.height, config.thickness )
+            var wxd = side( config.depth, config.height, config.thickness )
+            var hxd = side( config.width, config.depth, config.thickness )
+            texturizerUtils.drawLine( svg, wxh )
+            texturizerUtils.drawLine( svg, wxd )
+            texturizerUtils.drawLine( svg, hxd )
+          }
+          draw( config )
         }
       }
     }
