@@ -1,8 +1,7 @@
 define([
 './module',
 '../utils/utils',
-'lodash',
-'./texturizerUi'
+'lodash'
 ], 
 function(
   module,
@@ -237,14 +236,7 @@ function(
           
           // plot the points
           
-          var path = config.path.map( function( point, i ){
-            return (( !i ) ? 'M' : 'L' ) + point[0] + ' ' + point[1]
-          }).join(' ')
-          var shape = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
-          shape.setAttribute( 'd', path )
-          shape.setAttribute( 'stroke', 'black' )
-          shape.setAttribute( 'stroke-width', 1 )
-          svg.appendChild( shape )
+          texturizerUtils.drawShape( svg, config.path )
         }
       }
     }
@@ -286,8 +278,8 @@ function(
             
             points = points.map( function( point, i ){
               return [
-                point[0]*r,
-                point[1]*r
+                point[0]*r + 250,
+                point[1]*r + 250
               ]
             })
             
@@ -299,14 +291,7 @@ function(
             
             // set the svg attributes
             
-            var d = points.map( function( point, i ){
-              return (( !i ) ? 'M' : 'L' ) + ( point[0] + 250 ) + ' ' + ( point[1] + 250 )
-            }).join(' ')
-            path.setAttribute( 'd', d )
-            path.setAttribute( 'stroke-width', 1 )
-            path.setAttribute( 'stroke', 'black' )
-            path.setAttribute( 'fill', 'none' )
-            svg.appendChild( path )
+            texturizerUtils.drawShape( svg, points )
           }
         }
       }
