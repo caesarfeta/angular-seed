@@ -14,6 +14,9 @@ function(
   .service( 'texturizerUtils', [
     function(){
       var self = this
+      
+      // draw a colored dot
+      
       self.drawDot = function( svg, coord, color ){
         color = ( !color ) ? 'black' : color
         var dot = document.createElementNS( "http://www.w3.org/2000/svg", "circle" )
@@ -23,7 +26,10 @@ function(
         dot.setAttribute( 'r', 5 )
         svg.appendChild( dot )
       }
-      self.drawShape = function( svg, points ){
+      
+      // draw a line
+      
+      self.drawLine = function( svg, points ){
         var shape = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
         var d = points.map( function( point, i ){
           return (( !i ) ? 'M' : 'L' ) + point[0] + ' ' + point[1]
@@ -34,6 +40,9 @@ function(
         shape.setAttribute( 'fill', 'none' )
         svg.appendChild( shape )
       }
+      
+      // notch lines
+      
       self.notch = function( points, _height, _sideLength ){
         for ( var i=points.length-1; i>0; i-- ){
           

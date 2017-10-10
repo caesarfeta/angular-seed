@@ -236,7 +236,7 @@ function(
           
           // plot the points
           
-          texturizerUtils.drawShape( svg, config.path )
+          texturizerUtils.drawLine( svg, config.path )
         }
       }
     }
@@ -291,7 +291,7 @@ function(
             
             // set the svg attributes
             
-            texturizerUtils.drawShape( svg, points )
+            texturizerUtils.drawLine( svg, points )
           }
         }
       }
