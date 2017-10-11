@@ -381,6 +381,55 @@ function(
       }
     }
   ])
+  .directive( 'atDropDownMenu', [
+    '$location',
+    '$timeout',
+    function(
+      $location,
+      $timeout ){
+      return {
+        scope: {
+          atDropDownMenu: '='
+        },
+        replace: true,
+        template: [
+          
+          '<div class="btn-group menu" uib-dropdown>',
+            
+            // button
+            
+            '<button id="single-button"',
+                    'type="button"',
+                    'class="btn btn-sm"',
+                    'uib-dropdown-toggle>',
+              '{{ id.toUpperCase() }}&nbsp;',
+              '<span class="caret"></span>',
+            '</button>',
+            
+            // dropdown menu
+            
+            '<ul class="dropdown-menu"',
+                'uib-dropdown-menu',
+                'role="menu">',
+              '<li role="menuitem"',
+                  'ng-repeat="( name, url ) in atDropDownMenu">',
+                '<a href="" ng-click="goTo( url, name )">{{ name.toUpperCase() }}</a>',
+              '</li>',
+            '</ul>',
+          '</div>'
+          
+        ].join(' '),
+        link: function( scope ){
+          scope.id = $location.url().split('/')[1]
+          console.log( scope.id, $location.url().split('/') )
+          scope.goTo = function( url, name ){
+            scope.id = name.toUpperCase()
+            $location.url( url )
+          }
+        }
+      }
+    }
+  ])
   .directive( 'atMenu', [
     '$location',
     function( $location ){
@@ -389,13 +438,15 @@ function(
           
           '<ul class="menu">',
             '<li ng-repeat="( name, url ) in atMenu">',
-              '<button class="btn btn-sm" ng-class="style( url )" ng-click="goTo( url )">',
+              '<button class="btn btn-sm"',
+                      'ng-class="style( url )"',
+                      'ng-click="goTo( url )">',
                 '{{ name.toUpperCase() }}',
               '</button>',
             '</li>',
           '</ul>'
           
-        ].join(''),
+        ].join(' '),
         scope: {
           atMenu: '='
         },
