@@ -29,8 +29,8 @@ function( module ){
         {
           id: 'pentagon tile 1',
           renderer: 'texturizer-ireg-poly',
-          x: 300,
-          y: 300,
+          x: 10,
+          y: 10,
           notch: true,
           notchHeight: 12,
           path: [

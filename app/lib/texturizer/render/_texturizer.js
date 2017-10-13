@@ -184,21 +184,23 @@ function(
             })
           }
           var path = texturizerUtils.anglesToCoords( config.path )
+          
+          // notch the points
+          
+          if ( config.notch ){
+            path = texturizerUtils.toOrigin(
+              texturizerUtils.notch(
+                _.reverse( path ),
+                config.notchHeight
+              )
+            )
+          }
           path = path.map( function( item ){
             return [
               item[ 0 ] + config.x,
               item[ 1 ] + config.y
             ]
           })
-          
-          // notch the points
-          
-          if ( config.notch ){
-            path = texturizerUtils.notch(
-              _.reverse( path ),
-              config.notchHeight
-            )
-          }
           
           // plot the points
           
