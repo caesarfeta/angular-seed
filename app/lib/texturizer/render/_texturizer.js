@@ -1,6 +1,6 @@
 define([
-'./module',
-'../utils/utils',
+'../module',
+'../../utils/utils',
 'lodash'
 ], 
 function(

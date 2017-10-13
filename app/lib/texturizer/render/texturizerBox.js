@@ -1,6 +1,6 @@
 define([
-'./module',
-'../utils/utils',
+'../module',
+'../../utils/utils',
 'lodash'
 ], 
 function(
@@ -30,27 +30,24 @@ function(
             thickness: .25
           }, config )
           function side( w, h, thickness ){
-            return texturizerUtils.notch(
+            return texturizerUtils.toOrigin(
+              texturizerUtils.notch(
               
-              // path to notch
-              
-              _.reverse(
-                texturizerUtils.anglesToCoords([
-                  [ 90, h - thickness*2 ],
-                  [ 90, w - thickness*2 ],
-                  [ 90, h - thickness*2 ],
-                  [ 90, w - thickness*2 ]
-                ]).map( function( item ){
-                  return [
-                    item[ 0 ] + 100,
-                    item[ 1 ] + 400
-                  ]
-                })
-              ),
-              
-              // notch thickness
-              
-              thickness
+                // path to notch
+                
+                _.reverse(
+                  texturizerUtils.anglesToCoords([
+                    [ 90, h - thickness*2 ],
+                    [ 90, w - thickness*2 ],
+                    [ 90, h - thickness*2 ],
+                    [ 90, w - thickness*2 ]
+                  ])
+                ),
+                
+                // notch thickness
+                
+                thickness
+              )
             )
           }
           function draw( config ){
@@ -60,8 +57,14 @@ function(
               return v * dpi
             })
             var wxh = side( config.width, config.height, config.thickness )
-            var wxd = side( config.depth, config.height, config.thickness )
-            var hxd = side( config.width, config.depth, config.thickness )
+            var wxd = texturizerUtils.move(
+              side( config.depth, config.height, config.thickness ),
+              [ 0, config.height ]
+            )
+            var hxd = texturizerUtils.move(
+              side( config.width, config.depth, config.thickness ),
+              [ 0, config.height + config.depth ]
+            )
             texturizerUtils.drawLine( svg, wxh )
             texturizerUtils.drawLine( svg, wxd )
             texturizerUtils.drawLine( svg, hxd )

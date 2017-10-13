@@ -412,6 +412,7 @@ function(
                 'uib-dropdown-menu',
                 'role="menu">',
               '<li role="menuitem"',
+                  'ng-style="{ toggled: selected( name ) }"',
                   'ng-repeat="( name, url ) in atDropDownMenu">',
                 '<a href="" ng-click="goTo( url, name )">{{ name.toUpperCase() }}</a>',
               '</li>',
@@ -420,8 +421,12 @@ function(
           
         ].join(' '),
         link: function( scope ){
-          scope.id = $location.url().split('/')[1]
-          console.log( scope.id, $location.url().split('/') )
+          $timeout( function(){
+            scope.id = $location.url().split('/')[1]
+          })
+          scope.selected = function( name ){
+            return name.toUpperCase() == scope.id
+          }
           scope.goTo = function( url, name ){
             scope.id = name.toUpperCase()
             $location.url( url )

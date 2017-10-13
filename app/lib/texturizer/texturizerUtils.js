@@ -15,6 +15,31 @@ function(
     function(){
       var self = this
       
+      // move coordinates by an offset
+      
+      self.move = function( coords, offset ){
+        return coords.map( function( coord ){
+          return [ 
+            coord[0] + offset[0],
+            coord[1] + offset[1]
+          ]
+        })
+      }
+      
+      // position to origin
+      
+      self.toOrigin = function( coords ){
+        var minX = 0
+        var minY = 0
+        _.each( coords, function( item ){
+          minX = ( item[0] < minX ) ? item[0] : minX
+          minY = ( item[1] < minY ) ? item[1] : minY
+        })
+        return coords.map( function( item ){
+          return [ item[0]-minX, item[1]-minY ]
+        })
+      }
+      
       // angles to coordinates
       
       self.anglesToCoords = function( angles ){

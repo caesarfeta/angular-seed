@@ -1,8 +1,8 @@
 define([
-'./_texturizer',
 './texturizerOptions',
 './texturizerUtils',
 './texturizerUi',
-'./texturizerBox'
+'./render/_texturizer',
+'./render/texturizerBox'
 ], 
 function(){})
