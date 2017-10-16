@@ -8,47 +8,6 @@ function(
   utils,
   _ ){
   module
-  .directive( 'texturizerExplode', [
-    function(){
-      return {
-        scope: true,
-        template: [
-          
-          '<svg xmlns="http://www.w3.org/2000/svg"',
-               'width="100%" height="800">',
-            '<g id="explode" fill="none"></g>',
-          '</svg>'
-          
-        ].join(' '),
-        link: function( scope, elem ){
-          function draw( svg, config ){
-            var points = utils.math.circle.nCoords( config.total )
-            _.each( points, function( point ){
-              var r = _.clone( config.r ).sort()
-              var space = r[1]
-              var path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
-              path.setAttribute( 'd', [
-                
-                `M ${ point[0] * r[0] + space + config.x } ${ point[1] * r[0] + space + config.y }`,
-                `L ${ point[0] * r[1] + space + config.x } ${ point[1] * r[1] + space + config.y }`
-                
-              ].join(' '))
-              path.setAttribute( 'stroke-width', config.width )
-              path.setAttribute( 'stroke', 'black' )
-              path.setAttribute( 'fill', 'none' )
-              svg.appendChild( path )
-            })
-          }
-          _.each( scope.json.explosions, function( config ){
-            draw(
-              $( '#explode', elem ).get( 0 ),
-              config
-            )
-          })
-        }
-      }
-    }
-  ])
   .directive( 'texturizerArcs', [
     function(){
       return {
@@ -90,7 +49,8 @@ function(
     }
   ])
   .directive( 'texturizerSpiral', [
-    function(){
+    'texturizerUtils',
+    function( texturizerUtils ){
       return {
         scope: true,
         template: [
@@ -140,6 +100,7 @@ function(
               }
               points.push( coord[0] + " " + coord[1] )
             }
+            // points = texturizerUtils.toOrigin( points )
             
             // only an even amount of points
             
@@ -173,8 +134,8 @@ function(
         link: function( scope, elem ){
           var config = _.clone( scope.json )
           config = _.merge({
-            x: 200,
-            y: 100
+            x: 0,
+            y: 0
           }, config )
           var svg = $( '#polys', elem ).get( 0 )
           if ( !!config.unit ){
@@ -188,14 +149,12 @@ function(
           // notch the points
           
           if ( config.notch ){
-            path = texturizerUtils.toOrigin(
-              texturizerUtils.notch(
-                _.reverse( path ),
-                config.notchHeight
-              )
+            path = texturizerUtils.notch(
+              _.reverse( path ),
+              config.notchHeight
             )
           }
-          path = path.map( function( item ){
+          path = texturizerUtils.toOrigin( path ).map( function( item ){
             return [
               item[ 0 ] + config.x,
               item[ 1 ] + config.y

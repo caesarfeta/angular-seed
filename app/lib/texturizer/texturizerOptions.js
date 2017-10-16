@@ -7,6 +7,34 @@ function( module ){
     function(){
       return [
         {
+          id: 'bowtie edge',
+          renderer: 'texturizer-ireg-poly',
+          unit: 100,
+          x: 10,
+          y: 10,
+          path: [
+            [ 0, 0.75 ],
+            [ 280, 1 ],
+            [ 80, 0.75 ],
+            [ 80, 1 ]
+          ]
+        },
+        {
+          id: 'bowtie',
+          renderer: 'texturizer-ireg-poly',
+          unit: 100,
+          x: 10,
+          y: 10,
+          path: [
+            [ 160, 1 ],
+            [ 200, 1 ],
+            [ 80, 0.75 ],
+            [ 80, 1 ],
+            [ 200, 1 ],
+            [ 80, 0.75 ]
+          ]
+        },
+        {
           id: 'wobble spiral',
           renderer: 'texturizer-spiral',
           origin: {

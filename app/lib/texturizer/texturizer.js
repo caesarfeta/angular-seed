@@ -3,6 +3,7 @@ define([
 './texturizerUtils',
 './texturizerUi',
 './render/_texturizer',
-'./render/texturizerBox'
+'./render/texturizerBox',
+'./render/texturizerExplode'
 ], 
 function(){})
