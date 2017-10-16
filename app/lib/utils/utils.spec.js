@@ -20,7 +20,9 @@ function(
   
   describe( 'utils', function() {
     it( 'rmOverlap', function(){
+      console.log( data.qbertFruit )
       utils.rmOverlap( data.qbertFruit )
+      console.log( data.qbertFruit )
       expect( false ).toBe( true )
     })
     it( '!!math.lineIntersect', function(){

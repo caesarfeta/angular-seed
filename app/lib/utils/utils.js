@@ -122,20 +122,31 @@ function(
          !!coords[i] &&
          coords[j][0] == coords[i][0] &&
          coords[j][1] == coords[i][1] ){
+           console.log( i, j, n )
       return check( coords, i+1, j+1, n+1 )
     }
-    return n
+    else {
+      return n
+    }
   }
+  
   utils.rmOverlap = function( coords ){
     for ( var i=0; i<coords.length; i++ ){
-      for ( var j=0; j<coords.length; j++ ){
+      if ( !coords[i] ){
+        continue
+      }
+      for ( var j=i+1; j<coords.length; j++ ){
         var n = check( coords, i, j, 0 )
         if ( n > 1 ){
-          console.log( n )
+          while ( n > 0 ){
+            coords[ j + n ] = null
+            n--
+          }
           break
         }
       }
     }
+    
     return coords
   }
   
