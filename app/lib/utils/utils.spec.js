@@ -2,20 +2,27 @@ define([
 './utils',
 'lodash',
 './grandmaStar',
-'./lumpyX'
+'./lumpyX',
+'./qbertFruit'
 ],
 function(
   utils,
   _,
   grandmaStar,
-  lumpyX  ){
+  lumpyX,
+  qbertFruit ){
   
   var data = {
     lumpyX: lumpyX,
-    grandmaStar: grandmaStar
+    grandmaStar: grandmaStar,
+    qbertFruit: qbertFruit
   }
   
   describe( 'utils', function() {
+    it( 'rmOverlap', function(){
+      utils.rmOverlap( data.qbertFruit )
+      expect( false ).toBe( true )
+    })
     it( '!!math.lineIntersect', function(){
       expect( !!utils.math.lineIntersect ).toBe( true )
     })

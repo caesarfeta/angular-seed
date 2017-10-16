@@ -117,7 +117,25 @@ function(
   
   // remove overlapping line segments from a path
   
+  function check( coords, i, j, n ){
+    if ( !!coords[j] &&
+         !!coords[i] &&
+         coords[j][0] == coords[i][0] &&
+         coords[j][1] == coords[i][1] ){
+      return check( coords, i+1, j+1, n+1 )
+    }
+    return n
+  }
   utils.rmOverlap = function( coords ){
+    for ( var i=0; i<coords.length; i++ ){
+      for ( var j=0; j<coords.length; j++ ){
+        var n = check( coords, i, j, 0 )
+        if ( n > 1 ){
+          console.log( n )
+          break
+        }
+      }
+    }
     return coords
   }
   
