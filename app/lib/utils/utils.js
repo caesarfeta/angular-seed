@@ -115,6 +115,12 @@ function(
     lineIntersect: lineIntersect
   }
   
+  // remove overlapping line segments from a path
+  
+  utils.rmOverlap = function( coords ){
+    return coords
+  }
+  
   // get pixels per inch
   
   utils.dpi = function(){

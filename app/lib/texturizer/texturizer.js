@@ -7,6 +7,7 @@ define([
 './render/texturizerExplode',
 './render/texturizerStackedBars',
 './render/texturizerSineWave',
+'./render/texturizerSpiral',
 './render/texturizerRegPoly',
 './render/texturizerIregPoly',
 './render/texturizerBullseye'
