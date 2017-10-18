@@ -120,23 +120,21 @@ function(
   function check( coords, i, j, n ){
     if ( !!coords[j] &&
          !!coords[i] &&
-         coords[j][0] == coords[i][0] &&
-         coords[j][1] == coords[i][1] ){
-           console.log( i, j, n )
+         coords[j][0].toFixed(6) == coords[i][0].toFixed(6) &&
+         coords[j][1].toFixed(6) == coords[i][1].toFixed(6) ){
       return check( coords, i+1, j+1, n+1 )
     }
-    else {
-      return n
-    }
+    return n
   }
   
   utils.rmOverlap = function( coords ){
+    coords = _.clone( coords )
     for ( var i=0; i<coords.length; i++ ){
       if ( !coords[i] ){
         continue
       }
       for ( var j=i+1; j<coords.length; j++ ){
-        var n = check( coords, i, j, 0 )
+        var n = check( coords, i, j, 0 )-1
         if ( n > 1 ){
           while ( n > 0 ){
             coords[ j + n ] = null
@@ -146,7 +144,6 @@ function(
         }
       }
     }
-    
     return coords
   }
   

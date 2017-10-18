@@ -96,10 +96,44 @@ function(
         link: function( scope, elem ){
           scope.show = false
           scope.points = function(){
+            var compressed = utils.rmOverlap( scope.lsys.coords )
+            var polylines = [[]]
+            for ( var i=1; i<compressed.length; i++ ){
+              if ( !!compressed[i] ){
+                if (!compressed[ i-1 ]){
+                  polylines.push([])
+                }
+                _.last( polylines ).push( compressed[i] )
+              }
+            }
+            console.log( polylines )
+            
+            var polylineHtml = polylines.map( function( line ){
+              var points = line.map( function( item ){
+                return ( item[0] + scope.lsys.nudgeX ) * scope.lsys.scale + ',' + 
+                       ( item[1] + scope.lsys.nudgeY ) * scope.lsys.scale
+              }).join(' ')
+              return [
+                '<polyline',
+                  'points="' + points + '"',
+                  'style="fill:none; stroke:black; stroke-width:2" />',
+              ].join(' ')
+            })
+            
+            var html = [
+              '<svg id="svgdownload"',
+                   'height="' + scope.lsys.canvas.height + '"',
+                   'width="' + scope.lsys.canvas.width + '">',
+                polylineHtml,
+              '</svg>'
+            ].join(' ')
+            
+            /*
             var points = scope.lsys.coords.map( function( item ){
               return ( item[0] + scope.lsys.nudgeX ) * scope.lsys.scale + ',' + 
                      ( item[1] + scope.lsys.nudgeY ) * scope.lsys.scale
             }).join(' ')
+            
             var html = [
               '<svg id="svgdownload"',
                    'height="' + scope.lsys.canvas.height + '"',
@@ -109,6 +143,7 @@ function(
                   'style="fill:none; stroke:black; stroke-width:2" />',
               '</svg>'
             ].join(' ')
+            */
             $( '.compile', elem ).html( $compile( html )( scope ))
           }
         }
