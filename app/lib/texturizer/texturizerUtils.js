@@ -15,6 +15,16 @@ function(
     function(){
       var self = this
       
+      function flowerify( angle, config ){
+        return Math.sin( angle * config.mutator.petals ) * config.mutator.amplitude
+      }
+      self.mutators = {
+        flower: function( coord, i, angle, circ, config ){
+          coord[0] = ( flowerify( angle, config ) + circ ) * angle * Math.cos( angle ) + config.origin.x
+          coord[1] = ( flowerify( angle, config ) + circ ) * angle * Math.sin( angle ) + config.origin.y
+        }
+      }
+      
       // move coordinates by an offset
       
       self.move = function( coords, offset ){

@@ -28,15 +28,7 @@ function(
           var roundTo = function ( input, sigdigs ){
             return Math.round( input * Math.pow( 10, sigdigs )) / Math.pow( 10, sigdigs )
           }
-          function flowerify( angle ){
-            return Math.sin( angle * config.mutator.petals ) * config.mutator.amplitude
-          }
-          var mutators = {
-            flower: function( coord, i, angle, circ ){
-              coord[0] = ( flowerify( angle ) + circ ) * angle * Math.cos( angle ) + config.origin.x
-              coord[1] = ( flowerify( angle ) + circ ) * angle * Math.sin( angle ) + config.origin.y
-            }
-          }
+          
           var makeSpiralPoints = function( config ){
             var direction = config.clockwise ? 1 : -1
             var circ = config.padding / ( 2*Math.PI )
@@ -49,7 +41,7 @@ function(
               
               var coord = []
               if ( !!config.mutator ){
-                mutators[ config.mutator.type ]( coord, i, angle, circ )
+                texturizerUtils.mutators[ config.mutator.type ]( coord, i, angle, circ, config )
               }
               
               // default spiral
