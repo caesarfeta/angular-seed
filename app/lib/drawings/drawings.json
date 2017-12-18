@@ -1,6 +1,15 @@
 [
   {
     "files": [
+      "./lib/drawings/img/white_stripes.gif"
+    ],
+    "label": "The White Stripes",
+    "description": "Fan art. Is there any other kind?",
+    "medium": "digital",
+    "date": "???"
+  },
+  {
+    "files": [
       "./lib/drawings/img/sentimental_value_01.gif",
       "./lib/drawings/img/sentimental_value_02.gif",
       "./lib/drawings/img/sentimental_value_03.gif",
@@ -12,14 +21,286 @@
     ],
     "label": "Sentimental Value",
     "description": "Join our hero(?) on an amazing adventure!",
-    "date": "2012"
+    "medium": "digital",
+    "date": "???"
   },
   {
     "files": [
-      "./lib/drawings/img/white_stripes.gif"
+      "./lib/drawings/img/a_new_kind_of_man.jpg"
     ],
-    "label": "The White Stripes",
-    "description": "Fan art. Is there any other kind?",
-    "date": "2012"
+    "label": "A New Kind of Man",
+    "description": "",
+    "medium": "collage",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/arent_fighting.jpg"
+    ],
+    "label": "Aren't Fighting",
+    "description": "",
+    "medium": "ink on paper",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/baby_sitting.jpg"
+    ],
+    "label": "Baby Sitting",
+    "description": "",
+    "medium": "acrylic on paper",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/beast_grease.png"
+    ],
+    "label": "Beast Grease",
+    "description": "",
+    "medium": "digital",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/blanca_nieves.jpg"
+    ],
+    "label": "Blanca Nieves",
+    "description": "",
+    "medium": "collage",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/caught_in_the_act.jpg"
+    ],
+    "label": "Caught in the Act",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/chachi_and_bobo_rest.png"
+    ],
+    "label": "Chachi and Bobo - Rest",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/chimp_stick_logo.gif"
+    ],
+    "label": "Chimp Stick",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/chimps_intellect.jpg"
+    ],
+    "label": "Chimp Intellect",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/conway_caricature.jpg"
+    ],
+    "label": "Conway Twitty",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/don't_lose_your_cool.gif"
+    ],
+    "label": "Don't Lose Your Cool",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/forbidden_luv.gif"
+    ],
+    "label": "Forbidden Luv",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/foreign_dignitaries.jpg"
+    ],
+    "label": "Foreign Dignitaries",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/fruit_scented.jpg"
+    ],
+    "label": "Fruit Scented",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/give_yourself_over_to.jpg"
+    ],
+    "label": "Give Yourself Over",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/horn_powder.png"
+    ],
+    "label": "Horn Powder",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/lets_agree_to_disagree.gif"
+    ],
+    "label": "Let's Agree to Disagree",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/like_to_fight.jpg"
+    ],
+    "label": "Like to Fight",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/love_meat.jpg"
+    ],
+    "label": "Love Meat",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/loved_too_much.gif"
+    ],
+    "label": "Loved Too Much",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/luxury_time.jpg"
+    ],
+    "label": "Luxury Time",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/masters_of_the_universe.jpg"
+    ],
+    "label": "Masters of the Universe",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/power_is_the_ultimate.jpg"
+    ],
+    "label": "Power is the Ultimate Aphrodisiac",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/practical_transportation.gif"
+    ],
+    "label": "Practical Transportation",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/protect_your_investment.jpg"
+    ],
+    "label": "Protect Your Investment",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/rulers.png"
+    ],
+    "label": "Rulers",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/salamander_science_teacher.jpg"
+    ],
+    "label": "Salamander Science Teacher",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/stick_logo_multi.gif"
+    ],
+    "label": "Stick Logo Evolution",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/thanatos_phobos_deimos.jpg"
+    ],
+    "label": "Thanatos, Phobos, Deimos",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/the_tuffest.gif"
+    ],
+    "label": "The Tuffest",
+    "description": "",
+    "medium": "???",
+    "date": "???"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/wrasslin.jpg"
+    ],
+    "label": "Wrasslin",
+    "description": "",
+    "medium": "???",
+    "date": "???"
   }
 ]

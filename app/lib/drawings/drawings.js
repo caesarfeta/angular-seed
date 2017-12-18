@@ -51,9 +51,21 @@ function(
             '<div ng-if="!!paginator.items()">',
               '<div class="lsysCard"',
                    'ng-repeat="item in paginator.items()">',
-                '<div class="lsysDisplay">',
-                  '<label>{{ item.label }}</label>',
+                
+                // files
+                
+                '<div ng-repeat="file in item.files">',
+                  '<a>',
+                    '<img style="width:290px" ng-src="{{ ::file }}" />',
+                  '</a>',
                 '</div>',
+                
+                '<div class="lsysDisplay">',
+                  '<label>{{ ::item.label }}</label>',
+                  '<p>{{ ::item.description }}</p>',
+                  '<div class="pull-right">{{ ::item.medium }}, {{ ::item.date }}</div>',
+                '</div>',
+                
               '</div>',
               
               // paginator buttons
