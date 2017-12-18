@@ -161,6 +161,24 @@ function( module ){
           ]
         },
         {
+          id: 'bullseye flower',
+          renderer: 'texturizer-bullseye',
+          circles: [
+            {
+              total: 20,
+              width: 1,
+              space: 20,
+              x: 400,
+              y: 400,
+              mutator: {
+                type: 'flower',
+                petals: 5,
+                amplitude: 0.5
+              }
+            }
+          ]
+        },
+        {
           id: 'slim bars',
           renderer: 'texturizer-stacked-bars',
           total: 250,

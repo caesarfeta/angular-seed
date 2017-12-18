@@ -9,7 +9,9 @@ define([
 'lib/version/version',
 'lib/atPixels/atPixels.angular',
 'lib/threeD/threeD',
-'lib/texturizer/texturizer'
+'lib/texturizer/texturizer',
+'lib/vizque/vizque',
+'lib/drawings/drawings'
 ], 
 function( angular ){
   
@@ -25,7 +27,9 @@ function( angular ){
     'myApp.version',
     'atPixels',
     'threeD',
-    'texturizer'
+    'texturizer',
+    'vizque',
+    'drawings'
   ])
   .config([
     '$routeProvider', 
@@ -207,10 +211,28 @@ function( angular ){
           }
         ]
       })
+      
       $routeProvider.when( '/threed/list/:page', {
         template: [
           
           '<div three-d-list="page"></div>'
+          
+        ].join(' '),
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            $scope,
+            $routeParams ){
+              $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
+          }
+        ]
+      })
+      
+      $routeProvider.when( '/drawings/list/:page', {
+        template: [
+          
+          '<div drawings-list="page"></div>'
           
         ].join(' '),
         controller: [
@@ -231,6 +253,23 @@ function( angular ){
           
         ].join(' '),
         controller: [ function(){} ]
+      })
+      
+      $routeProvider.when( '/vizque', {
+        template: [
+          
+          '<div vizque></div>'
+          
+        ].join(' '),
+        controller: [
+          'vizque',
+          '$scope',
+          function(
+            vizque,
+            scope ){
+            scope.vizque = vizque
+          }
+        ]
       })
       
       // about

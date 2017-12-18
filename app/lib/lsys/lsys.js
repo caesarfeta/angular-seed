@@ -94,7 +94,7 @@ function(
           
         ].join(' '),
         link: function( scope, elem ){
-          var compress = true
+          var compress = false
           scope.show = false
           scope.points = function(){
             

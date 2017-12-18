@@ -9,7 +9,8 @@ function(
   _ ){
   module
   .directive( 'texturizerBullseye', [
-    function(){
+    'texturizerUtils',
+    function( texturizerUtils ){
       return {
         scope: true,
         template: [

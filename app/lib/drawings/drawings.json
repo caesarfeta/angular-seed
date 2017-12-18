@@ -1,0 +1,25 @@
+[
+  {
+    "files": [
+      "./lib/drawings/img/sentimental_value_01.gif",
+      "./lib/drawings/img/sentimental_value_02.gif",
+      "./lib/drawings/img/sentimental_value_03.gif",
+      "./lib/drawings/img/sentimental_value_04.gif",
+      "./lib/drawings/img/sentimental_value_05.gif",
+      "./lib/drawings/img/sentimental_value_06.gif",
+      "./lib/drawings/img/sentimental_value_07.gif",
+      "./lib/drawings/img/sentimental_value_08.gif"
+    ],
+    "label": "Sentimental Value",
+    "description": "Join our hero(?) on an amazing adventure!",
+    "date": "2012"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/white_stripes.gif"
+    ],
+    "label": "The White Stripes",
+    "description": "Fan art. Is there any other kind?",
+    "date": "2012"
+  }
+]
