@@ -1,10 +1,12 @@
 define([
 'angular',
-'lodash'
+'lodash',
+'Masonry'
 ],
 function(
   angular,
-  _ ){
+  _,
+  Masonry ){
   angular.module( 'drawings', [])
   .service( 'drawingsData', [
     '$http',
@@ -38,37 +40,47 @@ function(
     'drawingsData',
     'paginator',
     '$location',
+    '$timeout',
     function(
       drawingsData,
       paginator,
-      $location ){
+      $location,
+      $timeout ){
         return {
           scope: {
             drawingsList: '='
           },
           template: [
             
-            '<div ng-if="!!paginator.items()">',
-              '<div class="lsysCard"',
-                   'ng-repeat="item in paginator.items()">',
-                
-                // files
-                
-                '<div ng-repeat="file in item.files">',
-                  '<a>',
-                    '<img style="width:290px" ng-src="{{ ::file }}" />',
-                  '</a>',
+            '<div>',
+              
+              // drawings container
+              
+              '<div class="container">',
+                '<div ng-if="!!paginator.items()">',
+                  '<div class="item masonry-brick"',
+                       'ng-repeat="item in paginator.items()"',
+                       'ng-if="!item.hide">',
+                    
+                    // files
+                    
+                    '<div ng-repeat="file in item.files">',
+                      '<a>',
+                        '<img style="width:320px" ng-src="{{ ::file }}" img-onload="masonry.layout() " />',
+                      '</a>',
+                    '</div>',
+                    
+                    '<div class="lsysDisplay">',
+                      '<label>{{ ::item.label }}</label>',
+                      '<p>{{ ::item.description }}</p>',
+                      '<div class="pull-right">{{ ::item.medium }}, {{ ::item.date }}</div>',
+                    '</div>',
+                    
+                  '</div>',
                 '</div>',
-                
-                '<div class="lsysDisplay">',
-                  '<label>{{ ::item.label }}</label>',
-                  '<p>{{ ::item.description }}</p>',
-                  '<div class="pull-right">{{ ::item.medium }}, {{ ::item.date }}</div>',
-                '</div>',
-                
               '</div>',
               
-              // paginator buttons
+              // paginator
               
               '<div class="clearfix"></div>',
               '<div paginator="paginator"></div>',
@@ -77,16 +89,25 @@ function(
             
           ].join(' '),
           link: function( scope, elem ){
-            drawingsData.get().then(
-              function( list ){
-                scope.paginator = new paginator({
-                  list: list,
-                  perPage: 12,
-                  updateUrl: true,
-                  currentPage: scope.drawingsList
-                })
-              }
-            )
+            function init( data ){
+              scope.paginator = new paginator({
+                list: data,
+                perPage: 12,
+                onClick: function(){
+                  $timeout( function(){ relayout() })
+                }
+              })
+            }
+            drawingsData.get().then( function( data ){
+              init( data )
+            })
+            function relayout(){
+              scope.masonry = new Masonry( $( '.container', elem ).get(0), {
+                itemSelector: '.masonry-brick',
+                columnWidth: 350
+              })
+            }
+            $timeout( function(){ relayout() })
           }
         }
       }

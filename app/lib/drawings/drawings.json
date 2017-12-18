@@ -82,6 +82,7 @@
     "files": [
       "./lib/drawings/img/chachi_and_bobo_rest.png"
     ],
+    "hide": true,
     "label": "Chachi and Bobo - Rest",
     "description": "",
     "medium": "???",

@@ -232,7 +232,9 @@ function( angular ){
       $routeProvider.when( '/drawings/list/:page', {
         template: [
           
-          '<div drawings-list="page"></div>'
+          '<div class="fungi">',
+            '<div drawings-list="page"></div>',
+          '</div>'
           
         ].join(' '),
         controller: [
