@@ -282,7 +282,7 @@ function( angular ){
           '<div class="about container">',
             '<img src="assets/img/adam_tavares.jpg" />',
             '<div class="blurb">',
-              '<p>My name is Adam Tavares. I am a cartoonist, programmer,  and Nature enthusiast. I live in lovely Providence, Rhode Island where I draw funny pictures and write code to explore data and generate patterns and structures. When I\'m not at my desk I\'m exploring forests and playing capoeira.</p>',
+              '<p>My name is Adam Tavares. I live in lovely Providence, Rhode Island where I draw funny pictures and write code to explore data and generate patterns and structures. When I\'m not at my desk I\'m exploring forests and playing capoeira.</p>',
               '<p class="text-center">Contact me &mdash; <a href="mailto://adamtavares@gmail.com" target="_blank">adamtavares@gmail.com</a></p>',
               '<p class="text-center">See my photos and videos &mdash; <a href="http://instagram.com/adam.tavares" target="_blank">instagram.com/adam.tavares</a></p>',
               '<p class="text-center">I hope this site made you laugh and helped you discover Nature\'s wonderful shapes, colors, and patterns</p>',
