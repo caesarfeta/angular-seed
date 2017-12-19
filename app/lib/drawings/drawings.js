@@ -1,12 +1,14 @@
 define([
 'angular',
 'lodash',
-'Masonry'
+'Masonry',
+'../utils/utils'
 ],
 function(
   angular,
   _,
-  Masonry ){
+  Masonry,
+  utils ){
   angular.module( 'drawings', [])
   .service( 'drawingsData', [
     '$http',
@@ -24,15 +26,66 @@ function(
           $http.get( './lib/drawings/drawings.json' ).then(
             function( r ){
               list = r.data.map( function( item ){
+                item.id = utils.sha( item.label )
                 return item
               })
               return yes( list )
             },
             function( e ){
-              console.log( e )
+              return no()
             }
           )
         })
+      }
+      self.withId = function( _id ){
+        return $q( function( yes, no ){
+            self.get().then(
+              function( list ){
+                var found = _.find( list, function( item ){
+                  return item.id == _id
+                })
+                return ( !!found ) ? yes( found ) : no( found )
+              }
+            )
+        })
+      }
+    }
+  ])
+  .directive( 'drawingFull', [
+    'drawingsData',
+    function( drawingsData ){
+      return {
+        scope: {
+          drawingFull: '='
+        },
+        template: [
+          
+          '<div ng-if="!!item" class="container"><div class="row"><div class="cols12">',
+            
+            // files
+            
+            '<div ng-repeat="file in item.files">',
+              '<a href="{{ ::file }}">',
+                '<img max-width="100%" ng-src="{{ ::file }}" />',
+              '</a>',
+            '</div>',
+            
+            '<div class="lsysDisplay">',
+              '<label>{{ ::item.label }}</label>',
+              '<p>{{ ::item.description }}</p>',
+              '<div class="pull-right">{{ ::item.medium }}, {{ ::item.date }}</div>',
+            '</div>',
+            
+          '</div></div></div>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          drawingsData.withId( scope.drawingFull ).then(
+            function( item ){
+              scope.item = item
+            }
+          )
+        }
       }
     }
   ])
@@ -65,7 +118,7 @@ function(
                     // files
                     
                     '<div ng-repeat="file in item.files">',
-                      '<a href="{{ ::file }}">',
+                      '<a href="" ng-click="goTo( item.id )">',
                         '<img style="width:320px" ng-src="{{ ::file }}" img-onload="masonry.layout() " />',
                       '</a>',
                     '</div>',
@@ -89,6 +142,9 @@ function(
             
           ].join(' '),
           link: function( scope, elem ){
+            scope.goTo = function( id ){
+              $location.url( '/drawing/' + id )
+            }
             function init( data ){
               scope.paginator = new paginator({
                 list: data,

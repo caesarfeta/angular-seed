@@ -229,6 +229,23 @@ function( angular ){
         ]
       })
       
+      $routeProvider.when( '/drawing/:id', {
+        template: [
+          
+          '<div drawing-full="id"></div>'
+          
+        ].join(' '),
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            $scope,
+            $routeParams ){
+            $scope.id = ( !!$routeParams.id ) ? $routeParams.id : 1
+          }
+        ]
+      })
+      
       $routeProvider.when( '/drawings/list/:page', {
         template: [
           
