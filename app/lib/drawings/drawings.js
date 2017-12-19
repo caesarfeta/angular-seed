@@ -65,7 +65,7 @@ function(
                     // files
                     
                     '<div ng-repeat="file in item.files">',
-                      '<a>',
+                      '<a href="{{ ::file }}">',
                         '<img style="width:320px" ng-src="{{ ::file }}" img-onload="masonry.layout() " />',
                       '</a>',
                     '</div>',
@@ -93,10 +93,13 @@ function(
               scope.paginator = new paginator({
                 list: data,
                 perPage: 12,
+                updateUrl: true,
+                currentPage: scope.drawingsList,
                 onClick: function(){
                   $timeout( function(){ relayout() })
                 }
               })
+            $timeout( function(){ relayout() })
             }
             drawingsData.get().then( function( data ){
               init( data )

@@ -39,7 +39,7 @@
     ],
     "label": "Aren't Fighting",
     "description": "",
-    "medium": "ink on paper",
+    "medium": "ink",
     "date": "???"
   },
   {
@@ -48,7 +48,7 @@
     ],
     "label": "Baby Sitting",
     "description": "",
-    "medium": "acrylic on paper",
+    "medium": "acrylic",
     "date": "???"
   },
   {
@@ -74,8 +74,8 @@
       "./lib/drawings/img/caught_in_the_act.jpg"
     ],
     "label": "Caught in the Act",
-    "description": "",
-    "medium": "???",
+    "description": "Busted.",
+    "medium": "collage",
     "date": "???"
   },
   {
@@ -94,7 +94,7 @@
     ],
     "label": "Chimp Stick",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -103,7 +103,7 @@
     ],
     "label": "Chimp Intellect",
     "description": "",
-    "medium": "???",
+    "medium": "ink, acrylic",
     "date": "???"
   },
   {
@@ -112,7 +112,7 @@
     ],
     "label": "Conway Twitty",
     "description": "",
-    "medium": "???",
+    "medium": "charcoal, watercolor",
     "date": "???"
   },
   {
@@ -121,7 +121,7 @@
     ],
     "label": "Don't Lose Your Cool",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -130,7 +130,7 @@
     ],
     "label": "Forbidden Luv",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -139,7 +139,7 @@
     ],
     "label": "Foreign Dignitaries",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -148,7 +148,7 @@
     ],
     "label": "Fruit Scented",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -157,7 +157,7 @@
     ],
     "label": "Give Yourself Over",
     "description": "",
-    "medium": "???",
+    "medium": "collage",
     "date": "???"
   },
   {
@@ -166,7 +166,7 @@
     ],
     "label": "Horn Powder",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -175,7 +175,7 @@
     ],
     "label": "Let's Agree to Disagree",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -184,7 +184,7 @@
     ],
     "label": "Like to Fight",
     "description": "",
-    "medium": "???",
+    "medium": "ink, watercolor",
     "date": "???"
   },
   {
@@ -193,7 +193,7 @@
     ],
     "label": "Love Meat",
     "description": "",
-    "medium": "???",
+    "medium": "collage",
     "date": "???"
   },
   {
@@ -202,7 +202,7 @@
     ],
     "label": "Loved Too Much",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -211,7 +211,7 @@
     ],
     "label": "Luxury Time",
     "description": "",
-    "medium": "???",
+    "medium": "collage",
     "date": "???"
   },
   {
@@ -220,7 +220,7 @@
     ],
     "label": "Masters of the Universe",
     "description": "",
-    "medium": "???",
+    "medium": "collage",
     "date": "???"
   },
   {
@@ -229,7 +229,7 @@
     ],
     "label": "Power is the Ultimate Aphrodisiac",
     "description": "",
-    "medium": "???",
+    "medium": "ink, acrylic",
     "date": "???"
   },
   {
@@ -238,7 +238,7 @@
     ],
     "label": "Practical Transportation",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -247,16 +247,16 @@
     ],
     "label": "Protect Your Investment",
     "description": "",
-    "medium": "???",
+    "medium": "ink, digital",
     "date": "???"
   },
   {
     "files": [
       "./lib/drawings/img/rulers.png"
     ],
-    "label": "Rulers",
+    "label": "Rulers Throughout the Centuries",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -265,7 +265,7 @@
     ],
     "label": "Salamander Science Teacher",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -274,7 +274,7 @@
     ],
     "label": "Stick Logo Evolution",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -283,7 +283,7 @@
     ],
     "label": "Thanatos, Phobos, Deimos",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -292,7 +292,7 @@
     ],
     "label": "The Tuffest",
     "description": "",
-    "medium": "???",
+    "medium": "digital",
     "date": "???"
   },
   {
@@ -301,7 +301,7 @@
     ],
     "label": "Wrasslin",
     "description": "",
-    "medium": "???",
+    "medium": "ink, digital",
     "date": "???"
   }
 ]
