@@ -1,12 +1,274 @@
 [
   {
     "files": [
+      "./lib/drawings/img/the_tuffest.gif"
+    ],
+    "label": "The Tuffest",
+    "description": "",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/fruit_scented.jpg"
+    ],
+    "label": "Fruit Scented",
+    "description": "",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/arent_fighting.jpg"
+    ],
+    "label": "Aren't Fighting",
+    "description": "",
+    "medium": "ink",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/lets_agree_to_disagree.gif"
+    ],
+    "label": "Let's Agree to Disagree",
+    "description": "Nerds never learn.",
+    "medium": "digital",
+    "date": "5/2011"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/wrasslin.jpg"
+    ],
+    "label": "Wrasslin",
+    "description": "",
+    "medium": "ink, digital",
+    "date": ""
+  },
+  {
+    "files": [
       "./lib/drawings/img/white_stripes.gif"
     ],
     "label": "The White Stripes",
-    "description": "Fan art. Is there any other kind?",
+    "description": "Fan art. I ask you, \"Is there really any other kind?\"",
     "medium": "digital",
-    "date": "???"
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/protect_your_investment.jpg"
+    ],
+    "label": "Protect Your Investment",
+    "description": "This is just what happens when you stack the same tasty stuff in one place.",
+    "medium": "ink, digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/rulers.png"
+    ],
+    "label": "Rulers Throughout the Centuries",
+    "description": "Look familiar?",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/horn_powder.png"
+    ],
+    "label": "Horn Powder",
+    "description": "Ashes to ashes. Dust to dust.",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/baby_sitting.jpg"
+    ],
+    "label": "Baby Sitting",
+    "description": "I think there's a market for biotech berry baby-bouncers in the near future.",
+    "medium": "acrylic",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/beast_grease.png"
+    ],
+    "label": "Beast Grease",
+    "description": "I drew this when I was just getting back into running.",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/print_up_some_tee_shirts.png"
+    ],
+    "label": "Print Up Some Tee Shirts",
+    "description": "",
+    "medium": "ink",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/second_hand_underwear.png"
+    ],
+    "label": "Second-hand Underwear",
+    "description": "",
+    "medium": "ink",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/demon_inside.jpg"
+    ],
+    "label": "Demon Inside",
+    "description": "",
+    "medium": "ink, acrylic",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/blanca_nieves.jpg"
+    ],
+    "label": "Blanca Nieves y los Ocho Enanos",
+    "description": "An update to a classic.",
+    "medium": "collage",
+    "date": "5/2012"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/caught_in_the_act.jpg"
+    ],
+    "label": "Caught in the Act",
+    "description": "Busted.",
+    "medium": "collage",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/chachi_and_bobo_rest.png"
+    ],
+    "hide": true,
+    "label": "Chachi and Bobo - Rest",
+    "description": "",
+    "medium": "ink",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/chimp_stick_logo.gif"
+    ],
+    "label": "Chimp Stick",
+    "description": "Subtle isn't always best. Sometimes people need a smack in the head. Metaphorically speaking of course.",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/chimps_intellect.jpg"
+    ],
+    "label": "Chimp Intellect",
+    "description": "You're probably one of these three personality types. Can you guess which I am? Tree-sitter-booger-puller? You're right. Most of the time...",
+    "medium": "ink, acrylic",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/conway_caricature.jpg"
+    ],
+    "label": "Conway Twitty",
+    "description": "Country singers could be ugly at one time.",
+    "medium": "charcoal, watercolor",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/don't_lose_your_cool.gif"
+    ],
+    "label": "Don't Lose Your Cool",
+    "description": "...because we know what happens when you do.",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/forbidden_luv.gif"
+    ],
+    "label": "Forbidden Luv",
+    "description": "A real Romeo and Juliet style tragic romance.",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/foreign_dignitaries.jpg"
+    ],
+    "label": "Foreign Dignitaries",
+    "description": "",
+    "medium": "digital",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/give_yourself_over_to.jpg"
+    ],
+    "label": "Give Yourself Over",
+    "description": "",
+    "medium": "collage",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/like_to_fight.jpg"
+    ],
+    "label": "Like to Fight",
+    "description": "What are you more afraid of... the punches or the social shame?",
+    "medium": "ink, watercolor",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/love_meat.jpg"
+    ],
+    "label": "Love Meat",
+    "description": "What am I doing tonight? Just grilling up some burgers and hanging with the family.",
+    "medium": "collage",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/loved_too_much.gif"
+    ],
+    "label": "Loved Too Much",
+    "description": "Codependent relationship.",
+    "medium": "digital",
+    "date": "8/2011"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/luxury_time.jpg"
+    ],
+    "label": "Luxury Time",
+    "description": "Ahhhh. Aligned with the forces that fuel life on this planet",
+    "medium": "collage",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/masters_of_the_universe.jpg"
+    ],
+    "label": "Masters of the Universe",
+    "description": "",
+    "medium": "collage",
+    "date": ""
+  },
+  {
+    "files": [
+      "./lib/drawings/img/power_is_the_ultimate.jpg"
+    ],
+    "label": "Power is the Ultimate Aphrodisiac",
+    "description": "I used to see David Koch's name and face all over my old  neighborhood.",
+    "medium": "ink, acrylic",
+    "date": ""
   },
   {
     "files": [
@@ -22,249 +284,23 @@
     "label": "Sentimental Value",
     "description": "Join our hero(?) on an amazing adventure!",
     "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/a_new_kind_of_man.jpg"
-    ],
-    "label": "A New Kind of Man",
-    "description": "",
-    "medium": "collage",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/arent_fighting.jpg"
-    ],
-    "label": "Aren't Fighting",
-    "description": "",
-    "medium": "ink",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/baby_sitting.jpg"
-    ],
-    "label": "Baby Sitting",
-    "description": "",
-    "medium": "acrylic",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/beast_grease.png"
-    ],
-    "label": "Beast Grease",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/blanca_nieves.jpg"
-    ],
-    "label": "Blanca Nieves",
-    "description": "",
-    "medium": "collage",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/caught_in_the_act.jpg"
-    ],
-    "label": "Caught in the Act",
-    "description": "Busted.",
-    "medium": "collage",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/chachi_and_bobo_rest.png"
-    ],
-    "hide": true,
-    "label": "Chachi and Bobo - Rest",
-    "description": "",
-    "medium": "???",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/chimp_stick_logo.gif"
-    ],
-    "label": "Chimp Stick",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/chimps_intellect.jpg"
-    ],
-    "label": "Chimp Intellect",
-    "description": "",
-    "medium": "ink, acrylic",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/conway_caricature.jpg"
-    ],
-    "label": "Conway Twitty",
-    "description": "",
-    "medium": "charcoal, watercolor",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/don't_lose_your_cool.gif"
-    ],
-    "label": "Don't Lose Your Cool",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/forbidden_luv.gif"
-    ],
-    "label": "Forbidden Luv",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/foreign_dignitaries.jpg"
-    ],
-    "label": "Foreign Dignitaries",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/fruit_scented.jpg"
-    ],
-    "label": "Fruit Scented",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/give_yourself_over_to.jpg"
-    ],
-    "label": "Give Yourself Over",
-    "description": "",
-    "medium": "collage",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/horn_powder.png"
-    ],
-    "label": "Horn Powder",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/lets_agree_to_disagree.gif"
-    ],
-    "label": "Let's Agree to Disagree",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/like_to_fight.jpg"
-    ],
-    "label": "Like to Fight",
-    "description": "",
-    "medium": "ink, watercolor",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/love_meat.jpg"
-    ],
-    "label": "Love Meat",
-    "description": "",
-    "medium": "collage",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/loved_too_much.gif"
-    ],
-    "label": "Loved Too Much",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/luxury_time.jpg"
-    ],
-    "label": "Luxury Time",
-    "description": "",
-    "medium": "collage",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/masters_of_the_universe.jpg"
-    ],
-    "label": "Masters of the Universe",
-    "description": "",
-    "medium": "collage",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/power_is_the_ultimate.jpg"
-    ],
-    "label": "Power is the Ultimate Aphrodisiac",
-    "description": "",
-    "medium": "ink, acrylic",
-    "date": "???"
+    "date": ""
   },
   {
     "files": [
       "./lib/drawings/img/practical_transportation.gif"
     ],
     "label": "Practical Transportation",
-    "description": "",
+    "description": "My cuddliest personal machine was my car before I had a laptop. We were close, yo.",
     "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/protect_your_investment.jpg"
-    ],
-    "label": "Protect Your Investment",
-    "description": "",
-    "medium": "ink, digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/rulers.png"
-    ],
-    "label": "Rulers Throughout the Centuries",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
+    "date": "8/2011"
   },
   {
     "files": [
       "./lib/drawings/img/salamander_science_teacher.jpg"
     ],
     "label": "Salamander Science Teacher",
-    "description": "",
+    "description": "He grow some legs so he could journey from far his puddle, but now he's back to teach the tadpoles. A hero like no other!",
     "medium": "digital",
     "date": "???"
   },
@@ -273,35 +309,26 @@
       "./lib/drawings/img/stick_logo_multi.gif"
     ],
     "label": "Stick Logo Evolution",
-    "description": "",
+    "description": "Nothing sucks an eyeball in like women, food, and tools.",
     "medium": "digital",
-    "date": "???"
+    "date": "4/2011"
   },
   {
     "files": [
       "./lib/drawings/img/thanatos_phobos_deimos.jpg"
     ],
     "label": "Thanatos, Phobos, Deimos",
-    "description": "",
+    "description": "Who doesn't like South Park and Carl Jung?",
     "medium": "digital",
-    "date": "???"
+    "date": ""
   },
   {
     "files": [
-      "./lib/drawings/img/the_tuffest.gif"
+      "./lib/drawings/img/a_new_kind_of_man.jpg"
     ],
-    "label": "The Tuffest",
-    "description": "",
-    "medium": "digital",
-    "date": "???"
-  },
-  {
-    "files": [
-      "./lib/drawings/img/wrasslin.jpg"
-    ],
-    "label": "Wrasslin",
-    "description": "",
-    "medium": "ink, digital",
-    "date": "???"
+    "label": "A New Kind of Man",
+    "description": "Hey! Now don't you lie to me. What's really going on here?",
+    "medium": "collage",
+    "date": ""
   }
 ]

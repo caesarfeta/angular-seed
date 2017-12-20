@@ -229,7 +229,7 @@ function( angular ){
         ]
       })
       
-      $routeProvider.when( '/drawing/:id', {
+      $routeProvider.when( '/image/:id', {
         template: [
           
           '<div drawing-full="id"></div>'
@@ -246,7 +246,7 @@ function( angular ){
         ]
       })
       
-      $routeProvider.when( '/drawings/list/:page', {
+      $routeProvider.when( '/images/list/:page', {
         template: [
           
           '<div class="fungi">',

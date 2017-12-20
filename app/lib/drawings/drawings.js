@@ -73,8 +73,8 @@ function(
             '<div class="lsysDisplay">',
               '<label>{{ ::item.label }}</label>',
               '<p>{{ ::item.description }}</p>',
-              '<div class="pull-right">{{ ::item.medium }}, {{ ::item.date }}</div>',
-            '</div>',
+                      '<div class="pull-right">{{ ::item.medium }}<span ng-if="!!item.date>, {{ ::item.date }}</span></div>',
+          '</div>',
             
           '</div></div></div>'
           
@@ -126,7 +126,7 @@ function(
                     '<div class="lsysDisplay">',
                       '<label>{{ ::item.label }}</label>',
                       '<p>{{ ::item.description }}</p>',
-                      '<div class="pull-right">{{ ::item.medium }}, {{ ::item.date }}</div>',
+                      '<div class="pull-right">{{ ::item.medium }}<span ng-if="!!item.date">, {{ ::item.date }}</span></div>',
                     '</div>',
                     
                   '</div>',
@@ -143,7 +143,7 @@ function(
           ].join(' '),
           link: function( scope, elem ){
             scope.goTo = function( id ){
-              $location.url( '/drawing/' + id )
+              $location.url( '/image/' + id )
             }
             function init( data ){
               scope.paginator = new paginator({
