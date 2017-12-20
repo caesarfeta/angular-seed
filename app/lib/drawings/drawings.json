@@ -1,6 +1,42 @@
 [
   {
     "files": [
+      "./lib/drawings/img/eye_gouge.png"
+    ],
+    "label": "Intentional Eye Poke?",
+    "description": "Was he just measuring distance or was it intentional? Let's look at the replay!",
+    "medium": "ink",
+    "date": "12/2017"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/clothes_decision.png"
+    ],
+    "label": "Clothes Decision",
+    "description": "The judges score the rounds 50 45, 49 46, and 49 46...",
+    "medium": "ink",
+    "date": "11/2017"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/he_threw_up_a_triangle.png"
+    ],
+    "label": "He Threw Up a Triangle",
+    "description": "Didn't see that one coming.",
+    "medium": "ink",
+    "date": "11/2017"
+  },
+  {
+    "files": [
+      "./lib/drawings/img/fractal_fish.png"
+    ],
+    "label": "Fractal Fish",
+    "description": "Doodled fish over fancy fractals I made with this very website!",
+    "medium": "digital, marker",
+    "date": "9/2017"
+  },
+  {
+    "files": [
       "./lib/drawings/img/the_tuffest.gif"
     ],
     "label": "The Tuffest",
