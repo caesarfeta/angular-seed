@@ -29,8 +29,8 @@ function(
               var path = document.createElementNS( 'http://www.w3.org/2000/svg', 'path' )
               path.setAttribute( 'd', [
                 
-                `M ${ point[0] * r[0] + space + config.x } ${ point[1] * r[0] + space + config.y }`,
-                `L ${ point[0] * r[1] + space + config.x } ${ point[1] * r[1] + space + config.y }`
+                'M ${ point[0] * r[0] + space + config.x } ${ point[1] * r[0] + space + config.y }',
+                'L ${ point[0] * r[1] + space + config.x } ${ point[1] * r[1] + space + config.y }'
                 
               ].join(' '))
               path.setAttribute( 'stroke-width', config.width )

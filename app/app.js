@@ -178,7 +178,7 @@ function( angular ){
             scope.page = ( !!$routeParams.page ) ? $routeParams.page : undefined
             scope.dbpedia = dbpedia
             scope.reload = function(){
-              $location.url( $location.url().split( 'specierch/')[ 0 ] + '/'+ dbpedia.img.search )
+              $location.path( '/specierch/' + dbpedia.img.search )
             }
             if ( !!scope.term ){
               dbpedia.img.search = scope.term
@@ -310,7 +310,7 @@ function( angular ){
       })
       
       $routeProvider.otherwise({ 
-        redirectTo: '/specierch'
+        redirectTo: '/images/list/1'
       })
     }
   ])

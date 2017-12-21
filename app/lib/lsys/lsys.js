@@ -1,7 +1,9 @@
 define([
 'angular',
 'lodash',
-'../utils/utils'
+'../utils/utils',
+'angularSvgDownload',
+'../common/atCommon'
 ], 
 function(
   angular,
