@@ -8,6 +8,6 @@
     convert -append ./2-0.jpg ./2-1.jpg ./2-2.jpg ./2-3.jpg ./2-4.jpg ./2-5.jpg ./2.jpg;
     convert +append ./0.jpg ./1.jpg ./2.jpg out.jpg;
 
-# colorize
+# thumbs
 
-    
+convert "./*[300x]" -set filename:base "%t.%e" "./thumb/%[filename:base]"

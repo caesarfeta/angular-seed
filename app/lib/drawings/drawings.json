@@ -1,7 +1,7 @@
 [
   {
     "files": [
-      "./lib/drawings/img/eye_gouge.png"
+      "eye_gouge.png"
     ],
     "label": "Intentional Eye Poke?",
     "description": "Was he just measuring distance or was it intentional? Let's look at the replay!",
@@ -10,7 +10,34 @@
   },
   {
     "files": [
-      "./lib/drawings/img/clothes_decision.png"
+      "magic_turban_octopus.png"
+    ],
+    "label": "Magic Turban Octopus",
+    "description": "",
+    "medium": "ink, marker",
+    "date": "12/2017"
+  },
+  {
+    "files": [
+      "mickey_viper.png"
+    ],
+    "label": "Mickey Viper",
+    "description": "",
+    "medium": "ink",
+    "date": "12/2017"
+  },
+  {
+    "files": [
+      "tiger_style.png"
+    ],
+    "label": "Tiger Style",
+    "description": "",
+    "medium": "ink",
+    "date": "12/2017"
+  },
+  {
+    "files": [
+      "clothes_decision.png"
     ],
     "label": "Clothes Decision",
     "description": "The judges score the rounds 50 45, 49 46, and 49 46...",
@@ -19,7 +46,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/he_threw_up_a_triangle.png"
+      "he_threw_up_a_triangle.png"
     ],
     "label": "He Threw Up a Triangle",
     "description": "Didn't see that one coming.",
@@ -28,7 +55,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/fractal_fish.png"
+      "fractal_fish.png"
     ],
     "label": "Fractal Fish",
     "description": "Doodled fish over fancy fractals I made with this very website!",
@@ -37,7 +64,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/the_tuffest.gif"
+      "the_tuffest.gif"
     ],
     "label": "The Tuffest",
     "description": "",
@@ -46,7 +73,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/fruit_scented.jpg"
+      "fruit_scented.jpg"
     ],
     "label": "Fruit Scented",
     "description": "",
@@ -55,7 +82,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/arent_fighting.jpg"
+      "arent_fighting.jpg"
     ],
     "label": "Aren't Fighting",
     "description": "",
@@ -64,7 +91,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/lets_agree_to_disagree.gif"
+      "lets_agree_to_disagree.gif"
     ],
     "label": "Let's Agree to Disagree",
     "description": "Nerds never learn.",
@@ -73,7 +100,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/wrasslin.jpg"
+      "wrasslin.jpg"
     ],
     "label": "Wrasslin",
     "description": "",
@@ -82,7 +109,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/white_stripes.gif"
+      "white_stripes.gif"
     ],
     "label": "The White Stripes",
     "description": "Fan art. I ask you, \"Is there really any other kind?\"",
@@ -91,7 +118,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/protect_your_investment.jpg"
+      "protect_your_investment.jpg"
     ],
     "label": "Protect Your Investment",
     "description": "This is just what happens when you stack the same tasty stuff in one place.",
@@ -100,7 +127,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/rulers.png"
+      "rulers.png"
     ],
     "label": "Rulers Throughout the Centuries",
     "description": "Look familiar?",
@@ -109,7 +136,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/horn_powder.png"
+      "horn_powder.png"
     ],
     "label": "Horn Powder",
     "description": "Ashes to ashes. Dust to dust.",
@@ -118,7 +145,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/baby_sitting.jpg"
+      "baby_sitting.jpg"
     ],
     "label": "Baby Sitting",
     "description": "I think there's a market for biotech berry baby-bouncers in the near future.",
@@ -127,7 +154,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/beast_grease.png"
+      "beast_grease.png"
     ],
     "label": "Beast Grease",
     "description": "I drew this when I was just getting back into running.",
@@ -136,7 +163,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/print_up_some_tee_shirts.png"
+      "print_up_some_tee_shirts.png"
     ],
     "label": "Print Up Some Tee Shirts",
     "description": "",
@@ -145,7 +172,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/second_hand_underwear.png"
+      "second_hand_underwear.png"
     ],
     "label": "Second-hand Underwear",
     "description": "",
@@ -154,7 +181,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/demon_inside.jpg"
+      "demon_inside.jpg"
     ],
     "label": "Demon Inside",
     "description": "",
@@ -163,7 +190,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/blanca_nieves.jpg"
+      "blanca_nieves.jpg"
     ],
     "label": "Blanca Nieves y los Ocho Enanos",
     "description": "An update to a classic.",
@@ -172,7 +199,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/caught_in_the_act.jpg"
+      "caught_in_the_act.jpg"
     ],
     "label": "Caught in the Act",
     "description": "Busted.",
@@ -181,7 +208,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/chachi_and_bobo_rest.png"
+      "chachi_and_bobo_rest.png"
     ],
     "hide": true,
     "label": "Chachi and Bobo - Rest",
@@ -191,7 +218,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/chimp_stick_logo.gif"
+      "chimp_stick_logo.gif"
     ],
     "label": "Chimp Stick",
     "description": "Subtle isn't always best. Sometimes people need a smack in the head. Metaphorically speaking of course.",
@@ -200,7 +227,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/chimps_intellect.jpg"
+      "chimps_intellect.jpg"
     ],
     "label": "Chimp Intellect",
     "description": "You're probably one of these three personality types. Can you guess which I am? Tree-sitter-booger-puller? You're right. Most of the time...",
@@ -209,7 +236,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/conway_caricature.jpg"
+      "conway_caricature.jpg"
     ],
     "label": "Conway Twitty",
     "description": "Country singers could be ugly at one time.",
@@ -218,7 +245,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/don't_lose_your_cool.gif"
+      "don't_lose_your_cool.gif"
     ],
     "label": "Don't Lose Your Cool",
     "description": "...because we know what happens when you do.",
@@ -227,7 +254,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/forbidden_luv.gif"
+      "forbidden_luv.gif"
     ],
     "label": "Forbidden Luv",
     "description": "A real Romeo and Juliet style tragic romance.",
@@ -236,7 +263,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/foreign_dignitaries.jpg"
+      "foreign_dignitaries.jpg"
     ],
     "label": "Foreign Dignitaries",
     "description": "",
@@ -245,7 +272,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/give_yourself_over_to.jpg"
+      "give_yourself_over_to.jpg"
     ],
     "label": "Give Yourself Over",
     "description": "",
@@ -254,7 +281,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/like_to_fight.jpg"
+      "like_to_fight.jpg"
     ],
     "label": "Like to Fight",
     "description": "What are you more afraid of... the punches or the social shame?",
@@ -263,7 +290,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/love_meat.jpg"
+      "love_meat.jpg"
     ],
     "label": "Love Meat",
     "description": "What am I doing tonight? Just grilling up some burgers and hanging with the family.",
@@ -272,7 +299,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/loved_too_much.gif"
+      "loved_too_much.gif"
     ],
     "label": "Loved Too Much",
     "description": "Codependent relationship.",
@@ -281,7 +308,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/luxury_time.jpg"
+      "luxury_time.jpg"
     ],
     "label": "Luxury Time",
     "description": "Ahhhh. Aligned with the forces that fuel life on this planet",
@@ -290,7 +317,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/masters_of_the_universe.jpg"
+      "masters_of_the_universe.jpg"
     ],
     "label": "Masters of the Universe",
     "description": "",
@@ -299,7 +326,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/power_is_the_ultimate.jpg"
+      "power_is_the_ultimate.jpg"
     ],
     "label": "Power is the Ultimate Aphrodisiac",
     "description": "I used to see David Koch's name and face all over my old  neighborhood.",
@@ -308,14 +335,14 @@
   },
   {
     "files": [
-      "./lib/drawings/img/sentimental_value_01.gif",
-      "./lib/drawings/img/sentimental_value_02.gif",
-      "./lib/drawings/img/sentimental_value_03.gif",
-      "./lib/drawings/img/sentimental_value_04.gif",
-      "./lib/drawings/img/sentimental_value_05.gif",
-      "./lib/drawings/img/sentimental_value_06.gif",
-      "./lib/drawings/img/sentimental_value_07.gif",
-      "./lib/drawings/img/sentimental_value_08.gif"
+      "sentimental_value_01.gif",
+      "sentimental_value_02.gif",
+      "sentimental_value_03.gif",
+      "sentimental_value_04.gif",
+      "sentimental_value_05.gif",
+      "sentimental_value_06.gif",
+      "sentimental_value_07.gif",
+      "sentimental_value_08.gif"
     ],
     "label": "Sentimental Value",
     "description": "Join our hero(?) on an amazing adventure!",
@@ -324,7 +351,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/practical_transportation.gif"
+      "practical_transportation.gif"
     ],
     "label": "Practical Transportation",
     "description": "My cuddliest personal machine was my car before I had a laptop. We were close, yo.",
@@ -333,7 +360,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/salamander_science_teacher.jpg"
+      "salamander_science_teacher.jpg"
     ],
     "label": "Salamander Science Teacher",
     "description": "He grow some legs so he could journey from far his puddle, but now he's back to teach the tadpoles. A hero like no other!",
@@ -342,7 +369,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/stick_logo_multi.gif"
+      "stick_logo_multi.gif"
     ],
     "label": "Stick Logo Evolution",
     "description": "Nothing sucks an eyeball in like women, food, and tools.",
@@ -351,7 +378,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/thanatos_phobos_deimos.jpg"
+      "thanatos_phobos_deimos.jpg"
     ],
     "label": "Thanatos, Phobos, Deimos",
     "description": "Who doesn't like South Park and Carl Jung?",
@@ -360,7 +387,7 @@
   },
   {
     "files": [
-      "./lib/drawings/img/a_new_kind_of_man.jpg"
+      "a_new_kind_of_man.jpg"
     ],
     "label": "A New Kind of Man",
     "description": "Hey! Now don't you lie to me. What's really going on here?",

@@ -66,7 +66,7 @@ function(
             
             '<div ng-repeat="file in item.files">',
               '<a href="{{ ::file }}">',
-                '<img max-width="100%" ng-src="{{ ::file }}" />',
+                '<img max-width="100%" ng-src="./lib/drawings/img/{{ ::file }}" />',
               '</a>',
             '</div>',
             
@@ -119,7 +119,7 @@ function(
                     
                     '<div ng-repeat="file in item.files">',
                       '<a href="" ng-click="goTo( item.id )">',
-                        '<img style="width:320px" ng-src="{{ ::file }}" img-onload="masonry.layout() " />',
+                        '<img style="width:320px" ng-src="./lib/drawings/img/thumb/{{ ::file }}" img-onload="masonry.layout() " />',
                       '</a>',
                     '</div>',
                     

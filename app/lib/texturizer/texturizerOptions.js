@@ -7,6 +7,18 @@ function( module ){
     function(){
       return [
         {
+          id: 'wobble spiral',
+          renderer: 'texturizer-spiral',
+          origin: {
+            x: 400,
+            y: 400
+          },
+          revolutions: 40,
+          pointCount: 1024,
+          clockwise: false,
+          padding: 6
+        },
+        {
           id: 'bowtie edge',
           renderer: 'texturizer-ireg-poly',
           unit: 100,
@@ -33,18 +45,6 @@ function( module ){
             [ 200, 1 ],
             [ 80, 0.75 ]
           ]
-        },
-        {
-          id: 'wobble spiral',
-          renderer: 'texturizer-spiral',
-          origin: {
-            x: 400,
-            y: 400
-          },
-          revolutions: 40,
-          pointCount: 1024,
-          clockwise: false,
-          padding: 6
         },
         {
           id: 'box',
