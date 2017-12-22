@@ -19,6 +19,15 @@
   },
   {
     "files": [
+      "nautilus.png"
+    ],
+    "label": "Nautilus",
+    "description": "",
+    "medium": "ink, marker",
+    "date": "12/2017"
+  },
+  {
+    "files": [
       "mickey_viper.png"
     ],
     "label": "Mickey Viper",
@@ -97,6 +106,15 @@
     "description": "Nerds never learn.",
     "medium": "digital",
     "date": "5/2011"
+  },
+  {
+    "files": [
+      "reef.png"
+    ],
+    "label": "Reef",
+    "description": "When I look at code all day I draw like a robot at night.",
+    "medium": "ink",
+    "date": "12/2012"
   },
   {
     "files": [
@@ -187,6 +205,15 @@
     "description": "",
     "medium": "ink, acrylic",
     "date": ""
+  },
+  {
+    "files": [
+      "scanner_sneeze.jpg"
+    ],
+    "label": "Scanner Sneeze",
+    "description": "",
+    "medium": "ink, marker, digital",
+    "date": "12/2017"
   },
   {
     "files": [
@@ -363,9 +390,9 @@
       "salamander_science_teacher.jpg"
     ],
     "label": "Salamander Science Teacher",
-    "description": "He grow some legs so he could journey from far his puddle, but now he's back to teach the tadpoles. A hero like no other!",
+    "description": "He grew some legs so he could journey far from his puddle, but now he's back to teach the tadpoles. A hero like no other!",
     "medium": "digital",
-    "date": "???"
+    "date": ""
   },
   {
     "files": [
