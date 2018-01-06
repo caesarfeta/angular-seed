@@ -10,6 +10,21 @@ function(
   utils ){
   
   angular.module( 'atCommon', [ 'ui.bootstrap' ])
+  .directive( 'imgOnload', [
+    function(){
+      return {
+        scope: {
+          imgOnload: '&'
+        },
+        restrict: 'A',
+        link: function( scope, elem ){
+          elem.bind( 'load', function(){
+            scope.imgOnload()
+          })
+        }
+      }
+    }
+  ])
   .directive( 'paginator', [
     function(){
       return {

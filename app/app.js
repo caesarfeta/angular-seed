@@ -20,8 +20,10 @@ function( angular ){
       $routeProvider,
       $ocLazyLoadProvider ){
       $ocLazyLoadProvider.config({
+/*
         debug: true,
         events: true,
+*/
         modules: [
           {
             name : 'threeD',

@@ -236,21 +236,6 @@ function(
       }
     }
   ])
-  .directive( 'imgOnload', [
-    function(){
-      return {
-        scope: {
-          imgOnload: '&'
-        },
-        restrict: 'A',
-        link: function( scope, elem ){
-          elem.bind( 'load', function(){
-            scope.imgOnload()
-          })
-        }
-      }
-    }
-  ])
   .directive( 'moreText', [
     function(){
       return {
