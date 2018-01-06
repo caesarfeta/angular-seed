@@ -1,7 +1,8 @@
 define([
 'angular',
 'jquery',
-'../utils/utils'
+'../utils/utils',
+'angularBootstrap'
 ], 
 function(
   angular,
