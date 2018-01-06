@@ -364,11 +364,6 @@ function( angular ){
             return $ocLazyLoad.load( 'vizque' )
           }]
         },
-        resolve: {
-          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
-            return $ocLazyLoad.load( 'vizque' )
-          }]
-        },
         controller: [
           'vizque',
           '$scope',
