@@ -1,29 +1,60 @@
 define([
 'angular',
 'angularRoute',
-'lib/specierch/specierch',
-'lib/lsys/lsys',
-'lib/threeD/threeD',
-'lib/texturizer/texturizer',
-'lib/vizque/vizque',
-'lib/drawings/drawings'
+'ocLazyLoad',
+'lib/common/atCommon'
 ], 
 function( angular ){
   
   // Declare app level module which depends on views, and components
   
   angular.module( 'myApp', [
+    'oc.lazyLoad',
     'ngRoute',
-    'myApp.view.specierch',
-    'lsys',
-    'threeD',
-    'texturizer',
-    'vizque',
-    'drawings'
+    'atCommon'
   ])
   .config([
     '$routeProvider', 
-    function( $routeProvider ){
+    '$ocLazyLoadProvider',
+    function(
+      $routeProvider,
+      $ocLazyLoadProvider ){
+      $ocLazyLoadProvider.config({
+        debug: true,
+        events: true,
+        modules: [
+          {
+            name : 'threeD',
+            files: [ 'lib/threeD/threeD.js' ]
+          },
+          {
+            name : 'drawings',
+            files: [ 'lib/drawings/drawings' ]
+          },
+          {
+            name : 'lsys',
+            files: [ 'lib/lsys/lsys' ]
+          },
+          {
+            name : 'vizque',
+            files: [ 'lib/vizque/vizque' ]
+          },
+          {
+            name : 'myApp.view.specierch',
+            files: [ 'lib/specierch/specierch' ]
+          },
+          {
+            name : 'dbpedia',
+            files: [ 'lib/dbpedia/dbpedia' ]
+          },
+          {
+            name : 'texturizer',
+            files: [ 'lib/texturizer/texturizer' ]
+          }
+        ]
+      });
+      
+      /*
       var plexvas = {
         template: [
           
@@ -46,6 +77,7 @@ function( angular ){
       }
       $routeProvider.when('/plexvas', plexvas )
       $routeProvider.when('/plexvas/:id', plexvas )
+      */
       
       // lsys
       
@@ -55,6 +87,11 @@ function( angular ){
           '<div lsys-sketch="id"></div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'lsys' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
@@ -69,6 +106,11 @@ function( angular ){
           '<div lsys-lib="page"></div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'lsys' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
@@ -90,6 +132,11 @@ function( angular ){
           '</div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'dbpedia' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
@@ -108,6 +155,11 @@ function( angular ){
           '</div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'dbpedia' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
@@ -127,6 +179,11 @@ function( angular ){
           '</div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'dbpedia' )
+          }]
+        },
         controller: [ 
           '$scope',
           '$routeParams',
@@ -154,6 +211,11 @@ function( angular ){
           '</div>',
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'myApp.view.specierch' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
@@ -193,10 +255,17 @@ function( angular ){
           '<div three-d="{{ ::id }}"></div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'threeD' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
-          function( $scope, $routeParams ){
+          function(
+            $scope,
+            $routeParams ){
             $scope.id = $routeParams.id
           }
         ]
@@ -208,13 +277,18 @@ function( angular ){
           '<div three-d-list="page"></div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'threeD' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
           function(
             $scope,
             $routeParams ){
-              $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
+            $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
           }
         ]
       })
@@ -225,6 +299,11 @@ function( angular ){
           '<div drawing-full="id"></div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'drawings' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
@@ -244,6 +323,11 @@ function( angular ){
           '</div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'drawings' )
+          }]
+        },
         controller: [
           '$scope',
           '$routeParams',
@@ -261,6 +345,11 @@ function( angular ){
           '<div texturizer></div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'texturizer' )
+          }]
+        },
         controller: [ function(){} ]
       })
       
@@ -270,6 +359,16 @@ function( angular ){
           '<div vizque></div>'
           
         ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'vizque' )
+          }]
+        },
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'vizque' )
+          }]
+        },
         controller: [
           'vizque',
           '$scope',

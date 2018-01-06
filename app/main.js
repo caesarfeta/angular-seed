@@ -47,7 +47,8 @@ require.config({
     tinycolor: 'bower_components/tinycolor/dist/tinycolor-min',
     timbre: 'bower_components/timbre/timbre.dev',
     Masonry: 'lib/masonry.pkgd.min',
-    outlayer: 'bower_components/outlayer'
+    outlayer: 'bower_components/outlayer',
+    ocLazyLoad: 'bower_components/oclazyload/dist/ocLazyLoad.require.min'
   },
   shim: {
     angular: {
@@ -109,6 +110,9 @@ require.config({
     },
     jqueryUi: {
       deps: ['jquery']
+    },
+    ocLazyLoad: {
+      deps:['angular']
     }
   },
     priority: [ "angular" ],
