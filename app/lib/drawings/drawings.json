@@ -10,18 +10,18 @@
   },
   {
     "files": [
-      "duck_downfall.png"
+      "one_of_them.png"
     ],
-    "label": "Duck Downfall",
+    "label": "One of Them",
     "description": "",
-    "medium": "ink",
+    "medium": "ink, marker",
     "date": "1/2018"
   },
   {
     "files": [
       "meet_the_family.png"
     ],
-    "label": "Meet the Family",
+    "label": "Carebear Stares",
     "description": "",
     "medium": "ink",
     "date": "1/2018"
@@ -33,6 +33,15 @@
     "label": "Nature Sesh",
     "description": "",
     "medium": "ink",
+    "date": "1/2018"
+  },
+  {
+    "files": [
+      "happy_13.png"
+    ],
+    "label": "Happy 13",
+    "description": "",
+    "medium": "ink, marker",
     "date": "1/2018"
   },
   {
@@ -109,6 +118,60 @@
   },
   {
     "files": [
+      "duck_downfall.png"
+    ],
+    "label": "Duck Downfall",
+    "description": "",
+    "medium": "ink",
+    "date": "1/2018"
+  },
+  {
+    "files": [
+      "octo_pipe.png"
+    ],
+    "label": "Octo-Pipe",
+    "description": "",
+    "medium": "ink, marker",
+    "date": "1/2018"
+  },
+  {
+    "files": [
+      "too_many_shots.png"
+    ],
+    "label": "Too Many Shots",
+    "description": "",
+    "medium": "ink",
+    "date": "1/2018"
+  },
+  {
+    "files": [
+      "is_the_shit.png"
+    ],
+    "label": "Sharing Is Caring",
+    "description": "",
+    "medium": "ink",
+    "date": "1/2018"
+  },
+  {
+    "files": [
+      "give_it_time.png"
+    ],
+    "label": "Give It Time",
+    "description": "",
+    "medium": "ink",
+    "date": "1/2018"
+  },
+  {
+    "files": [
+      "how_i_remember_high_school.png"
+    ],
+    "label": "How I Remember High School",
+    "description": "",
+    "medium": "ink",
+    "date": "1/2018"
+  },
+  {
+    "files": [
       "photo_finisher.png"
     ],
     "label": "Photo Finisher",
@@ -133,6 +196,15 @@
     "description": "",
     "medium": "ink",
     "date": "12/2017"
+  },
+  {
+    "files": [
+      "violence_resolution.png"
+    ],
+    "label": "Violence Resolution",
+    "description": "",
+    "medium": "ink, marker",
+    "date": "1/2018"
   },
   {
     "files": [
