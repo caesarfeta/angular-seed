@@ -27,12 +27,14 @@ function makeHtml( json, i ){
   config.id = crypto.createHmac('sha256', 'abc')
                  .update( config.files.join('') )
                  .digest('hex');
+  
+  config.imgs = config.files.map( function( src ){
+    return '<img src="' + src + '" />'
+  })
                  
-  transform = {
-    "<>":"div",
-    "html": [
-      "${ id } ${ label } ${ description} ${ medium } ${ date } ${ files }"
-    ].join('')
+  var transform = {
+    '<>':'div',
+    'html': '${id} ${label} ${description} ${medium} ${date} ${imgs}'
   };
   
   // build the html
