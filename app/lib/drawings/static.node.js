@@ -51,36 +51,37 @@ function makeHtml( json, i ){
   })
   config.html = [
     
+    '<head>',
+      '<link rel="stylesheet" href="../../app.css" />',
+    '</head>',
+    
     '<body>',
-      
-      // styles
-      
-      '<style type="text/css">',
-        'img: { width: 100%; }',
-        'table: { width: 100%; }',
-      '</style>',
-      
-      // previous / ad / next
-      
-      '<table>',
-        '<tr>',
-          '<td>',
-            ( !!prev ) ? '<a href="' + prev + '.html">&lt;&lt; Prev</a>' : '',
-          '</td>',
-          '<td>',
-            '<span>ad</span>',
-          '</td>',
-          '<td>',
-            ( !!next ) ? '<a href="'+ next +'.html">Next &gt;&gt;</a>': '',
-          '</td>',
-        '</tr>',
-      '</table>',
-      
-      '<h1>' + config.label + '</h1>',
-      '<p>' + config.description + '</p>',
-      '<p>' + config.medium + '</p>',
-      config.imgs,
-      
+      '<div class="static-drawing">',
+        
+        // previous / ad / next
+        
+        '<table>',
+          '<tr>',
+            '<td>',
+              ( !!prev ) ? '<a href="' + prev + '.html">&lt;&lt; Prev</a>' : '',
+            '</td>',
+            '<td>',
+              '<span>ad</span>',
+            '</td>',
+            '<td>',
+              ( !!next ) ? '<a href="'+ next +'.html">Next &gt;&gt;</a>': '',
+            '</td>',
+          '</tr>',
+        '</table>',
+        
+        // content
+        
+        '<h1>' + config.label + '</h1>',
+        '<p>' + config.description + '</p>',
+        '<p>' + config.medium + ', ' + config.date + '</p>',
+        config.imgs,
+        
+      '</div>',
     '</body>'
     
   ].join('')
