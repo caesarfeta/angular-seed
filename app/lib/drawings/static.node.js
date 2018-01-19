@@ -44,6 +44,7 @@ function makeHtml( json, i ){
   config.imgs = config.files.map( function( src ){
     return '<img src="../../lib/drawings/img/' + src + '" />'
   })
+  var page = Math.floor( i / 12 + 1  )
   config.html = [
     
     '<head>',
@@ -51,6 +52,18 @@ function makeHtml( json, i ){
       // stylesheet
       
       '<link rel="stylesheet" href="../../app.css" />',
+      
+      // ads
+      
+      /*
+      '<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>',
+      '<script>',
+        '(adsbygoogle = window.adsbygoogle || []).push({',
+          'google_ad_client: "ca-pub-7321645869905385",',
+          'enable_page_level_ads: true',
+        '});',
+      '</script>',
+      */
       
       // analytics
       
@@ -73,13 +86,15 @@ function makeHtml( json, i ){
         '<table>',
           '<tr>',
             '<td>',
-              ( !!prev ) ? '<a class="pull-right btn secondary" href="' + prev + '.html">&lt;&lt; Back</a>' : '',
+              ( !!prev ) ? '<a class="pull-right btn secondary" href="' + prev + '.html"><i class="fa fa-chevron-circle-left fa-3x"></i></a>' : '',
             '</td>',
+            
             '<td>',
-              '<span>ad</span>',
+              '<a class="btn secondary pull-center" href="../../#/images/list/' + page  + '"><i class="fa fa-2x fa-th"></i></a>',
             '</td>',
+            
             '<td>',
-              ( !!next ) ? '<a class="pull-left btn secondary" href="'+ next +'.html">Next &gt;&gt;</a>': '',
+              ( !!next ) ? '<a class="pull-left btn secondary" href="'+ next +'.html"><i class="fa fa-chevron-circle-right fa-3x"></i></a>': '',
             '</td>',
           '</tr>',
         '</table>',
@@ -88,8 +103,8 @@ function makeHtml( json, i ){
         
         '<h1>' + config.label + '</h1>',
         '<p>' + config.description + '</p>',
-        '<p>' + config.medium + ', ' + config.date + '</p>',
         config.imgs,
+        '<p>' + config.medium + ', ' + config.date + '</p>',
         
       '</div>',
     '</body>'
