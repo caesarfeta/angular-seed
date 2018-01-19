@@ -19,8 +19,11 @@ Here's my image prep system.
     convert "./*[400x]" -set filename:base "%t.%e" "./thumb/%[filename:base]"
 
 ## drawings.json
-## publish
+
+    update the drawings.json config
+
+## static pages
   
-    npm publish
-    grunt publish
-    ... or something like that
+    cd app/lib/drawings
+    node static.node.js
+
