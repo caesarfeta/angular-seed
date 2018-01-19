@@ -34,7 +34,7 @@ rimraf( dir, function(){
 });
 
 function getId( string ){
-  return crypto.createHmac('sha256', 'abc')
+  return crypto.createHmac('SHA-1', 'abc')
                .update( string )
                .digest('hex');
 }
