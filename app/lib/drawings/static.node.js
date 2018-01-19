@@ -20,38 +20,69 @@ rimraf( dir, function(){
     fs.mkdirSync( dir );
   }
   // load JSON and template it out
-
-  var json = JSON.parse( fs.readFileSync( "drawings.json" ));
+  
+  var json = JSON.parse( fs.readFileSync( "drawings.json" )).map( function( item ){
+    item.id = crypto.createHmac('sha256', 'abc')
+                    .update( item.files.join('') )
+                    .digest('hex');
+    return item
+  });
+  
   for ( var i in json ){
     makeHtml( json, i )
   }
 });
 
+function getId( string ){
+  return crypto.createHmac('sha256', 'abc')
+               .update( string )
+               .digest('hex');
+}
+
 // template
 
 function makeHtml( json, i ){
-  
+  i = parseInt( i )
   var config = json[ i ];
-  
-  // next and previous
-  
-  // create id from filenames
-  
-  config.id = crypto.createHmac('sha256', 'abc')
-                 .update( config.files.join('') )
-                 .digest('hex');
-  
+  var prev = ( i > 0 ) ? json[ i - 1 ].id: undefined;
+  var next = ( i+1 <= json.length-1 ) ? json[ i + 1 ].id : undefined;
   config.imgs = config.files.map( function( src ){
     return '<img src="../../lib/drawings/img/' + src + '" />'
   })
-  
   config.html = [
+    
     '<body>',
+      
+      // styles
+      
+      '<style type="text/css">',
+        'img: { width: 100%; }',
+        'table: { width: 100%; }',
+      '</style>',
+      
+      // previous / ad / next
+      
+      '<table>',
+        '<tr>',
+          '<td>',
+            ( !!prev ) ? '<a href="' + prev + '.html">&lt;&lt; Prev</a>' : '',
+          '</td>',
+          '<td>',
+            '<span>ad</span>',
+          '</td>',
+          '<td>',
+            ( !!next ) ? '<a href="'+ next +'.html">Next &gt;&gt;</a>': '',
+          '</td>',
+        '</tr>',
+      '</table>',
+      
       '<h1>' + config.label + '</h1>',
-      config.imgs,
       '<p>' + config.description + '</p>',
       '<p>' + config.medium + '</p>',
+      config.imgs,
+      
     '</body>'
+    
   ].join('')
   
   // build the html
