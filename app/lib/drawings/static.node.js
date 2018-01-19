@@ -52,7 +52,22 @@ function makeHtml( json, i ){
   config.html = [
     
     '<head>',
+      
+      // stylesheet
+      
       '<link rel="stylesheet" href="../../app.css" />',
+      
+      // analytics
+      
+      "<script>",
+        "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){",
+        "(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),",
+        "m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)",
+        "})(window,document,'script','//www.google-analytics.com/analytics.js','ga');",
+        "ga('create', 'UA-42372677-1', 'adamtavares.com');",
+        "ga('send', 'pageview');",
+      "</script>",
+    
     '</head>',
     
     '<body>',
@@ -63,13 +78,13 @@ function makeHtml( json, i ){
         '<table>',
           '<tr>',
             '<td>',
-              ( !!prev ) ? '<a href="' + prev + '.html">&lt;&lt; Prev</a>' : '',
+              ( !!prev ) ? '<a class="pull-right btn secondary" href="' + prev + '.html">&lt;&lt; Back</a>' : '',
             '</td>',
             '<td>',
               '<span>ad</span>',
             '</td>',
             '<td>',
-              ( !!next ) ? '<a href="'+ next +'.html">Next &gt;&gt;</a>': '',
+              ( !!next ) ? '<a class="pull-left btn secondary" href="'+ next +'.html">Next &gt;&gt;</a>': '',
             '</td>',
           '</tr>',
         '</table>',
