@@ -22,9 +22,10 @@ rimraf( dir, function(){
   // load JSON and template it out
   
   var json = JSON.parse( fs.readFileSync( "drawings.json" )).map( function( item ){
-    item.id = crypto.createHmac('sha256', 'abc')
+    item.id = crypto.createHmac('sha1', 'abc')
                     .update( item.files.join('') )
-                    .digest('hex');
+                    .digest('hex')
+                    .substring( 0, 10 );
     return item
   });
   
@@ -32,12 +33,6 @@ rimraf( dir, function(){
     makeHtml( json, i )
   }
 });
-
-function getId( string ){
-  return crypto.createHmac('SHA-1', 'abc')
-               .update( string )
-               .digest('hex');
-}
 
 // template
 

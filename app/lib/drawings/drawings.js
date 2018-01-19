@@ -26,7 +26,7 @@ function(
           $http.get( './lib/drawings/drawings.json' ).then(
             function( r ){
               list = r.data.map( function( item ){
-                item.id = utils.sha( item.label )
+                item.id = utils.sha( item.files.join('') ).substring( 0, 10 )
                 return item
               })
               return yes( list )
