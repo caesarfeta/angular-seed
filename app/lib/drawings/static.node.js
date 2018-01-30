@@ -42,7 +42,7 @@ function makeHtml( json, i ){
   var prev = ( i > 0 ) ? json[ i - 1 ].id: undefined;
   var next = ( i+1 <= json.length-1 ) ? json[ i + 1 ].id : undefined;
   config.imgs = config.files.map( function( src ){
-    return '<img src="../../lib/drawings/img/' + src + '" />'
+    return '<div width="100%"><img src="../../lib/drawings/img/' + src + '" /></div>'
   })
   var page = Math.floor( i / 12 + 1  )
   config.html = [

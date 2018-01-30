@@ -1,6 +1,18 @@
 [
   {
     "files": [
+      "wk1_pg1.png",
+      "wk1_pg2.png",
+      "wk1_pg3.png",
+      "wk1_pg4.png"
+    ],
+    "label": "Daily Triad - 1",
+    "description": "The rules of the game are simple... draw 3 images everyday, which may or may not be connected ( who knows? ), arranged vertically. This is the first set.",
+    "medium": "ink, marker",
+    "date": "1/2018"
+  },
+  {
+    "files": [
       "robot_fish_invasion.png"
     ],
     "label": "Robot Fish Invasion",

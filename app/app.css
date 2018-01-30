@@ -7592,7 +7592,7 @@ input.dbpedia-search-input {
   padding: 10px;
 }
 .static-drawing img {
-  max-width: 100%;
+  max-width: 600px;
 }
 .static-drawing table {
   margin: 0px auto;
