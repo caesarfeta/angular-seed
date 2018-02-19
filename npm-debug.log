@@ -1,231 +1,293 @@
 0 info it worked if it ends with ok
-1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'marked', '--save' ]
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'markdown', '--save' ]
 2 info using npm@2.3.0
 3 info using node@v0.10.29
 4 verbose node symlink /usr/local/bin/node
 5 warn package.json punycode@1.4.1 punycode is also the name of a node core module.
 6 warn package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
-7 silly cache add args [ 'marked', null ]
-8 verbose cache add spec marked
-9 silly cache add parsed spec { raw: 'marked',
+7 silly cache add args [ 'markdown', null ]
+8 verbose cache add spec markdown
+9 silly cache add parsed spec { raw: 'markdown',
 9 silly cache add   scope: null,
-9 silly cache add   name: 'marked',
+9 silly cache add   name: 'markdown',
 9 silly cache add   rawSpec: '',
 9 silly cache add   spec: '*',
 9 silly cache add   type: 'range' }
-10 verbose addNamed marked@*
+10 verbose addNamed markdown@*
 11 silly addNamed semver.valid null
 12 silly addNamed semver.validRange *
-13 silly addNameRange { name: 'marked', range: '*', hasData: false }
-14 silly mapToRegistry name marked
+13 silly addNameRange { name: 'markdown', range: '*', hasData: false }
+14 silly mapToRegistry name markdown
 15 silly mapToRegistry using default registry
 16 silly mapToRegistry registry https://registry.npmjs.org/
-17 silly mapToRegistry uri https://registry.npmjs.org/marked
-18 verbose addNameRange registry:https://registry.npmjs.org/marked not in flight; fetching
-19 verbose request uri https://registry.npmjs.org/marked
+17 silly mapToRegistry uri https://registry.npmjs.org/markdown
+18 verbose addNameRange registry:https://registry.npmjs.org/markdown not in flight; fetching
+19 verbose request uri https://registry.npmjs.org/markdown
 20 verbose request no auth needed
-21 info attempt registry request try #1 at 16:03:17
-22 verbose request id bb80384197ce65bb
-23 http request GET https://registry.npmjs.org/marked
-24 http 200 https://registry.npmjs.org/marked
+21 info attempt registry request try #1 at 16:18:57
+22 verbose request id 90c0744abcb3cf16
+23 http request GET https://registry.npmjs.org/markdown
+24 http 200 https://registry.npmjs.org/markdown
 25 silly get cb [ 200,
 25 silly get   { 'content-type': 'application/json; charset=UTF-8',
 25 silly get     server: 'UploadServer',
 25 silly get     'cache-control': 'max-age=300',
-25 silly get     'last-modified': 'Mon, 19 Feb 2018 4:26:12 GMT',
-25 silly get     etag: '"5a8a51e4-e647"',
+25 silly get     'last-modified': 'Sun, 21 Jan 2018 20:55:54 GMT',
+25 silly get     etag: '"5a64fe5a-271d"',
 25 silly get     'x-npm-region': 'US-East',
 25 silly get     'content-encoding': 'gzip',
-25 silly get     'content-length': '10661',
+25 silly get     'content-length': '1968',
 25 silly get     'accept-ranges': 'bytes',
-25 silly get     date: 'Mon, 19 Feb 2018 21:03:17 GMT',
+25 silly get     date: 'Mon, 19 Feb 2018 21:18:57 GMT',
 25 silly get     via: '1.1 varnish',
-25 silly get     age: '844',
+25 silly get     age: '6201',
 25 silly get     connection: 'keep-alive',
-25 silly get     'x-served-by': 'cache-jfk8120-JFK',
+25 silly get     'x-served-by': 'cache-jfk8134-JFK',
 25 silly get     'x-cache': 'HIT',
 25 silly get     'x-cache-hits': '1',
-25 silly get     'x-timer': 'S1519074198.639316,VS0,VE1',
+25 silly get     'x-timer': 'S1519075137.434200,VS0,VE1',
 25 silly get     vary: 'Accept-Encoding, Accept' } ]
-26 silly addNameRange number 2 { name: 'marked', range: '*', hasData: true }
-27 silly addNameRange versions [ 'marked',
-27 silly addNameRange   [ '0.0.1',
-27 silly addNameRange     '0.0.2',
-27 silly addNameRange     '0.0.3',
-27 silly addNameRange     '0.0.4',
-27 silly addNameRange     '0.0.5',
-27 silly addNameRange     '0.0.6',
-27 silly addNameRange     '0.0.7',
-27 silly addNameRange     '0.0.8',
-27 silly addNameRange     '0.0.9',
-27 silly addNameRange     '0.1.0',
+26 silly addNameRange number 2 { name: 'markdown', range: '*', hasData: true }
+27 silly addNameRange versions [ 'markdown',
+27 silly addNameRange   [ '0.1.0',
 27 silly addNameRange     '0.1.1',
 27 silly addNameRange     '0.1.2',
-27 silly addNameRange     '0.1.3',
-27 silly addNameRange     '0.1.4',
-27 silly addNameRange     '0.1.5',
-27 silly addNameRange     '0.1.6',
-27 silly addNameRange     '0.1.7',
-27 silly addNameRange     '0.1.8',
-27 silly addNameRange     '0.1.9',
-27 silly addNameRange     '0.2.0',
 27 silly addNameRange     '0.2.1',
-27 silly addNameRange     '0.2.2',
-27 silly addNameRange     '0.2.2-1',
-27 silly addNameRange     '0.2.3',
-27 silly addNameRange     '0.2.4',
-27 silly addNameRange     '0.2.4-1',
-27 silly addNameRange     '0.2.5',
-27 silly addNameRange     '0.2.6',
-27 silly addNameRange     '0.2.7',
-27 silly addNameRange     '0.2.8',
-27 silly addNameRange     '0.2.9',
-27 silly addNameRange     '0.2.10',
 27 silly addNameRange     '0.3.0',
 27 silly addNameRange     '0.3.1',
-27 silly addNameRange     '0.3.2',
-27 silly addNameRange     '0.3.3',
-27 silly addNameRange     '0.3.4',
-27 silly addNameRange     '0.3.5',
-27 silly addNameRange     '0.3.6',
-27 silly addNameRange     '0.3.7',
-27 silly addNameRange     '0.3.9',
-27 silly addNameRange     '0.3.12',
-27 silly addNameRange     '0.3.13',
-27 silly addNameRange     '0.3.14',
-27 silly addNameRange     '0.3.15' ] ]
-28 verbose addNamed marked@0.3.15
-29 silly addNamed semver.valid 0.3.15
-30 silly addNamed semver.validRange 0.3.15
-31 silly mapToRegistry name marked
-32 silly mapToRegistry using default registry
-33 silly mapToRegistry registry https://registry.npmjs.org/
-34 silly mapToRegistry uri https://registry.npmjs.org/marked
-35 verbose addRemoteTarball https://registry.npmjs.org/marked/-/marked-0.3.15.tgz not in flight; adding
-36 verbose addRemoteTarball [ 'https://registry.npmjs.org/marked/-/marked-0.3.15.tgz',
-36 verbose addRemoteTarball   'de96982e54c880962f5093a2fa93d0866bf73668' ]
-37 info retry fetch attempt 1 at 16:03:17
-38 info attempt registry request try #1 at 16:03:17
-39 http fetch GET https://registry.npmjs.org/marked/-/marked-0.3.15.tgz
-40 http fetch 200 https://registry.npmjs.org/marked/-/marked-0.3.15.tgz
-41 silly fetchAndShaCheck shasum de96982e54c880962f5093a2fa93d0866bf73668
-42 verbose addTmpTarball /var/folders/yp/_dkxrwzd043dnbckn8w4hr880000gn/T/npm-8554-b6c4dd57/registry.npmjs.org/marked/-/marked-0.3.15.tgz not in flight; adding
-43 verbose addTmpTarball already have metadata; skipping unpack for marked@0.3.15
-44 silly cache afterAdd marked@0.3.15
-45 verbose afterAdd /Users/adamtavares/.npm/marked/0.3.15/package/package.json not in flight; writing
-46 verbose afterAdd /Users/adamtavares/.npm/marked/0.3.15/package/package.json written
-47 silly install resolved [ { name: 'marked',
-47 silly install resolved     description: 'A markdown parser built for speed',
-47 silly install resolved     author: { name: 'Christopher Jeffrey' },
-47 silly install resolved     version: '0.3.15',
-47 silly install resolved     main: './lib/marked.js',
-47 silly install resolved     bin: { marked: './bin/marked' },
-47 silly install resolved     man: [ './man/marked.1' ],
-47 silly install resolved     repository: { type: 'git', url: 'git://github.com/markedjs/marked.git' },
-47 silly install resolved     homepage: 'https://github.com/markedjs/marked',
-47 silly install resolved     bugs: { url: 'http://github.com/markedjs/marked/issues' },
-47 silly install resolved     license: 'MIT',
-47 silly install resolved     keywords: [ 'markdown', 'markup', 'html' ],
-47 silly install resolved     tags: [ 'markdown', 'markup', 'html' ],
-47 silly install resolved     devDependencies:
-47 silly install resolved      { markdown: '*',
-47 silly install resolved        showdown: '*',
-47 silly install resolved        'markdown-it': '*',
-47 silly install resolved        'front-matter': '^2.3.0',
-47 silly install resolved        'glob-to-regexp': '0.3.0',
-47 silly install resolved        'uglify-js': '^3.3.10' },
-47 silly install resolved     scripts:
-47 silly install resolved      { test: 'node test',
-47 silly install resolved        bench: 'node test --bench',
-47 silly install resolved        build: 'uglifyjs lib/marked.js -cm  --comments /Copyright/ -o marked.min.js' },
-47 silly install resolved     gitHead: '225c7a681b515c8d27cdba02957195b05f727b6e',
-47 silly install resolved     _id: 'marked@0.3.15',
-47 silly install resolved     _npmVersion: '5.6.0',
-47 silly install resolved     _nodeVersion: '8.9.4',
-47 silly install resolved     _npmUser: { name: 'amidknight', email: 'josh@8fold.pro' },
-47 silly install resolved     dist:
-47 silly install resolved      { integrity: 'sha512-PToZtmCYVf4mlkmfoDPpsg3VJhkEvCHeTXSxbG3FBBxEoLAlxAsYPCADWx4+XBebMXCowDW7vaOGfRVjmFDM5w==',
-47 silly install resolved        shasum: 'de96982e54c880962f5093a2fa93d0866bf73668',
-47 silly install resolved        tarball: 'https://registry.npmjs.org/marked/-/marked-0.3.15.tgz',
-47 silly install resolved        fileCount: 15,
-47 silly install resolved        unpackedSize: 75158 },
-47 silly install resolved     maintainers: [ [Object], [Object] ],
-47 silly install resolved     directories: {},
-47 silly install resolved     _npmOperationalInternal:
-47 silly install resolved      { host: 's3://npm-registry-packages',
-47 silly install resolved        tmp: 'tmp/marked_0.3.15_1519014369939_0.01640812822507942' },
-47 silly install resolved     _shasum: 'de96982e54c880962f5093a2fa93d0866bf73668',
-47 silly install resolved     _resolved: 'https://registry.npmjs.org/marked/-/marked-0.3.15.tgz',
-47 silly install resolved     _from: 'marked@*' } ]
-48 info install marked@0.3.15 into /Users/adamtavares/angular-seed
-49 info installOne marked@0.3.15
-50 verbose installOne of marked to /Users/adamtavares/angular-seed not in flight; installing
-51 verbose lock using /Users/adamtavares/.npm/_locks/marked-9e18234e31b822b1.lock for /Users/adamtavares/angular-seed/node_modules/marked
-52 silly install write writing marked 0.3.15 to /Users/adamtavares/angular-seed/node_modules/marked
-53 silly cache addNamed cb marked@0.3.15
-54 verbose unbuild node_modules/marked
-55 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/marked
-56 verbose tar unpack /Users/adamtavares/.npm/marked/0.3.15/package.tgz
-57 verbose tar unpacking to /Users/adamtavares/angular-seed/node_modules/marked
-58 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/marked
-59 silly gunzTarPerm modes [ '755', '644' ]
-60 silly gunzTarPerm extractEntry package.json
-61 silly gunzTarPerm extractEntry .travis.yml
-62 silly gunzTarPerm extractEntry bower.json
-63 silly gunzTarPerm extractEntry component.json
-64 silly gunzTarPerm extractEntry index.js
-65 silly gunzTarPerm extractEntry LICENSE
-66 silly gunzTarPerm extractEntry Makefile
-67 silly gunzTarPerm extractEntry marked.min.js
-68 silly gunzTarPerm extractEntry README.md
-69 silly gunzTarPerm extractEntry bin/marked
-70 silly gunzTarPerm extractEntry doc/broken.md
-71 silly gunzTarPerm extractEntry doc/todo.md
-72 silly gunzTarPerm extractEntry lib/marked.js
-73 silly gunzTarPerm extractEntry man/marked.1
-74 silly gunzTarPerm extractEntry man/marked.1.txt
-75 info preinstall marked@0.3.15
-76 silly install resolved []
-77 verbose about to build /Users/adamtavares/angular-seed/node_modules/marked
-78 info build /Users/adamtavares/angular-seed/node_modules/marked
-79 verbose linkStuff [ false,
-79 verbose linkStuff   false,
-79 verbose linkStuff   false,
-79 verbose linkStuff   '/Users/adamtavares/angular-seed/node_modules' ]
-80 info linkStuff marked@0.3.15
-81 verbose linkBins marked@0.3.15
-82 verbose link bins [ { marked: './bin/marked' },
-82 verbose link bins   '/Users/adamtavares/angular-seed/node_modules/.bin',
-82 verbose link bins   false ]
-83 verbose linkMans marked@0.3.15
-84 verbose rebuildBundles marked@0.3.15
-85 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/.bin/marked
-86 info install marked@0.3.15
-87 info postinstall marked@0.3.15
-88 verbose unlock done using /Users/adamtavares/.npm/_locks/marked-9e18234e31b822b1.lock for /Users/adamtavares/angular-seed/node_modules/marked
-89 verbose stack Error: The package karma does not satisfy its siblings' peerDependencies requirements!
-89 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:103:32
-89 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:225:5
-89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:138:5
-89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
-89 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
-89 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
-89 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
-89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
-90 verbose cwd /Users/adamtavares/angular-seed
-91 error Darwin 15.5.0
-92 error argv "node" "/usr/local/bin/npm" "install" "marked" "--save"
-93 error node v0.10.29
-94 error npm  v2.3.0
-95 error code EPEERINVALID
-96 error peerinvalid The package karma does not satisfy its siblings' peerDependencies requirements!
-96 error peerinvalid Peer karma-html2js-preprocessor@0.1.0 wants karma@>=0.9
-96 error peerinvalid Peer karma-requirejs@0.2.2 wants karma@>=0.9
-96 error peerinvalid Peer karma-script-launcher@0.1.0 wants karma@>=0.9
-96 error peerinvalid Peer grunt-karma@0.12.2 wants karma@^0.13.0 || >= 0.14.0-rc.0
-96 error peerinvalid Peer karma-phantomjs-launcher@0.2.2 wants karma@>=0.9
-96 error peerinvalid Peer karma-junit-reporter@0.2.2 wants karma@>=0.9
-96 error peerinvalid Peer karma-coffee-preprocessor@0.1.3 wants karma@>=0.9
-97 verbose exit [ 1, true ]
+27 silly addNameRange     '0.4.0',
+27 silly addNameRange     '0.5.0' ] ]
+28 verbose addNamed markdown@0.5.0
+29 silly addNamed semver.valid 0.5.0
+30 silly addNamed semver.validRange 0.5.0
+31 silly cache afterAdd markdown@0.5.0
+32 verbose afterAdd /Users/adamtavares/.npm/markdown/0.5.0/package/package.json not in flight; writing
+33 verbose afterAdd /Users/adamtavares/.npm/markdown/0.5.0/package/package.json written
+34 silly install resolved [ { name: 'markdown',
+34 silly install resolved     version: '0.5.0',
+34 silly install resolved     description: 'A sensible Markdown parser for javascript',
+34 silly install resolved     keywords: [ 'markdown', 'text processing', 'ast' ],
+34 silly install resolved     maintainers: [ [Object], [Object] ],
+34 silly install resolved     contributors: [ [Object], [Object] ],
+34 silly install resolved     bugs: { url: 'http://github.com/evilstreak/markdown-js/issues' },
+34 silly install resolved     licenses: [ [Object] ],
+34 silly install resolved     repository:
+34 silly install resolved      { type: 'git',
+34 silly install resolved        url: 'git://github.com/evilstreak/markdown-js.git' },
+34 silly install resolved     main: './lib/index.js',
+34 silly install resolved     bin: { md2html: './bin/md2html.js' },
+34 silly install resolved     dependencies: { nopt: '~2.1.1' },
+34 silly install resolved     devDependencies: { tap: '~0.3.3' },
+34 silly install resolved     scripts: { test: 'tap ./test/*.t.js' },
+34 silly install resolved     readme: '# markdown-js\n\nYet another markdown parser, this time for JavaScript. There\'s a few\noptions that precede this project but they all treat markdown to HTML\nconversion as a single step process. You pass markdown in and get HTML\nout, end of story. We had some pretty particular views on how the\nprocess should actually look, which include:\n\n  * producing well-formed HTML. This means that `em` and `strong` nesting\n    is important, as is the ability to output as both HTML and XHTML\n\n  * having an intermediate representation to allow processing of parsed\n    data (we in fact have two, both [JsonML]: a markdown tree and an HTML tree)\n\n  * being easily extensible to add new dialects without having to\n    rewrite the entire parsing mechanics\n\n  * having a good test suite. The only test suites we could find tested\n    massive blocks of input, and passing depended on outputting the HTML\n    with exactly the same whitespace as the original implementation\n\n[JsonML]: http://jsonml.org/ "JSON Markup Language"\n\n## Installation\n\nJust the `markdown` library:\n\n    npm install markdown\n\nOptionally, install `md2html` into your path\n\n    npm install -g markdown\n\n## Usage\n\n### Node\n\nThe simple way to use it with node is:\n\n```js\nvar markdown = require( "markdown" ).markdown;\nconsole.log( markdown.toHTML( "Hello *World*!" ) );\n```\n\n### Browser\n\nIt also works in a browser; here is a complete example:\n\n```html\n<!DOCTYPE html>\n<html>\n  <body>\n    <textarea id="text-input" oninput="this.editor.update()"\n              rows="6" cols="60">Type **Markdown** here.</textarea>\n    <div id="preview"> </div>\n    <script src="lib/markdown.js"></script>\n    <script>\n      function Editor(input, preview) {\n        this.update = function () {\n          preview.innerHTML = markdown.toHTML(input.value);\n        };\n        input.editor = this;\n        this.update();\n      }\n      var $ = function (id) { return document.getElementById(id); };\n      new Editor($("text-input"), $("preview"));\n    </script>\n  </body>\n</html>\n```\n\n### Command line\n\nAssuming you\'ve installed the `md2html` script (see Installation,\nabove), you can convert markdown to html:\n\n```bash\n# read from a file\nmd2html /path/to/doc.md > /path/to/doc.html\n\n# or from stdin\necho \'Hello *World*!\' | md2html\n```\n\n### More options\n\nIf you want more control check out the documentation in\n[lib/markdown.js] which details all the methods and parameters\navailable (including examples!). One day we\'ll get the docs generated\nand hosted somewhere for nicer browsing.\n\n[lib/markdown.js]: http://github.com/evilstreak/markdown-js/blob/master/lib/markdown.js\n\nMeanwhile, here\'s an example of using the multi-step processing to\nmake wiki-style linking work by filling in missing link references:\n\n```js\nvar md = require( "markdown" ).markdown,\n    text = "[Markdown] is a simple text-based [markup language]\\n" +\n           "created by [John Gruber]\\n\\n" +\n           "[John Gruber]: http://daringfireball.net";\n\n// parse the markdown into a tree and grab the link references\nvar tree = md.parse( text ),\n    refs = tree[ 1 ].references;\n\n// iterate through the tree finding link references\n( function find_link_refs( jsonml ) {\n  if ( jsonml[ 0 ] === "link_ref" ) {\n    var ref = jsonml[ 1 ].ref;\n\n    // if there\'s no reference, define a wiki link\n    if ( !refs[ ref ] ) {\n      refs[ ref ] = {\n        href: "http://en.wikipedia.org/wiki/" + ref.replace(/\\s+/, "_" )\n      };\n    }\n  }\n  else if ( Array.isArray( jsonml[ 1 ] ) ) {\n    jsonml[ 1 ].forEach( find_link_refs );\n  }\n  else if ( Array.isArray( jsonml[ 2 ] ) ) {\n    jsonml[ 2 ].forEach( find_link_refs );\n  }\n} )( tree );\n\n// convert the tree into html\nvar html = md.renderJsonML( md.toHTMLTree( tree ) );\nconsole.log( html );\n```\n\n## Intermediate Representation\n\nInternally the process to convert a chunk of markdown into a chunk of\nHTML has three steps:\n\n 1. Parse the markdown into a JsonML tree. Any references found in the\n    parsing are stored in the attribute hash of the root node under the\n    key `references`.\n\n 2. Convert the markdown tree into an HTML tree. Rename any nodes that\n    need it (`bulletlist` to `ul` for example) and lookup any references\n    used by links or images. Remove the references attribute once done.\n\n 3. Stringify the HTML tree being careful not to wreck whitespace where\n    whitespace is important (surrounding inline elements for example).\n\nEach step of this process can be called individually if you need to do\nsome processing or modification of the data at an intermediate stage.\nFor example, you may want to grab a list of all URLs linked to in the\ndocument before rendering it to HTML which you could do by recursing\nthrough the HTML tree looking for `a` nodes.\n\n## Running tests\n\nTo run the tests under node you will need tap installed (it\'s listed as a\n`devDependencies` so `npm install` from the checkout should be enough), then do\n\n    $ npm test\n\n## Contributing\n\nDo the usual github fork and pull request dance. Add yourself to the\ncontributors section of [package.json](/package.json) too if you want to.\n\n## License\n\nReleased under the MIT license.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy of\nthis software and associated documentation files (the "Software"), to deal in\nthe Software without restriction, including without limitation the rights to\nuse, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of\nthe Software, and to permit persons to whom the Software is furnished to do so,\nsubject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS\nFOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR\nCOPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER\nIN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN\nCONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n',
+34 silly install resolved     readmeFilename: 'README.markdown',
+34 silly install resolved     homepage: 'https://github.com/evilstreak/markdown-js',
+34 silly install resolved     _id: 'markdown@0.5.0',
+34 silly install resolved     _shasum: '28205b565a8ae7592de207463d6637dc182722b2',
+34 silly install resolved     _from: 'markdown@*',
+34 silly install resolved     _resolved: 'https://registry.npmjs.org/markdown/-/markdown-0.5.0.tgz' } ]
+35 info install markdown@0.5.0 into /Users/adamtavares/angular-seed
+36 info installOne markdown@0.5.0
+37 verbose installOne of markdown to /Users/adamtavares/angular-seed not in flight; installing
+38 verbose lock using /Users/adamtavares/.npm/_locks/markdown-a373a0fbbd74f455.lock for /Users/adamtavares/angular-seed/node_modules/markdown
+39 silly install write writing markdown 0.5.0 to /Users/adamtavares/angular-seed/node_modules/markdown
+40 silly cache addNamed cb markdown@0.5.0
+41 verbose unbuild node_modules/markdown
+42 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/markdown
+43 verbose tar unpack /Users/adamtavares/.npm/markdown/0.5.0/package.tgz
+44 verbose tar unpacking to /Users/adamtavares/angular-seed/node_modules/markdown
+45 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/markdown
+46 silly gunzTarPerm modes [ '755', '644' ]
+47 silly gunzTarPerm extractEntry package.json
+48 silly gunzTarPerm extractEntry .npmignore
+49 silly gunzTarPerm extractEntry .travis.yml
+50 silly gunzTarPerm extractEntry bin/md2html.js
+51 silly gunzTarPerm extractEntry Changes.markdown
+52 silly gunzTarPerm extractEntry lib/index.js
+53 silly gunzTarPerm extractEntry lib/markdown.js
+54 silly gunzTarPerm extractEntry markdown-js.sublime-project
+55 silly gunzTarPerm extractEntry markdown-js.sublime-workspace
+56 silly gunzTarPerm extractEntry README.markdown
+57 silly gunzTarPerm extractEntry seed.yml
+58 info preinstall markdown@0.5.0
+59 silly prepareForInstallMany adding nopt@~2.1.1 from markdown dependencies
+60 silly cache add args [ 'nopt@~2.1.1', null ]
+61 verbose cache add spec nopt@~2.1.1
+62 silly cache add parsed spec { raw: 'nopt@~2.1.1',
+62 silly cache add   scope: null,
+62 silly cache add   name: 'nopt',
+62 silly cache add   rawSpec: '~2.1.1',
+62 silly cache add   spec: '>=2.1.1 <2.2.0',
+62 silly cache add   type: 'range' }
+63 verbose addNamed nopt@>=2.1.1 <2.2.0
+64 silly addNamed semver.valid null
+65 silly addNamed semver.validRange >=2.1.1 <2.2.0
+66 silly addNameRange { name: 'nopt', range: '>=2.1.1 <2.2.0', hasData: false }
+67 silly mapToRegistry name nopt
+68 silly mapToRegistry using default registry
+69 silly mapToRegistry registry https://registry.npmjs.org/
+70 silly mapToRegistry uri https://registry.npmjs.org/nopt
+71 verbose addNameRange registry:https://registry.npmjs.org/nopt not in flight; fetching
+72 verbose request uri https://registry.npmjs.org/nopt
+73 verbose request no auth needed
+74 info attempt registry request try #1 at 16:18:57
+75 verbose etag W/"5993c431-847a"
+76 verbose lastModified Wed, 16 Aug 2017 04:04:01 GMT
+77 http request GET https://registry.npmjs.org/nopt
+78 http 200 https://registry.npmjs.org/nopt
+79 silly get cb [ 200,
+79 silly get   { 'content-type': 'application/json; charset=UTF-8',
+79 silly get     server: 'UploadServer',
+79 silly get     'cache-control': 'max-age=300',
+79 silly get     'last-modified': 'Wed, 18 Oct 2017 13:37:23 GMT',
+79 silly get     etag: '"59e75913-848a"',
+79 silly get     'x-npm-region': 'US-East',
+79 silly get     'content-encoding': 'gzip',
+79 silly get     'content-length': '6883',
+79 silly get     'accept-ranges': 'bytes',
+79 silly get     date: 'Mon, 19 Feb 2018 21:18:57 GMT',
+79 silly get     via: '1.1 varnish',
+79 silly get     age: '9028',
+79 silly get     connection: 'keep-alive',
+79 silly get     'x-served-by': 'cache-jfk8121-JFK',
+79 silly get     'x-cache': 'HIT',
+79 silly get     'x-cache-hits': '124',
+79 silly get     'x-timer': 'S1519075138.565869,VS0,VE0',
+79 silly get     vary: 'Accept-Encoding, Accept' } ]
+80 silly addNameRange number 2 { name: 'nopt', range: '>=2.1.1 <2.2.0', hasData: true }
+81 silly addNameRange versions [ 'nopt',
+81 silly addNameRange   [ '1.0.0',
+81 silly addNameRange     '1.0.1',
+81 silly addNameRange     '1.0.2',
+81 silly addNameRange     '1.0.3',
+81 silly addNameRange     '1.0.4',
+81 silly addNameRange     '1.0.5',
+81 silly addNameRange     '1.0.6',
+81 silly addNameRange     '1.0.7',
+81 silly addNameRange     '1.0.8',
+81 silly addNameRange     '1.0.9',
+81 silly addNameRange     '1.0.10',
+81 silly addNameRange     '2.0.0',
+81 silly addNameRange     '2.1.0',
+81 silly addNameRange     '2.1.1',
+81 silly addNameRange     '2.1.2',
+81 silly addNameRange     '2.2.0',
+81 silly addNameRange     '2.2.1',
+81 silly addNameRange     '3.0.0',
+81 silly addNameRange     '3.0.1',
+81 silly addNameRange     '3.0.2',
+81 silly addNameRange     '3.0.3',
+81 silly addNameRange     '3.0.4',
+81 silly addNameRange     '3.0.5',
+81 silly addNameRange     '3.0.6',
+81 silly addNameRange     '4.0.0',
+81 silly addNameRange     '4.0.1' ] ]
+82 verbose addNamed nopt@2.1.2
+83 silly addNamed semver.valid 2.1.2
+84 silly addNamed semver.validRange 2.1.2
+85 silly cache afterAdd nopt@2.1.2
+86 verbose afterAdd /Users/adamtavares/.npm/nopt/2.1.2/package/package.json not in flight; writing
+87 verbose afterAdd /Users/adamtavares/.npm/nopt/2.1.2/package/package.json written
+88 silly install resolved [ { name: 'nopt',
+88 silly install resolved     version: '2.1.2',
+88 silly install resolved     description: 'Option parsing for Node, supporting types, shorthands, etc. Used by npm.',
+88 silly install resolved     author:
+88 silly install resolved      { name: 'Isaac Z. Schlueter',
+88 silly install resolved        email: 'i@izs.me',
+88 silly install resolved        url: 'http://blog.izs.me/' },
+88 silly install resolved     main: 'lib/nopt.js',
+88 silly install resolved     scripts: { test: 'node lib/nopt.js' },
+88 silly install resolved     repository: { type: 'git', url: 'http://github.com/isaacs/nopt' },
+88 silly install resolved     bin: { nopt: './bin/nopt.js' },
+88 silly install resolved     license:
+88 silly install resolved      { type: 'MIT',
+88 silly install resolved        url: 'https://github.com/isaacs/nopt/raw/master/LICENSE' },
+88 silly install resolved     dependencies: { abbrev: '1' },
+88 silly install resolved     readme: 'If you want to write an option parser, and have it be good, there are\ntwo ways to do it.  The Right Way, and the Wrong Way.\n\nThe Wrong Way is to sit down and write an option parser.  We\'ve all done\nthat.\n\nThe Right Way is to write some complex configurable program with so many\noptions that you go half-insane just trying to manage them all, and put\nit off with duct-tape solutions until you see exactly to the core of the\nproblem, and finally snap and write an awesome option parser.\n\nIf you want to write an option parser, don\'t write an option parser.\nWrite a package manager, or a source control system, or a service\nrestarter, or an operating system.  You probably won\'t end up with a\ngood one of those, but if you don\'t give up, and you are relentless and\ndiligent enough in your procrastination, you may just end up with a very\nnice option parser.\n\n## USAGE\n\n    // my-program.js\n    var nopt = require("nopt")\n      , Stream = require("stream").Stream\n      , path = require("path")\n      , knownOpts = { "foo" : [String, null]\n                    , "bar" : [Stream, Number]\n                    , "baz" : path\n                    , "bloo" : [ "big", "medium", "small" ]\n                    , "flag" : Boolean\n                    , "pick" : Boolean\n                    , "many" : [String, Array]\n                    }\n      , shortHands = { "foofoo" : ["--foo", "Mr. Foo"]\n                     , "b7" : ["--bar", "7"]\n                     , "m" : ["--bloo", "medium"]\n                     , "p" : ["--pick"]\n                     , "f" : ["--flag"]\n                     }\n                 // everything is optional.\n                 // knownOpts and shorthands default to {}\n                 // arg list defaults to process.argv\n                 // slice defaults to 2\n      , parsed = nopt(knownOpts, shortHands, process.argv, 2)\n    console.log(parsed)\n\nThis would give you support for any of the following:\n\n```bash\n$ node my-program.js --foo "blerp" --no-flag\n{ "foo" : "blerp", "flag" : false }\n\n$ node my-program.js ---bar 7 --foo "Mr. Hand" --flag\n{ bar: 7, foo: "Mr. Hand", flag: true }\n\n$ node my-program.js --foo "blerp" -f -----p\n{ foo: "blerp", flag: true, pick: true }\n\n$ node my-program.js -fp --foofoo\n{ foo: "Mr. Foo", flag: true, pick: true }\n\n$ node my-program.js --foofoo -- -fp  # -- stops the flag parsing.\n{ foo: "Mr. Foo", argv: { remain: ["-fp"] } }\n\n$ node my-program.js --blatzk 1000 -fp # unknown opts are ok.\n{ blatzk: 1000, flag: true, pick: true }\n\n$ node my-program.js --blatzk true -fp # but they need a value\n{ blatzk: true, flag: true, pick: true }\n\n$ node my-program.js --no-blatzk -fp # unless they start with "no-"\n{ blatzk: false, flag: true, pick: true }\n\n$ node my-program.js --baz b/a/z # known paths are resolved.\n{ baz: "/Users/isaacs/b/a/z" }\n\n# if Array is one of the types, then it can take many\n# values, and will always be an array.  The other types provided\n# specify what types are allowed in the list.\n\n$ node my-program.js --many 1 --many null --many foo\n{ many: ["1", "null", "foo"] }\n\n$ node my-program.js --many foo\n{ many: ["foo"] }\n```\n\nRead the tests at the bottom of `lib/nopt.js` for more examples of\nwhat this puppy can do.\n\n## Types\n\nThe following types are supported, and defined on `nopt.typeDefs`\n\n* String: A normal string.  No parsing is done.\n* path: A file system path.  Gets resolved against cwd if not absolute.\n* url: A url.  If it doesn\'t parse, it isn\'t accepted.\n* Number: Must be numeric.\n* Date: Must parse as a date. If it does, and `Date` is one of the options,\n  then it will return a Date object, not a string.\n* Boolean: Must be either `true` or `false`.  If an option is a boolean,\n  then it does not need a value, and its presence will imply `true` as\n  the value.  To negate boolean flags, do `--no-whatever` or `--whatever\n  false`\n* NaN: Means that the option is strictly not allowed.  Any value will\n  fail.\n* Stream: An object matching the "Stream" class in node.  Valuable\n  for use when validating programmatically.  (npm uses this to let you\n  supply any WriteStream on the `outfd` and `logfd` config options.)\n* Array: If `Array` is specified as one of the types, then the value\n  will be parsed as a list of options.  This means that multiple values\n  can be specified, and that the value will always be an array.\n\nIf a type is an array of values not on this list, then those are\nconsidered valid values.  For instance, in the example above, the\n`--bloo` option can only be one of `"big"`, `"medium"`, or `"small"`,\nand any other value will be rejected.\n\nWhen parsing unknown fields, `"true"`, `"false"`, and `"null"` will be\ninterpreted as their JavaScript equivalents, and numeric values will be\ninterpreted as a number.\n\nYou can also mix types and values, or multiple types, in a list.  For\ninstance `{ blah: [Number, null] }` would allow a value to be set to\neither a Number or null.  When types are ordered, this implies a\npreference, and the first type that can be used to properly interpret\nthe value will be used.\n\nTo define a new type, add it to `nopt.typeDefs`.  Each item in that\nhash is an object with a `type` member and a `validate` method.  The\n`type` member is an object that matches what goes in the type list.  The\n`validate` method is a function that gets called with `validate(data,\nkey, val)`.  Validate methods should assign `data[key]` to the valid\nvalue of `val` if it can be handled properly, or return boolean\n`false` if it cannot.\n\nYou can also call `nopt.clean(data, types, typeDefs)` to clean up a\nconfig object and remove its invalid properties.\n\n## Error Handling\n\nBy default, nopt outputs a warning to standard error when invalid\noptions are found.  You can change this behavior by assigning a method\nto `nopt.invalidHandler`.  This method will be called with\nthe offending `nopt.invalidHandler(key, val, types)`.\n\nIf no `nopt.invalidHandler` is assigned, then it will console.error\nits whining.  If it is assigned to boolean `false` then the warning is\nsuppressed.\n\n## Abbreviations\n\nYes, they are supported.  If you define options like this:\n\n```javascript\n{ "foolhardyelephants" : Boolean\n, "pileofmonkeys" : Boolean }\n```\n\nThen this will work:\n\n```bash\nnode program.js --foolhar --pil\nnode program.js --no-f --pileofmon\n# etc.\n```\n\n## Shorthands\n\nShorthands are a hash of shorter option names to a snippet of args that\nthey expand to.\n\nIf multiple one-character shorthands are all combined, and the\ncombination does not unambiguously match any other option or shorthand,\nthen they will be broken up into their constituent parts.  For example:\n\n```json\n{ "s" : ["--loglevel", "silent"]\n, "g" : "--global"\n, "f" : "--force"\n, "p" : "--parseable"\n, "l" : "--long"\n}\n```\n\n```bash\nnpm ls -sgflp\n# just like doing this:\nnpm ls --loglevel silent --global --force --long --parseable\n```\n\n## The Rest of the args\n\nThe config object returned by nopt is given a special member called\n`argv`, which is an object with the following fields:\n\n* `remain`: The remaining args after all the parsing has occurred.\n* `original`: The args as they originally appeared.\n* `cooked`: The args after flags and shorthands are expanded.\n\n## Slicing\n\nNode programs are called with more or less the exact argv as it appears\nin C land, after the v8 and node-specific options have been plucked off.\nAs such, `argv[0]` is always `node` and `argv[1]` is always the\nJavaScript program being run.\n\nThat\'s usually not very useful to you.  So they\'re sliced off by\ndefault.  If you want them, then you can pass in `0` as the last\nargument, or any other number that you\'d like to slice off the start of\nthe list.\n',
+88 silly install resolved     readmeFilename: 'README.md',
+88 silly install resolved     bugs: { url: 'https://github.com/isaacs/nopt/issues' },
+88 silly install resolved     homepage: 'https://github.com/isaacs/nopt',
+88 silly install resolved     _id: 'nopt@2.1.2',
+88 silly install resolved     _from: 'nopt@>=2.1.1 <2.2.0' } ]
+89 info install nopt@2.1.2 into /Users/adamtavares/angular-seed/node_modules/markdown
+90 info installOne nopt@2.1.2
+91 verbose installOne of nopt to /Users/adamtavares/angular-seed/node_modules/markdown not in flight; installing
+92 verbose lock using /Users/adamtavares/.npm/_locks/nopt-35a17cab2e6ac9cb.lock for /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/nopt
+93 silly install write writing nopt 2.1.2 to /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/nopt
+94 silly cache addNamed cb nopt@2.1.2
+95 verbose unbuild node_modules/markdown/node_modules/nopt
+96 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/nopt
+97 verbose tar unpack /Users/adamtavares/.npm/nopt/2.1.2/package.tgz
+98 verbose tar unpacking to /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/nopt
+99 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/nopt
+100 silly gunzTarPerm modes [ '755', '644' ]
+101 silly gunzTarPerm extractEntry package.json
+102 silly gunzTarPerm extractEntry .npmignore
+103 silly gunzTarPerm extractEntry README.md
+104 silly gunzTarPerm extractEntry LICENSE
+105 silly gunzTarPerm extractEntry bin/nopt.js
+106 silly gunzTarPerm extractEntry examples/my-program.js
+107 silly gunzTarPerm extractEntry lib/nopt.js
+108 info preinstall nopt@2.1.2
+109 silly install resolved []
+110 verbose about to build /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/nopt
+111 info build /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/nopt
+112 verbose linkStuff [ false,
+112 verbose linkStuff   false,
+112 verbose linkStuff   false,
+112 verbose linkStuff   '/Users/adamtavares/angular-seed/node_modules/markdown/node_modules' ]
+113 info linkStuff nopt@2.1.2
+114 verbose linkBins nopt@2.1.2
+115 verbose link bins [ { nopt: './bin/nopt.js' },
+115 verbose link bins   '/Users/adamtavares/angular-seed/node_modules/markdown/node_modules/.bin',
+115 verbose link bins   false ]
+116 verbose linkMans nopt@2.1.2
+117 verbose rebuildBundles nopt@2.1.2
+118 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/.bin/nopt
+119 info install nopt@2.1.2
+120 info postinstall nopt@2.1.2
+121 verbose unlock done using /Users/adamtavares/.npm/_locks/nopt-35a17cab2e6ac9cb.lock for /Users/adamtavares/angular-seed/node_modules/markdown/node_modules/nopt
+122 verbose about to build /Users/adamtavares/angular-seed/node_modules/markdown
+123 info build /Users/adamtavares/angular-seed/node_modules/markdown
+124 verbose linkStuff [ false,
+124 verbose linkStuff   false,
+124 verbose linkStuff   false,
+124 verbose linkStuff   '/Users/adamtavares/angular-seed/node_modules' ]
+125 info linkStuff markdown@0.5.0
+126 verbose linkBins markdown@0.5.0
+127 verbose link bins [ { md2html: './bin/md2html.js' },
+127 verbose link bins   '/Users/adamtavares/angular-seed/node_modules/.bin',
+127 verbose link bins   false ]
+128 verbose linkMans markdown@0.5.0
+129 verbose rebuildBundles markdown@0.5.0
+130 verbose rebuildBundles [ '.bin', 'nopt' ]
+131 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/.bin/md2html
+132 info install markdown@0.5.0
+133 info postinstall markdown@0.5.0
+134 verbose unlock done using /Users/adamtavares/.npm/_locks/markdown-a373a0fbbd74f455.lock for /Users/adamtavares/angular-seed/node_modules/markdown
+135 verbose stack Error: The package karma does not satisfy its siblings' peerDependencies requirements!
+135 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:103:32
+135 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:225:5
+135 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:138:5
+135 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+135 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+135 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+135 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+135 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+135 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+135 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+136 verbose cwd /Users/adamtavares/angular-seed
+137 error Darwin 15.5.0
+138 error argv "node" "/usr/local/bin/npm" "install" "markdown" "--save"
+139 error node v0.10.29
+140 error npm  v2.3.0
+141 error code EPEERINVALID
+142 error peerinvalid The package karma does not satisfy its siblings' peerDependencies requirements!
+142 error peerinvalid Peer karma-html2js-preprocessor@0.1.0 wants karma@>=0.9
+142 error peerinvalid Peer karma-requirejs@0.2.2 wants karma@>=0.9
+142 error peerinvalid Peer karma-script-launcher@0.1.0 wants karma@>=0.9
+142 error peerinvalid Peer grunt-karma@0.12.2 wants karma@^0.13.0 || >= 0.14.0-rc.0
+142 error peerinvalid Peer karma-phantomjs-launcher@0.2.2 wants karma@>=0.9
+142 error peerinvalid Peer karma-junit-reporter@0.2.2 wants karma@>=0.9
+142 error peerinvalid Peer karma-coffee-preprocessor@0.1.3 wants karma@>=0.9
+143 verbose exit [ 1, true ]

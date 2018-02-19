@@ -4,6 +4,7 @@ var template = require( 'html-template' );
 var fs = require( 'fs' );
 var crypto = require('crypto');
 var rimraf = require('rimraf');
+var markdown = require('markdown').markdown;
 var json2html = require('node-json2html');
 
 // config shit
@@ -34,8 +35,7 @@ function makeHtml( json, i ){
   i = parseInt( i )
   var config = json[ i ];
   config.id = config.file.replace(/\.md/, '' )
-  var story = fs.readFileSync( "md/" + config.file, 'utf8' )
-  console.log( story )
+  var story = markdown.toHTML( fs.readFileSync( "md/" + config.file, 'utf8' ))
   config.html = [
     
     '<head>',
@@ -71,12 +71,7 @@ function makeHtml( json, i ){
     
     '<body>',
       '<div class="static-story">',
-        
-        // content
-        
-        '<h1>' + config.label + '</h1>',
-        '<p>' + config.description + '</p>',
-        
+        story,
       '</div>',
     '</body>'
     
