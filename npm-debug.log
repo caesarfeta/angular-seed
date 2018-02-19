@@ -1,0 +1,231 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install', 'marked', '--save' ]
+2 info using npm@2.3.0
+3 info using node@v0.10.29
+4 verbose node symlink /usr/local/bin/node
+5 warn package.json punycode@1.4.1 punycode is also the name of a node core module.
+6 warn package.json string_decoder@0.10.31 string_decoder is also the name of a node core module.
+7 silly cache add args [ 'marked', null ]
+8 verbose cache add spec marked
+9 silly cache add parsed spec { raw: 'marked',
+9 silly cache add   scope: null,
+9 silly cache add   name: 'marked',
+9 silly cache add   rawSpec: '',
+9 silly cache add   spec: '*',
+9 silly cache add   type: 'range' }
+10 verbose addNamed marked@*
+11 silly addNamed semver.valid null
+12 silly addNamed semver.validRange *
+13 silly addNameRange { name: 'marked', range: '*', hasData: false }
+14 silly mapToRegistry name marked
+15 silly mapToRegistry using default registry
+16 silly mapToRegistry registry https://registry.npmjs.org/
+17 silly mapToRegistry uri https://registry.npmjs.org/marked
+18 verbose addNameRange registry:https://registry.npmjs.org/marked not in flight; fetching
+19 verbose request uri https://registry.npmjs.org/marked
+20 verbose request no auth needed
+21 info attempt registry request try #1 at 16:03:17
+22 verbose request id bb80384197ce65bb
+23 http request GET https://registry.npmjs.org/marked
+24 http 200 https://registry.npmjs.org/marked
+25 silly get cb [ 200,
+25 silly get   { 'content-type': 'application/json; charset=UTF-8',
+25 silly get     server: 'UploadServer',
+25 silly get     'cache-control': 'max-age=300',
+25 silly get     'last-modified': 'Mon, 19 Feb 2018 4:26:12 GMT',
+25 silly get     etag: '"5a8a51e4-e647"',
+25 silly get     'x-npm-region': 'US-East',
+25 silly get     'content-encoding': 'gzip',
+25 silly get     'content-length': '10661',
+25 silly get     'accept-ranges': 'bytes',
+25 silly get     date: 'Mon, 19 Feb 2018 21:03:17 GMT',
+25 silly get     via: '1.1 varnish',
+25 silly get     age: '844',
+25 silly get     connection: 'keep-alive',
+25 silly get     'x-served-by': 'cache-jfk8120-JFK',
+25 silly get     'x-cache': 'HIT',
+25 silly get     'x-cache-hits': '1',
+25 silly get     'x-timer': 'S1519074198.639316,VS0,VE1',
+25 silly get     vary: 'Accept-Encoding, Accept' } ]
+26 silly addNameRange number 2 { name: 'marked', range: '*', hasData: true }
+27 silly addNameRange versions [ 'marked',
+27 silly addNameRange   [ '0.0.1',
+27 silly addNameRange     '0.0.2',
+27 silly addNameRange     '0.0.3',
+27 silly addNameRange     '0.0.4',
+27 silly addNameRange     '0.0.5',
+27 silly addNameRange     '0.0.6',
+27 silly addNameRange     '0.0.7',
+27 silly addNameRange     '0.0.8',
+27 silly addNameRange     '0.0.9',
+27 silly addNameRange     '0.1.0',
+27 silly addNameRange     '0.1.1',
+27 silly addNameRange     '0.1.2',
+27 silly addNameRange     '0.1.3',
+27 silly addNameRange     '0.1.4',
+27 silly addNameRange     '0.1.5',
+27 silly addNameRange     '0.1.6',
+27 silly addNameRange     '0.1.7',
+27 silly addNameRange     '0.1.8',
+27 silly addNameRange     '0.1.9',
+27 silly addNameRange     '0.2.0',
+27 silly addNameRange     '0.2.1',
+27 silly addNameRange     '0.2.2',
+27 silly addNameRange     '0.2.2-1',
+27 silly addNameRange     '0.2.3',
+27 silly addNameRange     '0.2.4',
+27 silly addNameRange     '0.2.4-1',
+27 silly addNameRange     '0.2.5',
+27 silly addNameRange     '0.2.6',
+27 silly addNameRange     '0.2.7',
+27 silly addNameRange     '0.2.8',
+27 silly addNameRange     '0.2.9',
+27 silly addNameRange     '0.2.10',
+27 silly addNameRange     '0.3.0',
+27 silly addNameRange     '0.3.1',
+27 silly addNameRange     '0.3.2',
+27 silly addNameRange     '0.3.3',
+27 silly addNameRange     '0.3.4',
+27 silly addNameRange     '0.3.5',
+27 silly addNameRange     '0.3.6',
+27 silly addNameRange     '0.3.7',
+27 silly addNameRange     '0.3.9',
+27 silly addNameRange     '0.3.12',
+27 silly addNameRange     '0.3.13',
+27 silly addNameRange     '0.3.14',
+27 silly addNameRange     '0.3.15' ] ]
+28 verbose addNamed marked@0.3.15
+29 silly addNamed semver.valid 0.3.15
+30 silly addNamed semver.validRange 0.3.15
+31 silly mapToRegistry name marked
+32 silly mapToRegistry using default registry
+33 silly mapToRegistry registry https://registry.npmjs.org/
+34 silly mapToRegistry uri https://registry.npmjs.org/marked
+35 verbose addRemoteTarball https://registry.npmjs.org/marked/-/marked-0.3.15.tgz not in flight; adding
+36 verbose addRemoteTarball [ 'https://registry.npmjs.org/marked/-/marked-0.3.15.tgz',
+36 verbose addRemoteTarball   'de96982e54c880962f5093a2fa93d0866bf73668' ]
+37 info retry fetch attempt 1 at 16:03:17
+38 info attempt registry request try #1 at 16:03:17
+39 http fetch GET https://registry.npmjs.org/marked/-/marked-0.3.15.tgz
+40 http fetch 200 https://registry.npmjs.org/marked/-/marked-0.3.15.tgz
+41 silly fetchAndShaCheck shasum de96982e54c880962f5093a2fa93d0866bf73668
+42 verbose addTmpTarball /var/folders/yp/_dkxrwzd043dnbckn8w4hr880000gn/T/npm-8554-b6c4dd57/registry.npmjs.org/marked/-/marked-0.3.15.tgz not in flight; adding
+43 verbose addTmpTarball already have metadata; skipping unpack for marked@0.3.15
+44 silly cache afterAdd marked@0.3.15
+45 verbose afterAdd /Users/adamtavares/.npm/marked/0.3.15/package/package.json not in flight; writing
+46 verbose afterAdd /Users/adamtavares/.npm/marked/0.3.15/package/package.json written
+47 silly install resolved [ { name: 'marked',
+47 silly install resolved     description: 'A markdown parser built for speed',
+47 silly install resolved     author: { name: 'Christopher Jeffrey' },
+47 silly install resolved     version: '0.3.15',
+47 silly install resolved     main: './lib/marked.js',
+47 silly install resolved     bin: { marked: './bin/marked' },
+47 silly install resolved     man: [ './man/marked.1' ],
+47 silly install resolved     repository: { type: 'git', url: 'git://github.com/markedjs/marked.git' },
+47 silly install resolved     homepage: 'https://github.com/markedjs/marked',
+47 silly install resolved     bugs: { url: 'http://github.com/markedjs/marked/issues' },
+47 silly install resolved     license: 'MIT',
+47 silly install resolved     keywords: [ 'markdown', 'markup', 'html' ],
+47 silly install resolved     tags: [ 'markdown', 'markup', 'html' ],
+47 silly install resolved     devDependencies:
+47 silly install resolved      { markdown: '*',
+47 silly install resolved        showdown: '*',
+47 silly install resolved        'markdown-it': '*',
+47 silly install resolved        'front-matter': '^2.3.0',
+47 silly install resolved        'glob-to-regexp': '0.3.0',
+47 silly install resolved        'uglify-js': '^3.3.10' },
+47 silly install resolved     scripts:
+47 silly install resolved      { test: 'node test',
+47 silly install resolved        bench: 'node test --bench',
+47 silly install resolved        build: 'uglifyjs lib/marked.js -cm  --comments /Copyright/ -o marked.min.js' },
+47 silly install resolved     gitHead: '225c7a681b515c8d27cdba02957195b05f727b6e',
+47 silly install resolved     _id: 'marked@0.3.15',
+47 silly install resolved     _npmVersion: '5.6.0',
+47 silly install resolved     _nodeVersion: '8.9.4',
+47 silly install resolved     _npmUser: { name: 'amidknight', email: 'josh@8fold.pro' },
+47 silly install resolved     dist:
+47 silly install resolved      { integrity: 'sha512-PToZtmCYVf4mlkmfoDPpsg3VJhkEvCHeTXSxbG3FBBxEoLAlxAsYPCADWx4+XBebMXCowDW7vaOGfRVjmFDM5w==',
+47 silly install resolved        shasum: 'de96982e54c880962f5093a2fa93d0866bf73668',
+47 silly install resolved        tarball: 'https://registry.npmjs.org/marked/-/marked-0.3.15.tgz',
+47 silly install resolved        fileCount: 15,
+47 silly install resolved        unpackedSize: 75158 },
+47 silly install resolved     maintainers: [ [Object], [Object] ],
+47 silly install resolved     directories: {},
+47 silly install resolved     _npmOperationalInternal:
+47 silly install resolved      { host: 's3://npm-registry-packages',
+47 silly install resolved        tmp: 'tmp/marked_0.3.15_1519014369939_0.01640812822507942' },
+47 silly install resolved     _shasum: 'de96982e54c880962f5093a2fa93d0866bf73668',
+47 silly install resolved     _resolved: 'https://registry.npmjs.org/marked/-/marked-0.3.15.tgz',
+47 silly install resolved     _from: 'marked@*' } ]
+48 info install marked@0.3.15 into /Users/adamtavares/angular-seed
+49 info installOne marked@0.3.15
+50 verbose installOne of marked to /Users/adamtavares/angular-seed not in flight; installing
+51 verbose lock using /Users/adamtavares/.npm/_locks/marked-9e18234e31b822b1.lock for /Users/adamtavares/angular-seed/node_modules/marked
+52 silly install write writing marked 0.3.15 to /Users/adamtavares/angular-seed/node_modules/marked
+53 silly cache addNamed cb marked@0.3.15
+54 verbose unbuild node_modules/marked
+55 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/marked
+56 verbose tar unpack /Users/adamtavares/.npm/marked/0.3.15/package.tgz
+57 verbose tar unpacking to /Users/adamtavares/angular-seed/node_modules/marked
+58 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/marked
+59 silly gunzTarPerm modes [ '755', '644' ]
+60 silly gunzTarPerm extractEntry package.json
+61 silly gunzTarPerm extractEntry .travis.yml
+62 silly gunzTarPerm extractEntry bower.json
+63 silly gunzTarPerm extractEntry component.json
+64 silly gunzTarPerm extractEntry index.js
+65 silly gunzTarPerm extractEntry LICENSE
+66 silly gunzTarPerm extractEntry Makefile
+67 silly gunzTarPerm extractEntry marked.min.js
+68 silly gunzTarPerm extractEntry README.md
+69 silly gunzTarPerm extractEntry bin/marked
+70 silly gunzTarPerm extractEntry doc/broken.md
+71 silly gunzTarPerm extractEntry doc/todo.md
+72 silly gunzTarPerm extractEntry lib/marked.js
+73 silly gunzTarPerm extractEntry man/marked.1
+74 silly gunzTarPerm extractEntry man/marked.1.txt
+75 info preinstall marked@0.3.15
+76 silly install resolved []
+77 verbose about to build /Users/adamtavares/angular-seed/node_modules/marked
+78 info build /Users/adamtavares/angular-seed/node_modules/marked
+79 verbose linkStuff [ false,
+79 verbose linkStuff   false,
+79 verbose linkStuff   false,
+79 verbose linkStuff   '/Users/adamtavares/angular-seed/node_modules' ]
+80 info linkStuff marked@0.3.15
+81 verbose linkBins marked@0.3.15
+82 verbose link bins [ { marked: './bin/marked' },
+82 verbose link bins   '/Users/adamtavares/angular-seed/node_modules/.bin',
+82 verbose link bins   false ]
+83 verbose linkMans marked@0.3.15
+84 verbose rebuildBundles marked@0.3.15
+85 verbose gentlyRm vacuuming /Users/adamtavares/angular-seed/node_modules/.bin/marked
+86 info install marked@0.3.15
+87 info postinstall marked@0.3.15
+88 verbose unlock done using /Users/adamtavares/.npm/_locks/marked-9e18234e31b822b1.lock for /Users/adamtavares/angular-seed/node_modules/marked
+89 verbose stack Error: The package karma does not satisfy its siblings' peerDependencies requirements!
+89 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:103:32
+89 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:225:5
+89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:138:5
+89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+89 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+89 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+89 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+89 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:251:14
+90 verbose cwd /Users/adamtavares/angular-seed
+91 error Darwin 15.5.0
+92 error argv "node" "/usr/local/bin/npm" "install" "marked" "--save"
+93 error node v0.10.29
+94 error npm  v2.3.0
+95 error code EPEERINVALID
+96 error peerinvalid The package karma does not satisfy its siblings' peerDependencies requirements!
+96 error peerinvalid Peer karma-html2js-preprocessor@0.1.0 wants karma@>=0.9
+96 error peerinvalid Peer karma-requirejs@0.2.2 wants karma@>=0.9
+96 error peerinvalid Peer karma-script-launcher@0.1.0 wants karma@>=0.9
+96 error peerinvalid Peer grunt-karma@0.12.2 wants karma@^0.13.0 || >= 0.14.0-rc.0
+96 error peerinvalid Peer karma-phantomjs-launcher@0.2.2 wants karma@>=0.9
+96 error peerinvalid Peer karma-junit-reporter@0.2.2 wants karma@>=0.9
+96 error peerinvalid Peer karma-coffee-preprocessor@0.1.3 wants karma@>=0.9
+97 verbose exit [ 1, true ]
