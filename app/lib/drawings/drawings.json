@@ -58,36 +58,9 @@
   },
   {
     "files": [
-      "its_over.png"
-    ],
-    "label": "It's over!",
-    "description": "",
-    "medium": "ink",
-    "date": "11/2017"
-  },
-  {
-    "files": [
       "cornermen.png"
     ],
     "label": "Cornermen",
-    "description": "",
-    "medium": "ink",
-    "date": "11/2017"
-  },
-  {
-    "files": [
-      "tricky_triangle.png"
-    ],
-    "label": "Tricky Triangle",
-    "description": "",
-    "medium": "ink",
-    "date": "11/2017"
-  },
-  {
-    "files": [
-      "right_in_the_bread_basket.png"
-    ],
-    "label": "Right in the bread-basket!",
     "description": "",
     "medium": "ink",
     "date": "11/2017"
@@ -202,12 +175,39 @@
   },
   {
     "files": [
+      "tricky_triangle.png"
+    ],
+    "label": "Tricky Triangle",
+    "description": "",
+    "medium": "ink",
+    "date": "11/2017"
+  },
+  {
+    "files": [
+      "right_in_the_bread_basket.png"
+    ],
+    "label": "Right in the bread-basket!",
+    "description": "",
+    "medium": "ink",
+    "date": "11/2017"
+  },
+  {
+    "files": [
       "duck_downfall.png"
     ],
     "label": "Duck Downfall",
     "description": "",
     "medium": "ink",
     "date": "1/2018"
+  },
+  {
+    "files": [
+      "its_over.png"
+    ],
+    "label": "It's over!",
+    "description": "",
+    "medium": "ink",
+    "date": "11/2017"
   },
   {
     "files": [
