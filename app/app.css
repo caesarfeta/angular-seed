@@ -7695,6 +7695,12 @@ input.dbpedia-search-input {
   width: 100%;
   background-color: #ddd;
 }
+.static-story {
+  background-color: white;
+}
+.static-story .story {
+  padding: 20px;
+}
 .modal.left .modal-dialog,
 .modal.right .modal-dialog {
   position: fixed;

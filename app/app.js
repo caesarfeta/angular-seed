@@ -249,6 +249,30 @@ function( angular ){
         ]
       })
       
+      // extruder
+      
+      $routeProvider.when( '/extruder', {
+        template: [
+          
+          '<div three-d-extruder></div>'
+          
+        ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'threeD' )
+          }]
+        },
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            $scope,
+            $routeParams ){
+            $scope.id = $routeParams.id
+          }
+        ]
+      })
+      
       // threeD
       
       $routeProvider.when( '/threed/:id', {

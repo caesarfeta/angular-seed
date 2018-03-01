@@ -69,9 +69,15 @@ function makeHtml( json, i ){
     
     '</head>',
     
-    '<body>',
-      '<div class="static-story">',
-        story,
+    '<body class="static-story">',
+      '<div class="container">',
+        '<div class="row">',
+          '<div class="cols3"></div>',
+          '<div class="cols4 story">',
+            story,
+          '</div>',
+          '<div class="cols3"></div>',
+        '</div>',
       '</div>',
     '</body>'
     

@@ -48,6 +48,17 @@ function(
       }
     }
   ])
+  .directive( 'threeDExtruder', [
+    function(){
+      return {
+        template: [
+          
+          '<p>extruder</p>'
+          
+        ].join('')
+      }
+    }
+  ])
   .directive( 'threeDList', [
     'threeDData',
     'paginator',
