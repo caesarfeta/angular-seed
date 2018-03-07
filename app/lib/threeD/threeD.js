@@ -1,21 +1,22 @@
 define([ 
-'angular',
+'./module',
 'lodash',
 '../utils/utils',
 'THREE',
 '../three.meshline/src/THREE.MeshLine',
 'THREE.OBJLoader',
 'THREE.STLLoader',
-'THREE.OBJExporter'
+'THREE.OBJExporter',
+'./threeDExtruder'
 ],
 function( 
-  angular,
+  module,
   _,
   utils,
   THREE,
   MeshLine ){
   'use strict';
-  angular.module( 'threeD', [])
+  module
   .service( 'threeDData', [
     '$http',
     '$q',
@@ -45,17 +46,6 @@ function(
             }
           )
         })
-      }
-    }
-  ])
-  .directive( 'threeDExtruder', [
-    function(){
-      return {
-        template: [
-          
-          '<p>extruder</p>'
-          
-        ].join('')
       }
     }
   ])
