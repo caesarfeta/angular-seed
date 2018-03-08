@@ -1,8 +1,8 @@
 define([ 
 './module',
 'lodash',
-'../utils/utils',
 'THREE',
+'../utils/utils',
 '../three.meshline/src/THREE.MeshLine',
 'THREE.OBJLoader',
 'THREE.STLLoader',
@@ -12,8 +12,8 @@ define([
 function( 
   module,
   _,
-  utils,
   THREE,
+  utils,
   MeshLine ){
   'use strict';
   module
@@ -202,7 +202,13 @@ function(
             // retrieve model
             
             var loader = undefined
-            switch( config.loader ){  
+            switch( config.loader ){
+              case 'JSON':
+                loader = new THREE.JSONLoader()
+                loader.load( config.url, function( geometry, materials ){
+                  console.log( geometry, materials )
+                })
+                break
               case 'OBJ':
                 loader = new THREE.OBJLoader( manager )
                 loader.load( config.url, function( item ){

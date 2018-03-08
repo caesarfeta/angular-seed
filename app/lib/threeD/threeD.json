@@ -1,5 +1,11 @@
 [
   {
+    "label": "Forest",
+    "loader": "JSON",
+    "thumb": "",
+    "url": "./lib/threeD/json/forest.json"
+  },
+  {
     "label": "Peano Gosper Hemisphere",
     "loader": "COORD",
     "transform": "SPHERE",
