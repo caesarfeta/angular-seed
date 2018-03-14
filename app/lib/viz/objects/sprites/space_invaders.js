@@ -2,194 +2,376 @@ define([
 'lodash',
 '../matrix/charMatrix'
 ],
+// remove meshes from scene
+// add physics config
+
 function(
   _,
   charMatrix ){
-    
   return function( scene ){
+    
+    var sprite = function( config, scene ){
+      var self = this
+      var color = '#' + config.art.pop()
+      self.id = config.id
+      self.art = new charMatrix({
+        scene: scene,
+        color: color,
+        matrix: config.art
+      })
+      self.init = config.init
+      self.physics = config.physics
+    }
+    sprite.prototype.remove = function(){}
+    
     return [
-      //[
-      //  '   ###',
-      //  ' #######',
-      //  '#########',
-      //  '#  ###  #',
-      //  '#########',
-      //  '  #   #  ',
-      //  ' # ### # ',
-      //  '#       #',
-      //  '1FC0D9'
-      //],
-      //[
-      //  '   ###',
-      //  ' #######',
-      //  '#########',
-      //  '#  ###  #',
-      //  '#########',
-      //  ' # ### # ',
-      //  ' # ### # ',
-      //  '  #####  ',
-      //  '8CC537'
-      //],
-      //[
-      //  '  #    #  ',
-      //  '   #  #   ',
-      //  '  ######  ',
-      //  ' ## ## ## ',
-      //  '##########',
-      //  '# ###### #',
-      //  '   #  #   ',
-      //  '  #    #  ',
-      //  '8CC537'
-      //],
-      //[
-      //  '  #  #  ',
-      //  '   ##   ',
-      //  '# #### #',
-      //  '## ## ##',
-      //  '########',
-      //  '# #### #',
-      //  '#  ##  #',
-      //  '##    ##',
-      //  'BB9562'
-      //],
-      //[
-      //  '  #    #  ',
-      //  '#  #  #  #',
-      //  '# ###### #',
-      //  '### ## ###',
-      //  '### ## ###',
-      //  ' ######## ',
-      //  ' # #  # # ',
-      //  '##      ##',
-      //  '8CC537'
-      //],
-      //[
-      //  '   #  #  ',
-      //  '  ######  ',
-      //  ' ######## ',
-      //  '### ## ###',
-      //  '# ###### #',
-      //  '# ###### #',
-      //  '   #  #   ',
-      //  '  ##  ##  ',
-      //  '8F118A'
-      //],
-      //[
-      //  '  #   #  ',
-      //  ' ####### ',
-      //  '##  #  ##',
-      //  '#########',
-      //  '#########',
-      //  '  # # # #',
-      //  ' # # # # ',
-      //  'ED0C19'
-      //],
-      //[
-      //  '   ##   ',
-      //  '  ####  ',
-      //  ' ###### ',
-      //  '## ## ##',
-      //  '########',
-      //  '  #  #  ',
-      //  ' # ## # ',
-      //  '# #  # #',
-      //  '2AB242'
-      //],
-      //[
-      //  '     #######     ',
-      //  '   ###########   ',
-      //  '  #############  ',
-      //  ' ## # # # # # ## ',
-      //  '#################',
-      //  '   ### ### ###   ',
-      //  '    #       #    ',
-      //  'FEDF32'
-      //],
-      //[
-      //  '  #  #  ',
-      //  '   ##   ',
-      //  '# #### #',
-      //  '## ## ##',
-      //  '########',
-      //  '# #### #',
-      //  '  #  #  ',
-      //  ' ##  ## ',
-      //  '0F6DBA'
-      //],
-      //[
-      //  '  ####  ',
-      //  ' ###### ',
-      //  '## ## ##',
-      //  '########',
-      //  '  ####  ',
-      //  ' # ## # ',
-      //  '#      #',
-      //  'EC1689'
-      //],
-      //[
-      //  '#',
-      //  '#',
-      //  'EBEDEC'
-      //],
-      //[
-      //  '    #    ',
-      //  ' ####### ',
-      //  ' ####### ',
-      //  '#########',
-      //  'EBEDEC'
-      //],
-      //[
-      //  ' #   # ',
-      //  '  ###  ',
-      //  ' ##### ',
-      //  ' # # # ',
-      //  ' ##### ',
-      //  '# # # #',
-      //  '# # # #',
-      //  'F45D1F'
-      //],
-      //[
-      //  '   ###   ',
-      //  ' ####### ',
-      //  '## ### ##',
-      //  '#########',
-      //  ' ##   ## ',
-      //  '  #####  ',
-      //  ' ##   ## ',
-      //  '#       #',
-      //  ' ##   ## ',
-      //  'BF0C55'
-      //],
-      //[
-      //  '    #   ',
-      //  '   ###   ',
-      //  '  #####  ',
-      //  ' ####### ',
-      //  '##  #  ##',
-      //  '#########',
-      //  '  #####  ',
-      //  ' #  #  # ',
-      //  '#  # #  #',
-      //  '46108F'
-      //],
-      [
-        '  #   #  ',
-        '#  ###  #',
-        '# ##### #',
-        '### # ###',
-        ' ####### ',
-        '  #   #  ',
-        ' #     # ',
-        '34968A'
-      ]
+      {
+        id: '',
+        art: [
+          '   ###',
+          ' #######',
+          '#########',
+          '#  ###  #',
+          '#########',
+          '  #   #  ',
+          ' # ### # ',
+          '#       #',
+          '1FC0D9'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '   ###',
+          ' #######',
+          '#########',
+          '#  ###  #',
+          '#########',
+          ' # ### # ',
+          ' # ### # ',
+          '  #####  ',
+          '8CC537'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '  #    #  ',
+          '   #  #   ',
+          '  ######  ',
+          ' ## ## ## ',
+          '##########',
+          '# ###### #',
+          '   #  #   ',
+          '  #    #  ',
+          '8CC537'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '  #  #  ',
+          '   ##   ',
+          '# #### #',
+          '## ## ##',
+          '########',
+          '# #### #',
+          '#  ##  #',
+          '##    ##',
+          'BB9562'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '  #    #  ',
+          '#  #  #  #',
+          '# ###### #',
+          '### ## ###',
+          '### ## ###',
+          ' ######## ',
+          ' # #  # # ',
+          '##      ##',
+          '8CC537'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '   #  #  ',
+          '  ######  ',
+          ' ######## ',
+          '### ## ###',
+          '# ###### #',
+          '# ###### #',
+          '   #  #   ',
+          '  ##  ##  ',
+          '8F118A'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '  #   #  ',
+          ' ####### ',
+          '##  #  ##',
+          '#########',
+          '#########',
+          '  # # # #',
+          ' # # # # ',
+          'ED0C19'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '   ##   ',
+          '  ####  ',
+          ' ###### ',
+          '## ## ##',
+          '########',
+          '  #  #  ',
+          ' # ## # ',
+          '# #  # #',
+          '2AB242'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '     #######     ',
+          '   ###########   ',
+          '  #############  ',
+          ' ## # # # # # ## ',
+          '#################',
+          '   ### ### ###   ',
+          '    #       #    ',
+          'FEDF32'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '  #  #  ',
+          '   ##   ',
+          '# #### #',
+          '## ## ##',
+          '########',
+          '# #### #',
+          '  #  #  ',
+          ' ##  ## ',
+          '0F6DBA'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '  ####  ',
+          ' ###### ',
+          '## ## ##',
+          '########',
+          '  ####  ',
+          ' # ## # ',
+          '#      #',
+          'EC1689'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '#',
+          '#',
+          'EBEDEC'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '    #    ',
+          ' ####### ',
+          ' ####### ',
+          '#########',
+          'EBEDEC'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          ' #   # ',
+          '  ###  ',
+          ' ##### ',
+          ' # # # ',
+          ' ##### ',
+          '# # # #',
+          '# # # #',
+          'F45D1F'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '   ###   ',
+          ' ####### ',
+          '## ### ##',
+          '#########',
+          ' ##   ## ',
+          '  #####  ',
+          ' ##   ## ',
+          '#       #',
+          ' ##   ## ',
+          'BF0C55'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '    #   ',
+          '   ###   ',
+          '  #####  ',
+          ' ####### ',
+          '##  #  ##',
+          '#########',
+          '  #####  ',
+          ' #  #  # ',
+          '#  # #  #',
+          '46108F'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      },
+      
+      {
+        id: '',
+        art: [
+          '  #   #  ',
+          '#  ###  #',
+          '# ##### #',
+          '### # ###',
+          ' ####### ',
+          '  #   #  ',
+          ' #     # ',
+          '34968A'
+        ],
+        init: function( self, sprites ){
+          console.log( self, sprites )
+        },
+        physics: function( self, player, sprites ){
+          console.log( self, player, sprites )
+        }
+      }
+      
     ].map(
-      function( art ){
-        var color = '#' + art.pop()
-        return new charMatrix({
-          scene: scene,
-          color: color,
-          matrix: art
-        })
+      function( item ){
+        return new sprite( item, scene )
       }
     )
   }

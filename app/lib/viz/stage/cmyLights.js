@@ -14,15 +14,15 @@ function(
           scene: undefined
         })
         _.merge( self, config );
-        self.ambient = new THREE.AmbientLight( 0x111111 )
+        self.ambient = new THREE.AmbientLight( 0xCCCCCC )
         self.scene.add( self.ambient )
         
         // spotlights
         
         self.spot = {
             yellow: { color: 0xFF7F00, pos:[ 15, 40, 45 ]},
-            cyan: { color: 0x00FF7F, pos: [ 0, 40, 35 ]},
-            magenta: { color: 0x7F00FF, pos: [ -15, 40, 45 ]}
+            // cyan: { color: 0x00FF7F, pos: [ 0, 40, 35 ]},
+            // magenta: { color: 0x7F00FF, pos: [ -15, 40, 45 ]}
         }
         _.each( self.spot, function( spot, id ){
             spot.light = new THREE.SpotLight( spot.color, 2 );

@@ -36,101 +36,92 @@ function(
   // test threejs
   
   var viz = function( config ){
-    var self = this;
-    self.config = config;
-    self.sfx = new sfx();
-    self.music = new music();
-    /*
-    if ( !!config.lsys ){
-      LSYS.Sys( 12, 90, 'FX', 'X=X+YF+', 'Y=-FX-Y' )
-    }
-    */
-  };
+    var self = this
+    self.config = config
+    self.sfx = new sfx()
+    self.music = new music()
+  }
   
   viz.prototype.build = function(){
-    var self = this;
-    self.scene = new THREE.Scene();
-    self.transforms = new threeTrans();
-    self.setupRenderer();
-    self.setupCamera( true );
+    var self = this
+    self.scene = new THREE.Scene()
+    self.transforms = new threeTrans()
+    self.setupRenderer()
+    self.setupCamera( !true )
     
     // self.imgMatrix = new imgMatrix({ 
     //   scene: self.scene, 
     //   url: 'https://www.gravatar.com/avatar/ae0b276e2b4ba1293eee43e9f0236760?s=32&d=identicon&r=PG&f=1'
     // })
     
-    // self.cubeMatrix.build( 10, 10 )
-    // self.charMatrix = new charMatrix({
-    //   scene: self.scene,
-    //   color: 0xFF0000,
-    // })
-    
-    var d = invaders( self.scene )
-    console.log( d )
-//    self.cubes =  _.compact( _.flatten( c.cubes ))
-    
-    self.light = new cmyLights({ scene: self.scene });
-    self.setupFloor();
+    self.setupFloor()
+    self.light = new cmyLights({
+      scene: self.scene
+    })
     self.paddle = new paddle({ 
       elem: self.config.elem,
       scene: self.scene
-    });
-  };
+    })
+    self.sprites = invaders( self.scene )
+    _.each( self.sprites, function( sprite ){
+      sprite.init( sprite, self.sprites )
+    })
+  }
   
   viz.prototype.reset = function(){
-    var self = this;
-    self.build();
-    self.default().position();
+    var self = this
+    self.build()
+    self.default().position()
     
     // run routines
     
-    self.run( 1,1,1 ).light.move();
+    self.run( 1,1,1 ).light.move()
     
     // draw
     
-    self.render();
-    self.running = true;
+    self.render()
+    self.running = true
   }
   
   viz.prototype.start = function(){
-    var self = this;
-    self.running = true;
+    var self = this
+    self.running = true
   }
   
   viz.prototype.stop = function(){
-    var self = this;
-    self.running = false;
+    var self = this
+    self.running = false
   }
   
   viz.prototype.clear = function(){
-    var self = this;
-    self.transforms.clear();
+    var self = this
+    self.transforms.clear()
   }
   
   viz.prototype.showAxis = function(){
-    var self = this;
-    self.axis = new THREE.AxisHelper( 5 );
-    self.scene.add( self.axis );
+    var self = this
+    self.axis = new THREE.AxisHelper( 5 )
+    self.scene.add( self.axis )
   }
   
   viz.prototype.showGridHelper = function(){
-    var self = this;
-    self.gridHelper = new THREE.GridHelper( 10, 1 );
-    self.scene.add( self.gridHelper );
+    var self = this
+    self.gridHelper = new THREE.GridHelper( 10, 1 )
+    self.scene.add( self.gridHelper )
   }
   
   viz.prototype.setupFloor = function(){
-    var self = this;
+    var self = this
     self.floor = new THREE.Mesh( 
-      new THREE.BoxGeometry( 20, .1, 20 ), 
+      new THREE.BoxGeometry( 20, 20, .1 ), 
       new THREE.MeshPhongMaterial()
     )
-    self.floor.receiveShadow = true;
+    self.floor.receiveShadow = true
     self.scene.add( self.floor )
   }
   
   viz.prototype.pCam = function(){
-    var self = this;
+    var self = this
     self.camera = new THREE.PerspectiveCamera( 
       75, 
       window.innerWidth / window.innerHeight, 
@@ -140,21 +131,21 @@ function(
     
     // setup camera controls
     
-    self.cameraControls = new THREE.TrackballControls( self.camera );
-    self.cameraControls.rotateSpeed = 1.0;
-    self.cameraControls.zoomSpeed = 1.2;
-    self.cameraControls.panSpeed = 0.8;
-    self.cameraControls.noZoom = false;
-    self.cameraControls.noPan = false;
-    self.cameraControls.staticMoving = true;
-    self.cameraControls.dynamicDampingFactor = 0.3;
-    self.cameraControls.keys = [ 37, 38, 39 ];
+    self.cameraControls = new THREE.TrackballControls( self.camera )
+    self.cameraControls.rotateSpeed = 1.0
+    self.cameraControls.zoomSpeed = 1.2
+    self.cameraControls.panSpeed = 0.8
+    self.cameraControls.noZoom = false
+    self.cameraControls.noPan = false
+    self.cameraControls.staticMoving = true
+    self.cameraControls.dynamicDampingFactor = 0.3
+    self.cameraControls.keys = [ 37, 38, 39 ]
   }
   
   viz.prototype.oCam = function(){
-    var self = this;
-    var d = 5;
-    var aspect = window.innerWidth / window.innerHeight;
+    var self = this
+    var d = 5
+    var aspect = window.innerWidth / window.innerHeight
     self.camera = new THREE.OrthographicCamera( 
       -d * aspect, 
       d * aspect, 
@@ -162,34 +153,34 @@ function(
       -d, 
       1, 
       1000
-    );
-    self.camera.position.set( d, d, d );
-    self.camera.lookAt( 0, 0, 0 );
-    self.cameraControls = new THREE.OrthographicTrackballControls( self.camera );
-    self.cameraControls.rotateSpeed = 1.0;
-    self.cameraControls.zoomSpeed = 1.2;
-    self.cameraControls.panSpeed = 0.8;
-    self.cameraControls.noZoom = false;
-    self.cameraControls.noPan = false;
-    self.cameraControls.staticMoving = true;
-    self.cameraControls.dynamicDampingFactor = 0.3;
-    self.cameraControls.keys = [ 37, 38, 39 ];
+    )
+    self.camera.position.set( 0, 0, d*20 )
+    self.camera.lookAt( 0, 0, 0 )
+    self.cameraControls = new THREE.OrthographicTrackballControls( self.camera )
+    self.cameraControls.rotateSpeed = 1.0
+    self.cameraControls.zoomSpeed = 1.2
+    self.cameraControls.panSpeed = 0.8
+    self.cameraControls.noZoom = false
+    self.cameraControls.noPan = false
+    self.cameraControls.staticMoving = true
+    self.cameraControls.dynamicDampingFactor = 0.3
+    self.cameraControls.keys = [ 37, 38, 39 ]
   }
   
   viz.prototype.switchCam = function(){
-    var self = this;
-    self.setupCamera( !self.isOrthoCam );
+    var self = this
+    self.setupCamera( !self.isOrthoCam )
   }
   
   viz.prototype.setupCamera = function( isOrthoCam ){
-    var self = this;
+    var self = this
     self.isOrthoCam = isOrthoCam;
     ( !isOrthoCam ) ? self.oCam() : self.pCam();
   }
   
   viz.prototype.setupGUI = function(){
-    var self = this;
-    self.gui = new dat.GUI();
+    var self = this
+    self.gui = new dat.GUI()
     
     // camera
     
@@ -217,10 +208,10 @@ function(
   }
   
   viz.prototype.setupRenderer = function(){
-    var self = this;
-    self.config.elem.innerHTML = '';
-    self.renderer = new THREE.WebGLRenderer();
-    self.renderer.setSize( window.innerWidth, window.innerHeight );
+    var self = this
+    self.config.elem.innerHTML = ''
+    self.renderer = new THREE.WebGLRenderer()
+    self.renderer.setSize( window.innerWidth, window.innerHeight )
     
     // shadow map
     
@@ -230,7 +221,7 @@ function(
     self.renderer.gammaOutput = true;
     
     window.addEventListener( "resize", function(){
-        self.renderer.setSize( window.innerWidth, window.innerHeight );
+      self.renderer.setSize( window.innerWidth, window.innerHeight );
     })
     
     // append rendered element
@@ -276,23 +267,12 @@ function(
       cube: {
         move: function(){
           self.transforms.add( function( i ){
-            _.each( self.cubes, function( cube ){
-              
-              // hits wall
-              
-              var wallz = Math.abs( cube.mesh.position.z ) > 10;
-              var wallx = Math.abs( cube.mesh.position.x ) > 10;
-              
-              if ( wallz || self.paddle.isTouching( cube.mesh )){
-                  self.sfx.bop();
-                  z = z*-1;
-              }
-              if ( wallx ){
-                  self.sfx.bop();
-                  x = x*-1;
-              }
-              cube.mesh.position.z += z;
-              cube.mesh.position.x += x;
+            _.each( self.sprites, function( sprite ){
+              sprite.physics(
+                sprite,
+                self.paddle,
+                self.sprites
+              )
             })
           })
         }
