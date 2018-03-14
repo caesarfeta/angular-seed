@@ -15,6 +15,8 @@ require.config({
     topojson: 'bower_components/topojson/topojson',
     threejs: 'bower_components/three.js/build/three',
     THREE: 'lib/THREE',
+    'THREE.TrackballControls': 'bower_components/three.js/examples/js/controls/TrackballControls',
+    'THREE.OrthographicTrackballControls': 'bower_components/three.js/examples/js/controls/OrthographicTrackballControls',
     'THREE.OBJExporter': 'bower_components/three.js/examples/js/exporters/OBJExporter',
     'THREE.OBJLoader': 'bower_components/three.js/examples/js/loaders/OBJLoader',
     'THREE.STLLoader': 'bower_components/three.js/examples/js/loaders/STLLoader',
@@ -76,6 +78,12 @@ require.config({
       deps: ['THREE']
     },
     'THREE.MeshLine': {
+      deps: ['THREE']
+    },
+    'THREE.TrackballControls': {
+      deps: ['THREE']
+    },
+    'THREE.OrthographicTrackballControls': {
       deps: ['THREE']
     },
     stats: {

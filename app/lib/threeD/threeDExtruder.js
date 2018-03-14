@@ -3,14 +3,31 @@ define([
 'lodash',
 'THREE',
 '../utils/utils',
+'../viz/viz'
 ],
 function( 
   module,
   _,
   THREE,
-  utils ){
+  utils,
+  viz ){
   'use strict';
   module
+  .directive( 'threeDPong', [
+    function(){
+      return {
+        link: function( scope, elem ){
+          var cnsl = new viz({
+            elem: $( elem ).get(0)
+          })
+          cnsl.build()
+          cnsl.reset()
+          cnsl.run( .1, .1 ).cube.move()
+          
+        }
+      }
+    }
+  ])
   .directive( 'threeDExtruder', [
     function(){
       return {

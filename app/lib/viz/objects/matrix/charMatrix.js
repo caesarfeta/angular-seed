@@ -15,17 +15,11 @@ function(
       scene: undefined,
       color: 0xFFFFFF,
       size: 1,
-      matrix: [ 
-        
-        ' #', 
-        '## ', 
-        ' # ',
-        ' # ',
-        '###' 
-        
-      ]
     })
     _.merge( self, config )
+    if ( !self.matrix ){
+      self.matrix = [ '#' ]
+    }
     self.build()
   }
   

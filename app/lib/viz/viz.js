@@ -8,7 +8,7 @@ define([
 './objects/matrix/cubeMatrix',
 './objects/matrix/charMatrix',
 './objects/matrix/imgMatrix',
-'./objects/lsys/LSYS',
+'./objects/sprites/space_invaders',
 'dat.gui',
 'lib/sounds/sfx',
 'lib/sounds/music',
@@ -28,7 +28,7 @@ function(
   cubeMatrix,
   charMatrix,
   imgMatrix,
-  LSYS,
+  invaders,
   dat,
   sfx,
   music ){
@@ -40,32 +40,34 @@ function(
     self.config = config;
     self.sfx = new sfx();
     self.music = new music();
-    
-    // setup gui
-    
+    /*
     if ( !!config.lsys ){
       LSYS.Sys( 12, 90, 'FX', 'X=X+YF+', 'Y=-FX-Y' )
     }
+    */
   };
   
   viz.prototype.build = function(){
     var self = this;
     self.scene = new THREE.Scene();
     self.transforms = new threeTrans();
-    self.imgMatrix = new imgMatrix({ 
-      scene: self.scene, 
-      url: 'https://www.gravatar.com/avatar/ae0b276e2b4ba1293eee43e9f0236760?s=32&d=identicon&r=PG&f=1',
-    });
     self.setupRenderer();
     self.setupCamera( true );
     
-    // self.cubeMatrix = new cubeMatrix({ scene: self.scene });
-    // self.cubeMatrix.build( 10, 10 );
+    // self.imgMatrix = new imgMatrix({ 
+    //   scene: self.scene, 
+    //   url: 'https://www.gravatar.com/avatar/ae0b276e2b4ba1293eee43e9f0236760?s=32&d=identicon&r=PG&f=1'
+    // })
     
-    self.charMatrix = new charMatrix({
-      scene: self.scene,
-      color: 0xFF0000,
-    })
+    // self.cubeMatrix.build( 10, 10 )
+    // self.charMatrix = new charMatrix({
+    //   scene: self.scene,
+    //   color: 0xFF0000,
+    // })
+    
+    var d = invaders( self.scene )
+    console.log( d )
+//    self.cubes =  _.compact( _.flatten( c.cubes ))
     
     self.light = new cmyLights({ scene: self.scene });
     self.setupFloor();
