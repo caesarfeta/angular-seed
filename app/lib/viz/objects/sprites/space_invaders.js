@@ -38,12 +38,8 @@ function(
           '#       #',
           '1FC0D9'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -59,12 +55,8 @@ function(
           '  #####  ',
           '8CC537'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -80,12 +72,8 @@ function(
           '  #    #  ',
           '8CC537'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -101,12 +89,8 @@ function(
           '##    ##',
           'BB9562'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -122,12 +106,8 @@ function(
           '##      ##',
           '8CC537'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -143,12 +123,8 @@ function(
           '  ##  ##  ',
           '8F118A'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -163,12 +139,8 @@ function(
           ' # # # # ',
           'ED0C19'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -184,16 +156,12 @@ function(
           '# #  # #',
           '2AB242'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
-        id: '',
+        id: 'yellow_ship',
         art: [
           '     #######     ',
           '   ###########   ',
@@ -204,11 +172,9 @@ function(
           '    #       #    ',
           'FEDF32'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
+        init: function( self, sprites ){},
         physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
+          //self.art.explode()
         }
       },
       
@@ -225,12 +191,8 @@ function(
           ' ##  ## ',
           '0F6DBA'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -245,12 +207,8 @@ function(
           '#      #',
           'EC1689'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -260,12 +218,8 @@ function(
           '#',
           'EBEDEC'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -277,12 +231,8 @@ function(
           '#########',
           'EBEDEC'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -297,12 +247,8 @@ function(
           '# # # #',
           'F45D1F'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -319,12 +265,8 @@ function(
           ' ##   ## ',
           'BF0C55'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -341,12 +283,8 @@ function(
           '#  # #  #',
           '46108F'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       },
       
       {
@@ -361,12 +299,8 @@ function(
           ' #     # ',
           '34968A'
         ],
-        init: function( self, sprites ){
-          console.log( self, sprites )
-        },
-        physics: function( self, player, sprites ){
-          console.log( self, player, sprites )
-        }
+        init: function( self, sprites ){},
+        physics: function( self, player, sprites ){}
       }
       
     ].map(

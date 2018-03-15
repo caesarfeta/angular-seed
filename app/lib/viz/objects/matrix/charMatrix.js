@@ -7,9 +7,8 @@ function(
   THREE,
   _,
   vizCube ){
-  
   var charMatrix = function( config ){
-    var self = this;
+    var self = this
     _.merge( self, {
       cubes: [],
       scene: undefined,
@@ -22,15 +21,21 @@ function(
     }
     self.build()
   }
-  
+  charMatrix.prototype.explode = function(){
+    var self = this
+    console.log( 'TODO: explode' )
+  }
+  charMatrix.prototype.remove = function(){
+    console.log( 'TODO: remove' )
+  }
   charMatrix.prototype.build = function(){
-    var self = this;
+    var self = this
     
     // rows
     
     _.eachRight( self.matrix, function( chars, r ){
-      r = self.matrix.length - r;
-      self.cubes[r]=[];
+      r = self.matrix.length - r
+      self.cubes[r]=[]
       
       // columns
       
@@ -42,12 +47,12 @@ function(
           scene: self.scene, 
           color: self.color 
         })
-        cube.mesh.position.x = cube.mesh.scale.x*c;
-        cube.mesh.position.y = cube.mesh.scale.y*r;
-        cube.mesh.position.z = 0;
-        self.cubes[r][c] = cube;
+        cube.mesh.position.x = cube.mesh.scale.x*c
+        cube.mesh.position.y = cube.mesh.scale.y*r
+        cube.mesh.position.z = 0
+        self.cubes[r][c] = cube
       })
     })
   }
   return charMatrix
-});
+})

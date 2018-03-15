@@ -66,6 +66,11 @@ function(
     _.each( self.sprites, function( sprite ){
       sprite.init( sprite, self.sprites )
     })
+    
+    // define a color palette
+    
+    self.palette = {}
+    self.levels = {}
   }
   
   viz.prototype.reset = function(){
@@ -113,9 +118,10 @@ function(
   viz.prototype.setupFloor = function(){
     var self = this
     self.floor = new THREE.Mesh( 
-      new THREE.BoxGeometry( 20, 20, .1 ), 
+      new THREE.BoxGeometry( 20, 2000, .1 ), 
       new THREE.MeshPhongMaterial()
     )
+    console.log( self.floor )
     self.floor.receiveShadow = true
     self.scene.add( self.floor )
   }
@@ -146,25 +152,32 @@ function(
     var self = this
     var d = 5
     var aspect = window.innerWidth / window.innerHeight
-    self.camera = new THREE.OrthographicCamera( 
-      -d * aspect, 
-      d * aspect, 
-      d, 
-      -d, 
-      1, 
-      1000
-    )
-    self.camera.position.set( 0, 0, d*20 )
-    self.camera.lookAt( 0, 0, 0 )
-    self.cameraControls = new THREE.OrthographicTrackballControls( self.camera )
-    self.cameraControls.rotateSpeed = 1.0
-    self.cameraControls.zoomSpeed = 1.2
-    self.cameraControls.panSpeed = 0.8
-    self.cameraControls.noZoom = false
-    self.cameraControls.noPan = false
-    self.cameraControls.staticMoving = true
-    self.cameraControls.dynamicDampingFactor = 0.3
-    self.cameraControls.keys = [ 37, 38, 39 ]
+    
+    self.camera = new THREE.OrthographicCamera()
+    self.camera.left = window.innerWidth / -2
+    self.camera.right = window.innerWidth / 2
+    self.camera.top = window.innerHeight / 2
+    self.camera.bottom = window.innerHeight / -2
+    self.camera.near = 0.1
+    self.camera.far = 1500
+    self.camera.updateProjectionMatrix()
+    
+    // position and point the camera to the center of the scene
+    
+    self.camera.position.x = 0
+    self.camera.position.y = 0
+    self.camera.position.z = 5
+    self.camera.lookAt( self.scene.position )
+    window.camera = self.camera
+    // self.cameraControls = new THREE.OrthographicTrackballControls( self.camera )
+    // self.cameraControls.rotateSpeed = 1.0
+    // self.cameraControls.zoomSpeed = 1.2
+    // self.cameraControls.panSpeed = 0.8
+    // self.cameraControls.noZoom = false
+    // self.cameraControls.noPan = false
+    // self.cameraControls.staticMoving = true
+    // self.cameraControls.dynamicDampingFactor = 0.3
+    // self.cameraControls.keys = [ 37, 38, 39 ]
   }
   
   viz.prototype.switchCam = function(){
@@ -236,7 +249,11 @@ function(
   viz.prototype.render = function(){
     var self = this;
     requestAnimationFrame( function(){ return self.render() });
-    self.cameraControls.update();
+    
+    // update camera controls
+    //self.cameraControls.update();
+    self.camera.position.y += 1
+    
     if ( self.running ){
       self.transforms.run();
     }
