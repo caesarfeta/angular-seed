@@ -44,7 +44,22 @@ function(
           scene.add( self.art.group )
         },
         physics: function( self, player, sprites, scene, sfx, i ){
-          // console.log( i )
+          self.art.group.position.x += .25
+          self.art.group.position.y += -.1
+          
+          // hits wall
+          
+          var wallx = Math.abs( self.art.group.position.x ) > 10
+          if ( player.isTouching( self.art.group )){
+            sfx.wah()
+          }
+          if ( self.art.group.position.y < -10 ){
+            self.art.group.position.y = 10
+          }
+          if ( wallx ){
+            sfx.bop()
+            self.art.group.position.x *= -1
+          }
         }
       },
       

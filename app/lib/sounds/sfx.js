@@ -1,7 +1,8 @@
 define([
+'lodash',
 'timbre'
 ],
-function(){
+function( _ ){
     var sfx = function(){
         var self = this;
     }
@@ -13,7 +14,7 @@ function(){
       return 1000 * (( v != undefined ) ? v : d )
     }
     function play( sound, t ){
-      T( "perc", {r:seconds( t, .5 )}, sound )
+      T( "perc", { r:seconds( t, .5 )}, sound )
       .on( "ended", function(){
         this.pause()
       })
@@ -49,11 +50,11 @@ function(){
     }
     
     sfx.prototype.saw = function( time ){
-      var saw = saw({
+      var s = saw({
         freq: 50, 
         mul: 0.75
       })
-      play( saw, time )
+      play( s, time )
     }
     
     sfx.prototype.laser = function( time ){

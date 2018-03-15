@@ -5,9 +5,7 @@ define([
 './stage/cmyLights',
 './objects/cube',
 './objects/player',
-'./objects/matrix/cubeMatrix',
 './objects/matrix/charMatrix',
-'./objects/matrix/imgMatrix',
 './objects/sprites/space_invaders',
 'dat.gui',
 'lib/sounds/sfx',
@@ -25,9 +23,7 @@ function(
   cmyLights,
   cube,
   paddle,
-  cubeMatrix,
   charMatrix,
-  imgMatrix,
   invaders,
   dat,
   sfx,
@@ -40,6 +36,7 @@ function(
     self.config = config
     self.sfx = new sfx()
     self.music = new music()
+    window.sfx = self.sfx
   }
   
   viz.prototype.build = function(){
@@ -48,12 +45,6 @@ function(
     self.transforms = new threeTrans()
     self.setupRenderer()
     self.setupCamera( !true )
-    
-    // self.imgMatrix = new imgMatrix({ 
-    //   scene: self.scene, 
-    //   url: 'https://www.gravatar.com/avatar/ae0b276e2b4ba1293eee43e9f0236760?s=32&d=identicon&r=PG&f=1'
-    // })
-    
     self.setupFloor()
     self.light = new cmyLights({
       scene: self.scene
@@ -66,7 +57,6 @@ function(
     _.each( self.sprites, function( sprite ){
       sprite.init( sprite, self.sprites, self.scene )
     })
-    window.sprites = self.sprites
     
     // define a color palette
     
@@ -113,7 +103,7 @@ function(
     self.floor = new THREE.Mesh( 
       new THREE.BoxGeometry( 20, 2000, .1 ), 
       new THREE.MeshPhongMaterial({
-        color: '#222222'
+        color: '#030303'
       })
     )
     self.floor.receiveShadow = true
@@ -125,11 +115,8 @@ function(
     window.floor = self.floor
   }
   
-  viz.prototype.oCam = function(){
+  viz.prototype.resetCamera = function(){
     var self = this
-    var d = 5
-    var aspect = window.innerWidth / window.innerHeight
-    self.camera = new THREE.OrthographicCamera()
     self.camera.left = window.innerWidth / -2
     self.camera.right = window.innerWidth / 2
     self.camera.top = window.innerHeight / 2
@@ -138,6 +125,14 @@ function(
     self.camera.far = 1500
     self.camera.zoom = 25
     self.camera.updateProjectionMatrix()
+  }
+  
+  viz.prototype.oCam = function(){
+    var self = this
+    var d = 5
+    var aspect = window.innerWidth / window.innerHeight
+    self.camera = new THREE.OrthographicCamera()
+    self.resetCamera()
     
     // position and point the camera to the center of the scene
     
@@ -184,6 +179,7 @@ function(
     
     window.addEventListener( "resize", function(){
       self.renderer.setSize( window.innerWidth, window.innerHeight );
+      self.resetCamera()
     })
     
     // append rendered element
@@ -197,13 +193,9 @@ function(
   
   viz.prototype.render = function(){
     var self = this;
-    requestAnimationFrame( function(){ return self.render() })
-    
-    // update camera controls
-    //self.cameraControls.update();
-    //self.camera.position.y += 1
-    //self.paddle.mesh.position.y += 1
-    
+    requestAnimationFrame( function(){
+      return self.render()
+    })
     if ( self.running ){
       self.transforms.run()
     }
@@ -213,13 +205,10 @@ function(
   
   ///////////////////////////////// run
   
-  viz.prototype.run = function( x, y, z ){ 
-    var self = this;
-    y = ( y != undefined ) ? y : 0;
-    z = ( z != undefined ) ? z : 0;
-    self.start();
+  viz.prototype.run = function(){ 
+    var self = this
+    self.start()
     return{
-      
       cube: {
         move: function(){
           self.transforms.add( function( i ){
@@ -234,42 +223,6 @@ function(
               )
             })
           })
-        }
-      },
-      
-      // lights
-      
-      light: {
-        move: function(){
-          self.light.reset();
-          self.transforms.add( function( i ){
-            var j = 0;
-            _.each( self.light.spot, function( spot ){
-              spot.light.position.z += Math.sin( i*.05 + j )*z;
-              spot.light.position.y = 5;
-              spot.light.position.x += Math.sin( i*.05 + j )*x;
-              j++;
-            })
-          });
-        }
-      },
-      
-      // camera
-      
-      camera: {
-        rotate: function(){
-          self.transforms.add( function(){
-            self.camera.rotation.z += z;
-            self.camera.rotation.y += y;
-            self.camera.rotation.x += x;
-          });
-        },
-        move: function(){
-          self.transforms.add( function(){
-            self.camera.position.z += z;
-            self.camera.position.y += y;
-            self.camera.position.x += x;
-          });
         }
       }
     }

@@ -27,8 +27,6 @@ function( THREE, _ ){
     )
     self.mesh.receiveShadow = true
     self.mesh.castShadow = true
-    self.mesh.position.y = -9
-    self.mesh.position.z = 1
     self.scene.add( self.mesh )
     
     // mouse movement
