@@ -24,9 +24,9 @@ function(
         shininess: self.shine
       })
     )
-    self.mesh.receiveShadow = true;
-    self.mesh.castShadow = true;
-    self.scene.add( self.mesh );
+    self.mesh.receiveShadow = true
+    self.mesh.castShadow = true
+    return self.mesh
   };
   
   return cube

@@ -4,7 +4,7 @@ define([
 './threeTrans',
 './stage/cmyLights',
 './objects/cube',
-'./objects/paddle',
+'./objects/player',
 './objects/matrix/cubeMatrix',
 './objects/matrix/charMatrix',
 './objects/matrix/imgMatrix',
@@ -64,8 +64,9 @@ function(
     })
     self.sprites = invaders( self.scene )
     _.each( self.sprites, function( sprite ){
-      sprite.init( sprite, self.sprites )
+      sprite.init( sprite, self.sprites, self.scene )
     })
+    window.sprites = self.sprites
     
     // define a color palette
     
@@ -76,14 +77,6 @@ function(
   viz.prototype.reset = function(){
     var self = this
     self.build()
-    self.default().position()
-    
-    // run routines
-    
-    self.run( 1,1,1 ).light.move()
-    
-    // draw
-    
     self.render()
     self.running = true
   }
@@ -119,40 +112,23 @@ function(
     var self = this
     self.floor = new THREE.Mesh( 
       new THREE.BoxGeometry( 20, 2000, .1 ), 
-      new THREE.MeshPhongMaterial()
+      new THREE.MeshPhongMaterial({
+        color: '#222222'
+      })
     )
-    console.log( self.floor )
     self.floor.receiveShadow = true
     self.scene.add( self.floor )
-  }
-  
-  viz.prototype.pCam = function(){
-    var self = this
-    self.camera = new THREE.PerspectiveCamera( 
-      75, 
-      window.innerWidth / window.innerHeight, 
-      0.1,
-      1000 
-    );
     
-    // setup camera controls
+    // go to bottom of the floor
     
-    self.cameraControls = new THREE.TrackballControls( self.camera )
-    self.cameraControls.rotateSpeed = 1.0
-    self.cameraControls.zoomSpeed = 1.2
-    self.cameraControls.panSpeed = 0.8
-    self.cameraControls.noZoom = false
-    self.cameraControls.noPan = false
-    self.cameraControls.staticMoving = true
-    self.cameraControls.dynamicDampingFactor = 0.3
-    self.cameraControls.keys = [ 37, 38, 39 ]
+    self.floor.position.y = self.floor.geometry.parameters.height / 2 - window.innerHeight / 2
+    window.floor = self.floor
   }
   
   viz.prototype.oCam = function(){
     var self = this
     var d = 5
     var aspect = window.innerWidth / window.innerHeight
-    
     self.camera = new THREE.OrthographicCamera()
     self.camera.left = window.innerWidth / -2
     self.camera.right = window.innerWidth / 2
@@ -160,6 +136,7 @@ function(
     self.camera.bottom = window.innerHeight / -2
     self.camera.near = 0.1
     self.camera.far = 1500
+    self.camera.zoom = 25
     self.camera.updateProjectionMatrix()
     
     // position and point the camera to the center of the scene
@@ -169,26 +146,11 @@ function(
     self.camera.position.z = 5
     self.camera.lookAt( self.scene.position )
     window.camera = self.camera
-    // self.cameraControls = new THREE.OrthographicTrackballControls( self.camera )
-    // self.cameraControls.rotateSpeed = 1.0
-    // self.cameraControls.zoomSpeed = 1.2
-    // self.cameraControls.panSpeed = 0.8
-    // self.cameraControls.noZoom = false
-    // self.cameraControls.noPan = false
-    // self.cameraControls.staticMoving = true
-    // self.cameraControls.dynamicDampingFactor = 0.3
-    // self.cameraControls.keys = [ 37, 38, 39 ]
-  }
-  
-  viz.prototype.switchCam = function(){
-    var self = this
-    self.setupCamera( !self.isOrthoCam )
   }
   
   viz.prototype.setupCamera = function( isOrthoCam ){
     var self = this
-    self.isOrthoCam = isOrthoCam;
-    ( !isOrthoCam ) ? self.oCam() : self.pCam();
+    self.oCam()
   }
   
   viz.prototype.setupGUI = function(){
@@ -204,19 +166,6 @@ function(
       .max(50)
       .step(1)
       .listen()
-    })
-    
-    // lights
-    
-    _.each( self.light.spot, function( spot, id ){
-      self.gui[ id ] = self.gui.addFolder( id );
-      _.each( ['x', 'y', 'z' ], function( dim ){
-        self.gui[ id ].add( self.light.spot[ id ].light.position, dim )
-        .min(( dim == 'y' ) ? 0 : -10 )
-        .max(10)
-        .step(.25)
-        .listen()
-      })
     })
   }
   
@@ -243,33 +192,23 @@ function(
     
     // get fps stats
     
-    self.stats = new vizStats({ elem: self.config.elem });
+    self.stats = new vizStats({ elem: self.config.elem })
   }
   
   viz.prototype.render = function(){
     var self = this;
-    requestAnimationFrame( function(){ return self.render() });
+    requestAnimationFrame( function(){ return self.render() })
     
     // update camera controls
     //self.cameraControls.update();
-    self.camera.position.y += 1
+    //self.camera.position.y += 1
+    //self.paddle.mesh.position.y += 1
     
     if ( self.running ){
-      self.transforms.run();
+      self.transforms.run()
     }
-    self.renderer.render( self.scene, self.camera );
-    self.stats.update();
-  };
-  
-  viz.prototype.default = function(){
-    var self = this;
-    return {
-      position: function(){
-        self.camera.position.x = 0;
-        self.camera.position.y = 17;
-        self.camera.position.z = 14;
-      }
-    }
+    self.renderer.render( self.scene, self.camera )
+    self.stats.update()
   };
   
   ///////////////////////////////// run
@@ -288,7 +227,10 @@ function(
               sprite.physics(
                 sprite,
                 self.paddle,
-                self.sprites
+                self.sprites,
+                self.scene,
+                self.sfx,
+                i
               )
             })
           })

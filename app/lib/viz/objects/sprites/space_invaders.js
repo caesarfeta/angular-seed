@@ -38,8 +38,14 @@ function(
           '#       #',
           '1FC0D9'
         ],
-        init: function( self, sprites ){},
-        physics: function( self, player, sprites ){}
+        init: function( self, sprites, scene ){
+          self.art.group.position.y = 5
+          self.art.group.scale.set( .25, .25, .25 )
+          scene.add( self.art.group )
+        },
+        physics: function( self, player, sprites, scene, sfx, i ){
+          // console.log( i )
+        }
       },
       
       {

@@ -11,7 +11,6 @@ function(
     var self = this
     _.merge( self, {
       cubes: [],
-      scene: undefined,
       color: 0xFFFFFF,
       size: 1,
     })
@@ -30,7 +29,7 @@ function(
   }
   charMatrix.prototype.build = function(){
     var self = this
-    
+    self.group = new THREE.Group()
     // rows
     
     _.eachRight( self.matrix, function( chars, r ){
@@ -44,13 +43,13 @@ function(
           return
         }
         var cube = new vizCube({ 
-          scene: self.scene, 
           color: self.color 
         })
-        cube.mesh.position.x = cube.mesh.scale.x*c
-        cube.mesh.position.y = cube.mesh.scale.y*r
-        cube.mesh.position.z = 0
+        cube.position.x = cube.scale.x*c
+        cube.position.y = cube.scale.y*r
+        cube.position.z = 0
         self.cubes[r][c] = cube
+        self.group.add( cube )
       })
     })
   }
