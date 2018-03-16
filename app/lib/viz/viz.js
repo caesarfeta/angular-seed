@@ -10,6 +10,7 @@ define([
 'dat.gui',
 'lib/sounds/sfx',
 'lib/sounds/music',
+'./ascii_font',
 
 // don't need to be namespaced
 
@@ -27,7 +28,10 @@ function(
   invaders,
   dat,
   sfx,
-  music ){
+  music,
+  ascii ){
+  
+  window.ascii = ascii
   
   // test threejs
   
