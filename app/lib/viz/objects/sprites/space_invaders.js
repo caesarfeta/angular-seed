@@ -51,13 +51,13 @@ function(
           
           var wallx = Math.abs( self.art.group.position.x ) > 10
           if ( player.isTouching( self.art.group )){
-            sfx.wah()
+            //sfx.wah()
           }
           if ( self.art.group.position.y < -10 ){
             self.art.group.position.y = 10
           }
           if ( wallx ){
-            sfx.bop()
+            //sfx.bop()
             self.art.group.position.x *= -1
           }
         }

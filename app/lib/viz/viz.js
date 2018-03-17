@@ -10,7 +10,7 @@ define([
 'dat.gui',
 'lib/sounds/sfx',
 'lib/sounds/music',
-'./ascii_font',
+'./ascii_3d',
 
 // don't need to be namespaced
 
@@ -46,6 +46,7 @@ function(
   viz.prototype.build = function(){
     var self = this
     self.scene = new THREE.Scene()
+    window.scene = self.scene
     self.transforms = new threeTrans()
     self.setupRenderer()
     self.setupCamera( !true )
@@ -62,10 +63,23 @@ function(
       sprite.init( sprite, self.sprites, self.scene )
     })
     
-    // define a color palette
+    // draw controls
     
-    self.palette = {}
-    self.levels = {}
+    self.display()
+  }
+  
+  viz.prototype.display = function(){
+    var self = this
+    
+    var score = ascii( 'score', 'poison' )
+    scene.add( score )
+    score.scale.set( .10, .15, .15)
+    score.position.set( -18, 13, 0 )
+    
+    var invaders = ascii( 'abcdefghijklmnop', 'space_invaders')
+    invaders.scale.set( .15, .15, .15)
+    window.invaders = invaders
+    scene.add( invaders )
   }
   
   viz.prototype.reset = function(){
