@@ -77,7 +77,7 @@ function(
     score.position.set( -18, 13, 0 )
     
     var invaders = ascii( 'abcdefghijklmnop', 'space_invaders')
-    invaders.scale.set( .15, .15, .15)
+    invaders.scale.set( .25, .25, .25)
     window.invaders = invaders
     scene.add( invaders )
   }
