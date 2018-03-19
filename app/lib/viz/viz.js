@@ -60,7 +60,7 @@ function(
     })
     self.sprites = invaders( self.scene )
     _.each( self.sprites, function( sprite ){
-      sprite.init( sprite, self.sprites, self.scene )
+      //sprite.init( sprite, self.sprites, self.scene )
     })
     
     // draw controls
