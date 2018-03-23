@@ -2,17 +2,20 @@ define([
 'lodash',
 './fonts/poison',
 './fonts/elec',
-'./fonts/space_invaders'
+'./fonts/space_invaders',
+'./fonts/pattern_pow'
 ],
 function(
   _,
   poison,
   elec,
-  space_invaders ){
+  space_invaders,
+  pattern_pow ){
 config = [
   poison,
   elec,
-  space_invaders
+  space_invaders,
+  pattern_pow
 ]
 return function( str, id ){
   var item = _.find( config, function( item ){

@@ -40,6 +40,7 @@ function(
     self.config = config
     self.sfx = new sfx()
     self.music = new music()
+    self.clock = 0
     window.sfx = self.sfx
   }
   
@@ -58,28 +59,40 @@ function(
       elem: self.config.elem,
       scene: self.scene
     })
-    self.sprites = invaders( self.scene )
-    _.each( self.sprites, function( sprite ){
-      //sprite.init( sprite, self.sprites, self.scene )
-    })
     
     // draw controls
     
     self.display()
   }
   
+  function mover( c, func ){
+    return [ func( c[0]), func( c[1]) ] 
+  }
+  viz.prototype.mon = function monsters(){
+    var self = this
+    var m = []
+    for ( var i=0; i<6; i++ ){
+      m[i] = ascii( 'b', 'pattern_pow' )
+      m[i].scale.set( .25, .25, .25 )
+      m[i].position.x += Math.sin( i )*2
+      m[i].position.y += Math.cos( i )*2
+      scene.add( m[i] )
+    }
+    self.monsters = m
+  }
+  
   viz.prototype.display = function(){
     var self = this
-    
-    var score = ascii( 'score', 'poison' )
-    scene.add( score )
-    score.scale.set( .10, .15, .15)
-    score.position.set( -18, 13, 0 )
-    
-    var invaders = ascii( 'abcdefghijklmnop', 'space_invaders')
-    invaders.scale.set( .25, .25, .25)
-    window.invaders = invaders
-    scene.add( invaders )
+    self.mon()
+  }
+  
+  viz.prototype.move = function( i ){
+    var self = this
+    console.log( self.monsters )
+    _.each( self.monsters, function( monster, z ){
+      monster.position.x += Math.sin( z+i*.05 )*.25
+      monster.position.y += Math.cos( z+i*.05 )*.25
+    })
   }
   
   viz.prototype.reset = function(){
@@ -209,17 +222,18 @@ function(
     self.stats = new vizStats({ elem: self.config.elem })
   }
   
-  viz.prototype.render = function(){
-    var self = this;
+  viz.prototype.render = function( i ){
+    var self = this
+    self.clock += 1
     requestAnimationFrame( function(){
-      return self.render()
+      return self.render( self.clock )
     })
     if ( self.running ){
-      self.transforms.run()
+      self.move( i )
     }
     self.renderer.render( self.scene, self.camera )
     self.stats.update()
-  };
+  }
   
   ///////////////////////////////// run
   
@@ -228,20 +242,7 @@ function(
     self.start()
     return{
       cube: {
-        move: function(){
-          self.transforms.add( function( i ){
-            _.each( self.sprites, function( sprite ){
-              sprite.physics(
-                sprite,
-                self.paddle,
-                self.sprites,
-                self.scene,
-                self.sfx,
-                i
-              )
-            })
-          })
-        }
+        move: function(){}
       }
     }
   }
