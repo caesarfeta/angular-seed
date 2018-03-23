@@ -3,14 +3,11 @@ define([
 './gui/vizStats',
 './threeTrans',
 './stage/cmyLights',
-'./objects/cube',
-'./objects/player',
-'./objects/matrix/charMatrix',
-'./objects/sprites/space_invaders',
 'dat.gui',
 'lib/sounds/sfx',
 'lib/sounds/music',
 './ascii_3d',
+'./monsters/spaceship_circle',
 
 // don't need to be namespaced
 
@@ -22,14 +19,11 @@ function(
   vizStats,
   threeTrans, 
   cmyLights,
-  cube,
-  paddle,
-  charMatrix,
-  invaders,
   dat,
   sfx,
   music,
-  ascii ){
+  ascii,
+  spaceship_circle ){
   
   window.ascii = ascii
   
@@ -51,48 +45,23 @@ function(
     self.transforms = new threeTrans()
     self.setupRenderer()
     self.setupCamera( !true )
-    self.setupFloor()
     self.light = new cmyLights({
       scene: self.scene
     })
-    self.paddle = new paddle({ 
-      elem: self.config.elem,
-      scene: self.scene
-    })
+    self.setupFloor()
     
     // draw controls
     
     self.display()
   }
-  
-  function mover( c, func ){
-    return [ func( c[0]), func( c[1]) ] 
-  }
-  viz.prototype.mon = function monsters(){
-    var self = this
-    var m = []
-    for ( var i=0; i<6; i++ ){
-      m[i] = ascii( 'b', 'pattern_pow' )
-      m[i].scale.set( .25, .25, .25 )
-      m[i].position.x += Math.sin( i )*2
-      m[i].position.y += Math.cos( i )*2
-      scene.add( m[i] )
-    }
-    self.monsters = m
-  }
-  
   viz.prototype.display = function(){
     var self = this
-    self.mon()
+    spaceship_circle.make( 6 )
   }
   
   viz.prototype.move = function( i ){
     var self = this
-    console.log( self.monsters )
-    _.each( self.monsters, function( monster, z ){
-      monster.position.x += Math.sin( z+i*.05 )*.25
-      monster.position.y += Math.cos( z+i*.05 )*.25
-    })
+    spaceship_circle.run( i )
   }
   
   viz.prototype.reset = function(){
