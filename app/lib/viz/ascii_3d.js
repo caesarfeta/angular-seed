@@ -45,6 +45,7 @@ function(
         group.add( cube )
       })
     })
+    group.name = 'wowza'
     return group
   }
 })

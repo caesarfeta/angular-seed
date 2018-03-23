@@ -22,7 +22,6 @@ function(
           })
           cnsl.build()
           cnsl.reset()
-          cnsl.run( .1, .1 ).cube.move()
           scope.$on( '$destroy', function(){
             cnsl.stop()
             $( elem ).get(0).remove()

@@ -1,13 +1,12 @@
 define([
 'threejs',
 './gui/vizStats',
-'./threeTrans',
-'./stage/cmyLights',
 'dat.gui',
 'lib/sounds/sfx',
 'lib/sounds/music',
 './ascii_3d',
 './monsters/spaceship_circle',
+'./objects/cube',
 
 // don't need to be namespaced
 
@@ -17,15 +16,34 @@ define([
 function( 
   THREE,
   vizStats,
-  threeTrans, 
-  cmyLights,
   dat,
   sfx,
   music,
   ascii,
-  spaceship_circle ){
+  spaceship_circle,
+  Cube ){
   
   window.ascii = ascii
+  
+  var cubeLight = function(){
+    var self = this
+    return self
+  }
+  cubeLight.prototype.make = function( scene ){
+    var self = this
+    self.light = new THREE.DirectionalLight( 0xFFFFFF, 0.5 )
+    self.light.position.z = 20
+    self.cube = new Cube()
+    scene.add( self.light )
+    self.cube.position.set( self.light.position )
+    scene.add( self.cube )
+  }
+  cubeLight.prototype.run = function( i ){
+    var self = this
+    self.cube.position.x = self.light.position.x
+    self.cube.position.y = self.light.position.y
+    self.cube.position.z = self.light.position.z
+  }
   
   // test threejs
   
@@ -35,33 +53,38 @@ function(
     self.sfx = new sfx()
     self.music = new music()
     self.clock = 0
-    window.sfx = self.sfx
+    window.viz = self
   }
   
-  viz.prototype.build = function(){
-    var self = this
-    self.scene = new THREE.Scene()
-    window.scene = self.scene
-    self.transforms = new threeTrans()
-    self.setupRenderer()
-    self.setupCamera( !true )
-    self.light = new cmyLights({
-      scene: self.scene
-    })
-    self.setupFloor()
-    
-    // draw controls
-    
-    self.display()
-  }
   viz.prototype.display = function(){
     var self = this
-    spaceship_circle.make( 6 )
+    self.showAxis()
+    self.setupFloor()
+    spaceship_circle.make( 4, self.scene )
+    
+    self.cubeLight = new cubeLight()
+    self.cubeLight.make( self.scene )
   }
   
   viz.prototype.move = function( i ){
     var self = this
     spaceship_circle.run( i )
+    self.cubeLight.run( i )
+    
+    // move that camera
+    
+    self.camera.position.x = Math.sin( i*.01 ) * 50
+    self.camera.position.z = Math.cos( i*.01 ) * 50
+    self.camera.position.y = Math.sin( i*.01 ) * 50
+    self.camera.lookAt( self.scene.position )
+  }
+  
+  viz.prototype.build = function(){
+    var self = this
+    self.scene = new THREE.Scene()
+    self.setupRenderer()
+    self.setupCamera( !true )
+    self.display()
   }
   
   viz.prototype.reset = function(){
@@ -83,7 +106,19 @@ function(
   
   viz.prototype.clear = function(){
     var self = this
-    self.transforms.clear()
+    for ( var i=0; i<self.scene.children.length; i++ ){
+      if ( self.scene.children[i].constructor == THREE.Group ){
+        self.scene.remove( self.scene.children[i] )
+      }
+    }
+    /*
+    // BTW this doesn't work -- though it should
+    _.each( self.scene.children, function( child ){
+      if ( child.consructor == THREE.Group ){
+        console.log( child )
+      }
+    })
+    */
   }
   
   viz.prototype.showAxis = function(){
@@ -101,18 +136,14 @@ function(
   viz.prototype.setupFloor = function(){
     var self = this
     self.floor = new THREE.Mesh( 
-      new THREE.BoxGeometry( 20, 2000, .1 ), 
+      new THREE.BoxGeometry( 20, 20, 1 ), 
       new THREE.MeshPhongMaterial({
-        color: '#030303'
+        color: 0xFFFF33
       })
     )
+    self.floor.position.z = -1
     self.floor.receiveShadow = true
     self.scene.add( self.floor )
-    
-    // go to bottom of the floor
-    
-    self.floor.position.y = self.floor.geometry.parameters.height / 2 - window.innerHeight / 2
-    window.floor = self.floor
   }
   
   viz.prototype.resetCamera = function(){
@@ -138,9 +169,8 @@ function(
     
     self.camera.position.x = 0
     self.camera.position.y = 0
-    self.camera.position.z = 5
+    self.camera.position.z = 15
     self.camera.lookAt( self.scene.position )
-    window.camera = self.camera
   }
   
   viz.prototype.setupCamera = function( isOrthoCam ){
@@ -177,7 +207,7 @@ function(
     self.renderer.gammaInput = true;
     self.renderer.gammaOutput = true;
     
-    window.addEventListener( "resize", function(){
+    window.addEventListener( 'resize', function(){
       self.renderer.setSize( window.innerWidth, window.innerHeight );
       self.resetCamera()
     })
@@ -202,18 +232,6 @@ function(
     }
     self.renderer.render( self.scene, self.camera )
     self.stats.update()
-  }
-  
-  ///////////////////////////////// run
-  
-  viz.prototype.run = function(){ 
-    var self = this
-    self.start()
-    return{
-      cube: {
-        move: function(){}
-      }
-    }
   }
   
   return viz
