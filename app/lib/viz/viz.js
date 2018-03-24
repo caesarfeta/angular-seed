@@ -6,8 +6,8 @@ define([
 'dat.gui',
 'lib/sounds/sfx',
 'lib/sounds/music',
-'./monsters/spaceship_circle',
-'./monsters/explosions',
+'./sprites/spaceship_circle',
+'./sprites/explosions',
 
 // don't need to be namespaced
 
@@ -62,7 +62,6 @@ function(
   viz.prototype.move = function( i ){
     var self = this
     spaceship_circle.run( i )
-    explosions.run( i )
     self.cubeLight.run( i )
     self.myCam.run( i )
   }

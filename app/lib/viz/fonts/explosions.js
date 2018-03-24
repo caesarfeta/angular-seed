@@ -2,65 +2,29 @@ define([],function(){
 return {
 id: 'explosions',
 palette: [
-  [ "@", "#66B6FF" ],
-  [ "#", "#FFFFFF" ],
-  [ "$", "#FFB666" ],
-  [ "%", "#0066B6" ],
-  [ "^", "#FFFFDB" ],
-  [ "&", "#903A00" ],
-  [ "*", "#000066" ],
-  [ "+", "#B6FFFF" ],
-  [ "=", "#FFFFB6" ],
-  [ "a", "#660000" ],
-  [ "b", "#003A90" ],
-  [ "c", "#DBFFFF" ],
-  [ "d", "#DB903A" ],
-  [ "e", "#FFDB90" ],
-  [ "f", "#B66600" ],
-  [ "g", "#3A90DB" ],
-  [ "h", "#90DBFF" ],
-  [ "i", "#9090DB" ],
-  [ "j", "#FFDBDB" ],
   [ "k", "#00FFDE" ],
   [ "l", "#DEDEDE" ],
-  [ "m", "#FF0000" ],
-  [ "n", "#0068DE" ],
-  [ "o", "#B8B8DE" ],
-  [ "p", "#009797" ],
-  [ "q", "#00B8DE" ],
-  [ "r", "#DE4700" ],
-  [ "s", "#FFFF00" ],
-  [ "t", "#FF00DE" ],
-  [ "u", "#9700DE" ],
-  [ "v", "#0000DE" ],
-  [ "w", "#FFB800" ],
-  [ "x", "#00FF00" ],
-  [ "y", "#90DBB6" ],
-  [ "z", "#DBFFB6" ],
-  [ "A", "#B6DB90" ],
-  [ "B", "#B6B6B6" ],
-  [ "C", "#DBDBFF" ],
-  [ "D", "#DBDBB6" ],
-  [ "E", "#DBDB90" ],
-  [ "F", "#DBFFDB" ],
-  [ "G", "#B6FFDB" ],
-  [ "H", "#66B6DB" ],
-  [ "I", "#903A66" ],
-  [ "J", "#DBB666" ],
-  [ "K", "#B6FFB6" ],
-  [ "L", "#66B6B6" ],
-  [ "M", "#663A90" ],
-  [ "N", "#90DBDB" ],
-  [ "O", "#660066" ],
-  [ "P", "#6666B6" ],
-  [ "Q", "#B800DE" ],
-  [ "R", "#242424" ],
-  [ "S", "#DB9090" ],
-  [ "T", "#B6B6FF" ],
-  [ "U", "#006666" ],
-  [ "V", "#DBDBDB" ]
+  [ "m", "#FF0000" ]
 ],
 glyphs: [
+`
+       l
+       l
+       l
+      lll
+      lll
+   m  lll  m
+   m  lll  m
+   l lllll l
+m  lnllmllnl  m
+m  nllmmmlln  m
+l  lllmlmlll  l
+l lllllllllll l
+lllllmlllmlllll
+lll mmlllmm lll
+ll  mm l mm  ll
+l      l      l
+`,
 `
                   l
            kk    k kk
