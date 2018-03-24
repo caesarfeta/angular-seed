@@ -1,12 +1,11 @@
 define([
 'threejs',
+'./stage/cubeLight',
 './gui/vizStats',
 'dat.gui',
 'lib/sounds/sfx',
 'lib/sounds/music',
-'./ascii_3d',
 './monsters/spaceship_circle',
-'./objects/cube',
 
 // don't need to be namespaced
 
@@ -15,39 +14,12 @@ define([
 ],
 function( 
   THREE,
+  cubeLight,
   vizStats,
   dat,
   sfx,
   music,
-  ascii,
-  spaceship_circle,
-  Cube ){
-  
-  window.ascii = ascii
-  
-  var cubeLight = function(){
-    var self = this
-    return self
-  }
-  cubeLight.prototype.make = function( scene ){
-    var self = this
-    self.light = new THREE.PointLight( 0xFFFFFF, 0.5 )
-    self.light.castShadow = true
-    self.light.position.z = 20
-    self.light.shadow.mapSize.width = 1024
-    self.light.shadow.mapSize.height = 1024
-    self.light.shadow.camera.near = 2
-    self.light.shadow.camera.far = 50
-    scene.add( self.light )
-    self.cube = new Cube()
-    scene.add( self.cube )
-  }
-  cubeLight.prototype.run = function( i ){
-    var self = this
-    self.cube.position.x = self.light.position.x
-    self.cube.position.y = self.light.position.y
-    self.cube.position.z = self.light.position.z
-  }
+  spaceship_circle ){
   
   // test threejs
   
@@ -150,7 +122,7 @@ function(
         color: 0x333333
       })
     )
-    self.floor.position.z = -0.25
+    self.floor.position.z = -1.25
     self.floor.receiveShadow = true
     self.scene.add( self.floor )
   }
