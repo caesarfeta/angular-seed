@@ -31,11 +31,15 @@ function(
   }
   cubeLight.prototype.make = function( scene ){
     var self = this
-    self.light = new THREE.DirectionalLight( 0xFFFFFF, 0.5 )
+    self.light = new THREE.PointLight( 0xFFFFFF, 0.5 )
+    self.light.castShadow = true
     self.light.position.z = 20
-    self.cube = new Cube()
+    self.light.shadow.mapSize.width = 1024
+    self.light.shadow.mapSize.height = 1024
+    self.light.shadow.camera.near = 2
+    self.light.shadow.camera.far = 50
     scene.add( self.light )
-    self.cube.position.set( self.light.position )
+    self.cube = new Cube()
     scene.add( self.cube )
   }
   cubeLight.prototype.run = function( i ){
@@ -60,8 +64,10 @@ function(
     var self = this
     self.showAxis()
     self.setupFloor()
-    spaceship_circle.make( 4, self.scene )
+    spaceship_circle.make( 6, self.scene )
     
+    self.light = new THREE.AmbientLight( 0xAAAAAA, 0.05 )
+    self.scene.add( self.light )
     self.cubeLight = new cubeLight()
     self.cubeLight.make( self.scene )
   }
@@ -73,9 +79,12 @@ function(
     
     // move that camera
     
-    self.camera.position.x = Math.sin( i*.01 ) * 50
-    self.camera.position.z = Math.cos( i*.01 ) * 50
-    self.camera.position.y = Math.sin( i*.01 ) * 50
+    var c = 50
+    self.camera.position.x = ( Math.sin( i*.009 ) + 0 ) * c
+    self.camera.position.z = ( Math.cos( i*.009 ) + 1 ) * c
+    self.camera.position.y = ( Math.sin( i*.009 ) + 0 ) * c
+    // self.camera.position.y = 0
+    self.camera.position.z = 15
     self.camera.lookAt( self.scene.position )
   }
   
@@ -107,7 +116,7 @@ function(
   viz.prototype.clear = function(){
     var self = this
     for ( var i=0; i<self.scene.children.length; i++ ){
-      if ( self.scene.children[i].constructor == THREE.Group ){
+      if ( self.scene.children[i].constructor == THREE.Object3D ){
         self.scene.remove( self.scene.children[i] )
       }
     }
@@ -136,12 +145,12 @@ function(
   viz.prototype.setupFloor = function(){
     var self = this
     self.floor = new THREE.Mesh( 
-      new THREE.BoxGeometry( 20, 20, 1 ), 
+      new THREE.BoxGeometry( 50, 50, 0.25 ), 
       new THREE.MeshPhongMaterial({
-        color: 0xFFFF33
+        color: 0x333333
       })
     )
-    self.floor.position.z = -1
+    self.floor.position.z = -0.25
     self.floor.receiveShadow = true
     self.scene.add( self.floor )
   }
@@ -202,10 +211,10 @@ function(
     
     // shadow map
     
-    self.renderer.shadowMap.enabled = true;
-    self.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    self.renderer.gammaInput = true;
-    self.renderer.gammaOutput = true;
+    self.renderer.shadowMap.enabled = true
+    self.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    self.renderer.gammaInput = true
+    self.renderer.gammaOutput = true
     
     window.addEventListener( 'resize', function(){
       self.renderer.setSize( window.innerWidth, window.innerHeight );

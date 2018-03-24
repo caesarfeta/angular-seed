@@ -10,7 +10,7 @@ function(
   THREE,
   Cube ){
   return function( str, id ){
-    var group = new THREE.Group()
+    var group = new THREE.Object3D()
     var config = ascii( str, id )
     var palette = config[1]
     var out = []
@@ -45,7 +45,6 @@ function(
         group.add( cube )
       })
     })
-    group.name = 'wowza'
     return group
   }
 })

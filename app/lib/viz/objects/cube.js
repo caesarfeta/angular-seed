@@ -24,7 +24,6 @@ function(
         shininess: self.shine
       })
     )
-    self.mesh.receiveShadow = true
     self.mesh.castShadow = true
     return self.mesh
   };

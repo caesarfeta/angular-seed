@@ -11,7 +11,7 @@ self.make = function( n, scene ){
     self.monsters[i].scale.set( .25, .25, .25 )
     self.monsters[i].position.x += Math.sin( i )*2
     self.monsters[i].position.y += Math.cos( i )*2
-    self.monsters[i].position.z += Math.sin( i )*0.25 + 1
+    self.monsters[i].position.z += i*0.25
     scene.add( self.monsters[i] )
   }
 }
