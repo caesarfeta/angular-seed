@@ -249,13 +249,36 @@ function( angular ){
         ]
       })
       
-      // extruder
+      // image exploder
       
-      $routeProvider.when( '/extruder', {
+      $routeProvider.when( '/img_exploder', {
         template: [
           
-          //'<div three-d-pong></div>'
           '<div img-exploder></div>'
+          
+        ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'threeD' )
+          }]
+        },
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            $scope,
+            $routeParams ){
+            $scope.id = $routeParams.id
+          }
+        ]
+      })
+      
+      // 3d game
+      
+      $routeProvider.when( '/game_3d', {
+        template: [
+          
+          '<div three-d-pong></div>'
           
         ].join(' '),
         resolve: {
