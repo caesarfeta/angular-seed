@@ -31,28 +31,48 @@ function(
         ].join(' '),
         link: function( scope, elem ){
           scope.url = ''
+          
+          // conversion
+          
           var culuh = new Culuh()
           function toHex( int ){
             return culuh.intToHex( int )
           }
+          
+          // http://localhost:8000/app/lib/threeD/img/galaga.png
+          
           scope.go = function(){
             urlToRgb.get( scope.url ).then( 
               function( imgData ){
                 var cubes = [[]]
+                
+                // symbol to color palette
+                
+                var sym = ' @#$%^&*+=abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+                sym = sym.split('')
+                var palette = {}
+                var ip = -1
+                
+                // loop through images
+                
                 var pix = imgData.data
                 var width = imgData.width
                 var lastRow = 0
                 for( var i=0; i<pix.length; i+=4 ){
-                  var color = parseInt( '0x' + toHex( pix[i] ) + toHex( pix[i+1] ) + toHex( pix[i+2] ))
+                  var color = '0x' + toHex( pix[i] ) + toHex( pix[i+1] ) + toHex( pix[i+2] )
+                  if ( !palette[ color ] ){
+                    ip += 1
+                    palette[ color ] = sym[ ip ]
+                  }
                   var c = i / 4 % width
                   var r = Math.floor( i / ( width*4 ))
                   if ( r > lastRow ){
                     cubes[r] = []
                     lastRow = r
                   }
-                  cubes[r][c] = color
+                  cubes[r][c] = palette[ color ]
                 }
-                console.log( cubes )
+                console.log( cubes, palette )
               }
             )
           }
