@@ -1,6 +1,7 @@
 define([
 'threejs',
 './stage/cubeLight',
+'./stage/myCam',
 './gui/vizStats',
 'dat.gui',
 'lib/sounds/sfx',
@@ -15,6 +16,7 @@ define([
 function( 
   THREE,
   cubeLight,
+  myCam,
   vizStats,
   dat,
   sfx,
@@ -34,37 +36,37 @@ function(
   
   viz.prototype.display = function(){
     var self = this
-    self.showAxis()
-    self.setupFloor()
-    spaceship_circle.make( 6, self.scene )
+    
+    // lights
     
     self.light = new THREE.AmbientLight( 0xAAAAAA, 0.05 )
     self.scene.add( self.light )
     self.cubeLight = new cubeLight()
     self.cubeLight.make( self.scene )
+    
+    // camera
+    
+    self.myCam = new myCam()
+    self.myCam.make( self.scene )
+    
+    // action
+    
+    self.showAxis()
+    self.setupFloor()
+    spaceship_circle.make( 6, self.scene )
   }
   
   viz.prototype.move = function( i ){
     var self = this
     spaceship_circle.run( i )
     self.cubeLight.run( i )
-    
-    // move that camera
-    
-    var c = 50
-    self.camera.position.x = ( Math.sin( i*.009 ) + 0 ) * c
-    self.camera.position.z = ( Math.cos( i*.009 ) + 1 ) * c
-    self.camera.position.y = ( Math.sin( i*.009 ) + 0 ) * c
-    // self.camera.position.y = 0
-    self.camera.position.z = 15
-    self.camera.lookAt( self.scene.position )
+    self.myCam.run( i )
   }
   
   viz.prototype.build = function(){
     var self = this
     self.scene = new THREE.Scene()
     self.setupRenderer()
-    self.setupCamera( !true )
     self.display()
   }
   
@@ -127,38 +129,6 @@ function(
     self.scene.add( self.floor )
   }
   
-  viz.prototype.resetCamera = function(){
-    var self = this
-    self.camera.left = window.innerWidth / -2
-    self.camera.right = window.innerWidth / 2
-    self.camera.top = window.innerHeight / 2
-    self.camera.bottom = window.innerHeight / -2
-    self.camera.near = 0.1
-    self.camera.far = 1500
-    self.camera.zoom = 25
-    self.camera.updateProjectionMatrix()
-  }
-  
-  viz.prototype.oCam = function(){
-    var self = this
-    var d = 5
-    var aspect = window.innerWidth / window.innerHeight
-    self.camera = new THREE.OrthographicCamera()
-    self.resetCamera()
-    
-    // position and point the camera to the center of the scene
-    
-    self.camera.position.x = 0
-    self.camera.position.y = 0
-    self.camera.position.z = 15
-    self.camera.lookAt( self.scene.position )
-  }
-  
-  viz.prototype.setupCamera = function( isOrthoCam ){
-    var self = this
-    self.oCam()
-  }
-  
   viz.prototype.setupGUI = function(){
     var self = this
     self.gui = new dat.GUI()
@@ -167,7 +137,7 @@ function(
     
     self.gui.camera = self.gui.addFolder('camera');
     _.each( [ 'x', 'y', 'z' ], function( dim ){
-      self.gui.camera.add( self.camera.position, dim )
+      self.gui.camera.add( self.myCam.camera.position, dim )
       .min(( dim == 'y' ) ? 1 : -50 )
       .max(50)
       .step(1)
@@ -190,7 +160,7 @@ function(
     
     window.addEventListener( 'resize', function(){
       self.renderer.setSize( window.innerWidth, window.innerHeight );
-      self.resetCamera()
+      self.myCam.reset()
     })
     
     // append rendered element
@@ -211,7 +181,7 @@ function(
     if ( self.running ){
       self.move( i )
     }
-    self.renderer.render( self.scene, self.camera )
+    self.renderer.render( self.scene, self.myCam.camera )
     self.stats.update()
   }
   
