@@ -3,19 +3,22 @@ define([
 './fonts/poison',
 './fonts/elec',
 './fonts/space_invaders',
-'./fonts/pattern_pow'
+'./fonts/pattern_pow',
+'./fonts/explosions'
 ],
 function(
   _,
   poison,
   elec,
   space_invaders,
-  pattern_pow ){
+  pattern_pow,
+  explosions ){
 config = [
   poison,
   elec,
   space_invaders,
-  pattern_pow
+  pattern_pow,
+  explosions
 ]
 return function( str, id ){
   var item = _.find( config, function( item ){
