@@ -3,16 +3,63 @@ define([
 'lodash',
 'THREE',
 '../utils/utils',
-'../viz/viz'
+'../viz/viz',
+'../js/urlToRgb',
+'../js/Culuh'
 ],
 function( 
   module,
   _,
   THREE,
   utils,
-  viz ){
+  viz,
+  urlToRgb,
+  Culuh ){
   'use strict';
   module
+  .directive( 'threeDExploder', [
+    function(){
+      return {
+        template: [
+          
+          '<div>',
+            '<label>image url:</label>',
+            '<input type="text" ng-model="url" ng-enter="go()" />',
+          '</div>',
+          '<textarea rows="20" cols="50">{{ output }}</textarea>'
+          
+        ].join(' '),
+        link: function( scope, elem ){
+          scope.url = ''
+          var culuh = new Culuh()
+          function toHex( int ){
+            return culuh.intToHex( int )
+          }
+          scope.go = function(){
+            urlToRgb.get( scope.url ).then( 
+              function( imgData ){
+                var cubes = [[]]
+                var pix = imgData.data
+                var width = imgData.width
+                var lastRow = 0
+                for( var i=0; i<pix.length; i+=4 ){
+                  var color = parseInt( '0x' + toHex( pix[i] ) + toHex( pix[i+1] ) + toHex( pix[i+2] ))
+                  var c = i / 4 % width
+                  var r = Math.floor( i / ( width*4 ))
+                  if ( r > lastRow ){
+                    cubes[r] = []
+                    lastRow = r
+                  }
+                  cubes[r][c] = color
+                }
+                console.log( cubes )
+              }
+            )
+          }
+        }
+      }
+    }
+  ])
   .directive( 'threeDPong', [
     function(){
       return {

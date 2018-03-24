@@ -42,7 +42,8 @@ function( angular ){
       item.img.onerror = function( error ){
         return no( error )
       }
-      item.img.src = 'http://localhost:5000/' + url;
+      //item.img.src = 'http://localhost:5000/' + url;
+      item.img.src = url
     })
   }
   return self

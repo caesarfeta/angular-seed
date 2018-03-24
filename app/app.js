@@ -254,7 +254,8 @@ function( angular ){
       $routeProvider.when( '/extruder', {
         template: [
           
-          '<div three-d-pong></div>'
+          //'<div three-d-pong></div>'
+          '<div three-d-exploder></div>'
           
         ].join(' '),
         resolve: {
