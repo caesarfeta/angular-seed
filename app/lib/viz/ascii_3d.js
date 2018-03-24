@@ -38,8 +38,8 @@ function(
         var cube = new Cube({ 
           color: char
         })
-        cube.position.x = cube.scale.x*c
-        cube.position.y = cube.scale.y*r
+        cube.position.x = cube.scale.x*c - (chars.length/2)*cube.scale.x
+        cube.position.y = cube.scale.y*r - (out.length/2)*cube.scale.y
         cube.position.z = 0
         cubes[r][c] = cube
         group.add( cube )

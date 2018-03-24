@@ -26,12 +26,12 @@ THREE ){
     
     // move that camera
     
-    var c = 50
+    var c = 20
     self.camera.position.x = ( Math.sin( i*.009 ) + 0 ) * c
-    self.camera.position.z = ( Math.cos( i*.009 ) + 1 ) * c
+    self.camera.position.z = ( Math.cos( i*.009 ) + 0.25 ) * c
     self.camera.position.y = ( Math.sin( i*.009 ) + 0 ) * c
     // self.camera.position.y = 0
-    self.camera.position.z = 15
+    self.camera.position.z = 50
     self.camera.lookAt( self.scene.position )
   }
   myCam.prototype.reset = function(){

@@ -13,12 +13,24 @@ self.make = function( scene, elem, bound ){
   
   // movement
   
-  
   $( elem ).mousemove( function( e ){
     mouseRatio = e.offsetX / $( elem ).width()
     self.ship.position.x = mouseRatio * bound - bound / 2
     mouseRatio = e.offsetY / $( elem ).height()
     self.ship.position.y = ( mouseRatio * bound - bound / 2 ) * -1
+  })
+  
+  // rotation
+  
+  $( window ).keypress( function( e ){
+    switch ( e.which ) {
+      case 97:
+        self.ship.rotation.z += .1
+        break
+      case 102:
+        self.ship.rotation.z -= .1
+        break
+    }
   })
 }
 self.explode = function(){
