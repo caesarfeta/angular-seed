@@ -17,16 +17,20 @@ function(
   Culuh ){
   'use strict';
   module
-  .directive( 'threeDExploder', [
-    function(){
+  .directive( 'imgExploder', [
+    '$timeout',
+    function( $timeout ){
       return {
         template: [
           
-          '<div>',
-            '<label>image url:</label>',
-            '<input type="text" ng-model="url" ng-enter="go()" />',
+          '<div class="img-exploder">',
+            '<label>img url:</label>',
+            '<div>',
+              '<input type="text" ng-model="url" ng-enter="go()" />',
+            '</div>',
+            '<textarea rows="20" cols="50">{{ output }}</textarea>',
+            '<textarea rows="20" cols="20">{{ palette }}</textarea>',
           '</div>',
-          '<textarea rows="20" cols="50">{{ output }}</textarea>'
           
         ].join(' '),
         link: function( scope, elem ){
@@ -44,7 +48,7 @@ function(
           scope.go = function(){
             urlToRgb.get( scope.url ).then( 
               function( imgData ){
-                var cubes = [[]]
+                var mtrx = [[]]
                 
                 // symbol to color palette
                 
@@ -67,12 +71,21 @@ function(
                   var c = i / 4 % width
                   var r = Math.floor( i / ( width*4 ))
                   if ( r > lastRow ){
-                    cubes[r] = []
+                    mtrx[r] = []
                     lastRow = r
                   }
-                  cubes[r][c] = palette[ color ]
+                  mtrx[r][c] = palette[ color ]
                 }
-                console.log( cubes, palette )
+                
+                // build output
+                
+                scope.palette = JSON.stringify( _.map( palette, function( val, key ){
+                  return [ val, key ]
+                }), ' ', 2 )
+                scope.output = mtrx.map( function( row ){
+                  return row.join('')
+                }).join('\n')
+                $timeout( function(){} )
               }
             )
           }

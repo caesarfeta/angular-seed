@@ -7760,6 +7760,14 @@ input.dbpedia-search-input {
 .texturizer svg {
   margin-top: 10px;
 }
+.img-exploder {
+  padding: 10px;
+}
+.img-exploder input {
+  padding: 5px;
+  margin-bottom: 5px;
+  width: 350px;
+}
 .window-wrap {
   width: 300px;
 }

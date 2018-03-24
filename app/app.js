@@ -255,7 +255,7 @@ function( angular ){
         template: [
           
           //'<div three-d-pong></div>'
-          '<div three-d-exploder></div>'
+          '<div img-exploder></div>'
           
         ].join(' '),
         resolve: {
