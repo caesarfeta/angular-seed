@@ -26,7 +26,7 @@ THREE ){
     
     // move that camera
     
-    var c = 20
+    var c = 100
     self.camera.position.x = ( Math.sin( i*.009 ) + 0 ) * c
     self.camera.position.z = ( Math.cos( i*.009 ) + 0.25 ) * c
     self.camera.position.y = ( Math.sin( i*.009 ) + 0 ) * c

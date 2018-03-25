@@ -8,6 +8,7 @@ define([
 'lib/sounds/music',
 './sprites/spaceship_circle',
 './sprites/explosions',
+'./sprites/mountains',
 
 // don't need to be namespaced
 
@@ -23,7 +24,8 @@ function(
   sfx,
   music,
   spaceship_circle,
-  explosions ){
+  explosions,
+  mountains ){
   
   // test threejs
   
@@ -54,9 +56,11 @@ function(
     // action
     
     self.showAxis()
-    self.setupFloor()
+//    self.setupFloor()
     spaceship_circle.make( 6, self.scene )
     explosions.make( self.scene, self.config.elem, 50 )
+    mountains.make( self.scene )
+    mountains.mesh.position.z = -10
   }
   
   viz.prototype.move = function( i ){
