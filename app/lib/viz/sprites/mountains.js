@@ -5,9 +5,9 @@ function(
   THREE ){
 var self = {}
 self.make = function( scene ){
-  var geo = new THREE.PlaneGeometry( 20, 20, 9, 9 )
+  var geo = new THREE.PlaneGeometry( 50, 25, 9, 9 )
   for ( var i=0, l=geo.vertices.length; i<l; i++ ){
-    var z = Math.random() * 2000
+    var z = Math.random() * 20000
     geo.vertices[i].z = z / 65535 * 25
   }
   var mat = new THREE.MeshPhongMaterial({

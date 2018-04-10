@@ -57,8 +57,11 @@ function(
     
     self.showAxis()
 //    self.setupFloor()
+    
     spaceship_circle.make( 6, self.scene )
     explosions.make( self.scene, self.config.elem, 50 )
+    self.explosions = explosions
+    
     mountains.make( self.scene )
     mountains.mesh.position.z = -10
   }

@@ -3,7 +3,8 @@
     "label": "Forest",
     "loader": "JSON",
     "thumb": "",
-    "url": "./lib/threeD/json/forest.json"
+    "url": "./lib/threeD/json/forest.json",
+    "hide": true
   },
   {
     "label": "Peano Gosper Hemisphere",

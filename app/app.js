@@ -275,7 +275,7 @@ function( angular ){
       
       // 3d game
       
-      $routeProvider.when( '/game_3d', {
+      $routeProvider.when( '/pixel_shadow', {
         template: [
           
           '<div three-d-pong></div>'
@@ -389,7 +389,7 @@ function( angular ){
         ]
       })
       
-      $routeProvider.when( '/texturizer', {
+      $routeProvider.when( '/laser_cutter', {
         template: [
           
           '<div texturizer></div>'
