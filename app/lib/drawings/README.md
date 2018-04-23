@@ -35,14 +35,23 @@ My image prep system in reminder snippets.
 
     identify file.jpg | cut -d " " -f 3
 
-## script crop
+## crop
 
     convert "./file.jpg" -crop 500x500+500+500 file_cropped.jpg
     convert "[ input ]" -crop [xWidth x yWidth + xOffset + yOffset ] "[ output ]"
 
+## brightness & contrast
+
+    convert -brightness-contrast 50x20 in.jpg out.jpg
+
+## rotate
+
+    convert -rotate "90" in.jpg out.jpg
+
 ## make transparent
 
     convert "./transparent/input.png" -transparent white ./transparent/output.png
+    convert "./transparent/input.png" -fuzz 10% -transparent white ./transparent/output.png
 
 ## transparency cleanup
 
@@ -63,3 +72,9 @@ My image prep system in reminder snippets.
 ### run
 
     ./darknet detector test cfg/combine9k.data cfg/yolo9000.cfg ../yolo9000-weights/yolo9000.weights data/horses.jpg
+
+### train YOLO for custom image detection
+
+    http://guanghan.info/blog/en/my-works/train-yolo/
+
+
