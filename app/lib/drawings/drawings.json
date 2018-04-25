@@ -22,6 +22,35 @@
   },
   {
     "files": [
+      "interesting_profile.png"
+    ],
+    "label": "Interesting Profile",
+    "description": "",
+    "medium": "marker",
+    "date": "3/2018"
+  },
+  {
+    "files": [
+      "once_you_pop_you_cant_stop.jpg"
+    ],
+    "label": "Once You Pop You Can't Stop",
+    "description": "",
+    "medium": "marker",
+    "date": "3/2018"
+  },
+  {
+    "files": [
+      "mammon.jpg",
+      "sickos.jpg",
+      "magic_boombox.jpg"
+    ],
+    "label": "Full Bleed",
+    "description": "",
+    "medium": "marker",
+    "date": "3/2018"
+  },
+  {
+    "files": [
       "cardio_is_king.png"
     ],
     "label": "Cardio is King",

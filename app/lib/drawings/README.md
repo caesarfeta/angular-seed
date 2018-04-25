@@ -53,6 +53,11 @@ My image prep system in reminder snippets.
     convert "./transparent/input.png" -transparent white ./transparent/output.png
     convert "./transparent/input.png" -fuzz 10% -transparent white ./transparent/output.png
 
+## grid crop
+
+    convert output.png -crop 75x192 +repage +adjoin output_%02d.png
+    convert output.png -crop 14x8@ +repage +adjoin output_%02d.png
+
 ## transparency cleanup
 
     TODO!
