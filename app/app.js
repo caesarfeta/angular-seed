@@ -20,10 +20,6 @@ function( angular ){
       $routeProvider,
       $ocLazyLoadProvider ){
       $ocLazyLoadProvider.config({
-/*
-        debug: true,
-        events: true,
-*/
         modules: [
           {
             name : 'threeD',
@@ -52,6 +48,10 @@ function( angular ){
           {
             name : 'texturizer',
             files: [ 'lib/texturizer/texturizer' ]
+          },
+          {
+            name: 'frottage',
+            files: [ 'lib/frottage/frottage' ]
           }
         ]
       });
@@ -386,6 +386,26 @@ function( angular ){
             $routeParams ){
               $scope.page = ( !!$routeParams.page ) ? $routeParams.page : 1
           }
+        ]
+      })
+      
+      $routeProvider.when( '/frottage', {
+        template: [
+          
+          '<div frottage></div>'
+          
+        ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'frottage' )
+          }]
+        },
+        controller: [
+          '$scope',
+          '$routeParams',
+          function(
+            $scope,
+            $routeParams ){}
         ]
       })
       
