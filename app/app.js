@@ -392,7 +392,7 @@ function( angular ){
       $routeProvider.when( '/frottage', {
         template: [
           
-          '<div frottage></div>'
+          '<div frottage-body></div>'
           
         ].join(' '),
         resolve: {

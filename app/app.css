@@ -7597,6 +7597,10 @@ input.dbpedia-search-input {
 .static-drawing table {
   margin: 0px auto;
 }
+.frottage td {
+  margin-bottom: 0;
+  vertical-align: top;
+}
 .lsys {
   width: 100%;
   height: 300px;
