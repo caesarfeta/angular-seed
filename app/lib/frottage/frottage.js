@@ -12,48 +12,50 @@ function(
     function(){
       return {
         scope: {},
-        
-        // 8.5 * 300 x 11 * 300 - Natch
-        
         template: [
-          
-          '<canvas id="frottage" width="2550" height="3300" style="border:1px solid">'
+          '<button class="btn btn-sm" ng-click="redraw()">redraw</button>',
+          '<canvas id="frottage" width="500" height="500">'
         
         ].join(' '),
         link: function( scope, elem ){
           var canvas = $( '#frottage', elem ).get( 0 )
           var colors = [ '#AAA', '#BBB', '#CCC', '#DDD', '#EEE', '#FFF' ]
-          var rows = 50
-          var cols = 50
+          // var colors = [ '#111', '#222', '#333', '#444', '#555', '#666' ]
+          //var colors = [ '#DDD', '#EEE', '#FFF' ]
+          //var colors = [ 'blue', 'red', 'green' ]
+          var rows = 80
+          var cols = 80
           var ix = canvas.height / rows
           var jx = canvas.width / cols
           var ctx = canvas.getContext( '2d' )
           var grid = []
           
           function build(){
-            for ( var i=0; i<ix; i++ ){
+            for ( var i=0; i<rows/2; i++ ){
               grid[i]=[]
-              for ( var j=0; j<jx/2; j++ ){
+              for ( var j=0; j<cols/2; j++ ){
                 grid[i][j] = colors[ Math.floor( Math.random() * colors.length )]
               }
               grid[i] = grid[i].concat( grid[i].slice().reverse() )
             }
+            grid = grid.concat( grid.slice().reverse() )
           }
           
           function draw(){
-            for ( var i=0; i<ix; i++ ){
-              for ( var j=0; j<jx; j++ ){
+            for ( var i=0; i<rows; i++ ){
+              for ( var j=0; j<cols; j++ ){
                 ctx.beginPath()
-                ctx.rect( jx*j, ix*i, jx, ix )
+                ctx.rect( jx*j+10, jx*i+10, jx, jx )
                 ctx.fillStyle = grid[i][j]
                 ctx.fill()
               }
             }
           }
-          
-          build()
-          draw()
-          
+          scope.redraw = function(){
+            build()
+            draw()
+          }
+          scope.redraw()
         }
       }
     }
