@@ -48,11 +48,11 @@ function(
         link: function( scope, elem ){
           var canvas = $( '#frottage', elem ).get( 0 )
           var colors = [ '#AAA', '#BBB', '#CCC', '#DDD', '#EEE', '#FFF' ]
-          // var colors = [ '#111', '#222', '#333', '#444', '#555', '#666' ]
+          var colors = [ '#111', '#222', '#333', '#444', '#555', '#666' ]
           //var colors = [ '#DDD', '#EEE', '#FFF' ]
           //var colors = [ 'blue', 'red', 'green' ]
-          var rows = 40
-          var cols = 80
+          var rows = 20
+          var cols = 20
           var ix = canvas.height / rows
           var jx = canvas.width / cols
           var ctx = canvas.getContext( '2d' )
