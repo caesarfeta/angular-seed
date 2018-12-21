@@ -22,8 +22,6 @@ function(
         scope: true,
         template: [
           
-          '<style>.animpng img { width: 800px; height: 400px; position: absolute }</style>',
-          
           '<input ',
             'type="file" ',
             'webkitdirectory ',
@@ -31,16 +29,9 @@ function(
             'nv-file-select ',
             'uploader="uploader" />',
           
-          /*
-          '<div class="animpng">',
-            '<img src="/app/lib/animpng/test/test00.png" />',
-            '<img src="/app/lib/animpng/test/test01.png" />',
-          '</div>'
-          */
-          
         ].join(' '),
-        link: function( scope, elem, ){
-          
+        link: function( scope, elem ){
+          $( elem ).addClass( 'animpng' )
           var lkup = {
             'A': 65,
             'B': 66,
@@ -75,41 +66,46 @@ function(
             console.log( e, keyToFile )
           })
           
+          var fileQ = []
           var reader = new FileReader()
           reader.onload = onLoadFile
-          
           function onLoadFile( e ){
             var img = new Image()
             img.onload = onLoadImage
             img.src = e.target.result
           }
-          
           function onLoadImage() {
-            console.log( this )
-            /*
-              var width = params.width || this.width / this.height * params.height;
-              var height = params.height || this.height / this.width * params.width;
-              canvas.attr({ width: width, height: height });
-              canvas[0].getContext('2d').drawImage(this, 0, 0, width, height);
-            */
+            var canvas = document.createElement( 'CANVAS' )
+            $( elem ).append( canvas )
+            $( canvas ).attr({
+              width: this.width,
+              height: this.height
+            })
+            canvas.getContext('2d').drawImage( this, 0, 0, this.width, this.height )
+            if ( fileQ.length != 0 ){
+              reader.readAsDataURL( fileQ.shift() )
+            }
+            else {
+              
+              // remove everything visible but the canvases
+              
+            }
           }
           
           scope.uploader.onAfterAddingFile = function( item ){
-            
             var key = item.file.name.substring( 0, item.file.name.length - 4 )
-            
-            // put background in place
-            
-            if ( key == '_bg' ){
-              console.log( 'background' )
-              return
+            if ( key != '_bg' ){
+              keyToFile[ key ] = item
             }
             
-            // map image to keypress
+            // load image
             
-            keyToFile[ key ] = item
-//            console.log( item )
-            reader.readAsDataURL( item._file )
+            try {
+              reader.readAsDataURL( item._file )
+            }
+            catch ( e ){
+              fileQ.unshift( item._file )
+            }
           }
         }
       }
