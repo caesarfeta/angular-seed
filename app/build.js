@@ -6,6 +6,7 @@ require.config({
     angular: 'bower_components/angular/angular',
     angularRoute: 'bower_components/angular-route/angular-route',
     angularMocks: 'bower_components/angular-mocks/angular-mocks',
+    angularFileUpload: 'bower_components/angular-file-upload/dist/angular-file-upload',
     angularSvgDownload: 'bower_components/angular-downloadsvg-directive/angular-downloadsvg-directive.min',
     angularBootstrap: 'bower_components/angular-bootstrap/ui-bootstrap.min',
     bootstrap: 'bower_components/bootstrap/dist/js/bootstrap.min',
@@ -46,6 +47,9 @@ require.config({
     angularMocks: {
       deps:['angular'],
       exports:'angular.mock'
+    },
+    angularFileUpload: {
+      deps:['angular']
     },
     angularSvgDownload: {
       deps:['angular']

@@ -2,6 +2,7 @@ define([
 'angular',
 'angularRoute',
 'ocLazyLoad',
+'angularFileUpload',
 'lib/common/atCommon'
 ], 
 function( angular ){
@@ -52,6 +53,10 @@ function( angular ){
           {
             name: 'frottage',
             files: [ 'lib/frottage/frottage' ]
+          },
+          {
+            name: 'animpng',
+            files: [ 'lib/animpng/animpng' ]
           }
         ]
       });
@@ -421,6 +426,24 @@ function( angular ){
           }]
         },
         controller: [ function(){} ]
+      })
+      
+      $routeProvider.when( '/animpng', {
+        template: [
+          
+          '<div animpng></div>'
+          
+        ].join(' '),
+        resolve: {
+          loadMyCtrl: [ '$ocLazyLoad', function( $ocLazyLoad ){
+            return $ocLazyLoad.load( 'animpng' )
+          }]
+        },
+        controller: [ '$scope', 'FileUploader',
+          function( $scope, FileUploader ){
+            $scope.uploader = new FileUploader()
+          }
+        ]
       })
       
       $routeProvider.when( '/vizque', {
