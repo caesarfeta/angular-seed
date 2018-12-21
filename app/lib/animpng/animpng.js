@@ -63,25 +63,30 @@ function(
           
           var keyToFile = {}
           $( 'html' ).keydown(function( e ){
-            console.log( e, keyToFile )
+            console.log( keyToFile[ e.key.toUpperCase() ] )
           })
           
           var fileQ = []
           var reader = new FileReader()
           reader.onload = onLoadFile
           function onLoadFile( e ){
+            console.log( e.target.result )
             var img = new Image()
             img.onload = onLoadImage
             img.src = e.target.result
           }
-          function onLoadImage() {
-            var canvas = document.createElement( 'CANVAS' )
+          function onLoadImage( e ) {
+            var canvas = document.createElement( 'canvas' )
             $( elem ).append( canvas )
             $( canvas ).attr({
               width: this.width,
               height: this.height
             })
+            console.info( this, e )
             canvas.getContext('2d').drawImage( this, 0, 0, this.width, this.height )
+            
+            // check the queue
+            
             if ( fileQ.length != 0 ){
               reader.readAsDataURL( fileQ.shift() )
             }
@@ -89,13 +94,15 @@ function(
               
               // remove everything visible but the canvases
               
+              $( 'input', elem ).remove()
+              $( 'body .menu').remove()
             }
           }
           
           scope.uploader.onAfterAddingFile = function( item ){
             var key = item.file.name.substring( 0, item.file.name.length - 4 )
             if ( key != '_bg' ){
-              keyToFile[ key ] = item
+              keyToFile[ key ] = item._file
             }
             
             // load image
