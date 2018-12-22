@@ -61,58 +61,71 @@ function(
             'Z': 90
           }
           
-          var keyToFile = {}
-          $( 'html' ).keydown(function( e ){
-            console.log( keyToFile[ e.key.toUpperCase() ] )
+          // showing and hiding layers
+          
+          function getMe( e ){
+            return _.find( items, function( o ){
+              return o.key == e.key.toUpperCase()
+            })
+          }
+          $( 'html' ).keydown( function( e ){
+            var me = getMe( e )
+            $( me.canvas ).css({ 'top': 0 })
+          })
+          $( 'html' ).keyup( function( e ){
+            var me = getMe( e )
+            $( me.canvas ).css({ 'top': me.height * -1 })
           })
           
-          var fileQ = []
-          var reader = new FileReader()
-          reader.onload = onLoadFile
+          // loading files
+          
           function onLoadFile( e ){
-            console.log( e.target.result )
+            var self = this
+            var me = _.find( items, function( o ){ 
+              return o.reader === self 
+            })
+            me.src = e.target.result
             var img = new Image()
             img.onload = onLoadImage
             img.src = e.target.result
           }
           function onLoadImage( e ) {
-            var canvas = document.createElement( 'canvas' )
-            $( elem ).append( canvas )
-            $( canvas ).attr({
+            var me = _.find( items, function( o ){
+              return o.src === e.path[0].currentSrc
+            })
+            me.canvas = document.createElement( 'canvas' )
+            me.height = this.height
+            $( elem ).append( me.canvas )
+            $( me.canvas ).attr({
               width: this.width,
               height: this.height
             })
-            console.info( this, e )
-            canvas.getContext('2d').drawImage( this, 0, 0, this.width, this.height )
-            
-            // check the queue
-            
-            if ( fileQ.length != 0 ){
-              reader.readAsDataURL( fileQ.shift() )
+            if ( me.key == '_bg' ){
+              $( me.canvas ).css( 'z-index', 0 )
             }
             else {
-              
-              // remove everything visible but the canvases
-              
-              $( 'input', elem ).remove()
-              $( 'body .menu').remove()
+              $( me.canvas ).css({ 'z-index': 1, 'top': this.height * -1 })
             }
+            me.canvas.getContext('2d').drawImage( this, 0, 0, this.width, this.height )
           }
           
+          var items = []
           scope.uploader.onAfterAddingFile = function( item ){
-            var key = item.file.name.substring( 0, item.file.name.length - 4 )
-            if ( key != '_bg' ){
-              keyToFile[ key ] = item._file
-            }
             
-            // load image
+            // remove everything visible but the canvases
             
-            try {
-              reader.readAsDataURL( item._file )
-            }
-            catch ( e ){
-              fileQ.unshift( item._file )
-            }
+            $( 'input', elem ).remove()
+            $( 'body .menu').remove()
+            
+            // read the file
+            
+            var reader = new FileReader()
+            reader.onload = onLoadFile
+            items.push({
+              key: item.file.name.substring( 0, item.file.name.length - 4 ),
+              reader: reader
+            })
+            reader.readAsDataURL( item._file )
           }
         }
       }
