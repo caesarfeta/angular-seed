@@ -34,25 +34,26 @@ function(
           $( elem ).addClass( 'animpng' )
           
           var keys = []
-          var allKeys = []
+          var charKeys = []
+          function show( me ){
+            $( me.canvas ).css({ 
+              'top': 0 
+            })
+          }
+          function hide( me ){
+            console.log( me )
+            $( me.canvas ).css({ 
+              'top': me.height * -1 
+            })
+          }
           window.addEventListener( 'keydown',
             function( e ){
               if ( e.keyCode == '91' ){
                 throw e
               }
-              allKeys[ e.keyCode ] = e.key
+              charKeys[ e.keyCode ] = e.key
               keys[ e.keyCode ] = e.keyCode
               var keysArray = getNumberArray( keys )
-              
-              // single
-              
-              var me = getMe( e )
-              if ( !!me ){
-                $( me.canvas ).css({ 
-                  'top': 0 
-                })
-              }
-              
               
               // group mode
               
@@ -61,24 +62,44 @@ function(
                 var group = _.find( keysArray, function( e ){
                   return e != id
                 })
-                console.log( group, id )
-                if ( !!group ){
-                  console.log( group, id )
+                var fullId = charKeys[ group ] + charKeys[ id ]
+                var me = getMe({ key: fullId.toUpperCase() })
+                if ( !!me ){
+                  show( me )
+                  var sibs = getSibs({ key: fullId.toUpperCase() })
+                  _.each( sibs, function( sib ){
+                    hide( sib )
+                  })
                 }
+                return
               }
+              
+              // single mode
+              
+              var me = getMe( e )
+              if ( !!me ){
+                show( me )
+              }
+              
             },
           false )
           window.addEventListener( 'keyup',
             function( e ){
+              
+              // single mode
+              
               keys[ e.keyCode ] = false
               
-              // group
+              // group mode
+              
+              var keysArray = getNumberArray( keys )
+              if ( keysArray.length > 1 ){
+                return
+              }
               
               var me = getMe( e )
               if ( !!me ){
-                $( me.canvas ).css({ 
-                  'top': me.height * -1 
-                })
+                hide( me )
               }
             },
             false
@@ -98,6 +119,12 @@ function(
           function getMe( e ){
             return _.find( items, function( o ){
               return o.key == e.key.toUpperCase()
+            })
+          }
+          
+          function getSibs( e ){
+            return _.filter( items, function( o ){
+              return o.key[0] == e.key[0] && o.key != e.key
             })
           }
           
