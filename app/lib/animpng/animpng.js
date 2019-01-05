@@ -32,33 +32,65 @@ function(
         ].join(' '),
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
-          var lkup = {
-            'A': 65,
-            'B': 66,
-            'C': 67,
-            'D': 68,
-            'E': 69,
-            'F': 70,
-            'G': 71,
-            'H': 72,
-            'I': 73,
-            'J': 74,
-            'K': 75,
-            'L': 76,
-            'M': 77,
-            'N': 78,
-            'O': 79,
-            'P': 80,
-            'Q': 81,
-            'R': 82,
-            'S': 83,
-            'T': 84,
-            'U': 85,
-            'V': 86,
-            'W': 87,
-            'X': 88,
-            'Y': 89,
-            'Z': 90
+          
+          var keys = []
+          var allKeys = []
+          window.addEventListener( 'keydown',
+            function( e ){
+              if ( e.keyCode == '91' ){
+                throw e
+              }
+              allKeys[ e.keyCode ] = e.key
+              keys[ e.keyCode ] = e.keyCode
+              var keysArray = getNumberArray( keys )
+              
+              // single
+              
+              var me = getMe( e )
+              if ( !!me ){
+                $( me.canvas ).css({ 
+                  'top': 0 
+                })
+              }
+              
+              
+              // group mode
+              
+              if ( keysArray.length > 1 ){
+                var id = e.keyCode
+                var group = _.find( keysArray, function( e ){
+                  return e != id
+                })
+                console.log( group, id )
+                if ( !!group ){
+                  console.log( group, id )
+                }
+              }
+            },
+          false )
+          window.addEventListener( 'keyup',
+            function( e ){
+              keys[ e.keyCode ] = false
+              
+              // group
+              
+              var me = getMe( e )
+              if ( !!me ){
+                $( me.canvas ).css({ 
+                  'top': me.height * -1 
+                })
+              }
+            },
+            false
+          )
+          function getNumberArray( arr ){
+            var newArr = new Array()
+            for( var i = 0; i < arr.length; i++ ){
+              if ( typeof arr[ i ] == "number" ){
+                newArr[ newArr.length ] = arr[ i ]
+              }
+            }
+            return newArr
           }
           
           // showing and hiding layers
@@ -68,14 +100,6 @@ function(
               return o.key == e.key.toUpperCase()
             })
           }
-          $( 'html' ).keydown( function( e ){
-            var me = getMe( e )
-            $( me.canvas ).css({ 'top': 0 })
-          })
-          $( 'html' ).keyup( function( e ){
-            var me = getMe( e )
-            $( me.canvas ).css({ 'top': me.height * -1 })
-          })
           
           // loading files
           
