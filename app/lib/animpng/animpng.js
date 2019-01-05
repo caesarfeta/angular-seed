@@ -41,13 +41,21 @@ function(
             })
           }
           function hide( me ){
-            console.log( me )
             $( me.canvas ).css({ 
               'top': me.height * -1 
             })
           }
+          
+          var firstPress = false
           window.addEventListener( 'keydown',
             function( e ){
+              if ( !firstPress ){
+                _.each( conf.json.startOn, function( id ){
+                  var me = getMe({ key: id })
+                  show( me )
+                })
+                firstPress = true
+              }
               if ( e.keyCode == '91' ){
                 throw e
               }
@@ -161,7 +169,16 @@ function(
           }
           
           var items = []
+          var conf = { file: 'config.json', json: {}}
           scope.uploader.onAfterAddingFile = function( item ){
+            if ( item.file.name == conf.file ){
+              var reader = new FileReader()
+              reader.onload = ( function( e ){
+                conf.json = JSON.parse( e.target.result )
+              })
+              reader.readAsText( item._file )
+              return
+            }
             
             // remove everything visible but the canvases
             
