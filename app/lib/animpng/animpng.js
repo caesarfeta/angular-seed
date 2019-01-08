@@ -22,12 +22,15 @@ function(
         scope: true,
         template: [
           
+          '<div>',
+          '<audio controls id="myAudio" autoplay></audio>',
           '<input ',
             'type="file" ',
             'webkitdirectory ',
             'mozdirectory ',
             'nv-file-select ',
             'uploader="uploader" />',
+          '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
@@ -61,10 +64,11 @@ function(
               }
               charKeys[ e.keyCode ] = e.key
               keys[ e.keyCode ] = e.keyCode
-              var keysArray = getNumberArray( keys )
               
               // group mode
               
+              /*
+              var keysArray = getNumberArray( keys )
               if ( keysArray.length > 1 ){
                 var id = e.keyCode
                 var group = _.find( keysArray, function( e ){
@@ -81,6 +85,7 @@ function(
                 }
                 return
               }
+              */
               
               // single mode
               
@@ -98,12 +103,13 @@ function(
               
               keys[ e.keyCode ] = false
               
+              /*
               // group mode
-              
               var keysArray = getNumberArray( keys )
               if ( keysArray.length > 1 ){
                 return
               }
+              */
               
               var me = getMe( e )
               if ( !!me ){
@@ -171,6 +177,9 @@ function(
           var items = []
           var conf = { file: 'config.json', json: {}}
           scope.uploader.onAfterAddingFile = function( item ){
+            
+            // configure file
+            
             if ( item.file.name == conf.file ){
               var reader = new FileReader()
               reader.onload = ( function( e ){
@@ -178,6 +187,17 @@ function(
               })
               reader.readAsText( item._file )
               return
+            }
+            
+            // audio file
+            
+            if ( item.file.name == 'audio.mp3' ){
+              var $audio = $( '#myAudio' )
+              var reader = new FileReader()
+              reader.onload = function( e ){
+                $audio.attr( 'src', e.target.result )
+              }   
+              reader.readAsDataURL( item._file )
             }
             
             // remove everything visible but the canvases
