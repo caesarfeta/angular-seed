@@ -36,9 +36,11 @@ function(
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
           
+          var fps = 8;
           var keys = []
           var charKeys = []
           window.loopSave = []
+          
           function show( me ){
             $( me.canvas ).css({ 
               'top': 0 
@@ -48,6 +50,15 @@ function(
             $( me.canvas ).css({ 
               'top': me.height * -1 
             })
+          }
+          function getFrame( n ){
+            return Math.round(( n % 1 * fps-1 ) + 1 )
+          }
+          function getSeconds( n ){
+            return Math.floor( n )
+          }
+          function getTimeCode( n ){
+            return getSeconds( n ) + '.' + getFrame( n )
           }
           
           var firstPress = false
@@ -104,9 +115,14 @@ function(
                 show( me )
               }
               
-              // store keypresses for looping
+              window.$audio = $audio
               
-              window.loopSave.push([ $audio.currentTime, e.keyCode ])
+              // store keypresses for looping with aliasing.
+              
+              window.loopSave.push([
+                getTimeCode( $audio.currentTime ),
+                e.keyCode 
+              ])
             },
           false )
           window.addEventListener( 'keyup',
@@ -217,8 +233,10 @@ function(
                 $audio.onloadstart = function( e ){
                   $audio.pause()
                 }
-                
-              }   
+                $audio.ontimeupdate = function( e ){
+                  console.log( getTimeCode( $audio.currentTime ))
+                }
+              }
               reader.readAsDataURL( item._file )
             }
             
