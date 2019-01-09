@@ -36,10 +36,10 @@ function(
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
           
-          var fps = 8;
+          var fps = 16;
           var keys = []
           var charKeys = []
-          window.loopSave = []
+          window.loopSave = {}
           
           function show( me ){
             $( me.canvas ).css({ 
@@ -52,15 +52,21 @@ function(
             })
           }
           function getFrame( n ){
-            return Math.round(( n % 1 * fps-1 ) + 1 )
+            return Math.round(( n % 1 * fps-1 ) + 1 ) / fps
           }
           function getSeconds( n ){
             return Math.floor( n )
           }
           function getTimeCode( n ){
-            return getSeconds( n ) + '.' + getFrame( n )
+            return getSeconds( n ) + getFrame( n )
           }
-          
+          function register( keyCode, isOn ){
+            var cTime = getTimeCode( $audio.currentTime )
+            if ( !window.loopSave[ cTime ] ){
+              window.loopSave[ cTime ] = []
+            }
+            window.loopSave[ cTime ].push([ keyCode, isOn ])
+          }
           var firstPress = false
           window.addEventListener( 'keydown',
             function( e ){
@@ -86,28 +92,6 @@ function(
               charKeys[ e.keyCode ] = e.key
               keys[ e.keyCode ] = e.keyCode
               
-              // group mode
-              
-              /*
-              var keysArray = getNumberArray( keys )
-              if ( keysArray.length > 1 ){
-                var id = e.keyCode
-                var group = _.find( keysArray, function( e ){
-                  return e != id
-                })
-                var fullId = charKeys[ group ] + charKeys[ id ]
-                var me = getMe({ key: fullId.toUpperCase() })
-                if ( !!me ){
-                  show( me )
-                  var sibs = getSibs({ key: fullId.toUpperCase() })
-                  _.each( sibs, function( sib ){
-                    hide( sib )
-                  })
-                }
-                return
-              }
-              */
-              
               // single mode
               
               var me = getMe( e )
@@ -119,14 +103,12 @@ function(
               
               // store keypresses for looping with aliasing.
               
-              window.loopSave.push([
-                getTimeCode( $audio.currentTime ),
-                e.keyCode 
-              ])
+              register( e.keyCode, true )
             },
           false )
           window.addEventListener( 'keyup',
             function( e ){
+              register( e.keyCode, false )
               
               // single mode
               
@@ -163,6 +145,10 @@ function(
             return _.find( items, function( o ){
               return o.key == e.key.toUpperCase()
             })
+          }
+          
+          function getMeNum( n ){
+            return getMe({ key: charKeys[ n ] })
           }
           
           function getSibs( e ){
@@ -233,8 +219,27 @@ function(
                 $audio.onloadstart = function( e ){
                   $audio.pause()
                 }
+                var lastCode = 0.0
                 $audio.ontimeupdate = function( e ){
-                  console.log( getTimeCode( $audio.currentTime ))
+                  var now = getTimeCode( $audio.currentTime )
+                  while ( lastCode <= now ){
+                    lastCode += 1 / fps
+                    var loop = window.loopSave[ lastCode ]
+                    if ( !!loop ){
+                      _.each( loop, function( keyCode ){
+                        var me = getMeNum( keyCode[0] )
+                        if ( !!me ){
+                          ( keyCode[1] ) ? show( me ) : hide( me )
+                        }
+                      })
+                    }
+                  }
+                  
+                  // loop check
+                  
+                  if ( $audio.currentTime == $audio.duration ){
+                    lastCode = 0.0
+                  }
                 }
               }
               reader.readAsDataURL( item._file )
