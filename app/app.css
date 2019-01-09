@@ -7366,6 +7366,10 @@ body {
   top: 0px;
   left: 0px;
 }
+.animpng input {
+  padding-top: 10px;
+  margin: 0 auto;
+}
 .color-kit {
   box-sizing: border-box;
   padding: 10px;
