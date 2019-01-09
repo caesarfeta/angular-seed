@@ -38,6 +38,7 @@ function(
           
           var keys = []
           var charKeys = []
+          window.loopSave = []
           function show( me ){
             $( me.canvas ).css({ 
               'top': 0 
@@ -59,6 +60,15 @@ function(
                 })
                 firstPress = true
               }
+              
+              // play and pause audio with SPACE
+              
+              if ( !!$audio && e.keyCode == 32 ){
+                ( $audio.paused ) ? $audio.play() : $audio.pause()
+              }
+              
+              // handle weird keycodes which could fuck-up the EXPERIENCE, man
+              
               if ( e.keyCode == '91' ){
                 throw e
               }
@@ -94,6 +104,9 @@ function(
                 show( me )
               }
               
+              // store keypresses for looping
+              
+              window.loopSave.push([ $audio.currentTime, e.keyCode ])
             },
           false )
           window.addEventListener( 'keyup',
@@ -176,6 +189,7 @@ function(
           
           var items = []
           var conf = { file: 'config.json', json: {}}
+          var $audio = undefined
           scope.uploader.onAfterAddingFile = function( item ){
             
             // configure file
@@ -192,10 +206,18 @@ function(
             // audio file
             
             if ( item.file.name == 'audio.mp3' ){
-              var $audio = $( '#myAudio' )
+              $audio = $( '#myAudio' )
               var reader = new FileReader()
               reader.onload = function( e ){
                 $audio.attr( 'src', e.target.result )
+                $audio = document.getElementById( 'myAudio' )
+                
+                // initial audio config and events
+                
+                $audio.onloadstart = function( e ){
+                  $audio.pause()
+                }
+                
               }   
               reader.readAsDataURL( item._file )
             }
