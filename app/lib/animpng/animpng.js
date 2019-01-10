@@ -36,7 +36,7 @@ function(
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
           
-          var fps = 16;
+          var fps = 16
           var keys = []
           var charKeys = []
           window.loopSave = {}
@@ -52,7 +52,7 @@ function(
             })
           }
           function getFrame( n ){
-            return Math.round(( n % 1 * fps-1 ) + 1 ) / fps
+            return Math.round(( ( n % 1 ).toFixed( 3 ) * fps-1 ) + 1 ) / fps
           }
           function getSeconds( n ){
             return Math.floor( n )
@@ -113,14 +113,6 @@ function(
               // single mode
               
               keys[ e.keyCode ] = false
-              
-              /*
-              // group mode
-              var keysArray = getNumberArray( keys )
-              if ( keysArray.length > 1 ){
-                return
-              }
-              */
               
               var me = getMe( e )
               if ( !!me ){
@@ -223,7 +215,7 @@ function(
                 $audio.ontimeupdate = function( e ){
                   var now = getTimeCode( $audio.currentTime )
                   while ( lastCode <= now ){
-                    lastCode += 1 / fps
+                    lastCode += ( 1 / fps ).toFixed( 4 )
                     var loop = window.loopSave[ lastCode ]
                     if ( !!loop ){
                       _.each( loop, function( keyCode ){
