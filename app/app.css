@@ -7370,6 +7370,20 @@ body {
   padding-top: 10px;
   margin: 0 auto;
 }
+.animpng audio {
+  display: none;
+}
+.animpng .clock {
+  display: none;
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  z-index: 100;
+  font-size: 25px;
+  background-color: black;
+  padding: 10px;
+  color: green;
+}
 .color-kit {
   box-sizing: border-box;
   padding: 10px;

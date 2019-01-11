@@ -23,20 +23,21 @@ function(
         template: [
           
           '<div>',
-          '<audio controls id="myAudio" autoplay></audio>',
-          '<input ',
-            'type="file" ',
-            'webkitdirectory ',
-            'mozdirectory ',
-            'nv-file-select ',
-            'uploader="uploader" />',
+            '<audio controls id="myAudio" autoplay></audio>',
+            '<input ',
+              'type="file" ',
+              'webkitdirectory ',
+              'mozdirectory ',
+              'nv-file-select ',
+              'uploader="uploader" />',
+            '<div class="clock"></div>',
           '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
           
-          var fps = 16
+          var fps = 24
           var keys = []
           var charKeys = []
           window.loopSave = {}
@@ -61,7 +62,7 @@ function(
             return getSeconds( n ) + getFrame( n )
           }
           function register( keyCode, isOn ){
-            var cTime = getTimeCode( $audio.currentTime )
+            var cTime = getTimeCode( $audio.currentTime ).toFixed( 3 )
             if ( !window.loopSave[ cTime ] ){
               window.loopSave[ cTime ] = []
             }
@@ -215,8 +216,12 @@ function(
                 $audio.ontimeupdate = function( e ){
                   var now = getTimeCode( $audio.currentTime )
                   while ( lastCode <= now ){
-                    lastCode += ( 1 / fps ).toFixed( 4 )
-                    var loop = window.loopSave[ lastCode ]
+                    $( '.clock', elem ).text( lastCode.toFixed( 3 ) )
+                    
+                    // Check da loop!
+                    
+                    lastCode += parseFloat(( 1 / fps ))
+                    var loop = window.loopSave[ lastCode.toFixed( 3 ) ]
                     if ( !!loop ){
                       _.each( loop, function( keyCode ){
                         var me = getMeNum( keyCode[0] )
