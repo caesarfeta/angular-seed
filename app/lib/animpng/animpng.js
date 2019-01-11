@@ -23,14 +23,15 @@ function(
         template: [
           
           '<div>',
-            '<audio controls id="myAudio" autoplay></audio>',
+            '<div id="timeGrid"></div>',
+            '<audio id="myAudio" autoplay></audio>',
             '<input ',
               'type="file" ',
               'webkitdirectory ',
               'mozdirectory ',
               'nv-file-select ',
               'uploader="uploader" />',
-            '<div class="clock"></div>',
+            '<div id="clock"></div>',
           '</div>'
           
         ].join(' '),
@@ -52,6 +53,20 @@ function(
               'top': me.height * -1 
             })
           }
+          function buildFrameGrid( duration ){
+            var nFrames = Math.ceil( duration * 24 )
+            for ( var i=0; i<items.length; i++ ){
+              for ( var j= 0; j<nFrames; j++ ){
+                var div = document.createElement( 'div' )
+                $( div ).addClass( 'frame' )
+                $( div ).css({
+                  top: i * 10,
+                  left: j * 10
+                })
+                $( '#timeGrid', elem ).append( div )
+              }
+            }
+          }
           function getFrame( n ){
             return Math.round(( ( n % 1 ).toFixed( 3 ) * fps-1 ) + 1 ) / fps
           }
@@ -62,11 +77,16 @@ function(
             return getSeconds( n ) + getFrame( n )
           }
           function register( keyCode, isOn ){
-            var cTime = getTimeCode( $audio.currentTime ).toFixed( 3 )
-            if ( !window.loopSave[ cTime ] ){
-              window.loopSave[ cTime ] = []
+            try {
+              var cTime = getTimeCode( $audio.currentTime ).toFixed( 3 )
+              if ( !window.loopSave[ cTime ] ){
+                window.loopSave[ cTime ] = []
+              }
+              window.loopSave[ cTime ].push([ keyCode, isOn ])
             }
-            window.loopSave[ cTime ].push([ keyCode, isOn ])
+            catch {
+              console.log( 'key registration error' )
+            }
           }
           var firstPress = false
           window.addEventListener( 'keydown',
@@ -77,6 +97,10 @@ function(
                   show( me )
                 })
                 firstPress = true
+                
+                // build the frame grid
+                
+                buildFrameGrid( $audio.duration )
               }
               
               // play and pause audio with SPACE
@@ -99,6 +123,8 @@ function(
               if ( !!me ){
                 show( me )
               }
+              
+              // audio and grid schtuff
               
               window.$audio = $audio
               
@@ -185,6 +211,7 @@ function(
           var items = []
           var conf = { file: 'config.json', json: {}}
           var $audio = undefined
+          window.$audio = $audio
           scope.uploader.onAfterAddingFile = function( item ){
             
             // configure file
@@ -212,11 +239,14 @@ function(
                 $audio.onloadstart = function( e ){
                   $audio.pause()
                 }
+                
+                // time change handler
+                
                 var lastCode = 0.0
                 $audio.ontimeupdate = function( e ){
                   var now = getTimeCode( $audio.currentTime )
                   while ( lastCode <= now ){
-                    $( '.clock', elem ).text( lastCode.toFixed( 3 ) )
+                    $( '#clock', elem ).text( lastCode.toFixed( 3 ) )
                     
                     // Check da loop!
                     
