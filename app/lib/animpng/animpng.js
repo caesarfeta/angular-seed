@@ -38,7 +38,7 @@ function(
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
           
-          var fps = 24
+          var fps = 12
           var keys = []
           var charKeys = []
           window.loopSave = {}
@@ -53,17 +53,50 @@ function(
               'top': me.height * -1 
             })
           }
+          function getNth( n ){
+            return ( n*1/fps ).toFixed( 3 )
+          }
+          
+          // build the frame grid
+          
+          var nFrames = undefined
           function buildFrameGrid( duration ){
-            var nFrames = Math.ceil( duration * 24 )
+            nFrames = Math.ceil( duration * fps )
             for ( var i=0; i<items.length; i++ ){
-              for ( var j= 0; j<nFrames; j++ ){
+              for ( var j=0; j<nFrames; j++ ){
                 var div = document.createElement( 'div' )
                 $( div ).addClass( 'frame' )
                 $( div ).css({
-                  top: i * 10,
-                  left: j * 10
+                  top: i * 20,
+                  left: j * 20
                 })
+                $( div ).attr( 'id', items[i].key + getNth( j ))
                 $( '#timeGrid', elem ).append( div )
+              }
+            }
+          }
+          
+          // color the grid
+          
+          window.colorGrid = function(){
+            for ( var j=0; j<nFrames; j++ ){
+              var tcode = getNth( j )
+              var item = window.loopSave[ tcode ]
+              if ( !!item ){
+                _.each( item, function( key ){
+                  var keyname = charKeys[ key[0] ]
+                  if ( key[1]  && keyname){
+                    var uid = '#' + keyname.toUpperCase() + tcode.replace( '.', '\\.' )
+                    try {
+                      $( uid, elem ).css(
+                        'background-color', 'blue'
+                      )
+                    }
+                    catch{
+                      console.log( 'lil error' )
+                    }
+                  }
+                })
               }
             }
           }
