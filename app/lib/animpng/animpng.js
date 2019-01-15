@@ -75,15 +75,21 @@ function(
               }
             }
             
-            // frame toggling
+            // grid frame toggling
             
-            $( '.frame', elem ).click( function( e ){
+            $( '.frame', elem ).mousedown( function( e ){
               var frame = $( e.target ).attr( 'id')
               var key = _.first( frame )
               frame = frame.substr( 1 )
-              console.log( key, frame )
+              $( '.frame', elem ).mouseenter( function( e ){
+                var frame = $( e.target ).attr( 'id')
+                var key = _.first( frame )
+                frame = frame.substr( 1 )
+              })
+              $( window ).mouseup( function(){
+                $( '.frame', elem ).off( 'mouseenter' )
+              })
             })
-            
           }
           
           // color the grid
@@ -103,7 +109,7 @@ function(
                       )
                     }
                     catch{
-                      console.log( 'lil error' )
+                      console.log( 'lil error', item )
                     }
                   }
                 })
@@ -219,7 +225,7 @@ function(
             })
           }
           
-          // loading files
+          /* FILE LOADING */
           
           function onLoadFile( e ){
             var self = this
@@ -250,7 +256,6 @@ function(
             }
             me.canvas.getContext('2d').drawImage( this, 0, 0, this.width, this.height )
           }
-          
           var items = []
           var conf = { file: 'config.json', json: {}}
           var $audio = undefined
@@ -276,9 +281,6 @@ function(
               reader.onload = function( e ){
                 $audio.attr( 'src', e.target.result )
                 $audio = document.getElementById( 'myAudio' )
-                
-                // initial audio config and events
-                
                 $audio.onloadstart = function( e ){
                   $audio.pause()
                 }
@@ -320,7 +322,7 @@ function(
             $( 'input', elem ).remove()
             $( 'body .menu').remove()
             
-            // PNG files
+            // .png file handling
             
             if ( item.file.name.substr( item.file.name.length - 3  ) == "png"
                  && !!_.first( item.file.name ).match( /[A-Z]/ )
