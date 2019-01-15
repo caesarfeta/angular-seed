@@ -74,6 +74,16 @@ function(
                 $( '#timeGrid', elem ).append( div )
               }
             }
+            
+            // frame toggling
+            
+            $( '.frame', elem ).click( function( e ){
+              var frame = $( e.target ).attr( 'id')
+              var key = _.first( frame )
+              frame = frame.substr( 1 )
+              console.log( key, frame )
+            })
+            
           }
           
           // color the grid
