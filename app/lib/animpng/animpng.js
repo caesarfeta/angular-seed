@@ -320,15 +320,19 @@ function(
             $( 'input', elem ).remove()
             $( 'body .menu').remove()
             
-            // read the file
+            // PNG files
             
-            var reader = new FileReader()
-            reader.onload = onLoadFile
-            items.push({
-              key: item.file.name.substring( 0, item.file.name.length - 4 ),
-              reader: reader
-            })
-            reader.readAsDataURL( item._file )
+            if ( item.file.name.substr( item.file.name.length - 3  ) == "png"
+                 && !!_.first( item.file.name ).match( /[A-Z]/ )
+                 || item.file.name == "_bg.png" ){
+              var reader = new FileReader()
+              reader.onload = onLoadFile
+              items.push({
+                key: item.file.name.substring( 0, item.file.name.length - 4 ),
+                reader: reader
+              })
+              reader.readAsDataURL( item._file )
+            }
           }
         }
       }
