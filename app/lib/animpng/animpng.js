@@ -60,36 +60,57 @@ function(
           // build the frame grid
           
           var nFrames = undefined
+          var padding = 25
           function buildFrameGrid( duration ){
             nFrames = Math.ceil( duration * fps )
+            _.remove( items, function( item ){
+              return item.key == '_bg'
+            })
             for ( var i=0; i<items.length; i++ ){
+              
+              // row label
+              
+              var div = document.createElement( 'div' )
+              $( div ).addClass( 'row_label' )
+              $( div ).text( items[i].key )
+              $( div ).css({
+                top: i * 20 + padding - 3,
+                left: 5
+              })
+              $( '#timeGrid', elem ).append( div )
+              
+              // frames
+              
               for ( var j=0; j<nFrames; j++ ){
                 var div = document.createElement( 'div' )
                 $( div ).addClass( 'frame' )
                 $( div ).css({
-                  top: i * 20,
-                  left: j * 20
+                  top: i * 20 + padding,
+                  left: j * 20 + padding * 1.5 
                 })
                 $( div ).attr( 'id', items[i].key + getNth( j ))
                 $( '#timeGrid', elem ).append( div )
               }
             }
             
-            // grid frame toggling
+            // grid frame mouse controls
             
             $( '.frame', elem ).mousedown( function( e ){
-              var frame = $( e.target ).attr( 'id')
-              var key = _.first( frame )
-              frame = frame.substr( 1 )
+              frameToggle( e )
               $( '.frame', elem ).mouseenter( function( e ){
-                var frame = $( e.target ).attr( 'id')
-                var key = _.first( frame )
-                frame = frame.substr( 1 )
+                frameToggle( e )
               })
               $( window ).mouseup( function(){
                 $( '.frame', elem ).off( 'mouseenter' )
               })
             })
+          }
+          
+          function frameToggle( e ){
+            var frame = $( e.target ).attr( 'id')
+            var key = _.first( frame )
+            frame = frame.substr( 1 )
+            console.log( key, frame )
           }
           
           // color the grid
@@ -155,7 +176,13 @@ function(
               // play and pause audio with SPACE
               
               if ( !!$audio && e.keyCode == 32 ){
-                ( $audio.paused ) ? $audio.play() : $audio.pause()
+                if ( $audio.paused ){
+                  $audio.play()
+                }
+                else {
+                  $audio.pause()
+                  window.colorGrid()
+                }
               }
               
               // handle weird keycodes which could fuck-up the EXPERIENCE, man
