@@ -121,9 +121,8 @@ function(
               var item = window.loopSave[ tcode ]
               if ( !!item ){
                 _.each( item, function( key ){
-                  var keyname = charKeys[ key[0] ]
-                  if ( key[1]  && keyname){
-                    var uid = '#' + keyname.toUpperCase() + tcode.replace( '.', '\\.' )
+                  if ( key[1]  && key[0]){
+                    var uid = '#' + key[0].toUpperCase() + tcode.replace( '.', '\\.' )
                     try {
                       $( uid, elem ).css(
                         'background-color', 'blue'
@@ -146,13 +145,13 @@ function(
           function getTimeCode( n ){
             return getSeconds( n ) + getFrame( n )
           }
-          function register( keyCode, isOn ){
+          function register( key, isOn ){
             try {
               var cTime = getTimeCode( $audio.currentTime ).toFixed( 3 )
               if ( !window.loopSave[ cTime ] ){
                 window.loopSave[ cTime ] = []
               }
-              window.loopSave[ cTime ].push([ keyCode, isOn ])
+              window.loopSave[ cTime ].push([ key.toUpperCase(), isOn ])
             }
             catch {
               console.log( 'key registration error' )
@@ -163,7 +162,7 @@ function(
             function( e ){
               if ( !firstPress ){
                 _.each( conf.json.startOn, function( id ){
-                  var me = getMe({ key: id })
+                  var me = getMe( id )
                   show( me )
                 })
                 firstPress = true
@@ -190,12 +189,10 @@ function(
               if ( e.keyCode == '91' ){
                 throw e
               }
-              charKeys[ e.keyCode ] = e.key
-              keys[ e.keyCode ] = e.keyCode
               
               // single mode
               
-              var me = getMe( e )
+              var me = getMe( e.key )
               if ( !!me ){
                 show( me )
               }
@@ -206,18 +203,13 @@ function(
               
               // store keypresses for looping with aliasing.
               
-              register( e.keyCode, true )
+              register( e.key, true )
             },
           false )
           window.addEventListener( 'keyup',
             function( e ){
-              register( e.keyCode, false )
-              
-              // single mode
-              
-              keys[ e.keyCode ] = false
-              
-              var me = getMe( e )
+              register( e.key, false )
+              var me = getMe( e.key )
               if ( !!me ){
                 hide( me )
               }
@@ -236,19 +228,9 @@ function(
           
           // showing and hiding layers
           
-          function getMe( e ){
+          function getMe( key ){
             return _.find( items, function( o ){
-              return o.key == e.key.toUpperCase()
-            })
-          }
-          
-          function getMeNum( n ){
-            return getMe({ key: charKeys[ n ] })
-          }
-          
-          function getSibs( e ){
-            return _.filter( items, function( o ){
-              return o.key[0] == e.key[0] && o.key != e.key
+              return o.key == key.toUpperCase()
             })
           }
           
@@ -325,10 +307,10 @@ function(
                     lastCode += parseFloat(( 1 / fps ))
                     var loop = window.loopSave[ lastCode.toFixed( 3 ) ]
                     if ( !!loop ){
-                      _.each( loop, function( keyCode ){
-                        var me = getMeNum( keyCode[0] )
+                      _.each( loop, function( frame ){
+                        var me = getMe( frame[0] )
                         if ( !!me ){
-                          ( keyCode[1] ) ? show( me ) : hide( me )
+                          ( frame[1] ) ? show( me ) : hide( me )
                         }
                       })
                     }
