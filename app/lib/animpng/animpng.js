@@ -57,6 +57,7 @@ function(
           
           var nFrames = undefined
           var padding = 25
+          var gridBuilt = false
           function buildGrid( duration ){
             nFrames = Math.ceil( duration * fps )
             _.remove( items, function( item ){
@@ -87,6 +88,7 @@ function(
                 $( div ).attr( 'id', items[i].key + j )
                 $( '#timeGrid', elem ).append( div )
               }
+              gridBuilt = true
             }
             
             // grid frame mouse controls
@@ -126,20 +128,12 @@ function(
           // color the grid
           
           window.colorGrid = function(){
-            for ( var j=0; j<nFrames; j++ ){
-              var keys = window.save[ j ]
-              if ( !!keys && !!keys.length ){
-                _.each( keys, function( key ){
-                  var uid = '#' + key + j
-                  try {
-                    $( uid, elem ).css( 'background-color', 'blue' )
-                  }
-                  catch{
-                    console.log( 'lil error', key )
-                  }
-                })
-              }
-            }
+            _.each( window.save, function( frame, i ){
+              _.each( frame, function( key ){
+                var uid = '#' + key + i
+                $( uid, elem ).css( 'background-color', 'blue' )
+              })
+            })
           }
           function getMe( key ){
             return _.find( items, function( o ){
@@ -163,7 +157,8 @@ function(
             // if audio isn't playing don't bother
             
             try{
-              if ( $audio.played.end( 0 ) == $audio.duration ){
+              if ( $audio.paused() ){
+                console.log( 'get outta hea!' )
                 return
               }
             } catch {}
@@ -206,7 +201,6 @@ function(
             }
           }
           var firstPress = false
-          var gridBuilt = false
           window.addEventListener( 'keydown',
             function( e ){
               if ( !firstPress ){
@@ -242,7 +236,7 @@ function(
                 }
                 else {
                   $( '#timeGrid', elem ).css( 'visibility', 'hidden' )
-                  $( '#clock', elem ).css( 'visibility' , 'visible' )
+                  $( '#clock', elem ).css( 'visibility' , 'hidden' )
                 }
               }
               
@@ -326,9 +320,8 @@ function(
                 $audio.onloadstart = function( e ){
                   $audio.pause()
                 }
-                
                 $audio.ended = function( e ){
-                  console.log( )
+                  window.colorGrid()
                 }
                 
                 // time change handler
