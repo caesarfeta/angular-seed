@@ -57,7 +57,7 @@ function(
           
           var nFrames = undefined
           var padding = 25
-          function buildFrameGrid( duration ){
+          function buildGrid( duration ){
             nFrames = Math.ceil( duration * fps )
             _.remove( items, function( item ){
               return item.key == '_bg'
@@ -179,6 +179,7 @@ function(
             }
           }
           var firstPress = false
+          var gridBuilt = false
           window.addEventListener( 'keydown',
             function( e ){
               if ( !firstPress ){
@@ -187,10 +188,6 @@ function(
                   show( me )
                 })
                 firstPress = true
-                
-                // build the frame grid
-                
-                buildFrameGrid( $audio.duration )
               }
               
               // play and pause audio with SPACE
@@ -205,10 +202,15 @@ function(
                 }
               }
               
-              // handle weird keycodes which could fuck-up the EXPERIENCE, man
+              // tab toggles grid
               
-              if ( e.keyCode == '91' ){
-                throw e
+              if ( e.keyCode == '9' ){
+                if ( !gridBuilt ){
+                  buildGrid( $audio.duration )
+                }
+                
+                // toggle
+                
               }
               
               // single mode
@@ -217,9 +219,8 @@ function(
               if ( !!me ){
                 show( me )
               }
-              window.$audio = $audio
               
-              // store keypresses for looping with aliasing.
+              // store keypresses
               
               register( e.key )
             },
@@ -268,8 +269,10 @@ function(
           var items = []
           var conf = { file: 'config.json', json: {}}
           var $audio = undefined
-          window.$audio = $audio
+          var uploadTimes = 0
           scope.uploader.onAfterAddingFile = function( item ){
+            uploadTimes++
+            console.log( scope.uploader.queue.length, uploadTimes )
             
             // configure file
             
@@ -303,11 +306,14 @@ function(
                   $( '#clock', elem ).text( t )
                   
                   // Check da loop!
-                  
-                  var pFrame = window.save[ last ]
-                  var cFrame = window.save[ now ]
-                  var diff = _.pullAll( cFrame, pFrame )
-                  console.log( last, now, diff, cFrame )
+                  var i = last + 1
+                  while ( i <= now ){
+                    var pFrame = window.save[ i-1 ]
+                    var cFrame = window.save[ i ]
+                    // var diff = _.pullAll( cFrame, pFrame )
+                    console.log( i, i-1, cFrame, pFrame )
+                    i++
+                  }
                   if ( $audio.currentTime == $audio.duration ){
                     last = 0
                     window.colorGrid()
