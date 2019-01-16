@@ -37,13 +37,8 @@ function(
         ].join(' '),
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
-          
           var fps = 12
-          var keys = []
-          var charKeys = []
-          window.loopSave = {}
           window.save = []
-          
           function show( me ){
             $( me.canvas ).css({ 
               'top': 0 
@@ -89,7 +84,7 @@ function(
                   top: i * 20 + padding,
                   left: j * 20 + padding * 1.5 
                 })
-                $( div ).attr( 'id', items[i].key + getNth( j ))
+                $( div ).attr( 'id', items[i].key + j )
                 $( '#timeGrid', elem ).append( div )
               }
             }
@@ -119,24 +114,26 @@ function(
           
           window.colorGrid = function(){
             for ( var j=0; j<nFrames; j++ ){
-              var tcode = getNth( j )
-              var item = window.loopSave[ tcode ]
-              if ( !!item ){
-                _.each( item, function( key ){
-                  if ( key[1]  && key[0]){
-                    var uid = '#' + key[0].toUpperCase() + tcode.replace( '.', '\\.' )
-                    try {
-                      $( uid, elem ).css(
-                        'background-color', 'blue'
-                      )
-                    }
-                    catch{
-                      console.log( 'lil error', item )
-                    }
+              var keys = window.save[ j ]
+              if ( !!keys && !!keys.length ){
+                _.each( keys, function( key ){
+                  var uid = '#' + key + j
+                  try {
+                    $( uid, elem ).css(
+                      'background-color', 'blue'
+                    )
+                  }
+                  catch{
+                    console.log( 'lil error', key )
                   }
                 })
               }
             }
+          }
+          function getMe( key ){
+            return _.find( items, function( o ){
+              return o.key == key.toUpperCase()
+            })
           }
           function getFrame( n ){
             return Math.round(( ( n % 1 ).toFixed( 3 ) * fps-1 ) + 1 ) / fps
@@ -150,7 +147,7 @@ function(
           function timeToIndex( t, dur ){
             return Math.ceil( Math.ceil( dur * fps ) * t / dur )
           }
-          function register( key, isOn ){
+          function register( key ){
             
             // if audio isn't playing don't bother
             
@@ -161,41 +158,21 @@ function(
             }
             catch{}
             
+            // only alpha keys
+            
+            if ( !key.match( /[a-zA-Z]/ )){
+              return
+            }
+            
             // register code
             
             try {
               var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
               var i = timeToIndex( t, $audio.duration )
-              if ( isOn ){
-                if ( !window.save[ i ] ){
-                  window.save[ i ] = []
-                }
-                window.save[ i ].push( key.toUpperCase() )
+              if ( !window.save[ i ] ){
+                window.save[ i ] = []
               }
-              else {
-                var found = false
-                
-                // backfill
-                
-                while ( !found && i != 0 ){
-                  i--
-                  if ( !window.save[ i ] ){
-                    window.save[ i ] = []
-                  }
-                  if ( _.includes( window.save[ i ], key.toUpperCase() )){
-                    found = true
-                    continue
-                  }
-                  window.save[ i ].push( key.toUpperCase() )
-                }
-              }
-              
-              // old loopsave code
-              
-              if ( !window.loopSave[ t ] ){
-                window.loopSave[ t ] = []
-              }
-              window.loopSave[ t ].push([ key.toUpperCase(), isOn ])
+              window.save[ i ].push( key.toUpperCase() )
             }
             catch {
               console.log( 'key registration error' )
@@ -240,19 +217,15 @@ function(
               if ( !!me ){
                 show( me )
               }
-              
-              // audio and grid schtuff
-              
               window.$audio = $audio
               
               // store keypresses for looping with aliasing.
               
-              register( e.key, true )
+              register( e.key )
             },
           false )
           window.addEventListener( 'keyup',
             function( e ){
-              register( e.key, false )
               var me = getMe( e.key )
               if ( !!me ){
                 hide( me )
@@ -260,23 +233,6 @@ function(
             },
             false
           )
-          function getNumberArray( arr ){
-            var newArr = new Array()
-            for( var i = 0; i < arr.length; i++ ){
-              if ( typeof arr[ i ] == "number" ){
-                newArr[ newArr.length ] = arr[ i ]
-              }
-            }
-            return newArr
-          }
-          
-          // showing and hiding layers
-          
-          function getMe( key ){
-            return _.find( items, function( o ){
-              return o.key == key.toUpperCase()
-            })
-          }
           
           /* FILE LOADING */
           
@@ -340,30 +296,24 @@ function(
                 
                 // time change handler
                 
-                var lastCode = 0.0
+                var last = 0
                 $audio.ontimeupdate = function( e ){
-                  var now = getTimeCode( $audio.currentTime )
-                  while ( lastCode <= now ){
-                    $( '#clock', elem ).text( lastCode.toFixed( 3 ) )
-                    
-                    // Check da loop!
-                    
-                    lastCode += parseFloat(( 1 / fps ))
-                    var loop = window.loopSave[ lastCode.toFixed( 3 ) ]
-                    if ( !!loop ){
-                      _.each( loop, function( frame ){
-                        var me = getMe( frame[0] )
-                        if ( !!me ){
-                          ( frame[1] ) ? show( me ) : hide( me )
-                        }
-                      })
-                    }
-                  }
+                  var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
+                  var now = timeToIndex( t, $audio.duration )
+                  $( '#clock', elem ).text( t )
                   
-                  // loop check
+                  // Check da loop!
                   
+                  var pFrame = window.save[ last ]
+                  var cFrame = window.save[ now ]
+                  var diff = _.pullAll( cFrame, pFrame )
+                  console.log( last, now, diff, cFrame )
                   if ( $audio.currentTime == $audio.duration ){
-                    lastCode = 0.0
+                    last = 0
+                    window.colorGrid()
+                  }
+                  else {
+                    last = now
                   }
                 }
               }
