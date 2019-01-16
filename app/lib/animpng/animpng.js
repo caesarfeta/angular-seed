@@ -165,6 +165,33 @@ function(
             
             try {
               var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
+              var i = timeToIndex( t, $audio.duration )
+              if ( isOn ){
+                if ( !window.save[ i ] ){
+                  window.save[ i ] = []
+                }
+                window.save[ i ].push( key.toUpperCase() )
+              }
+              else {
+                var found = false
+                
+                // backfill
+                
+                while ( !found && i != 0 ){
+                  i--
+                  if ( !window.save[ i ] ){
+                    window.save[ i ] = []
+                  }
+                  if ( _.includes( window.save[ i ], key.toUpperCase() )){
+                    found = true
+                    continue
+                  }
+                  window.save[ i ].push( key.toUpperCase() )
+                }
+              }
+              
+              // old loopsave code
+              
               if ( !window.loopSave[ t ] ){
                 window.loopSave[ t ] = []
               }
