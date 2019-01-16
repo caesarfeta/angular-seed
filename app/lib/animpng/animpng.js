@@ -42,6 +42,7 @@ function(
           var keys = []
           var charKeys = []
           window.loopSave = {}
+          window.save = []
           
           function show( me ){
             $( me.canvas ).css({ 
@@ -110,6 +111,7 @@ function(
             var frame = $( e.target ).attr( 'id')
             var key = _.first( frame )
             frame = frame.substr( 1 )
+            
             console.log( key, frame )
           }
           
@@ -145,13 +147,28 @@ function(
           function getTimeCode( n ){
             return getSeconds( n ) + getFrame( n )
           }
+          function timeToIndex( t, dur ){
+            return Math.ceil( Math.ceil( dur * fps ) * t / dur )
+          }
           function register( key, isOn ){
+            
+            // if audio isn't playing don't bother
+            
             try {
-              var cTime = getTimeCode( $audio.currentTime ).toFixed( 3 )
-              if ( !window.loopSave[ cTime ] ){
-                window.loopSave[ cTime ] = []
+              if ( $audio.played.end( 0 ) == $audio.duration ){
+                return
               }
-              window.loopSave[ cTime ].push([ key.toUpperCase(), isOn ])
+            }
+            catch{}
+            
+            // register code
+            
+            try {
+              var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
+              if ( !window.loopSave[ t ] ){
+                window.loopSave[ t ] = []
+              }
+              window.loopSave[ t ].push([ key.toUpperCase(), isOn ])
             }
             catch {
               console.log( 'key registration error' )
