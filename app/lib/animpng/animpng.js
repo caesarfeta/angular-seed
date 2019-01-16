@@ -146,29 +146,51 @@ function(
           function timeToIndex( t, dur ){
             return Math.ceil( Math.ceil( dur * fps ) * t / dur )
           }
-          function register( key ){
+          function register( key, backfill ){
             
             // if audio isn't playing don't bother
             
-            try {
+            try{
               if ( $audio.played.end( 0 ) == $audio.duration ){
                 return
               }
-            }
-            catch{}
-            if ( !key.match( /[a-zA-Z]/ )){
+            } catch {}
+            
+            // save alpha key presses
+            
+            key = key.toUpperCase()
+            if ( !key.match( /[A-Z]/ )){
               return
             }
             try {
+              
+              // time to frame index
+              
               var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
               var i = timeToIndex( t, $audio.duration )
+              
+              // save current
+              
               if ( !window.save[ i ] ){
                 window.save[ i ] = []
               }
-              window.save[ i ].push( key.toUpperCase() )
+              window.save[ i ].push( key)
+              
+              // backfill
+              
+              if ( backfill ){
+                i--
+                while( i > 0 && !_.includes( window.save[ i ], key )){
+                  if ( !window.save[ i ] ){
+                    window.save[ i ] = []
+                  }
+                  window.save[ i ].push( key )
+                  i--
+                }
+              }
             }
-            catch {
-              console.log( 'key registration error' )
+            catch( e ) {
+              console.log( e )
             }
           }
           var firstPress = false
@@ -196,28 +218,34 @@ function(
                 }
               }
               
-              // tab toggles grid
+              // 1 key toggles grid
               
-              if ( e.keyCode == '9' ){
+              if ( e.keyCode == '49' ){
                 if ( !gridBuilt ){
                   buildGrid( $audio.duration )
                 }
                 
-                // TODO
+                // TODO toggle
                 
               }
-              pressed[ e.key.toUpperCase() ] = true
-              var me = getMe( e.key )
-              if ( !!me ){
-                show( me )
+              
+              // handle fresh press
+              
+              if ( !pressed[ e.key.toUpperCase() ] ){
+                pressed[ e.key.toUpperCase() ] = true
+                var me = getMe( e.key )
+                if ( !!me ){
+                  show( me )
+                }
+                register( e.key )
               }
-              register( e.key )
             },
           false )
           var pressed = {}
           window.addEventListener( 'keyup',
             function( e ){
               pressed[ e.key.toUpperCase() ] = false
+              register( e.key, true )
               var me = getMe( e.key )
               if ( !!me ){
                 hide( me )
