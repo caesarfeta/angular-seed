@@ -23,7 +23,7 @@ function(
         template: [
           
           '<div>',
-            '<div id="timeGrid"></div>',
+            '<div id="timeGrid" class="noselect"></div>',
             '<audio id="myAudio" autoplay></audio>',
             '<input ',
               'type="file" ',
@@ -70,7 +70,7 @@ function(
               $( div ).addClass( 'row_label' )
               $( div ).text( items[i].key )
               $( div ).css({
-                top: i * 20 + padding - 3,
+                top: i * 25 + padding - 3,
                 left: 5
               })
               $( '#timeGrid', elem ).append( div )
@@ -81,8 +81,8 @@ function(
                 var div = document.createElement( 'div' )
                 $( div ).addClass( 'frame' )
                 $( div ).css({
-                  top: i * 20 + padding,
-                  left: j * 20 + padding * 1.5 
+                  top: i * 25 + padding,
+                  left: j * 30 + padding * 1.5 
                 })
                 $( div ).attr( 'id', items[i].key + j )
                 $( '#timeGrid', elem ).append( div )
@@ -236,9 +236,14 @@ function(
                 if ( !gridBuilt ){
                   buildGrid( $audio.duration )
                 }
-                
-                // TODO toggle
-                
+                if ( $( '#timeGrid', elem ).css( 'visibility' ) == 'hidden' ){
+                  $( '#timeGrid', elem ).css( 'visibility' , 'visible' )
+                  $( '#clock', elem ).css( 'visibility' , 'visible' )
+                }
+                else {
+                  $( '#timeGrid', elem ).css( 'visibility', 'hidden' )
+                  $( '#clock', elem ).css( 'visibility' , 'visible' )
+                }
               }
               
               // handle fresh press
@@ -320,6 +325,10 @@ function(
                 $audio = document.getElementById( 'myAudio' )
                 $audio.onloadstart = function( e ){
                   $audio.pause()
+                }
+                
+                $audio.ended = function( e ){
+                  console.log( )
                 }
                 
                 // time change handler

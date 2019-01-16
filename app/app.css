@@ -7366,6 +7366,20 @@ body {
   top: 0px;
   left: 0px;
 }
+.animpng .noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Generic */
+}
 .animpng input {
   padding-top: 10px;
   margin: 0 auto;
@@ -7373,16 +7387,19 @@ body {
 .animpng audio {
   display: none;
 }
+.animpng #timeGrid {
+  visibility: hidden;
+}
 .animpng #clock {
-  display: none;
-  position: absolute;
-  right: 25px;
-  top: 25px;
+  visibility: hidden;
+  position: relative;
+  left: 25px;
+  bottom: 25px;
   z-index: 100;
   font-size: 25px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.5);
   padding: 10px;
-  color: green;
+  color: white;
 }
 .animpng .row_label {
   z-index: 101;
@@ -7395,8 +7412,8 @@ body {
   position: absolute;
   display: block;
   background-color: red;
-  width: 15px;
-  height: 10px;
+  width: 25px;
+  height: 20px;
   left: 0;
   top: 0;
 }
