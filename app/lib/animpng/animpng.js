@@ -106,7 +106,6 @@ function(
             var frame = $( e.target ).attr( 'id')
             var key = _.first( frame )
             frame = frame.substr( 1 )
-            
             console.log( key, frame )
           }
           
@@ -157,15 +156,9 @@ function(
               }
             }
             catch{}
-            
-            // only alpha keys
-            
             if ( !key.match( /[a-zA-Z]/ )){
               return
             }
-            
-            // register code
-            
             try {
               var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
               var i = timeToIndex( t, $audio.duration )
@@ -190,7 +183,7 @@ function(
                 firstPress = true
               }
               
-              // play and pause audio with SPACE
+              // play and pause audio with 'SPACE'
               
               if ( !!$audio && e.keyCode == 32 ){
                 if ( $audio.paused ){
@@ -198,6 +191,7 @@ function(
                 }
                 else {
                   $audio.pause()
+                  pressed = {}
                   window.colorGrid()
                 }
               }
@@ -209,24 +203,21 @@ function(
                   buildGrid( $audio.duration )
                 }
                 
-                // toggle
+                // TODO
                 
               }
-              
-              // single mode
-              
+              pressed[ e.key.toUpperCase() ] = true
               var me = getMe( e.key )
               if ( !!me ){
                 show( me )
               }
-              
-              // store keypresses
-              
               register( e.key )
             },
           false )
+          var pressed = {}
           window.addEventListener( 'keyup',
             function( e ){
+              pressed[ e.key.toUpperCase() ] = false
               var me = getMe( e.key )
               if ( !!me ){
                 hide( me )
@@ -234,9 +225,6 @@ function(
             },
             false
           )
-          
-          /* FILE LOADING */
-          
           function onLoadFile( e ){
             var self = this
             var me = _.find( items, function( o ){ 
@@ -269,10 +257,7 @@ function(
           var items = []
           var conf = { file: 'config.json', json: {}}
           var $audio = undefined
-          var uploadTimes = 0
           scope.uploader.onAfterAddingFile = function( item ){
-            uploadTimes++
-            console.log( scope.uploader.queue.length, uploadTimes )
             
             // configure file
             
@@ -299,27 +284,20 @@ function(
                 
                 // time change handler
                 
-                var last = 0
                 $audio.ontimeupdate = function( e ){
                   var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
                   var now = timeToIndex( t, $audio.duration )
                   $( '#clock', elem ).text( t )
-                  
-                  // Check da loop!
-                  var i = last + 1
-                  while ( i <= now ){
-                    var pFrame = window.save[ i-1 ]
-                    var cFrame = window.save[ i ]
-                    // var diff = _.pullAll( cFrame, pFrame )
-                    console.log( i, i-1, cFrame, pFrame )
-                    i++
-                  }
+                  _.each( items, function( item ){
+                    if ( _.includes( window.save[ now ], item.key )){
+                      show( item )
+                    }
+                    else if ( item.key != '_bg' && !pressed[ item.key ] ){
+                      hide( item )
+                    }
+                  })
                   if ( $audio.currentTime == $audio.duration ){
-                    last = 0
                     window.colorGrid()
-                  }
-                  else {
-                    last = now
                   }
                 }
               }
