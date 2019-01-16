@@ -92,9 +92,9 @@ function(
             // grid frame mouse controls
             
             $( '.frame', elem ).mousedown( function( e ){
-              frameToggle( e )
+              frameToggle( e, true )
               $( '.frame', elem ).mouseenter( function( e ){
-                frameToggle( e )
+                frameToggle( e, false )
               })
               $( window ).mouseup( function(){
                 $( '.frame', elem ).off( 'mouseenter' )
@@ -102,11 +102,25 @@ function(
             })
           }
           
-          function frameToggle( e ){
-            var frame = $( e.target ).attr( 'id')
+          var clear = false
+          function frameToggle( e, click ){
+            var frame = $( e.target ).attr( 'id' )
             var key = _.first( frame )
             frame = frame.substr( 1 )
-            console.log( key, frame )
+            if ( click ){
+              clear = _.includes( window.save[ frame ], key )
+            }
+            if ( !clear ){
+              if ( !window.save[ frame ] ){
+                window.save[ frame ] = []
+              }
+              window.save[ frame ].push( key )
+              $( e.target, elem ).css( 'background-color', 'blue' )
+            }
+            else {
+              _.remove( window.save[ frame ], key )
+              $( e.target, elem ).css( 'background-color', 'red' )
+            }
           }
           
           // color the grid
@@ -118,9 +132,7 @@ function(
                 _.each( keys, function( key ){
                   var uid = '#' + key + j
                   try {
-                    $( uid, elem ).css(
-                      'background-color', 'blue'
-                    )
+                    $( uid, elem ).css( 'background-color', 'blue' )
                   }
                   catch{
                     console.log( 'lil error', key )
