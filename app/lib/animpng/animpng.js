@@ -57,7 +57,7 @@ function(
           
           // register key presses
           
-          function register( key, downpress ){
+          function register( key, showMe ){
             
             // if audio isn't playing don't bother
             
@@ -76,9 +76,21 @@ function(
             }
             try {
               
+              // hide and show in realtime
+              
+              var me = getMe( key )
+              if ( !!me ){
+                if ( showMe ){
+                  show( me )
+                }
+                else{
+                  hide( me )
+                }
+              }
+              
               // save current
               
-              window.save.push([ $audio.currentTime, key, downpress ])
+              window.save.push([ $audio.currentTime, me, showMe ])
             }
             catch( e ) {
               console.log( 'not a valid layer key', e )
@@ -99,19 +111,11 @@ function(
                 }
               }
               register( e.key, true )
-              var me = getMe( e.key )
-              if ( !!me ){
-                show( me )
-              }
             },
           false )
           window.addEventListener( 'keyup',
             function( e ){
               register( e.key, false )
-              var me = getMe( e.key )
-              if ( !!me ){
-                hide( me )
-              }
             },
             false
           )
@@ -151,6 +155,7 @@ function(
           var conf = { file: 'config.json', json: {}}
           var $audio = undefined
           var audioPass = 0
+          var playback = []
           scope.uploader.onAfterAddingFile = function( item ){
             
             // configure file
@@ -175,15 +180,35 @@ function(
                 $audio.onloadstart = function( e ){
                   $audio.pause()
                 }
-                $audio.ended = function( e ){
+                
+                // after each audio pass create playback array
+                
+                $audio.addEventListener( 'ended', function( e ){
                   audioPass++
-                }
+                  playback = _.clone( window.save )
+                })
                 
                 // time change handler
                 
-                $audio.ontimeupdate = function( e ){
-                  console.log( $audio.currentTime, audioPass )
+                function loopCheck(){
+                  try {
+                    if ( playback[0][0] <= $audio.currentTime ){
+                      var frame = playback.shift()
+                      if ( frame[2] ){
+                        show( frame[1] )
+                      }
+                      else {
+                        hide( frame[1] )
+                      }
+                      loopCheck()
+                    }
+                    return
+                  }
+                  catch ( e ){
+                    console.log( 'playback error', e )
+                  }
                 }
+                $audio.ontimeupdate = loopCheck
               }
               reader.readAsDataURL( item._file )
             }
