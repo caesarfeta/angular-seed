@@ -23,7 +23,6 @@ function(
         template: [
           
           '<div>',
-            '<div id="timeGrid" class="noselect"></div>',
             '<audio id="myAudio" autoplay></audio>',
             '<input ',
               'type="file" ',
@@ -31,14 +30,15 @@ function(
               'mozdirectory ',
               'nv-file-select ',
               'uploader="uploader" />',
-            '<div id="clock"></div>',
           '</div>'
           
         ].join(' '),
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
-          var fps = 12
           window.save = []
+          
+          // show and hide layers
+          
           function show( me ){
             $( me.canvas ).css({ 
               'top': 0 
@@ -49,110 +49,15 @@ function(
               'top': me.height * -1 
             })
           }
-          function getNth( n ){
-            return ( n*1/fps ).toFixed( 3 )
-          }
-          
-          // build the frame grid
-          
-          var nFrames = undefined
-          var padding = 25
-          var gridBuilt = false
-          function buildGrid( duration ){
-            nFrames = Math.ceil( duration * fps )
-            _.remove( items, function( item ){
-              return item.key == '_bg'
-            })
-            for ( var i=0; i<items.length; i++ ){
-              
-              // row label
-              
-              var div = document.createElement( 'div' )
-              $( div ).addClass( 'row_label' )
-              $( div ).text( items[i].key )
-              $( div ).css({
-                top: i * 25 + padding - 3,
-                left: 5
-              })
-              $( '#timeGrid', elem ).append( div )
-              
-              // frames
-              
-              for ( var j=0; j<nFrames; j++ ){
-                var div = document.createElement( 'div' )
-                $( div ).addClass( 'frame' )
-                $( div ).css({
-                  top: i * 25 + padding,
-                  left: j * 30 + padding * 1.5 
-                })
-                $( div ).attr( 'id', items[i].key + j )
-                $( '#timeGrid', elem ).append( div )
-              }
-              gridBuilt = true
-            }
-            
-            // grid frame mouse controls
-            
-            $( '.frame', elem ).mousedown( function( e ){
-              frameToggle( e, true )
-              $( '.frame', elem ).mouseenter( function( e ){
-                frameToggle( e, false )
-              })
-              $( window ).mouseup( function(){
-                $( '.frame', elem ).off( 'mouseenter' )
-              })
-            })
-          }
-          
-          var clear = false
-          function frameToggle( e, click ){
-            var frame = $( e.target ).attr( 'id' )
-            var key = _.first( frame )
-            frame = frame.substr( 1 )
-            if ( click ){
-              clear = _.includes( window.save[ frame ], key )
-            }
-            if ( !clear ){
-              if ( !window.save[ frame ] ){
-                window.save[ frame ] = []
-              }
-              window.save[ frame ].push( key )
-              $( e.target, elem ).css( 'background-color', 'blue' )
-            }
-            else {
-              _.remove( window.save[ frame ], key )
-              $( e.target, elem ).css( 'background-color', 'red' )
-            }
-          }
-          
-          // color the grid
-          
-          window.colorGrid = function(){
-            _.each( window.save, function( frame, i ){
-              _.each( frame, function( key ){
-                var uid = '#' + key + i
-                $( uid, elem ).css( 'background-color', 'blue' )
-              })
-            })
-          }
           function getMe( key ){
             return _.find( items, function( o ){
               return o.key == key.toUpperCase()
             })
           }
-          function getFrame( n ){
-            return Math.round(( ( n % 1 ).toFixed( 3 ) * fps-1 ) + 1 ) / fps
-          }
-          function getSeconds( n ){
-            return Math.floor( n )
-          }
-          function getTimeCode( n ){
-            return getSeconds( n ) + getFrame( n )
-          }
-          function timeToIndex( t, dur ){
-            return Math.ceil( Math.ceil( dur * fps ) * t / dur )
-          }
-          function register( key, backfill ){
+          
+          // register key presses
+          
+          function register( key, downpress ){
             
             // if audio isn't playing don't bother
             
@@ -171,45 +76,17 @@ function(
             }
             try {
               
-              // time to frame index
-              
-              var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
-              var i = timeToIndex( t, $audio.duration )
-              
               // save current
               
-              if ( !window.save[ i ] ){
-                window.save[ i ] = []
-              }
-              window.save[ i ].push( key)
-              
-              // backfill
-              
-              if ( backfill ){
-                i--
-                while( i > 0 && !_.includes( window.save[ i ], key )){
-                  if ( !window.save[ i ] ){
-                    window.save[ i ] = []
-                  }
-                  window.save[ i ].push( key )
-                  i--
-                }
-              }
+              window.save.push([ $audio.currentTime, key, downpress ])
             }
             catch( e ) {
-              console.log( e )
+              console.log( 'not a valid layer key', e )
             }
           }
           var firstPress = false
           window.addEventListener( 'keydown',
             function( e ){
-              if ( !firstPress ){
-                _.each( conf.json.startOn, function( id ){
-                  var me = getMe( id )
-                  show( me )
-                })
-                firstPress = true
-              }
               
               // play and pause audio with 'SPACE'
               
@@ -219,44 +96,18 @@ function(
                 }
                 else {
                   $audio.pause()
-                  pressed = {}
-                  window.colorGrid()
                 }
               }
-              
-              // 1 key toggles grid
-              
-              if ( e.keyCode == '49' ){
-                if ( !gridBuilt ){
-                  buildGrid( $audio.duration )
-                }
-                if ( $( '#timeGrid', elem ).css( 'visibility' ) == 'hidden' ){
-                  $( '#timeGrid', elem ).css( 'visibility' , 'visible' )
-                  $( '#clock', elem ).css( 'visibility' , 'visible' )
-                }
-                else {
-                  $( '#timeGrid', elem ).css( 'visibility', 'hidden' )
-                  $( '#clock', elem ).css( 'visibility' , 'hidden' )
-                }
-              }
-              
-              // handle fresh press
-              
-              if ( !pressed[ e.key.toUpperCase() ] ){
-                pressed[ e.key.toUpperCase() ] = true
-                var me = getMe( e.key )
-                if ( !!me ){
-                  show( me )
-                }
-                register( e.key )
+              register( e.key, true )
+              var me = getMe( e.key )
+              if ( !!me ){
+                show( me )
               }
             },
           false )
-          var pressed = {}
           window.addEventListener( 'keyup',
             function( e ){
-              pressed[ e.key.toUpperCase() ] = false
-              register( e.key, true )
+              register( e.key, false )
               var me = getMe( e.key )
               if ( !!me ){
                 hide( me )
@@ -264,6 +115,9 @@ function(
             },
             false
           )
+          
+          // load folder contents
+          
           function onLoadFile( e ){
             var self = this
             var me = _.find( items, function( o ){ 
@@ -296,6 +150,7 @@ function(
           var items = []
           var conf = { file: 'config.json', json: {}}
           var $audio = undefined
+          var audioPass = 0
           scope.uploader.onAfterAddingFile = function( item ){
             
             // configure file
@@ -321,26 +176,13 @@ function(
                   $audio.pause()
                 }
                 $audio.ended = function( e ){
-                  window.colorGrid()
+                  audioPass++
                 }
                 
                 // time change handler
                 
                 $audio.ontimeupdate = function( e ){
-                  var t = getTimeCode( $audio.currentTime ).toFixed( 3 )
-                  var now = timeToIndex( t, $audio.duration )
-                  $( '#clock', elem ).text( t )
-                  _.each( items, function( item ){
-                    if ( _.includes( window.save[ now ], item.key )){
-                      show( item )
-                    }
-                    else if ( item.key != '_bg' && !pressed[ item.key ] ){
-                      hide( item )
-                    }
-                  })
-                  if ( $audio.currentTime == $audio.duration ){
-                    window.colorGrid()
-                  }
+                  console.log( $audio.currentTime, audioPass )
                 }
               }
               reader.readAsDataURL( item._file )
