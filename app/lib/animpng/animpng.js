@@ -35,7 +35,10 @@ function(
         ].join(' '),
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
-          window.save = []
+          window.frames = []
+          window.deleteRun = function( n ){
+            _.remove( window.frames, [ function(o){ o[3] = n }])
+          }
           
           // show and hide layers
           
@@ -61,14 +64,14 @@ function(
             
             // if audio isn't playing don't bother
             
-            try{
+            try {
               if ( $audio.paused() ){
-                console.log( 'get outta hea!' )
                 return
               }
-            } catch {}
+            }
+            catch{}
             
-            // save alpha key presses
+            // frames alpha key presses
             
             key = key.toUpperCase()
             if ( !key.match( /[A-Z]/ )){
@@ -88,16 +91,15 @@ function(
                 }
               }
               
-              // save current
+              // frames current
               
-              window.save.push([ $audio.currentTime, me, showMe ])
+              window.frames.push([ $audio.currentTime, me, showMe, audioPass ])
             }
-            catch( e ) {
-              console.log( 'not a valid layer key', e )
+            catch {
+              console.log( 'not a valid layer key' )
             }
           }
-          var firstPress = false
-          window.addEventListener( 'keydown',
+           window.addEventListener( 'keydown',
             function( e ){
               
               // play and pause audio with 'SPACE'
@@ -185,7 +187,8 @@ function(
                 
                 $audio.addEventListener( 'ended', function( e ){
                   audioPass++
-                  playback = _.clone( window.save )
+                  window.frames = _.sortBy( window.frames, [ function( o ){ return o[0] }])
+                  playback = _.clone( window.frames )
                 })
                 
                 // time change handler
@@ -204,9 +207,7 @@ function(
                     }
                     return
                   }
-                  catch ( e ){
-                    console.log( 'playback error', e )
-                  }
+                  catch{}
                 }
                 $audio.ontimeupdate = loopCheck
               }
