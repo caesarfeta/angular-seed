@@ -35,9 +35,27 @@ function(
         ].join(' '),
         link: function( scope, elem ){
           $( elem ).addClass( 'animpng' )
+          var items = []
+          var conf = { file: 'config.json', json: {}}
+          var $audio = undefined
+          var audioPass = 0
+          var playback = []
           window.frames = []
           window.deleteRun = function( n ){
-            _.remove( window.frames, [ function(o){ o[3] = n }])
+            _.remove( window.frames,
+              function(o){
+                return o[3] == n
+              }
+            )
+            processFrames()
+          }
+          
+          window.deleteLast = function(){
+            window.deleteRun( audioPass-1 )
+          }
+          window.clearFrames = function(){
+            window.frames = []
+            processFrames()
           }
           
           // show and hide layers
@@ -47,14 +65,24 @@ function(
               'top': 0 
             })
           }
+          
           function hide( me ){
             $( me.canvas ).css({ 
               'top': me.height * -1 
             })
           }
+          
           function getMe( key ){
             return _.find( items, function( o ){
               return o.key == key.toUpperCase()
+            })
+          }
+          
+          function hideAll(){
+            _.each( items, function( me ){
+              if ( me.key.match( /[A-Z]/ )){
+                hide( me )
+              }
             })
           }
           
@@ -99,7 +127,8 @@ function(
               console.log( 'not a valid layer key' )
             }
           }
-           window.addEventListener( 'keydown',
+          
+          window.addEventListener( 'keydown',
             function( e ){
               
               // play and pause audio with 'SPACE'
@@ -115,6 +144,7 @@ function(
               register( e.key, true )
             },
           false )
+          
           window.addEventListener( 'keyup',
             function( e ){
               register( e.key, false )
@@ -134,6 +164,7 @@ function(
             img.onload = onLoadImage
             img.src = e.target.result
           }
+          
           function onLoadImage( e ) {
             var me = _.find( items, function( o ){
               return o.src === e.path[0].currentSrc
@@ -153,11 +184,33 @@ function(
             }
             me.canvas.getContext('2d').drawImage( this, 0, 0, this.width, this.height )
           }
-          var items = []
-          var conf = { file: 'config.json', json: {}}
-          var $audio = undefined
-          var audioPass = 0
-          var playback = []
+          
+          function processFrames(){
+            window.frames = _.sortBy( window.frames, [
+              function( o ){ return o[0] }
+            ])
+            playback = _.clone( window.frames )
+          }
+          
+          // time change handler
+          
+          function loopCheck(){
+            try {
+              if ( playback[0][0] <= $audio.currentTime ){
+                var frame = playback.shift()
+                if ( frame[2] ){
+                  show( frame[1] )
+                }
+                else {
+                  hide( frame[1] )
+                }
+                loopCheck()
+              }
+              return
+            }
+            catch{}
+          }
+          
           scope.uploader.onAfterAddingFile = function( item ){
             
             // configure file
@@ -183,32 +236,20 @@ function(
                   $audio.pause()
                 }
                 
+                // time change
+                
+                window.audio = $audio
+                $audio.addEventListener( 'onplaying', function( e ){
+                  console.log( $audio.currentTime )
+                })
+                
                 // after each audio pass create playback array
                 
                 $audio.addEventListener( 'ended', function( e ){
                   audioPass++
-                  window.frames = _.sortBy( window.frames, [ function( o ){ return o[0] }])
-                  playback = _.clone( window.frames )
+                  hideAll()
+                  processFrames()
                 })
-                
-                // time change handler
-                
-                function loopCheck(){
-                  try {
-                    if ( playback[0][0] <= $audio.currentTime ){
-                      var frame = playback.shift()
-                      if ( frame[2] ){
-                        show( frame[1] )
-                      }
-                      else {
-                        hide( frame[1] )
-                      }
-                      loopCheck()
-                    }
-                    return
-                  }
-                  catch{}
-                }
                 $audio.ontimeupdate = loopCheck
               }
               reader.readAsDataURL( item._file )
